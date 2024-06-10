@@ -11,7 +11,8 @@
                                 <img src="assets/img/logo.png" alt="">
                                 <span class="d-none d-lg-block"></span>
                             </a>
-                        </div><!-- End Logo -->
+                        </div>
+                        <!-- End Logo -->
 
                         <div class="card mb-3">
 
