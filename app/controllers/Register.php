@@ -1,11 +1,11 @@
 <?php
 
-class Admin extends Controller {
+class Register extends Controller {
     public function index()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Register';
         $this->view('layout/admin-header', $data);
-        $this->view('admin/index');
+        $this->view('register/index');
         $this->view('layout/admin-footer');
     }
 }
