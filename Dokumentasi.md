@@ -8,23 +8,23 @@ struktur filenya sebagai berikut
 php_mvc
 ├── app
 │   ├── config
-│   │   └── `config.php`
+│   │   └── config.php
 │   ├── controllers
 │   ├── core
-│   │   ├── `App.php`
-│   │   ├── `Controller.php`
-│   │   └── `Database.php`
+│   │   ├── App.php
+│   │   ├── Controller.php
+│   │   └── Database.php
 │   ├── models
 │   ├── views
-│   ├── `.htaccess`
-│   └── `init.php`
+│   ├── .htaccess
+│   └── init.php
 └── public
     ├── assets
     │   ├── css
     │   ├── js
     │   └── img
-    ├── `index.php`
-    └── `.htaccess`
+    ├── index.php
+    └── .htaccess
 ```
 
 buatlah kode di dalam file `index.php` di dalam folder public
