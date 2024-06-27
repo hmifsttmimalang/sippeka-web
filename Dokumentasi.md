@@ -4,47 +4,30 @@ Untuk membuat PHP MVC, maka buatlah folder terlebih dahulu
 
 struktur filenya sebagai berikut
 
+```
 php_mvc
+├── app
+│   ├── config
+│   │   └── `config.php`
+│   ├── controllers
+│   ├── core
+│   │   ├── `App.php`
+│   │   ├── `Controller.php`
+│   │   └── `Database.php`
+│   ├── models
+│   ├── views
+│   ├── `.htaccess`
+│   └── `init.php`
+└── public
+    ├── assets
+    │   ├── css
+    │   ├── js
+    │   └── img
+    ├── `index.php`
+    └── `.htaccess`
+```
 
-app
-
-config
-
-`config.php`
-
-controllers
-
-core
-
-`App.php`
-
-`Controller.php`
-
-`Database.php`
-
-views
-
-models
-
-`init.php`
-
-`.htaccess`
-
-public
-
-assets
-
-css
-
-js
-
-img
-
-`index.php`
-
-`.htaccess`
-
-buatlah kode di dalam file index.php di folder public
+buatlah kode di dalam file `index.php` di dalam folder public
 
 ```php
 <?php
@@ -70,7 +53,7 @@ di dalam `core/App.php` tambahkan kodenya seperti ini
 ```php
 <?php
 
-class App 
+class App
 {
     protected $controller = 'Home';
     protected $method = 'index';
@@ -79,7 +62,7 @@ class App
     public function __construct()
     {
     $url = $this->parseUrl();
-    
+
     // controller
     if (file_exists('../app/controllers/' . $url[0] . '.php')) {
         $this->controller = $url[0];
@@ -126,7 +109,7 @@ class Controller
 {
     public function view($view, $data = [])
     {
-        require_once '../app/views/' . $view . '.php'; 
+        require_once '../app/views/' . $view . '.php';
     }
 
     public function model($model)
@@ -187,7 +170,7 @@ lalu isi kode di dalam `index.php` pada folder home seperti ini
     <title></title>
 </head>
 <body>
-    
+
 </body>
 </html>
 ```
@@ -197,7 +180,7 @@ lalu buatlah kode di `Database.php` di dalam folder core
 ```php
 <?php
 
-class Database 
+class Database
 {
     private $host = DB_HOST;
     private $user = DB_USER;
@@ -210,7 +193,7 @@ class Database
     public function __construct()
     {
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
-        
+
         $option = [
             PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
