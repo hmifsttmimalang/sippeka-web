@@ -278,8 +278,8 @@ lalu buatlah kode di `config.php` di dalam folder config
 <?php
 
 define('MAIN_URL', 'http://localhost/php_mvc/public');
-define ('DB_HOST', 'localhost');
-define ('DB_USER', 'root');
-define ('DB_PASS', '');
-define ('DB_NAME', '(nama database)');
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', '(nama database)');
 ```
