@@ -130,28 +130,28 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="../admin/index.php">
+                <a class="nav-link " href="../admin/">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../crud/index.php">
+                <a class="nav-link collapsed" href="../crud/">
                     <i class="bi bi-card-list"></i>
                     <span>CRUD</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../anggota/index.php">
+                <a class="nav-link collapsed" href="../anggota/">
                     <i class="bi bi-person"></i>
                     <span>Anggota</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link " href="../login/index.php">
+                <a class="nav-link " href="../login/">
                     <i class="bi bi-box-arrow-right"></i>
                     <span>Log Out</span>
                 </a>
