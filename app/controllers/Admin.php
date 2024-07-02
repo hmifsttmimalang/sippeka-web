@@ -1,5 +1,7 @@
 <?php
 
+use App\Core\Controller;
+
 class Admin extends Controller {
     public function index()
     {

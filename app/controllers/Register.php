@@ -1,5 +1,7 @@
 <?php
 
+use App\Core\Controller;
+
 class Register extends Controller {
     public function index()
     {
