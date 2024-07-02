@@ -6,4 +6,6 @@ define('MAIN_URL', 'http://localhost/app_web/public/');
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', ''); // isi nama databasenya
+
+// isi database di bawah jika menggunakan MySQL
+// define('DB_NAME', '');
