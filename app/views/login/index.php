@@ -7,7 +7,7 @@
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="<?= MAIN_URL ?>home/" class="logo d-flex align-items-center w-auto">
+                <a href="./" class="logo d-flex align-items-center w-auto">
                   <img src="<?= MAIN_URL ?>assets/user-layout/img/logo.png" alt="">
                   <span class="d-none d-block">SIPPEKA</span>
                 </a>
@@ -58,7 +58,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="..">SILASTRI</a>
+                Designed by <a href="./">SIPPEKA</a>
               </div>
 
             </div>

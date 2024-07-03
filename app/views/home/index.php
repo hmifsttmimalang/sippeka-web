@@ -2,23 +2,23 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
+      <a href="." class="logo d-flex align-items-center me-auto">
         <img src="<?= MAIN_URL ?>assets/user-layout/img/logo.png" alt="">
         <h1 class="sitename">SIPPEKA</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="index.html#hero" class="active">Home</a></li>
-          <li><a href="index.html#about">About</a></li>
-          <li><a href="index.html#features">Features</a></li>
-          <li><a href="index.html#services">Services</a></li>
+          <li><a href="." class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#services">Services</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="<?= MAIN_URL ?>login">Masuk</a>
-      <a class="btn-getstarted" href="register">Daftar</a>
+      <a class="btn-getstarted" href="./login">Masuk</a>
+      <a class="btn-getstarted" href="./register">Daftar</a>
 
     </div>
   </header>
@@ -268,7 +268,7 @@
                 Keuntungan selama mengikuti pelatihan kerja di Balai Latihan Kerja Silastri
                 sebagai investasi yang berharga untuk pengembangan keterampilan dan meningkatkan peluang dalam dunia kerja.
               </p>
-              <a href="#" class="btn more-btn">Daftar</a>
+              <a href="./register" class="btn more-btn">Daftar</a>
             </div>
           </div>
 
