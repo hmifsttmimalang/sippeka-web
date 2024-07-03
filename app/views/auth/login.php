@@ -45,12 +45,12 @@
                       </div>
                     </div>
                     <div class="col-12">
-                      <a href="index.html">
+                      <a href="../home">
                         <button class="btn btn-primary w-100" type="submit">Login</button>
                       </a>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Belum punya akun? <a href="<?= MAIN_URL ?>register">Buat akun</a></p>
+                      <p class="small mb-0">Belum punya akun? <a href="<?= MAIN_URL ?>auth/register">Buat akun</a></p>
                     </div>
                   </form>
 
