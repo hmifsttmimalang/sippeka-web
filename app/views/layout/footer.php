@@ -1,4 +1,20 @@
-<script src="<?= MAIN_URL ?>bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="<?= MAIN_URL ?>assets/user-layout/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?= MAIN_URL ?>assets/user-layout/vendor/php-email-form/validate.js"></script>
+  <script src="<?= MAIN_URL ?>assets/user-layout/vendor/aos/aos.js"></script>
+  <script src="<?= MAIN_URL ?>assets/user-layout/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="<?= MAIN_URL ?>assets/user-layout/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="<?= MAIN_URL ?>assets/user-layout/js/main.js"></script>
+
 </body>
+
 </html>

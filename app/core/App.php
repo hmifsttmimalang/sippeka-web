@@ -1,6 +1,9 @@
 <?php
 
-class App {
+namespace App\Core;
+
+class App
+{
     protected $controller = 'Home';
     protected $method = 'index';
     protected $params = [];
@@ -9,14 +12,17 @@ class App {
     {
         $url = $this->parseUrl();
 
-        if (file_exists('../app/controllers/' . $url[0] . '.php' )) {
-            $this->controller = $url[0];
-            unset($url[0]);
+        if (isset($url[0])) {
+            if (file_exists('../app/controllers/' . $url[0] . '.php')) {
+                $this->controller = $url[0];
+                unset($url[0]);
+            } else {
+                $this->controller = new \Home; 
+            }
         }
 
         require_once '../app/controllers/' . $this->controller . '.php';
         $this->controller = new $this->controller;
-
 
         if (isset($url[1])) {
             if (method_exists($this->controller, $url[1])) {
