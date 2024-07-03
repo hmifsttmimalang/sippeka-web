@@ -40,11 +40,10 @@
 <body>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
-
         <div class="d-flex align-items-center justify-content-between">
             <a href="../admin/index.php" class="logo d-flex align-items-center">
                 <img src="<?= MAIN_URL ?>assets/admin-layout/img/logo.png" alt="">
-                <span class="d-none d-lg-block">SILASTRI</span>
+                <span class="d-none d-lg-block">SIPPEKA</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
@@ -52,7 +51,6 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
                 <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
@@ -61,15 +59,12 @@
                 <!-- End Search Icon-->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-
                 </ul>
                 <!-- End Notification Dropdown Items -->
-
                 </li>
                 <!-- End Notification Nav -->
 
                 <li class="nav-item dropdown">
-
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
                         </li>
@@ -77,12 +72,10 @@
                         </li>
                     </ul>
                     <!-- End Messages Dropdown Items -->
-
                 </li>
                 <!-- End Messages Nav -->
 
                 <li class="nav-item dropdown pe-3">
-
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="<?= MAIN_URL ?>assets/admin-layout/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">Nama Admin</span>
@@ -97,7 +90,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                 <i class="bi bi-person"></i>
@@ -107,51 +99,45 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="../login/index.php">
+                            <a class="dropdown-item d-flex align-items-center" href="../auth/login">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
                         </li>
-
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
-
+                    </ul>
+                    <!-- End Profile Dropdown Items -->
+                </li>
+                <!-- End Profile Nav -->
             </ul>
-        </nav><!-- End Icons Navigation -->
-
+        </nav>
+        <!-- End Icons Navigation -->
     </header>
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
-
         <ul class="sidebar-nav" id="sidebar-nav">
-
             <li class="nav-item">
-                <a class="nav-link " href="../admin/">
+                <a class="nav-link " href="../admin/dashboard">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../crud/">
+                <a class="nav-link collapsed" href="../admin/kelola_data">
                     <i class="bi bi-card-list"></i>
-                    <span>CRUD</span>
+                    <span>Kelola Anggota</span>
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../anggota/">
+                <a class="nav-link collapsed" href="../admin/peserta">
                     <i class="bi bi-person"></i>
-                    <span>Anggota</span>
+                    <span>Peserta</span>
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link " href="../login/">
+                <a class="nav-link " href="../auth/login">
                     <i class="bi bi-box-arrow-right"></i>
                     <span>Log Out</span>
                 </a>
