@@ -2,7 +2,8 @@
 
 use App\Core\Controller;
 
-class Admin extends Controller {
+class Admin extends Controller 
+{
     public function dashboard()
     {
         $data['title'] = 'Dashboard';
