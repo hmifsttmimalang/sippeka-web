@@ -2,7 +2,8 @@
 
 use App\Core\Controller;
 
-class Home extends Controller {
+class Home extends Controller 
+{
     public function index()
     {
         $data['title'] = 'Halaman Utama';
