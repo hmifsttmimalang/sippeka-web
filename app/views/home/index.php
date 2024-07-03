@@ -9,7 +9,7 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="." class="active">Home</a></li>
+          <li><a href="." class="active">Beranda</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#services">Services</a></li>
@@ -17,8 +17,8 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href="./login">Masuk</a>
-      <a class="btn-getstarted" href="./register">Daftar</a>
+      <a class="btn-getstarted" href="./auth/login">Masuk</a>
+      <a class="btn-getstarted" href="./auth/register">Daftar</a>
 
     </div>
   </header>
@@ -47,11 +47,8 @@
 
     <!-- Featured Services Section -->
     <section id="featured-services" class="featured-services section">
-
       <div class="container">
-
         <div class="row gy-4">
-
           <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item d-flex">
               <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
@@ -91,15 +88,13 @@
 
       </div>
 
-    </section><!-- /Featured Services Section -->
+    </section>
+    <!-- /Featured Services Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">
-
       <div class="container">
-
         <div class="row gy-4">
-
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
             <p class="who-we-are">Who We Are</p>
             <h3>SILASTRI UPT BLK SINGOSARI</h3>
@@ -113,7 +108,6 @@
               <li><i class="bi bi-check-circle"></i> <span>Kolaborasi dengan Industri dan Pemerintah.</span></li>
             </ul>
           </div>
-
           <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
             <div class="row gy-4">
               <div class="col-lg-6">
@@ -130,46 +124,46 @@
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
-
       </div>
-    </section><!-- /About Section -->
+    </section>
+    <!-- /About Section -->
 
     <!-- Clients Section -->
     <section id="clients" class="clients section">
-
       <div class="container" data-aos="fade-up">
-
         <div class="row gy-4">
-
           <div class="col-xl-2 col-md-3 col-6 client-logo">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/silastri/logo_jatim.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
+          </div>
+          <!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/silastri/logo_disnakertrans.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
+          </div>
+          <!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/silastri/logo_berakhlak.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
+          </div>
+          <!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/silastri/logo_bangga.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
+          </div>
+          <!-- End Client Item -->
 
           <div class="col-xl-2 col-md-3 col-6 client-logo">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/silastri/logo_zona_integritas.png" class="img-fluid" alt="">
-          </div><!-- End Client Item -->
+          </div>
+          <!-- End Client Item -->
 
         </div>
-
       </div>
 
-    </section><!-- /Clients Section -->
+    </section>
+    <!-- /Clients Section -->
 
     <!-- Features Section -->
     <section id="features" class="features section">
@@ -178,13 +172,12 @@
       <div class="container section-title" data-aos="fade-up">
         <h2>Features</h2>
         <p>Apa yang didapat selama mengikuti pelatihan?</p>
-      </div><!-- End Section Title -->
+      </div>
+      <!-- End Section Title -->
 
       <div class="container">
         <div class="row justify-content-between">
-
           <div class="col-lg-5 d-flex align-items-center">
-
             <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
               <li class="nav-item">
                 <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
@@ -221,46 +214,40 @@
                   </div>
                 </a>
               </li>
-            </ul><!-- End Tab Nav -->
-
+            </ul>
+            <!-- End Tab Nav -->
           </div>
 
           <div class="col-lg-6">
-
             <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-
               <div class="tab-pane fade active show" id="features-tab-1">
                 <img src="<?= MAIN_URL ?>assets/user-layout/img/tabs-1.jpg" alt="" class="img-fluid">
-              </div><!-- End Tab Content Item -->
+              </div>
+              <!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-2">
                 <img src="<?= MAIN_URL ?>assets/user-layout/img/tabs-2.jpg" alt="" class="img-fluid">
-              </div><!-- End Tab Content Item -->
+              </div>
+              <!-- End Tab Content Item -->
 
               <div class="tab-pane fade" id="features-tab-3">
                 <img src="<?= MAIN_URL ?>assets/user-layout/img/tabs-3.jpg" alt="" class="img-fluid">
-              </div><!-- End Tab Content Item -->
+              </div>
+              <!-- End Tab Content Item -->
             </div>
-
           </div>
-
         </div>
-
       </div>
-
-    </section><!-- /Features Section -->
+    </section>
+    <!-- /Features Section -->
 
     <!-- Features Details Section -->
     <section id="features-details" class="features-details section">
-
       <div class="container">
-
         <div class="row gy-4 justify-content-between features-item">
-
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/features-1.jpg" class="img-fluid" alt="">
           </div>
-
           <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
             <div class="content">
               <h3>Segera daftarkan diri anda</h3>
@@ -271,14 +258,11 @@
               <a href="./register" class="btn more-btn">Daftar</a>
             </div>
           </div>
-
         </div>
         <!-- Features Item -->
 
         <div class="row gy-4 justify-content-between features-item">
-
           <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-
             <div class="content">
               <h3>Neque ipsum omnis sapiente quod quia dicta</h3>
               <p>
@@ -292,24 +276,18 @@
               <p></p>
               <a href="#" class="btn more-btn">Learn More</a>
             </div>
-
           </div>
-
           <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
             <img src="<?= MAIN_URL ?>assets/user-layout/img/features-2.jpg" class="img-fluid" alt="">
           </div>
-
         </div>
         <!-- Features Item -->
-
       </div>
-
     </section>
     <!-- /Features Details Section -->
 
     <!-- Services Section -->
     <section id="services" class="services section light-background">
-
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Services</h2>
@@ -317,9 +295,7 @@
       </div><!-- End Section Title -->
 
       <div class="container">
-
         <div class="row g-5">
-
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
             <div class="service-item item-cyan position-relative">
               <i class="bi bi-activity icon"></i>
@@ -329,7 +305,8 @@
                 <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
-          </div><!-- End Service Item -->
+          </div>
+          <!-- End Service Item -->
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
             <div class="service-item item-orange position-relative">
@@ -340,7 +317,8 @@
                 <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
-          </div><!-- End Service Item -->
+          </div>
+          <!-- End Service Item -->
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
             <div class="service-item item-teal position-relative">
@@ -351,7 +329,8 @@
                 <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
-          </div><!-- End Service Item -->
+          </div>
+          <!-- End Service Item -->
 
           <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
             <div class="service-item item-red position-relative">
@@ -388,18 +367,13 @@
             </div>
           </div>
           <!-- End Service Item -->
-
         </div>
-
       </div>
-
     </section>
     <!-- /Services Section -->
-
   </main>
 
   <footer id="footer" class="footer position-relative light-background">
-
     <div class="container footer-top">
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
@@ -419,7 +393,6 @@
             <a href=""><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
-
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Useful Links</h4>
           <ul>
@@ -430,7 +403,6 @@
             <li><a href="#">Privacy policy</a></li>
           </ul>
         </div>
-
         <div class="col-lg-2 col-md-3 footer-links">
           <h4>Our Services</h4>
           <ul>
@@ -441,7 +413,6 @@
             <li><a href="#">Graphic Design</a></li>
           </ul>
         </div>
-
         <div class="col-lg-4 col-md-12 footer-newsletter">
           <h4>Our Newsletter</h4>
           <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
@@ -452,10 +423,8 @@
             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
           </form>
         </div>
-
       </div>
     </div>
-
     <div class="container copyright text-center mt-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">QuickStart</strong><span>All Rights Reserved</span></p>
       <div class="credits">
@@ -466,5 +435,4 @@
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
-
   </footer>
