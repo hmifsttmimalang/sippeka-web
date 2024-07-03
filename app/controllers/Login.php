@@ -6,8 +6,8 @@ class Login extends Controller {
     public function index()
     {
         $data['title'] = 'Pages / Login';
-        $this->view('layout/login-layout', $data);
+        $this->view('layout/auth_header', $data);
         $this->view('login/index');
-        $this->view('layout/admin-footer');
+        $this->view('layout/auth_footer');
     }
 }
