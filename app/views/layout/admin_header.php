@@ -41,7 +41,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="../admin/index.php" class="logo d-flex align-items-center">
+            <a href="../admin/dashboard" class="logo d-flex align-items-center">
                 <img src="<?= MAIN_URL ?>assets/admin-layout/img/logo.png" alt="">
                 <span class="d-none d-lg-block">SIPPEKA</span>
             </a>
@@ -114,35 +114,4 @@
         <!-- End Icons Navigation -->
     </header>
     <!-- End Header -->
-
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-        <ul class="sidebar-nav" id="sidebar-nav">
-            <li class="nav-item">
-                <a class="nav-link " href="../admin/dashboard">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/kelola_data">
-                    <i class="bi bi-card-list"></i>
-                    <span>Kelola Anggota</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="../admin/peserta">
-                    <i class="bi bi-person"></i>
-                    <span>Peserta</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="../auth/login">
-                    <i class="bi bi-box-arrow-right"></i>
-                    <span>Log Out</span>
-                </a>
-            </li>
-            <!-- End Dashboard Nav -->
-        </ul>
-    </aside>
-    <!-- End Sidebar-->
+     
