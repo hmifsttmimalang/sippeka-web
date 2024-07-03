@@ -1,10 +1,12 @@
 <main id="main" class="main">
+
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1><?= $data['title'] ?></h1>
+
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../admin/index.php">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item active">Anggota</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -21,4 +23,6 @@
         </div>
     </section>
     <!-- End Section -->
+
 </main>
+<!-- End #main -->

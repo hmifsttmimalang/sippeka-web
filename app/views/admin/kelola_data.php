@@ -1,11 +1,11 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Anggota</h1>
+        <h1><?= $data['title'] ?></h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../admin/index.php">Home</a></li>
-                <li class="breadcrumb-item active">Anggota</li>
+                <li class="breadcrumb-item active">Kelola Anggota</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
