@@ -23,7 +23,7 @@ define('DB_NAME_PGSQL', 'data_sippeka');
 
 // konfigurasi database SQLite
 define('DB_SQLITE', 'sqlite');
-define('DB_PATH_SQLITE', __DIR__ . '/../database/data_sippekka.db');
+define('DB_PATH_SQLITE', __DIR__ . '/../database/data_sippeka.db');
 
 /** menentukan database berdasarkan kebutuhan yang akan digunakan
  *  Jika menggunakan MySQL cukup mengubahnya menjadi DB_MYSQL di bawah ini
