@@ -28,5 +28,6 @@ define('DB_PATH_SQLITE', __DIR__ . '/../database/data_sippeka.db');
 /** menentukan database berdasarkan kebutuhan yang akan digunakan
  *  Jika menggunakan MySQL cukup mengubahnya menjadi DB_MYSQL di bawah ini
  *  Jika menggunakan PostgreSQL cukup mengubahnya menjadi DB_PGSQL di bawah ini
+ *  Jika menggunakan SQLite cukup mengubahnya menjadi DB_SQLite di bawah ini
 */
-define('DB_TYPE', DB_SQLITE); // ubah di sini
+define('DB_TYPE', DB_MYSQL); // ubah di sini
