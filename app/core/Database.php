@@ -6,10 +6,11 @@ use PDOException;
 
 class Database
 {
-    // private $host = DB_HOST; // host ini diperlukan jika ingin menggunakan MySQL
+    private $type = DB_TYPE;
+    private $host;
     private $user = DB_USER;
     private $pass = DB_PASS;
-    private $db_name = __DIR__ . '/../database/data_sipekka.db';
+    private $db_name;
 
     private $dbh;
     private $stmt;
@@ -18,34 +19,35 @@ class Database
 
     public function __construct()
     {
-        /* konfigurasi MySQL
-
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
-
-        $option = [
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ];
-
-        try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
-        } catch (PDOException $err) {
-            die($err->getMessage());
+        switch ($this->type) {
+            case 'mysql':
+                $this->host = DB_HOST_MYSQL;
+                $this->db_name = DB_NAME_MYSQL;
+                $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
+                break;
+            case 'pgsql':
+                $this->host = DB_HOST_PGSQL;
+                $this->db_name = DB_NAME_PGSQL;
+                $port = DB_PORT_PGSQL;
+                $dsn = 'pgsql:host=' . $this->host . ';port=' . $port . ';dbname=' . $this->db_name;
+                break;
+            case 'sqlite':
+                $this->db_name = DB_PATH_SQLITE;
+                $dsn = 'sqlite:' . $this->db_name;
+                break;
+            default:
+                throw new ("Jenis database yang digunakan tidak mendukung!");
+                break;
         }
-        
-        */
 
-        // konfigurasi SQLite
-
-        $dsn = 'sqlite:' . $this->db_name;
-
-        $option = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        $options = [
+            PDO::ATTR_PERSISTENT => true,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ];
 
         try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
-        } catch (PDOException $err) {
+            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+        } catch(PDOException $err) {
             die($err->getMessage());
         }
     }
