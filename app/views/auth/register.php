@@ -19,7 +19,7 @@
                                     <p class="text-center small">Masukkan informasi Anda untuk membuat akun!</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" method="post">
+                                <form class="row g-3 needs-validation" method="post" action="<?= MAIN_URL ?>/auth/register">
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Nama</label>
                                         <input type="text" name="userName" class="form-control" id="yourName" required>
