@@ -12,7 +12,11 @@
                   <span class="d-none d-block">SIPPEKA</span>
                 </a>
               </div><!-- End Logo -->
-
+              <?php if (isset($data['error'])) : ?>
+                <div class="alert alert-danger" role="alert">
+                  <?php  echo $data['error']; ?>
+                </div>
+              <?php endif; ?>
               <div class="card mb-3">
 
                 <div class="card-body">
@@ -22,7 +26,8 @@
                     <p class="text-center small">Masukkan username & password untuk login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" novalidate method="post" action="<?= MAIN_URL ?>auth/login">
+
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
