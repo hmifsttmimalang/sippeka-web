@@ -17,7 +17,7 @@ class User
 
     public function register($username, $password)
     {
-        $hashed_password = sha1($password);
+        $hashed_password = md5($password);
         $sql = 'INSERT INTO '. $this->table. 'username, password) VALUES (:username, :password)';
         $this->db->query($sql);
         $this->db->bind(':username', $username);
@@ -27,7 +27,7 @@ class User
 
     public function login($username, $password)
     {
-        $hashed_password = sha1($password);
+        $hashed_password = md5($password);
         $sql = 'SELECT * FROM '. $this->table. ' WHERE username = :username AND password = :password';
         $this->db->query($sql);
         $this->db->bind(':username', $username);
