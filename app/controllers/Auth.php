@@ -2,7 +2,7 @@
 
 use App\Core\Controller;
 
-class Auth extends Controller 
+class Auth extends Controller
 {
     public function login()
     {
@@ -23,6 +23,12 @@ class Auth extends Controller
                 } else {
                     header('Location: ' . MAIN_URL);
                 }
+
+            } else if (empty($username) && empty($password)) {
+                $data['title'] = 'Login - SIPPEKA';
+                $this->view('layout/auth_header', $data);
+                $this->view('auth/login', ['error' => 'Masukkan username dan password']);
+                $this->view('layout/auth_footer');
             } else {
                 $data['title'] = 'Login - SIPPEKA';
                 $this->view('layout/auth_header', $data);
@@ -35,21 +41,39 @@ class Auth extends Controller
             $this->view('auth/login');
             $this->view('layout/auth_footer');
         }
-
     }
 
     public function register()
     {
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nama = $_POST['nama'];
             $username = $_POST['username'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
-            $userModel = $this->model('User');
+            $confirm_password = $_POST['confirm_password'];
 
-            if ($userModel->register($username, $password)) {
-                header('Location: /auth/login');
+            if (empty($username) || empty($password)) {
+                $data['title'] = 'Register - SIPPEKA';
+                $this->view('layout/auth_header', $data);
+                $this->view('auth/register', ['error' => 'Masukkan Username dan Password!']);
+                $this->view('layout/auth_footer');
+                return;
+            } else if ($password !== $confirm_password) {
+                $data['title'] = 'Register - SIPPEKA';
+                $this->view('layout/auth_header', $data);
+                $this->view('auth/register', ['error' => 'Password tidak sama!']);
+                $this->view('layout/auth_footer');
             } else {
-                echo 'Gagal Register';
+                $userModel = $this->model('User');
+    
+                if ($userModel->register([
+                    'nama' => $nama,
+                    'username' => $username,
+                    'email' => $email,
+                    'password' => $password
+                ])) {
+                    header('Location: ' . MAIN_URL . 'auth/login');
+                }
             }
         } else {
             $data['title'] = 'Register - SIPPEKA';
