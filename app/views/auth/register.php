@@ -5,7 +5,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="d-flex justify-content-center py-4">
-                            <a href="index.html" class="logo d-flex align-items-center w-auto">
+                            <a href="./register" class="logo d-flex align-items-center w-auto">
                                 <img src="<?= MAIN_URL ?>assets/user-layout/img/logo.png" alt="">
                                 <span class="d-none d-block">SIPPEKA</span>
                             </a>
@@ -19,7 +19,7 @@
                                     <p class="text-center small">Masukkan informasi Anda untuk membuat akun!</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" method="post" action="<?= MAIN_URL ?>/auth/register">
+                                <form class="row g-3 needs-validation" method="post" action="<?= MAIN_URL ?>auth/register">
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Nama</label>
                                         <input type="text" name="userName" class="form-control" id="yourName" required>
@@ -35,14 +35,14 @@
                                     <div class="col-12">
                                         <label for="yourUsername" class="form-label">Username</label>
                                         <div class="input-group has-validation">
-                                            <input type="text" name="userUid" class="form-control" id="yourUsername" required>
+                                            <input type="text" name="username" class="form-control" id="yourUsername" required>
                                             <div class="invalid-feedback">Silakan pilih nama pengguna!</div>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="yourPassword" class="form-label">Password</label>
-                                        <input type="password" name="userPwd" class="form-control" id="yourPassword" required>
+                                        <input type="password" name="password" class="form-control" id="yourPassword" required>
                                         <div class="invalid-feedback">Silakan masukkan password kamu!</div>
                                     </div>
 
