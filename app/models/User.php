@@ -15,20 +15,30 @@ class User
         $this->db = $db;
     }
 
-    public function register($username, $password)
+    public function register($data)
     {
-        $hashed_password = md5($password);
-        $sql = 'INSERT INTO '. $this->table. ' (username, password) VALUES (:username, :password)';
+        $sql = "SELECT * FROM " . $this->table . " WHERE username = :username";
         $this->db->query($sql);
-        $this->db->bind(':username', $username);
-        $this->db->bind(':password', $hashed_password);
+        $this->db->bind(':username', $data['username']);
+        $result = $this->db->single();
+
+        if ($result) {
+            return false;
+        }
+
+        $sql = "INSERT INTO " . $this->table . " (nama, username, email, password, role) VALUES (:nama, :username, :email, :password, 'user')";
+        $this->db->query($sql);
+        $this->db->bind(':nama', $data['nama']);
+        $this->db->bind(':username', $data['username']);
+        $this->db->bind(':email', $data['email']);
+        $this->db->bind(':password', md5($data['password']));
         return $this->db->execute();
     }
 
     public function login($username, $password)
     {
         $hashed_password = md5($password);
-        $sql = 'SELECT * FROM '. $this->table. ' WHERE username = :username AND password = :password';
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE username = :username AND password = :password';
         $this->db->query($sql);
         $this->db->bind(':username', $username);
         $this->db->bind(':password', $hashed_password);
