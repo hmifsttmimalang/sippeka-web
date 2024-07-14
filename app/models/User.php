@@ -18,7 +18,7 @@ class User
     public function register($username, $password)
     {
         $hashed_password = md5($password);
-        $sql = 'INSERT INTO '. $this->table. 'username, password) VALUES (:username, :password)';
+        $sql = 'INSERT INTO '. $this->table. ' (username, password) VALUES (:username, :password)';
         $this->db->query($sql);
         $this->db->bind(':username', $username);
         $this->db->bind(':password', $hashed_password);
