@@ -32,7 +32,7 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
+                        <input type="text" name="input" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Harap masukkan username.</div>
                       </div>
                     </div>

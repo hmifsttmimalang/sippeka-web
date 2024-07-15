@@ -35,3 +35,30 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="." class="logo d-flex align-items-center me-auto">
+        <img src="<?= MAIN_URL ?>assets/user-layout/img/logo.png" alt="">
+        <h1 class="sitename">SIPPEKA</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="./" class="active">Beranda</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#services">Services</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <?php if (isset( $_SESSION['username'])) : ?>
+        <a class="" href="#"><?= htmlspecialchars( $_SESSION['username']) ?></a>
+        <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/logout">Keluar</a>
+      <?php else: ?>
+        <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/login">Masuk</a>
+        <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/register">Daftar</a>
+      <?php endif; ?>
+    </div>
+  </header>

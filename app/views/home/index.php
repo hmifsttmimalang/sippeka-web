@@ -1,27 +1,3 @@
-<body class="index-page">
-  <header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
-      <a href="." class="logo d-flex align-items-center me-auto">
-        <img src="<?= MAIN_URL ?>assets/user-layout/img/logo.png" alt="">
-        <h1 class="sitename">SIPPEKA</h1>
-      </a>
-
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="." class="active">Beranda</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#services">Services</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-
-      <a class="btn-getstarted" href="./auth/login">Masuk</a>
-      <a class="btn-getstarted" href="./auth/register">Daftar</a>
-
-    </div>
-  </header>
 
   <main class="main">
 
@@ -41,7 +17,6 @@
           <img src="<?= MAIN_URL ?>assets/user-layout/img/hero-services-img.webp" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
         </div>
       </div>
-
     </section>
     <!-- /Hero Section -->
 
@@ -381,11 +356,10 @@
             <span class="sitename">SIPPEKA</span>
           </a>
           <div class="footer-contact pt-3">
-            <p>Jl. Raya Singosari, Song Song, Ardimulyo, Kec. Singosari, Kabupaten Malang, Jawa Timur, 65153</p>
-            <p>Kec. Singosari, Kabupaten Malang, Jawa Timur, 65153</p>
-            <p class="mt-3"><strong>Telepon Kantor :</strong> <span>0341 - 458055</span></p>
-            <p class="mt-3"><strong>WhatsApp :</strong> <span>082334352225</span></p>
-            <p><strong>Email:</strong> <span>blk.singosari.jatim@gmail.com</span></p>
+            <p>JL. Candi Panggung</p>
+            <p>New York, NY 535022</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p><strong>Email:</strong> <span>info@example.com</span></p>
           </div>
           <div class="social-links d-flex mt-4">
             <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -415,25 +389,25 @@
           </ul>
         </div>
         <div class="col-lg-4 col-md-12 footer-newsletter">
-          <h4>Subscribe Rek!</h4>
-          <p>Ikuti untuk informasi lowongan, pelatihan, dan berita kami.</p>
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
           <form action="forms/newsletter.php" method="post" class="php-email-form">
             <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
             <div class="loading">Loading</div>
             <div class="error-message"></div>
-            <div class="sent-message">Permintaan berlangganan Anda telah dikirim. Terima kasih!</div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
           </form>
         </div>
       </div>
     </div>
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">SIPPEKA</strong><span>All Rights Reserved</span></p>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">QuickStart</strong><span>All Rights Reserved</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you've purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">SIPPEKA</a>
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
   </footer>
