@@ -9,17 +9,20 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="." class="active">Beranda</a></li>
+          <li><a href="./" class="active">Beranda</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#services">Services</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
-
-      <a class="btn-getstarted" href="./auth/login">Masuk</a>
-      <a class="btn-getstarted" href="./auth/register">Daftar</a>
-
+      <?php if (isset( $_SESSION['username'])) : ?>
+        <a href="#"><?= htmlspecialchars( $_SESSION['username']) ?></a>
+        <a class="btn-primary" href="<?= MAIN_URL ?>auth/logout">Keluar</a>
+      <?php else: ?>
+        <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/login">Masuk</a>
+        <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/register">Daftar</a>
+      <?php endif; ?>
     </div>
   </header>
 
