@@ -22,7 +22,7 @@ class Auth extends Controller
                 if ($user['role'] === 'admin') {
                     header('Location: ' . MAIN_URL . 'admin/dashboard');
                 } else {
-                    header('Location: ' . MAIN_URL);
+                    header('Location: ' . MAIN_URL . 'home/index');
                 }
 
             } else if (empty($input) && empty($password)) {
@@ -75,6 +75,7 @@ class Auth extends Controller
                 ])) {
                     header('Location: ' . MAIN_URL . 'auth/login');
                 }
+                header('Location: ' . MAIN_URL . 'auth/login');
             }
         } else {
             $data['title'] = 'Register - SIPPEKA';
