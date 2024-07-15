@@ -20,7 +20,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../auth/login">
+                <a class="nav-link" href="../auth/logout">
                     <i class="bi bi-box-arrow-right"></i>
                     <span>Log Out</span>
                 </a>

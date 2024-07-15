@@ -16,7 +16,7 @@ class Auth extends Controller
                 session_start();
 
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['input'] = $user['input'];
+                $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
 
                 if ($user['role'] === 'admin') {
@@ -88,6 +88,6 @@ class Auth extends Controller
     {
         session_start();
         session_destroy();
-        header('Location: /auth/login');
+        header('Location: ' . MAIN_URL . 'auth/login');
     }
 }
