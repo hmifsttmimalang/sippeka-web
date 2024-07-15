@@ -7,32 +7,33 @@ class Auth extends Controller
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
+            $input = $_POST['input'];
             $password = $_POST['password'];
             $userModel = $this->model('User');
-            $user = $userModel->login($username, $password);
+            $user = $userModel->login($input, $password);
 
             if ($user) {
                 session_start();
 
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['input'] = $user['input'];
                 $_SESSION['role'] = $user['role'];
 
-                if ($user['role'] == 'admin') {
+                if ($user['role'] === 'admin') {
                     header('Location: ' . MAIN_URL . 'admin/dashboard');
                 } else {
                     header('Location: ' . MAIN_URL);
                 }
 
-            } else if (empty($username) && empty($password)) {
+            } else if (empty($input) && empty($password)) {
                 $data['title'] = 'Login - SIPPEKA';
                 $this->view('layout/auth_header', $data);
-                $this->view('auth/login', ['error' => 'Masukkan username dan password']);
+                $this->view('auth/login', ['error' => 'Masukkan username atau email dan password']);
                 $this->view('layout/auth_footer');
             } else {
                 $data['title'] = 'Login - SIPPEKA';
                 $this->view('layout/auth_header', $data);
-                $this->view('auth/login', ['error' => 'Username atau password salah atau belum terdaftar']);
+                $this->view('auth/login', ['error' => 'Username, email atau password salah atau belum terdaftar']);
                 $this->view('layout/auth_footer');
             }
         } else {

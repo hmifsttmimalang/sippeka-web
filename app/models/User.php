@@ -35,12 +35,12 @@ class User
         return $this->db->execute();
     }
 
-    public function login($username, $password)
+    public function login($input, $password)
     {
         $hashed_password = md5($password);
-        $sql = 'SELECT * FROM ' . $this->table . ' WHERE username = :username AND password = :password';
+        $sql = 'SELECT * FROM ' . $this->table . ' WHERE (username = :input OR email = :input) AND password = :password';
         $this->db->query($sql);
-        $this->db->bind(':username', $username);
+        $this->db->bind(':input', $input);
         $this->db->bind(':password', $hashed_password);
         $this->db->execute();
         return $this->db->single();
