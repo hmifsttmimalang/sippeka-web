@@ -81,7 +81,27 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
     ## Struktur Direktori
 
     ```plaintext
-
+    app_web
+    ├── app
+    │   ├── config
+    │   │   └── config.php
+    │   ├── controllers
+    │   ├── core
+    │   │   ├── App.php
+    │   │   ├── Controller.php
+    │   │   └── Database.php
+    │   ├── views
+    │   ├── models
+    │   ├── init.php
+    │   └── .htaccess
+    └── public
+        ├── assets
+        │   ├── css
+        │   ├── js
+        │   └── img
+        ├── index.php
+        └── .htaccess
+    ```
 
 
 ## Penggunaan
