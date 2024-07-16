@@ -61,7 +61,7 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 
 4. **Import Database**
 
-    Import file `data_sippeka.db` yang ada di folder `database` ke dalam database tersebut.
+    Import file `data_sippeka.sql` yang ada di folder `database` ke dalam database tersebut.
 
 5. **Konfigurasi Database**
 
