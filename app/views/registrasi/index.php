@@ -1,4 +1,3 @@
-
 <body class="bg_register">
 
     <div class="container">
@@ -63,6 +62,11 @@
                                         <div class="form-group">
                                             <label for="alamat">Alamat</label>
                                             <textarea name="alamat" id="alamat" class="form-control"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="telepon">Telepon</label>
+                                            <input type="text" name="telepon" class="form-control" id="telepon" placeholder="No Telepon Anda...">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

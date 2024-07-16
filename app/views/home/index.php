@@ -229,7 +229,7 @@
                 Keuntungan selama mengikuti pelatihan kerja di Balai Latihan Kerja Silastri
                 sebagai investasi yang berharga untuk pengembangan keterampilan dan meningkatkan peluang dalam dunia kerja.
               </p>
-              <a href="./auth/register" class="btn more-btn">Daftar</a>
+              <a href="<?= MAIN_URL ?>registrasi/" class="btn more-btn">Daftar</a>
             </div>
           </div>
         </div>
