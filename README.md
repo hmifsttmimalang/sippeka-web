@@ -133,7 +133,7 @@ Proyek ini dilisensikan di bawah Lisensi MIT. Untuk informasi lebih lanjut, liha
 
 MIT License
 
-Hak Cipta (c) 2024 Ardiansyah
+Hak Cipta (c) 2024 Ardiansyah, Adi Chandra Isro' Salsabilla
 
 Dengan ini diberikan izin, tanpa biaya, kepada siapa saja yang memperoleh salinan perangkat lunak ini dan file dokumentasi terkait (\"Perangkat Lunak\"), untuk berurusan dalam Perangkat Lunak tanpa batasan, termasuk tanpa batasan hak untuk menggunakan, menyalin, mengubah, menggabungkan, menerbitkan, mendistribusikan, memberikan lisensi, dan/atau menjual salinan Perangkat Lunak, serta untuk mengizinkan orang yang kepadanya Perangkat Lunak disediakan melakukannya, dengan syarat berikut:
 
