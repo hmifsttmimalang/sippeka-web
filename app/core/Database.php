@@ -103,4 +103,10 @@ class Database
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function count()
+    {
+        $this->execute();
+        return $this->stmt->fetchColumn() > 0;
+    }
 }
