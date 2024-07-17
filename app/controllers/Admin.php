@@ -8,6 +8,8 @@ class Admin extends Controller
 
     public function __construct()
     {
+        $this->registrationModel = $this->model('Registration');
+        
         session_start();
         if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
             return;
@@ -16,7 +18,6 @@ class Admin extends Controller
             exit;
         }
         
-        $this->registrationModel = $this->model('Registration');
     }
 
     public function dashboard()
