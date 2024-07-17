@@ -18,6 +18,7 @@ class Auth extends Controller
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
+                $_SESSION['nama'] = $user['nama'];
 
                 if ($user['role'] === 'admin') {
                     header('Location: ' . MAIN_URL . 'admin/dashboard');
