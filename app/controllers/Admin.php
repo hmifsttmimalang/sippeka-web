@@ -2,8 +2,10 @@
 
 use App\Core\Controller;
 
-class Redirect extends Controller
+class Admin extends Controller
 {
+    private $registrationModel;
+
     public function __construct()
     {
         session_start();
@@ -13,22 +15,12 @@ class Redirect extends Controller
             header('Location: ' . MAIN_URL . 'auth/login');
             exit;
         }
-    }
-}
-
-class Admin extends Redirect
-{
-    private $registrationModel;
-
-    public function __construct()
-    {
-        session_start();
+        
         $this->registrationModel = $this->model('Registration');
     }
 
     public function dashboard()
     {
-        Redirect::class;
         $data['title'] = 'Dashboard';
         $this->view('layout/admin_header', $data);
         $this->view('admin/dashboard', $data);
@@ -36,9 +28,7 @@ class Admin extends Redirect
     }
     
     public function kelola_data()
-    {
-        Redirect::class;
-        
+    {        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = $_POST['id'];
             $keterangan = $_POST['keterangan'];
@@ -59,7 +49,6 @@ class Admin extends Redirect
 
     public function peserta()
     {
-        Redirect::class;
         $registrations = $this->registrationModel->getAllRegistrations();
 
         $data['title'] = 'Peserta';
