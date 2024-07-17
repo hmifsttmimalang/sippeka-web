@@ -6,17 +6,21 @@
         <div class="row justify-content-center">
 
             <div class="col-md-7">
-
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="p-5">
+                                    <?php if (isset($data['error'])) : ?>
+                                        <div class="alert alert-danger mb-5" role="alert">
+                                          <?php  echo $data['error']; ?>
+                                        </div>
+                                    <?php endif; ?> 
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Registrasi Peserta Pelatihan Pekerja!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Registrasi Peserta Pelatihan Pekerja</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" action="<?= MAIN_URL ?>registrasi/" method="post">
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
                                             <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Lengkap Anda...">
@@ -37,11 +41,11 @@
                                             <div class="col-md-6">
                                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                                 <div class="form-check">
-                                                    <input type="radio" name="jenis_kelamin" value="L" class="form-check-input" id="laki">
+                                                    <input type="radio" name="jenis_kelamin" value="Laki-laki" class="form-check-input" id="laki">
                                                     <label for="laki" class="form-check-label">Laki-Laki</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input type="radio" name="jenis_kelamin" value="P" class="form-check-input" id="perempuan">
+                                                    <input type="radio" name="jenis_kelamin" value="Perempuan" class="form-check-input" id="perempuan">
                                                     <label for="perempuan" class="form-check-label">Perempuan</label>
                                                 </div>
                                             </div>
@@ -65,8 +69,8 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="telepon">Telepon</label>
-                                            <input type="text" name="telepon" class="form-control" id="telepon" placeholder="No Telepon Anda...">
+                                            <label for="no_telepon">Telepon</label>
+                                            <input type="text" name="no_telepon" class="form-control" id="telepon" placeholder="No Telepon Anda...">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
