@@ -17,7 +17,6 @@ class Admin extends Controller
             header('Location: ' . MAIN_URL . 'auth/login');
             exit;
         }
-        
     }
 
     public function dashboard()
