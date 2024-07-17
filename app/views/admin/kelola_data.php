@@ -47,6 +47,43 @@
             <div class="row">
 
                 <!-- Content CRUD -->
+                <table border="1">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>Alamat</th>
+                        <th>Nomor Telepon</th>
+                        <th>Keterangan</th>
+                        <th>Aksi</th>
+                    </tr>
+                    <?php foreach ($data['registrations'] as $registrant): ?>
+                        <tr>
+                            <td><?= $registrant['nama'] ?></td>
+                            <td><?= $registrant['tempat_lahir'] ?></td>
+                            <td><?= $registrant['tanggal_lahir'] ?></td>
+                            <td><?= $registrant['jenis_kelamin'] ?></td>
+                            <td><?= $registrant['agama'] ?></td>
+                            <td><?= $registrant['alamat'] ?></td>
+                            <td><?= $registrant['no_telepon'] ?></td>
+                            <td><?= $registrant['keterangan'] ?></td>
+                            <td>
+                                <form action="<?= MAIN_URL ?>admin/kelola_data" method="post">
+                                    <input type="hidden" name="id" value="<?= $registrant['id'] ?>">
+                                    <select name="keterangan" id="">
+                                        <option value="Sedang Diproses" <?php if($registrant['keterangan'] == 'Sedang Diproses') echo 'selected'; ?> >Sedang Diproses</option>
+                                        <option value="Diterima" <?php if($registrant['keterangan'] == 'Diterima') echo 'selected'; ?> >Diterima</option>
+                                        <option value="Tidak Diterima" <?php if($registrant['keterangan'] == 'Tidak Diterima') echo 'selected'; ?> >Tidak Diterima</option>
+                                    </select>
+                                    <button type="submit">Perbarui</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+
 
 
 

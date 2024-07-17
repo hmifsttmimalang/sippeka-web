@@ -53,4 +53,13 @@ class Registration
         $this->db->bind(':user_id', $user_id);
         return $this->db->count();
     }
+
+    public function updateRegistrationStatus($id, $keterangan)
+    {
+        $sql = "UPDATE " . $this->table . " SET keterangan = :keterangan WHERE id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $id);
+        $this->db->bind(':keterangan', $keterangan);
+        return $this->db->execute();
+    }
 }

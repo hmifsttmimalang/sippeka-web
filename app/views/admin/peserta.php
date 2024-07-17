@@ -47,7 +47,30 @@
             <div class="row">
 
                 <!-- Content CRUD -->
-
+                <table border="1">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>Alamat</th>
+                        <th>Nomor Telepon</th>
+                        <th>Keterangan</th>
+                    </tr>
+                    <?php foreach ($data['registrations'] as $registrant): ?>
+                        <tr>
+                            <td><?= $registrant['nama'] ?></td>
+                            <td><?= $registrant['tempat_lahir'] ?></td>
+                            <td><?= $registrant['tanggal_lahir'] ?></td>
+                            <td><?= $registrant['jenis_kelamin'] ?></td>
+                            <td><?= $registrant['agama'] ?></td>
+                            <td><?= $registrant['alamat'] ?></td>
+                            <td><?= $registrant['no_telepon'] ?></td>
+                            <td><?= $registrant['keterangan'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
 
 
 

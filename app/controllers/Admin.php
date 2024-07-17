@@ -18,6 +18,14 @@ class Redirect extends Controller
 
 class Admin extends Redirect
 {
+    private $registrationModel;
+
+    public function __construct()
+    {
+        session_start();
+        $this->registrationModel = $this->model('Registration');
+    }
+
     public function dashboard()
     {
         Redirect::class;
@@ -30,18 +38,33 @@ class Admin extends Redirect
     public function kelola_data()
     {
         Redirect::class;
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $id = $_POST['id'];
+            $keterangan = $_POST['keterangan'];
+            
+            if ($this->registrationModel->updateRegistrationStatus($id, $keterangan)) {
+                header('Location: ' . MAIN_URL . 'admin/kelola_data');
+                exit;
+            }
+        }
+
+        $registrations = $this->registrationModel->getAllRegistrations();
+        
         $data['title'] = 'Kelola Data';
         $this->view('layout/admin_header', $data);
-        $this->view('admin/kelola_data', $data);
+        $this->view('admin/kelola_data', ['title' => 'Kelola Data', 'registrations' => $registrations]);
         $this->view('layout/admin_footer');
     }
 
     public function peserta()
     {
         Redirect::class;
+        $registrations = $this->registrationModel->getAllRegistrations();
+
         $data['title'] = 'Peserta';
         $this->view('layout/admin_header', $data);
-        $this->view('admin/peserta', $data);
+        $this->view('admin/peserta', ['title' => 'Peserta', 'registrations' => $registrations]);
         $this->view('layout/admin_footer');
     }
 }
