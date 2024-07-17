@@ -84,7 +84,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6><?= htmlspecialchars($_SESSION['username']) ?></h6>
+                            <h6><?= htmlspecialchars($_SESSION['nama']) ?></h6>
                             <span>Admin</span>
                         </li>
                         <li>
