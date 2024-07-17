@@ -73,9 +73,14 @@ class Auth extends Controller
                     'email' => $email,
                     'password' => $password
                 ])) {
+                    $data['title'] = 'Register - SIPPEKA';
+                    $this->view('layout/auth_header', $data);
+                    $this->view('auth/register', ['error' => 'Gagal mendaftar']);
+                    $this->view('layout/auth_footer');
+                } else {
                     header('Location: ' . MAIN_URL . 'auth/login');
+                    exit;
                 }
-                header('Location: ' . MAIN_URL . 'auth/login');
             }
         } else {
             $data['title'] = 'Register - SIPPEKA';
