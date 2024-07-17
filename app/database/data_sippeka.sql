@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 08:56 AM
+-- Generation Time: Jul 17, 2024 at 09:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,8 +45,8 @@ CREATE TABLE `registrations` (
 --
 
 INSERT INTO `registrations` (`id`, `user_id`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `alamat`, `no_telepon`, `keterangan`) VALUES
-(1, 10, 'Farhan', 'Moskow', '1991-12-26', 'Laki-laki', 'Islam', 'St. Moskva', '234567890', 'Sedang Diproses'),
-(2, 11, 'Sigit', 'Padang', '2024-07-01', 'Laki-laki', 'Islam', 'Kota Padang', '1234578905', 'Sedang Diproses');
+(1, 10, 'Farhan', 'Moskow', '1991-12-26', 'Laki-laki', 'Islam', 'St. Moskva', '234567890', 'Diterima'),
+(2, 11, 'Sigit', 'Padang', '2024-07-01', 'Laki-laki', 'Islam', 'Kota Padang', '1234578905', 'Tidak Diterima');
 
 -- --------------------------------------------------------
 
