@@ -56,4 +56,12 @@ class Admin extends Controller
         $this->view('admin/peserta', ['title' => 'Peserta', 'registrations' => $registrations]);
         $this->view('layout/admin_footer');
     }
+
+    public function profil_admin()
+    {
+        $data['title'] = 'Profil Admin';
+        $this->view('layout/admin_header', $data);
+        $this->view('admin/profil_admin', $data);
+        $this->view('layout/admin_footer');
+    }
 }
