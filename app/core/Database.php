@@ -6,11 +6,10 @@ use PDOException;
 
 class Database
 {
-    private $type = DB_TYPE;
-    private $host;
+    private $host = DB_HOST;
     private $user = DB_USER;
     private $pass = DB_PASS;
-    private $db_name;
+    private $db = DB_NAME;
 
     private $dbh;
     private $stmt;
@@ -19,26 +18,7 @@ class Database
 
     public function __construct()
     {
-        switch ($this->type) {
-            case 'mysql':
-                $this->host = DB_HOST_MYSQL;
-                $this->db_name = DB_NAME_MYSQL;
-                $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
-                break;
-            case 'pgsql':
-                $this->host = DB_HOST_PGSQL;
-                $this->db_name = DB_NAME_PGSQL;
-                $port = DB_PORT_PGSQL;
-                $dsn = 'pgsql:host=' . $this->host . ';port=' . $port . ';dbname=' . $this->db_name;
-                break;
-            case 'sqlite':
-                $this->db_name = DB_PATH_SQLITE;
-                $dsn = 'sqlite:' . $this->db_name;
-                break;
-            default:
-                throw new ("Jenis database yang digunakan tidak mendukung!");
-                break;
-        }
+        $dsn = "mysql:host=$this->host; dbname=$this->db";
 
         $options = [
             PDO::ATTR_PERSISTENT => true,
