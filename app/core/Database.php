@@ -6,10 +6,10 @@ use PDOException;
 
 class Database
 {
-    // private $host = DB_HOST; // host ini diperlukan jika ingin menggunakan MySQL
+    private $host = DB_HOST;
     private $user = DB_USER;
     private $pass = DB_PASS;
-    private $db_name = __DIR__ . '/../database/data_sipekka.db';
+    private $db = DB_NAME;
 
     private $dbh;
     private $stmt;
@@ -18,34 +18,16 @@ class Database
 
     public function __construct()
     {
-        /* konfigurasi MySQL
+        $dsn = "mysql:host=$this->host; dbname=$this->db";
 
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->db_name;
-
-        $option = [
+        $options = [
             PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         ];
 
         try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
-        } catch (PDOException $err) {
-            die($err->getMessage());
-        }
-        
-        */
-
-        // konfigurasi SQLite
-
-        $dsn = 'sqlite:' . $this->db_name;
-
-        $option = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ];
-
-        try {
-            $this->dbh = new PDO($dsn, $this->user, $this->pass, $option);
-        } catch (PDOException $err) {
+            $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+        } catch(PDOException $err) {
             die($err->getMessage());
         }
     }
@@ -100,5 +82,11 @@ class Database
     {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function count()
+    {
+        $this->execute();
+        return $this->stmt->fetchColumn() > 0;
     }
 }

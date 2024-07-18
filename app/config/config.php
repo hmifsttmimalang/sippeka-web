@@ -1,12 +1,12 @@
 <?php
 
-define('MAIN_URL', 'http://localhost:8080/app_web/public/');
-// define('MAIN_URL', 'http://localhost/app_web/public/'); // jika port di Apachenya adalah 80
+if ($_SERVER['SERVER_PORT'] == 8080) {
+    define('MAIN_URL', 'http://localhost:8080/app_web/public/');
+} else {
+    define('MAIN_URL', 'http://localhost/app_web/public/');
+}
 
-// database
-// define('DB_HOST', 'localhost');
+define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-
-// isi database di bawah jika menggunakan MySQL
-// define('DB_NAME', '');
+define('DB_NAME', 'data_sippeka');
