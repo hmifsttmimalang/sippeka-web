@@ -1,14 +1,17 @@
 # Sistem Informasi Pendaftaran Pelatihan Kerja (Sippeka)
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 ## Deskripsi
+
 Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
 untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti
 pelatihan kerja. Aplikasi ini dibuat dengan menggunakan bahasa pemrograman
 PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan Web Server XAMPP.
 
 ## Daftar Isi
+
 - [Pendahuluan](#pendahuluan)
 - [Fitur](#fitur)
 - [Instalasi](#instalasi)
@@ -86,9 +89,9 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 
     Buka browser dan akses `http://localhost/app_web/`.
 
-    ## Struktur Direktori
+## Struktur Direktori
 
-    ```plaintext
+```plaintext
     app_web
     ├── app
     │   ├── config
@@ -109,8 +112,7 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
         │   └── img
         ├── index.php
         └── .htaccess
-    ```
-
+```
 
 ## Penggunaan
 
