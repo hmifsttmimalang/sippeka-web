@@ -22,7 +22,7 @@
                                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                     <p class="text-center small">Masukkan informasi Anda untuk membuat akun!</p>
                                 </div>
-                                
+
                                 <form class="row g-3 needs-validation" method="post" action="<?= MAIN_URL ?>auth/register">
                                     <div class="col-12">
                                         <label for="nama" class="form-label">Nama</label>
@@ -75,6 +75,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="credits">
+                Designed by <a href="..">SIPPEKA</a>
             </div>
         </section>
     </div>
