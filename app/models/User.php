@@ -45,4 +45,12 @@ class User
         $this->db->execute();
         return $this->db->single();
     }
+
+    public function getAllUsersByRole($role)
+    {
+        $sql = "SELECT * FROM $this->table WHERE role = :role";
+        $this->db->query($sql);
+        $this->db->bind(':role', $role);
+        return $this->db->resultSet();
+    }
 }
