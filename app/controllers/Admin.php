@@ -5,10 +5,12 @@ use App\Core\Controller;
 class Admin extends Controller
 {
     private $registrationModel;
+    private $userModel;
 
     public function __construct()
     {
         $this->registrationModel = $this->model('Registration');
+        $this->userModel = $this->model('User');
         
         session_start();
         if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
@@ -57,11 +59,30 @@ class Admin extends Controller
         $this->view('layout/admin_footer');
     }
 
+    public function info_user()
+    {
+        $users = $this->userModel->getAllUsersByRole('user');
+
+        $data['title'] = 'Info User';
+        $data['users'] = $users;
+        $this->view('layout/admin_header', $data);
+        $this->view('admin/info_user', $data);
+        $this->view('layout/admin_footer');
+    }
+    
     public function profil_admin()
     {
         $data['title'] = 'Profil Admin';
         $this->view('layout/admin_header', $data);
         $this->view('admin/profil_admin', $data);
+        $this->view('layout/admin_footer');
+    }
+    
+    public function detail_pendaftar()
+    {
+        $data['title'] = 'Detail Pendaftar';
+        $this->view('layout/admin_header', $data);
+        $this->view('admin/detail_pendaftar', $data);
         $this->view('layout/admin_footer');
     }
 }

@@ -1,15 +1,19 @@
-<!-- Vendor JS Files -->
-<script src="<?= MAIN_URL ?>assets/admin-layout/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/chart.js/chart.umd.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/echarts/echarts.min.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/quill/quill.min.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/tinymce/tinymce.min.js"></script>
-  <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/php-email-form/validate.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/jquery/jquery.min.js"></script>
+        <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Template Main JS File -->
-  <script src="<?= MAIN_URL ?>assets/admin-layout/js/admin-main.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="<?= MAIN_URL ?>assets/admin-layout/js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="<?= MAIN_URL ?>assets/admin-layout/vendor/chart.js/Chart.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="<?= MAIN_URL ?>assets/admin-layout/js/demo/chart-area-demo.js"></script>
+        <script src="<?= MAIN_URL ?>assets/admin-layout/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
