@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets2/img/favicon.png" rel="icon">
+  <link href="assets2/img/main_logo.png" rel="icon">
   <link href="assets2/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -45,19 +45,14 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets2/img/logo.png" alt="">
+        <img src="assets2/img/main_logo.png" alt="">
         <span class="d-none d-lg-block">SIPPEKA</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </div>
+    <!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
+    <!-- Profile User -->
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
@@ -127,16 +122,16 @@
       <!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="input_nilai.php">
-          <i class="bi bi-grid"></i>
-          <span>Nilai</span>
+        <a class="nav-link collapsed" href="tes_seleksi.php">
+          <i class="bi bi-clipboard2-check"></i>
+          <span>Tes Seleksi</span>
         </a>
       </li>
       <!-- End Nilai Nav -->
 
       <li class="nav-item">
         <a class="nav-link" href="edit_profil.php">
-          <i class="bi bi-grid"></i>
+          <i class="bi bi-person-fill-gear"></i>
           <span>Edit Profil</span>
         </a>
       </li>
@@ -157,11 +152,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Edit Profil</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Edit Profil</li>
+          <li class="breadcrumb-item active">Edit Profil Peserta</li>
         </ol>
       </nav>
     </div>
