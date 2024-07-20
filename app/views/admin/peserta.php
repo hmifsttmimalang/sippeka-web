@@ -152,23 +152,28 @@
                                 <td>Alamat</td>
                                 <td>Nomor Telepon</td>
                                 <td>Status</td>
-                                <td>Aksi</td>
                             </tr>
-                            <??>
+                            <?php foreach ($data['registrations'] as $registrant) : ?>
                             <tr>
                                 <td><?= $i = 1; $i++ ?></td>
-                                <td>Adi Chandra</td>
-                                <td>Jl. Dieng Atas</td>
-                                <td>Web Developer</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><span class="badge badge-success">Lolos</span></td>
+                                <td><?= $registrant['nama'] ?></td>
+                                <td><?= $registrant['tempat_lahir'] ?></td>
+                                <td><?= $registrant['tanggal_lahir'] ?></td>
+                                <td><?= $registrant['jenis_kelamin'] ?></td>
+                                <td><?= $registrant['agama'] ?></td>
+                                <td><?= $registrant['alamat'] ?></td>
+                                <td><?= $registrant['no_telepon'] ?></td>
                                 <td>
-                                    <a href="" class="btn btn-warning btn-sm">Cetak</a>
+                                    <?php if ($registrant['keterangan'] == 'Diterima'): ?>
+                                    <span class="badge badge-success">Diterima</span>
+                                    <?php elseif ($registrant['keterangan'] == 'Tidak Diterima'): ?>
+                                        <span class="badge badge-danger">Tidak Diterima</span>
+                                    <?php else: ?>
+                                        <span class="badge badge-warning">Sedang Diproses</span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
+                            <?php endforeach ?>
                         </table>
                     </div>
                 </div>

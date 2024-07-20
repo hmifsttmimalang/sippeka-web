@@ -38,11 +38,10 @@ class Registrasi extends Controller
             $no_telepon = $_POST['no_telepon'];
 
             if ($this->registrationModel->createRegistration($user_id, $nama, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $agama, $alamat, $no_telepon)) {
-                header('Location: ' . MAIN_URL . 'registrasi/index');
-                $this->view('registrasi/index', ['error' => 'Gagal menyimpan data']);
+                header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
                 exit;
             } else {
-                header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
+                $this->view('registrasi/index', ['error' => 'Gagal menyimpan data']);
                 exit;
             }
         }

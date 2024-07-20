@@ -152,32 +152,36 @@
                                 <td>Status</td>
                                 <td>Aksi</td>
                             </tr>
-                            <?php $i = 1; foreach ($data['registrations'] as $registrant): ?>
-                            <tr>
-                                <td><?= $i++ ?></td>
-                                <td><?= $registrant['nama'] ?></td>
-                                <td><?= $registrant['tempat_lahir'] ?></td>
-                                <td><?= $registrant['tanggal_lahir'] ?></td>
-                                <td><?= $registrant['jenis_kelamin'] ?></td>
-                                <td><?= $registrant['agama'] ?></td>
-                                <td><?= $registrant['alamat'] ?></td>
-                                <td><?= $registrant['no_telepon'] ?></td>
-                                <td>
-                                <?php if ($registrant['keterangan'] == 'Diterima'): ?>
-                                    <span class="badge badge-success">Diterima</span>
-                                <?php elseif ($registrant['keterangan'] == 'Tidak Diterima'): ?>
-                                    <span class="badge badge-danger">Tidak Diterima</span>
-                                <?php else: ?>
-                                    <span class="badge badge-warning">Sedang Diproses</span>
-                                <?php endif; ?>
-                                </td>
-                                <td>
-                                    <a href="./detail_pendaftar" class="btn btn-primary btn-sm">Cek</a>
-                                    <a href="" class="btn btn-danger btn-sm">Hapus</a>
-                                </td>
-                            </tr>
+                            <?php $i = 1;
+                            foreach ($data['registrations'] as $registrant) : ?>
+                                <tr>
+                                    <td><?= $i++ ?></td>
+                                    <td><?= $registrant['nama'] ?></td>
+                                    <td><?= $registrant['tempat_lahir'] ?></td>
+                                    <td><?= $registrant['tanggal_lahir'] ?></td>
+                                    <td><?= $registrant['jenis_kelamin'] ?></td>
+                                    <td><?= $registrant['agama'] ?></td>
+                                    <td><?= $registrant['alamat'] ?></td>
+                                    <td><?= $registrant['no_telepon'] ?></td>
+                                    <form action="./kelola_data" method="post">
+                                        <td>
+                                            <input type="hidden" name="id" value="<?= $registrant['id'] ?>">
+                                            <select class="form-select form-select-sm" aria-label="Small select example" name="keterangan">
+                                                <option disabled>Pilih Keterangan Peserta</option>
+                                                <option value="Diterima" <?php if ($registrant['keterangan'] == 'Diterima') echo 'selected' ?>>Diterima</option>
+                                                <option value="Tidak Diterima" <?php if ($registrant['keterangan'] == 'Tidak Diterima') echo 'selected' ?>>Tidak Diterima</option>
+                                                <option value="Sedang Diproses" <?php if ($registrant['keterangan'] == 'Sedang Diproses') echo 'selected' ?>>Sedang Diproses</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <a href="./detail_pendaftar" class="btn btn-primary btn-sm">Detail</a>
+                                            <a href="" class="btn btn-danger btn-sm">Hapus</a>
+                                            <button type="submit" class="btn btn-primary btn-sm mt-2">Perbarui</button>
+                                        </td>
+                                    </form>
+                                </tr>
                             <?php endforeach; ?>
-                            </table>
+                        </table>
                     </div>
                 </div>
 
