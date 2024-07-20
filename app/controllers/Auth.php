@@ -110,7 +110,6 @@ class Auth extends Controller
             unset($_SESSION['username']);
             unset($_SESSION['user_role']);
         }
-        session_destroy();
         header('Location: ' . MAIN_URL . 'auth/login');
         exit;
     }
