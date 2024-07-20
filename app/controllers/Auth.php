@@ -4,6 +4,13 @@ use App\Core\Controller;
 
 class Auth extends Controller
 {
+    private $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = $this->model('User');
+    }
+
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,15 +21,16 @@ class Auth extends Controller
 
             if ($user) {
                 session_start();
-
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
-                $_SESSION['nama'] = $user['nama'];
-
+                
                 if ($user['role'] === 'admin') {
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['admin_role'] = $user['role'];
+                    $_SESSION['username'] = $user['username'];
                     header('Location: ' . MAIN_URL . 'admin/dashboard');
                 } else {
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['user_role'] = $user['role'];
                     header('Location: ' . MAIN_URL . 'home/index');
                 }
 
