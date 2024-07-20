@@ -36,11 +36,13 @@ class Registration
         $this->db->bind(':agama', $agama);
         $this->db->bind(':alamat', $alamat);
         $this->db->bind(':no_telepon', $no_telepon);
+        $this->db->execute();
 
         $sql = "UPDATE users SET registered = TRUE WHERE id = :user_id";
         $this->db->query($sql);
         $this->db->bind(':user_id', $user_id);
-        $this->db->execute();
+        return $this->db->execute();
+
     }
 
     public function getAllRegistrations()
