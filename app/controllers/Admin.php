@@ -11,7 +11,7 @@ class Admin extends Controller
     {
         $this->registrationModel = $this->model('Registration');
         $this->userModel = $this->model('User');
-        
+
         session_start();
         if (isset($_SESSION['admin_id']) && $_SESSION['admin_role'] === 'admin') {
             return;
@@ -24,17 +24,20 @@ class Admin extends Controller
     public function dashboard()
     {
         $data['title'] = 'Dashboard';
+        $total_users = $this->registrationModel->getRegisteredUsersCount();
+        $data['registered_users'] = $total_users;
+        $data['percentage'] = ($total_users > 0) ? 100 : 0;
         $this->view('layout/admin_header', $data);
         $this->view('admin/dashboard', $data);
         $this->view('layout/admin_footer');
     }
-    
+
     public function kelola_data()
-    {        
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = $_POST['id'];
             $keterangan = $_POST['keterangan'];
-            
+
             if ($this->registrationModel->updateRegistrationStatus($id, $keterangan)) {
                 header('Location: ' . MAIN_URL . 'admin/kelola_data');
                 exit;
@@ -42,7 +45,7 @@ class Admin extends Controller
         }
 
         $registrations = $this->registrationModel->getAllRegistrations();
-        
+
         $data['title'] = 'Kelola Data';
         $this->view('layout/admin_header', $data);
         $this->view('admin/kelola_data', ['title' => 'Kelola Data', 'registrations' => $registrations]);
@@ -69,7 +72,7 @@ class Admin extends Controller
         $this->view('admin/info_user', $data);
         $this->view('layout/admin_footer');
     }
-    
+
     public function profil_admin()
     {
         $data['title'] = 'Profil Admin';
@@ -77,7 +80,7 @@ class Admin extends Controller
         $this->view('admin/profil_admin', $data);
         $this->view('layout/admin_footer');
     }
-    
+
     public function detail_pendaftar()
     {
         $data['title'] = 'Detail Pendaftar';

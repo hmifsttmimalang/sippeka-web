@@ -2,7 +2,7 @@
 
 use App\Core\Database;
 
-class Registration 
+class Registration
 {
     private $table = 'registrations';
     private $db;
@@ -16,16 +16,15 @@ class Registration
     }
 
     public function createRegistration(
-        $user_id, 
-        $nama, 
-        $tempat_lahir, 
-        $tanggal_lahir, 
-        $jenis_kelamin, 
-        $agama, 
+        $user_id,
+        $nama,
+        $tempat_lahir,
+        $tanggal_lahir,
+        $jenis_kelamin,
+        $agama,
         $alamat,
         $no_telepon
-    )
-    {
+    ) {
         $sql = "INSERT INTO $this->table (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, no_telepon) VALUES (:user_id, :nama, :tempat_lahir, :tanggal_lahir, :jenis_kelamin, :agama, :alamat, :no_telepon)";
         $this->db->query($sql);
         $this->db->bind(':user_id', $user_id);
@@ -42,7 +41,6 @@ class Registration
         $this->db->query($sql);
         $this->db->bind(':user_id', $user_id);
         return $this->db->execute();
-
     }
 
     public function getAllRegistrations()
@@ -60,6 +58,14 @@ class Registration
         return $this->db->count();
     }
 
+    public function getRegisteredUsersCount()
+    {
+        $sql = "SELECT COUNT(*) as count FROM $this->table";
+        $this->db->query($sql);
+        $result = $this->db->single();
+        return isset($result['count']) ? $result['count'] : 0;
+    }
+    
     public function getRegistrationByUserId($user_id)
     {
         $sql = "SELECT * FROM $this->table WHERE user_id = :user_id";
