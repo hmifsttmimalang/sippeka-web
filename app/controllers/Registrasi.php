@@ -16,7 +16,7 @@ class Registrasi extends Controller
     public function index()
     {
         session_start();
-        if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'user') {
+        if (!isset($_SESSION['user_id']) && $_SESSION['role'] !== 'user') {
             header('Location: ' . MAIN_URL . 'auth/login');
             exit;
         }
@@ -41,7 +41,10 @@ class Registrasi extends Controller
                 header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
                 exit;
             } else {
+                $data['title'] = 'Pendaftaran - SIPPEKA';
+                $this->view('layout/form_header', $data);
                 $this->view('registrasi/index', ['error' => 'Gagal menyimpan data']);
+                $this->view('layout/form_footer');
                 exit;
             }
         }
