@@ -16,7 +16,7 @@ class Registrasi extends Controller
     public function index()
     {
         session_start();
-        if (!isset($_SESSION['role']) && $_SESSION['role'] !== 'user') {
+        if ($_SESSION['role'] !== 'user') {
             header('Location: ' . MAIN_URL . 'auth/login');
             exit;
         }
