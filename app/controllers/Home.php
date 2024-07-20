@@ -8,7 +8,7 @@ class Home extends Controller
     {
         session_start();
 
-        if (isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'user') {
+        if ($_SESSION['role'] === 'user') {
             return;
         } else {
             header('Location: ' . MAIN_URL . 'auth/login');

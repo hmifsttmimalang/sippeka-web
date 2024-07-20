@@ -13,7 +13,7 @@ class Admin extends Controller
         $this->userModel = $this->model('User');
 
         session_start();
-        if (isset($_SESSION['admin_id']) && $_SESSION['admin_role'] === 'admin') {
+        if ($_SESSION['admin_role'] === 'admin') {
             return;
         } else {
             header('Location: ' . MAIN_URL . 'auth/login');
