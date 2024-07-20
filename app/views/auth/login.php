@@ -63,7 +63,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="./">SIPPEKA</a>
+                Designed by <a href="..">SIPPEKA</a>
               </div>
 
             </div>
