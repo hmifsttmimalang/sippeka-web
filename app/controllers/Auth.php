@@ -13,17 +13,16 @@ class Auth extends Controller
 
     public function login()
     {
+        session_start();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $input = $_POST['input'];
             $password = $_POST['password'];
             $userModel = $this->model('User');
             $user = $userModel->login($input, $password);
 
-            if ($user) {
-                session_start();
-                
+            if ($user) {                
                 if ($user['role'] === 'admin') {
-                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['admin_id'] = $user['id'];
                     $_SESSION['admin_role'] = $user['role'];
                     $_SESSION['username'] = $user['username'];
                     header('Location: ' . MAIN_URL . 'admin/dashboard');
@@ -102,7 +101,17 @@ class Auth extends Controller
     public function logout()
     {
         session_start();
+        if (isset($_SESSION['admin_id'])) {
+            unset($_SESSION['admin_id']);
+            unset($_SESSION['username']);
+            unset($_SESSION['admin_role']);
+        } else if (isset($_SESSION['user_id'])) {
+            unset($_SESSION['user_id']);
+            unset($_SESSION['username']);
+            unset($_SESSION['user_role']);
+        }
         session_destroy();
         header('Location: ' . MAIN_URL . 'auth/login');
+        exit;
     }
 }
