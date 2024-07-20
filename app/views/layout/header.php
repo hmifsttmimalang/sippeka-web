@@ -54,7 +54,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
       <?php if (isset( $_SESSION['username'])) : ?>
-        <a class="" href="../home/dashboard_user"><?= htmlspecialchars( $_SESSION['username']) ?></a>
+        <a class="" href="<?= MAIN_URL ?>home/dashboard_user"><?= htmlspecialchars( $_SESSION['username']) ?></a>
         <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/logout">Keluar</a>
       <?php else: ?>
         <a class="btn-getstarted" href="<?= MAIN_URL ?>auth/login">Masuk</a>
