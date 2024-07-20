@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2024 at 09:59 AM
+-- Generation Time: Jul 20, 2024 at 03:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,8 +45,9 @@ CREATE TABLE `registrations` (
 --
 
 INSERT INTO `registrations` (`id`, `user_id`, `nama`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `alamat`, `no_telepon`, `keterangan`) VALUES
-(1, 10, 'Farhan', 'Moskow', '1991-12-26', 'Laki-laki', 'Islam', 'St. Moskva', '234567890', 'Diterima'),
-(2, 11, 'Sigit', 'Padang', '2024-07-01', 'Laki-laki', 'Islam', 'Kota Padang', '1234578905', 'Tidak Diterima');
+(1, 10, 'Farhan', 'Moskow', '1991-12-26', 'Laki-laki', 'Islam', 'St. Moskva', '234567890', 'Tidak Diterima'),
+(3, 14, 'Rusdi', 'Ngawi', '1999-10-07', 'Laki-laki', 'Islam', 'Jl. Ngawi no 666', '1234567890', 'Sedang Diproses'),
+(4, 15, 'Sigit', 'Kota Malang', '1999-06-17', 'Laki-laki', 'Hindu', 'Jl. Sigura-gura no 10, Lowokwaru, Kota Malang', '9876543', 'Sedang Diproses');
 
 -- --------------------------------------------------------
 
@@ -56,21 +57,23 @@ INSERT INTO `registrations` (`id`, `user_id`, `nama`, `tempat_lahir`, `tanggal_l
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `nama` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('admin','user') NOT NULL DEFAULT 'user'
+  `role` enum('admin','user') NOT NULL DEFAULT 'user',
+  `registered` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `nama`, `username`, `email`, `password`, `role`) VALUES
-(9, 'Admin', 'admin', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 'admin'),
-(10, 'Farhan Kebab', 'farhankebab', 'farhan@sigma.com', '1ac5012170b65fb99f171ad799d045ac', 'user'),
-(11, 'Sigit', 'sigitrendang', 'sigit@sigma.com', 'd6916d248b949bb73ee7066f567151f2', 'user');
+INSERT INTO `users` (`id`, `nama`, `username`, `email`, `password`, `role`, `registered`) VALUES
+(9, 'Admin', 'admin', 'admin@admin.com', '0192023a7bbd73250516f069df18b500', 'admin', 0),
+(10, 'Farhan Kebab', 'farhankebab', 'farhan@sigma.com', '1ac5012170b65fb99f171ad799d045ac', 'user', 1),
+(14, 'Rusdi', 'rusdingawi', 'rusdi@sigma.com', 'c522afa11a4d20e9fe8ca30e6a1be2e6', 'user', 1),
+(15, 'Sigit', 'sigitrendang', 'sigit@sigma.com', 'd6916d248b949bb73ee7066f567151f2', 'user', 1);
 
 --
 -- Indexes for dumped tables
@@ -99,13 +102,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `registrations`
 --
 ALTER TABLE `registrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

@@ -32,14 +32,14 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="./peserta">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Peserta</span>
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item active">
             <a class="nav-link" href="./info_user">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Info User</span>
@@ -135,9 +135,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-3 text-gray-800 ">Data Peserta</h1>
-
-                <a href="" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
+                <h1 class="h3 mb-3 text-gray-800 ">Info User</h1>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -145,41 +143,29 @@
                             <tr>
                                 <td>No</td>
                                 <td>Nama</td>
-                                <td>Tempat Lahir</td>
-                                <td>Tanggal Lahir</td>
-                                <td>Jenis Kelamin</td>
-                                <td>Agama</td>
-                                <td>Alamat</td>
-                                <td>Nomor Telepon</td>
-                                <td>Status</td>
+                                <td>Username</td>
+                                <td>Email</td>
+                                <td>Status Pendaftaran</td>
                             </tr>
-                            <?php foreach ($data['registrations'] as $registrant) : ?>
+                            <?php $i = 1; foreach ($data['users'] as $user): ?>
                             <tr>
-                                <td><?= $i = 1; $i++ ?></td>
-                                <td><?= $registrant['nama'] ?></td>
-                                <td><?= $registrant['tempat_lahir'] ?></td>
-                                <td><?= $registrant['tanggal_lahir'] ?></td>
-                                <td><?= $registrant['jenis_kelamin'] ?></td>
-                                <td><?= $registrant['agama'] ?></td>
-                                <td><?= $registrant['alamat'] ?></td>
-                                <td><?= $registrant['no_telepon'] ?></td>
+                                <td><?= $i++; ?></td>
+                                <td><?= $user['nama'] ?></td>
+                                <td><?= $user['username'] ?></td>
+                                <td><?= $user['email'] ?></td>
                                 <td>
-                                    <?php if ($registrant['keterangan'] == 'Diterima'): ?>
-                                    <span class="badge badge-success">Diterima</span>
-                                    <?php elseif ($registrant['keterangan'] == 'Tidak Diterima'): ?>
-                                        <span class="badge badge-danger">Tidak Diterima</span>
-                                    <?php else: ?>
-                                        <span class="badge badge-warning">Sedang Diproses</span>
-                                    <?php endif; ?>
+                                <?php if ($user['registered']): ?>
+                                    <span class="badge badge-success">Terdaftar</span>
+                                <?php else: ?>
+                                    <span class="badge badge-danger">Belum Terdaftar</span>
+                                <?php endif; ?>
                                 </td>
                             </tr>
-                            <?php endforeach ?>
+                            <?php endforeach; ?>
                         </table>
                     </div>
                 </div>
-
             </div>
-
         </div>
         <!-- /.container-fluid -->
 
@@ -200,7 +186,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Yakin untuk keluar?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>

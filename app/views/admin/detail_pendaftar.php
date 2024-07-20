@@ -13,7 +13,7 @@
         <div class="sidebar-heading">Admin</div>
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="./dashboard">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -22,7 +22,7 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <li class="nav-item ">
+        <li class="nav-item active">
             <a class="nav-link" href="./kelola_data">
                 <i class="fas fa-fw fa-list"></i>
                 <span>Kelola Data Peserta</span>
@@ -32,7 +32,7 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <li class="nav-item ">
+        <li class="nav-item">
             <a class="nav-link" href="./peserta">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Peserta</span>
@@ -86,7 +86,7 @@
 
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                     <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-fw"></i>
                         </a>
                         <!-- Dropdown - Messages -->
@@ -119,7 +119,7 @@
                                 Profil
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../auth/logout" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <a class="dropdown-item" href="../auth/logout" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Keluar
                             </a>
@@ -135,55 +135,100 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-                <div class="row">
+                <h1 class="h3 mb-4 text-gray-800">Detail Pendaftar</h1>
 
-                    <!-- Card Pendaftar Masuk -->
+                <div class="row">
                     <div class="col-md-6">
-                        <div class="card border-left-info shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="h3 font-weight-bold text-info text-uppercase mb-1">
-                                            Pendaftar Masuk
-                                        </div>
-                                        <div class="h5 mt-3 font-weight-bold"><?= $data['registered_users'] ?> Orang</div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?= $data['percentage'] ?>%" aria-valuenow="<?= $data['percentage'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"><b>DATA DIRI</b></h6>
+
+                                <div class="card-body mt-3">
+                                    <div class="col-auto text-center">
+                                        <img src="assets2/img/messages-3.jpg" alt="fotoprofil" class="img-fluid rounded-circle" style="width: 200px" alt="menunggu">
                                     </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-user fa-2x text-gray-300" style="font-size: 90px;"></i>
-                                    </div>
+                                    <br>
+                                    <h5 class="text-center card-title"><b>ADI CHANDRA</b></h5>
+
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Tempat, Tangal Lahir</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">Malang, 13 September 2004</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Jenis Kelamin</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">Pria</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Agama</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">Islam</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Alamat</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">Jl.Dieng Atas Kalisongo</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Email</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">adi99@gmail.com</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Telepon</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">082236541717</h6>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card Pendaftar Lolos Seleksi -->
                     <div class="col-md-6">
-                        <div class="card border-left-success shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="h3 font-weight-bold text-success text-uppercase mb-1">
-                                            Lolos Seleksi
-                                        </div>
-                                        <div class="h5 mt-3 font-weight-bold">0 Orang</div>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col">
-                                                <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"><b>DATA NILAI PESERTA</b></h6>
+
+                                <div class="card-body mt-3">
+                                    <div class="alert alert-info">
+                                        Data peserta belum divalidasi
+                                    </div>
+                                    <br>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Keahlian</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Psikologi</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Rata-Rata</h6>
+                                            <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                        </li>
+                                    </ul>
+
+                                    <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modalvalidasi">
+                                        Validasi Data Peserta
+                                    </button>
+
+                                    <!-- Modal-->
+                                    <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Penilaian Data Peserta</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    <a href="" class="btn btn-success mr-3">LOLOS</a>
+                                                    <a href="" class="btn btn-danger">TIDAK LOLOS</a>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-user fa-2x text-gray-300" style="font-size: 90px;"></i>
                                     </div>
                                 </div>
                             </div>
@@ -191,32 +236,6 @@
                     </div>
 
                 </div>
-                <hr class="mt-3">
-                <h2 class="text-gray-800">Data Pendaftar Baru</h2>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table-bordered table-hover">
-                            <tr>
-                                <td>No</td>
-                                <td>Nama</td>
-                                <td>Alamat</td>
-                                <td>Keahlian</td>
-                                <td>Status</td>
-                            </tr>
-                            <tr>
-                                <td><?= $i = 1;
-                                    $i++ ?></td>
-                                <td>Adi Chandra</td>
-                                <td>Jl. Dieng Atas</td>
-                                <td>Web Developer</td>
-                                <td><span class="badge badge-info">Baru</span></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Content Row -->
-
 
                 <!-- /.container-fluid -->
 

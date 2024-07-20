@@ -4,25 +4,32 @@ use App\Core\Controller;
 
 class Auth extends Controller
 {
+    private $userModel;
+
+    public function __construct()
+    {
+        $this->userModel = $this->model('User');
+    }
+
     public function login()
     {
+        session_start();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $input = $_POST['input'];
             $password = $_POST['password'];
             $userModel = $this->model('User');
             $user = $userModel->login($input, $password);
 
-            if ($user) {
-                session_start();
-
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
-                $_SESSION['nama'] = $user['nama'];
-
+            if ($user) {                
                 if ($user['role'] === 'admin') {
+                    $_SESSION['admin_id'] = $user['id'];
+                    $_SESSION['admin_role'] = $user['role'];
+                    $_SESSION['username'] = $user['username'];
                     header('Location: ' . MAIN_URL . 'admin/dashboard');
                 } else {
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['username'] = $user['username'];
+                    $_SESSION['user_role'] = $user['role'];
                     header('Location: ' . MAIN_URL . 'home/index');
                 }
 
@@ -94,7 +101,16 @@ class Auth extends Controller
     public function logout()
     {
         session_start();
-        session_destroy();
+        if (isset($_SESSION['admin_id'])) {
+            unset($_SESSION['admin_id']);
+            unset($_SESSION['username']);
+            unset($_SESSION['admin_role']);
+        } else if (isset($_SESSION['user_id'])) {
+            unset($_SESSION['user_id']);
+            unset($_SESSION['username']);
+            unset($_SESSION['user_role']);
+        }
         header('Location: ' . MAIN_URL . 'auth/login');
+        exit;
     }
 }
