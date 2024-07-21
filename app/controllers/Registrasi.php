@@ -19,38 +19,47 @@ class Registrasi extends Controller
         if ($_SESSION['role'] !== 'user') {
             if ($_SESSION['user_role'] !== 'user') {
                 header('Location: ' . MAIN_URL . 'auth/login');
-                exit;
-            } else {
-                $user_id = $_SESSION['user_id'];
-                if ($this->registrationModel->hasRegistered($user_id)) {
-                    header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
+                if ($_SESSION['user_role'] !== 'user') {
+                    header('Location: ' . MAIN_URL . 'auth/login');
                     exit;
-                }
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $nama = $_POST['nama'];
-                    $tempat_lahir = $_POST['tempat_lahir'];
-                    $tanggal_lahir = $_POST['tanggal_lahir'];
-                    $jenis_kelamin = $_POST['jenis_kelamin'];
-                    $agama = $_POST['agama'];
-                    $alamat = $_POST['alamat'];
-                    $no_telepon = $_POST['no_telepon'];
-
-                    if ($this->registrationModel->createRegistration($user_id, $nama, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $agama, $alamat, $no_telepon)) {
+                } else {
+                    $user_id = $_SESSION['user_id'];
+                    if ($this->registrationModel->hasRegistered($user_id)) {
                         header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
                         exit;
                     } else {
+                        $user_id = $_SESSION['user_id'];
+                        if ($this->registrationModel->hasRegistered($user_id)) {
+                            header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
+                            exit;
+                        }
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                            $nama = $_POST['nama'];
+                            $tempat_lahir = $_POST['tempat_lahir'];
+                            $tanggal_lahir = $_POST['tanggal_lahir'];
+                            $jenis_kelamin = $_POST['jenis_kelamin'];
+                            $agama = $_POST['agama'];
+                            $alamat = $_POST['alamat'];
+                            $no_telepon = $_POST['no_telepon'];
+
+                            if ($this->registrationModel->createRegistration($user_id, $nama, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $agama, $alamat, $no_telepon)) {
+                                header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
+                                exit;
+                            } else {
+                                $data['title'] = 'Pendaftaran - SIPPEKA';
+                                $this->view('layout/form_header', $data);
+                                $this->view('registrasi/index', ['error' => 'Gagal menyimpan data']);
+                                $this->view('layout/form_footer');
+                                exit;
+                            }
+                        }
+
                         $data['title'] = 'Pendaftaran - SIPPEKA';
                         $this->view('layout/form_header', $data);
-                        $this->view('registrasi/index', ['error' => 'Gagal menyimpan data']);
+                        $this->view('registrasi/index');
                         $this->view('layout/form_footer');
-                        exit;
                     }
                 }
-
-                $data['title'] = 'Pendaftaran - SIPPEKA';
-                $this->view('layout/form_header', $data);
-                $this->view('registrasi/index');
-                $this->view('layout/form_footer');
             }
         }
     }
