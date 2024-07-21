@@ -16,11 +16,8 @@ class Registrasi extends Controller
     public function index()
     {
         session_start();
-<<<<<<< HEAD
         if ($_SESSION['role'] !== 'user') {
-=======
         if ($_SESSION['user_role'] !== 'user') {
->>>>>>> dev
             header('Location: ' . MAIN_URL . 'auth/login');
             exit;
         } else {
@@ -57,11 +54,12 @@ class Registrasi extends Controller
         }
     }
 
-    public function terdaftar()
+    function terdaftar()
     {
         $data['title'] = 'Pendaftaran - SIPPEKA';
         $this->view('layout/form_header', $data);
         $this->view('registrasi/terdaftar', ['success' => 'Anda telah terdaftar']);
         $this->view('layout/form_footer');
     }
+}
 }
