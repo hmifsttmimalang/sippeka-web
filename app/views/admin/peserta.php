@@ -137,6 +137,7 @@
                 <!-- Page Heading -->
                 <h1 class="h3 mb-3 text-gray-800 ">Data Peserta</h1>
 
+                <?php if (!empty($data['registrations'])) : ?>
                 <a href="" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
 
                 <div class="row">
@@ -175,6 +176,9 @@
                             </tr>
                             <?php endforeach ?>
                         </table>
+                        <?php else: ?>
+                            <p class="text-center h4 mb-4 text-gray-900">Tidak ada data</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 

@@ -195,6 +195,7 @@
                 <h2 class="text-gray-800">Data Pendaftar Baru</h2>
                 <div class="row">
                     <div class="col-md-12">
+                        <?php if (!empty($data['registrations'])) : ?>
                         <table class="table table-bordered table-hover">
                             <tr>
                                 <td>No</td>
@@ -230,6 +231,9 @@
                                 </tr>
                             <?php endforeach ?>
                         </table>
+                        <?php else : ?>
+                            <h5 class="text-center p-5">Tidak ada data</h5>
+                        <?php endif; ?>
                     </div>
                 </div>
 
