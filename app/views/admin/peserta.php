@@ -153,9 +153,9 @@
                                 <td>Nomor Telepon</td>
                                 <td>Status</td>
                             </tr>
-                            <?php foreach ($data['registrations'] as $registrant) : ?>
+                            <?php $i = 1; foreach ($data['registrations'] as $registrant) : ?>
                             <tr>
-                                <td><?= $i = 1; $i++ ?></td>
+                                <td><?= $i++ ?></td>
                                 <td><?= $registrant['nama'] ?></td>
                                 <td><?= $registrant['tempat_lahir'] ?></td>
                                 <td><?= $registrant['tanggal_lahir'] ?></td>
