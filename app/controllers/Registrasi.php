@@ -16,7 +16,7 @@ class Registrasi extends Controller
     public function index()
     {
         session_start();
-        if ($_SESSION['role'] !== 'user') {
+        if ($_SESSION['user_id'] || $_SESSION['role'] !== 'user') {
             if ($_SESSION['user_role'] !== 'user') {
                 header('Location: ' . MAIN_URL . 'auth/login');
                 exit;
@@ -54,7 +54,7 @@ class Registrasi extends Controller
             }
         }
     }
-    
+
     public function terdaftar()
     {
         $data['title'] = 'Pendaftaran - SIPPEKA';
