@@ -139,30 +139,35 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <table class="table table-bordered table-hover">
-                            <tr>
-                                <td>No</td>
-                                <td>Nama</td>
-                                <td>Username</td>
-                                <td>Email</td>
-                                <td>Status Pendaftaran</td>
-                            </tr>
-                            <?php $i = 1; foreach ($data['users'] as $user): ?>
-                            <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= $user['nama'] ?></td>
-                                <td><?= $user['username'] ?></td>
-                                <td><?= $user['email'] ?></td>
-                                <td>
-                                <?php if ($user['registered']): ?>
-                                    <span class="badge badge-success">Terdaftar</span>
-                                <?php else: ?>
-                                    <span class="badge badge-danger">Belum Terdaftar</span>
-                                <?php endif; ?>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </table>
+                        <?php if (!empty($data['users'])) : ?>
+                            <table class="table table-bordered table-hover">
+                                <tr>
+                                    <td>No</td>
+                                    <td>Nama</td>
+                                    <td>Username</td>
+                                    <td>Email</td>
+                                    <td>Status Pendaftaran</td>
+                                </tr>
+                                <?php $i = 1;
+                                foreach ($data['users'] as $user) : ?>
+                                    <tr>
+                                        <td><?= $i++; ?></td>
+                                        <td><?= $user['nama'] ?></td>
+                                        <td><?= $user['username'] ?></td>
+                                        <td><?= $user['email'] ?></td>
+                                        <td>
+                                            <?php if ($user['registered']) : ?>
+                                                <span class="badge badge-success">Terdaftar</span>
+                                            <?php else : ?>
+                                                <span class="badge badge-danger">Belum Terdaftar</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </table>
+                        <?php else : ?>
+                            <p class="h4 text-center text-gray-900 mb-4">Tidak ada data</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

@@ -139,6 +139,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
+                        <?php if (!empty($data['registrations'])) : ?>
                         <table class="table table-bordered table-hover">
                             <tr>
                                 <td>No</td>
@@ -182,6 +183,9 @@
                                 </tr>
                             <?php endforeach; ?>
                         </table>
+                        <?php else : ?>
+                            <p class="text-center h4 text-gray-900 mb-4">Tidak ada data</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
