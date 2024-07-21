@@ -90,4 +90,10 @@ class Database
         $this->execute();
         return $this->stmt->fetchColumn() > 0;
     }
+
+    public function rowCount()
+    {
+        $this->execute();
+        return $this->stmt->fetchColumn();
+    }
 }
