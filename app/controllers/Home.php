@@ -4,7 +4,6 @@ use App\Core\Controller;
 
 class Home extends Controller
 {
-<<<<<<< HEAD
     public function __construct()
     {
         session_start();
@@ -17,8 +16,6 @@ class Home extends Controller
         }
     }
 
-=======
->>>>>>> dev
     public function index()
     {
         session_start();
