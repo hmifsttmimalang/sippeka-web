@@ -7,15 +7,10 @@ class Home extends Controller
     public function index()
     {
         session_start();
-        if ($_SESSION['user_role'] === 'user') {
-            $data['title'] = 'Halaman Utama';
-            $this->view('layout/header', $data);
-            $this->view('home/index');
-            $this->view('layout/footer');
-        } else {
-            header('Location: ' . MAIN_URL . 'auth/login');
-            exit;
-        }
+        $data['title'] = 'Halaman Utama';
+        $this->view('layout/header', $data);
+        $this->view('home/index');
+        $this->view('layout/footer');
     }
 
     public function dashboard_user()
