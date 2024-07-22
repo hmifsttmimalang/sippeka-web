@@ -35,14 +35,22 @@ class Registrasi extends Controller
                     $alamat = $_POST['alamat'];
                     $no_telepon = $_POST['no_telepon'];
 
-                    if ($this->registrationModel->createRegistration($user_id, $nama, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $agama, $alamat, $no_telepon)) {
-                        header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
-                        exit;
-                    } else {
+                    if (!$this->registrationModel->createRegistration(
+                        $user_id, 
+                        $nama, 
+                        $tempat_lahir, 
+                        $tanggal_lahir, 
+                        $jenis_kelamin, 
+                        $agama, 
+                        $alamat, 
+                        $no_telepon)) {
                         $data['title'] = 'Pendaftaran - SIPPEKA';
                         $this->view('layout/form_header', $data);
                         $this->view('registrasi/index', ['error' => 'Gagal menyimpan data']);
                         $this->view('layout/form_footer');
+                        exit;
+                    } else {
+                        header('Location: ' . MAIN_URL . 'registrasi/terdaftar');
                         exit;
                     }
                 }

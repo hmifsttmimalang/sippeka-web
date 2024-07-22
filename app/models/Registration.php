@@ -65,7 +65,14 @@ class Registration
         $result = $this->db->single();
         return isset($result['count']) ? $result['count'] : 0;
     }
-    
+
+    public function getPassedUsersCount()
+    {
+        $sql = "SELECT COUNT(DISTINCT user_id) FROM $this->table WHERE keterangan = 'Diterima'";
+        $this->db->query($sql);
+        return $this->db->rowCount();
+    }
+
     public function getRegistrationByUserId($user_id)
     {
         $sql = "SELECT * FROM $this->table WHERE user_id = :user_id";

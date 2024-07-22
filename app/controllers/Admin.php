@@ -23,10 +23,19 @@ class Admin extends Controller
 
     public function dashboard()
     {
+        $registrations = $this->registrationModel->getAllRegistrations();
+        $data['registrations'] = $registrations;
         $data['title'] = 'Dashboard';
         $total_users = $this->registrationModel->getRegisteredUsersCount();
         $data['registered_users'] = $total_users;
-        $data['percentage'] = ($total_users > 0) ? 100 : 0;
+
+        $passed_users = $this->registrationModel->getPassedUsersCount();
+        $percentage = ($total_users > 0) ? ($passed_users / $total_users) * 100 : 0;
+
+        $data['passed_users'] = $passed_users;
+        $data['total_registered'] = ($total_users > 0) ? 100 : 0;
+        $data['percentage'] = $percentage;
+        
         $this->view('layout/admin_header', $data);
         $this->view('admin/dashboard', $data);
         $this->view('layout/admin_footer');

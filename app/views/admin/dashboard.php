@@ -151,7 +151,7 @@
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?= $data['percentage'] ?>%" aria-valuenow="<?= $data['percentage'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-info" role="progressbar" style="width: <?= $data['total_registered'] ?>%" aria-valuenow="<?= $data['total_registered'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,11 +173,11 @@
                                         <div class="h3 font-weight-bold text-success text-uppercase mb-1">
                                             Lolos Seleksi
                                         </div>
-                                        <div class="h5 mt-3 font-weight-bold">0 Orang</div>
+                                        <div class="h5 mt-3 font-weight-bold"><?= $data['passed_users'] ?> Orang</div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col">
                                                 <div class="progress progress-sm mr-2">
-                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: <?= $data['percentage'] ?>%" aria-valuenow="<?= $data['percentage'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,23 +195,45 @@
                 <h2 class="text-gray-800">Data Pendaftar Baru</h2>
                 <div class="row">
                     <div class="col-md-12">
+                        <?php if (!empty($data['registrations'])) : ?>
                         <table class="table table-bordered table-hover">
                             <tr>
                                 <td>No</td>
                                 <td>Nama</td>
+                                <td>Tempat Lahir</td>
+                                <td>Tanggal Lahir</td>
+                                <td>Jenis Kelamin</td>
+                                <td>Agama</td>
                                 <td>Alamat</td>
-                                <td>Keahlian</td>
+                                <td>Nomor Telepon</td>
                                 <td>Status</td>
                             </tr>
-                            <tr>
-                                <td><?= $i = 1;
-                                    $i++ ?></td>
-                                <td>Adi Chandra</td>
-                                <td>Jl. Dieng Atas</td>
-                                <td>Web Developer</td>
-                                <td><span class="badge badge-info">Baru</span></td>
-                            </tr>
+                            <?php $i = 1;
+                            foreach ($data['registrations'] as $registrant) : ?>
+                                <tr>
+                                    <td><?= $i++ ?></td>
+                                    <td><?= $registrant['nama'] ?></td>
+                                    <td><?= $registrant['tempat_lahir'] ?></td>
+                                    <td><?= $registrant['tanggal_lahir'] ?></td>
+                                    <td><?= $registrant['jenis_kelamin'] ?></td>
+                                    <td><?= $registrant['agama'] ?></td>
+                                    <td><?= $registrant['alamat'] ?></td>
+                                    <td><?= $registrant['no_telepon'] ?></td>
+                                    <td>
+                                        <?php if ($registrant['keterangan'] == 'Diterima') : ?>
+                                            <span class="badge badge-success">Diterima</span>
+                                        <?php elseif ($registrant['keterangan'] == 'Tidak Diterima') : ?>
+                                            <span class="badge badge-danger">Tidak Diterima</span>
+                                        <?php else : ?>
+                                            <span class="badge badge-warning">Sedang Diproses</span>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
                         </table>
+                        <?php else : ?>
+                            <h5 class="text-center p-5">Tidak ada data</h5>
+                        <?php endif; ?>
                     </div>
                 </div>
 
