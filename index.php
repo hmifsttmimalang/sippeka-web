@@ -37,6 +37,11 @@ function route($uri) {
 
         // admin
         '/admin' => 'AdminController@index',
+        '/admin/kelola_data' => 'AdminController@kelolaData',
+        '/admin/peserta' => 'AdminController@peserta',
+        '/admin/info_user' => 'AdminController@infoUser',
+
+        // admin->keahlian
 
 
         // seleksi peserta
