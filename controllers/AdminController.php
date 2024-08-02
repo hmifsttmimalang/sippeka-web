@@ -55,10 +55,10 @@ class AdminController
     // kelas keahlian
     public function kelasKeahlian()
     {
-
+        include 'views/admin/kelas_keahlian/kelas_keahlian.php';
     }
 
-    public function TambahKelasKeahlian()
+    public function tambahKelasKeahlian()
     {
 
     }
