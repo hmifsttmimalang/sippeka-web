@@ -80,7 +80,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
                         <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
