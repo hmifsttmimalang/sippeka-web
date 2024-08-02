@@ -84,6 +84,16 @@ class AdminController
 
     }
 
+    public function tambahSoalTesKeahlian()
+    {
+
+    }
+
+    public function importSoalTesKeahlian()
+    {
+        
+    }
+
     public function ubahTesKeahlian()
     {
 
