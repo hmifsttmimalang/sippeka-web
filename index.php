@@ -48,13 +48,16 @@ function route($uri) {
         '/admin/mata_soal_keahlian/hapus_keahlian' => 'AdminController@hapusSoalKeahlian',
 
         // admin->kelas_keahlian
-
+        '/admin/kelas_keahlian' => 'AdminController@kelasKeahlian',
+        '/admin/kelas_keahlian/tambah_kelas_keahlian' => 'AdminController@tambahKelasKeahlian',
+        '/admin/kelas_keahlian/edit_kelas_keahlian' => 'AdminController@ubahKelasKeahlian',
+        '/admin/kelas_keahlian/hapus_kelas_keahlian' => 'AdminController@hapusKelasKeahlian',
 
         // admin->tes_keahlian
 
 
         // admin->sesi_keahlian
-        
+
 
         // seleksi peserta
 

@@ -60,12 +60,12 @@ class AdminController
 
     public function tambahKelasKeahlian()
     {
-
+        include 'views/admin/kelas_keahlian/tambah_kelas_keahlian.php';
     }
-
+    
     public function ubahKelasKeahlian()
     {
-
+        include 'views/admin/kelas_keahlian/edit_kelas_keahlian.php';
     }
 
     public function hapusKelasKeahlian()

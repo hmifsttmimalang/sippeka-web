@@ -177,7 +177,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Kelas Keahlian</h1>
 
-                    <a href="tambah_kelas_keahlian.php" class="btn btn-primary btn-sm">Tambah</a>
+                    <a href="/admin/kelas_keahlian/tambah_kelas_keahlian" class="btn btn-primary btn-sm">Tambah</a>
                     
                     <!-- Search Bar -->
                      <div class="d-flex justify-content-between">
@@ -202,7 +202,7 @@
                                         <td>1</td>
                                         <td>Android Developer</td>
                                         <td>
-                                          <a href="edit_kelas_keahlian.php" class="btn btn-primary btn-sm">Edit</a>
+                                          <a href="/admin/kelas_keahlian/edit_kelas_keahlian" class="btn btn-primary btn-sm">Edit</a>
                                           <a href="" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
