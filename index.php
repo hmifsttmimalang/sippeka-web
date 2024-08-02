@@ -42,7 +42,19 @@ function route($uri) {
         '/admin/info_user' => 'AdminController@infoUser',
 
         // admin->keahlian
+        '/admin/mata_soal_keahlian' => 'AdminController@soalKeahlian',
+        '/admin/mata_soal_keahlian/tambah_mata_keahlian' => 'AdminController@tambahSoalKeahlian',
+        '/admin/mata_soal_keahlian/edit_keahlian' => 'AdminController@ubahSoalKeahlian',
+        '/admin/mata_soal_keahlian/hapus_keahlian' => 'AdminController@hapusSoalKeahlian',
 
+        // admin->kelas_keahlian
+
+
+        // admin->tes_keahlian
+
+
+        // admin->sesi_keahlian
+        
 
         // seleksi peserta
 

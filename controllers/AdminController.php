@@ -34,20 +34,20 @@ class AdminController
 
     public function soalKeahlian()
     {
-
+        include 'views/admin/mata_keahlian/mata_soal_keahlian.php';
     }
 
-    public function TambahSoalKeahlian()
+    public function tambahSoalKeahlian()
     {
-
+        include 'views/admin/mata_keahlian/tambah_mata_keahlian.php';
     }
 
-    public function UbahSoalKeahlian()
+    public function ubahSoalKeahlian()
     {
-
+        include 'views/admin/mata_keahlian/edit_keahlian.php';
     }
 
-    public function HapusSoalKeahlian()
+    public function hapusSoalKeahlian()
     {
 
     }
@@ -58,14 +58,59 @@ class AdminController
 
     }
 
+    public function TambahKelasKeahlian()
+    {
+
+    }
+
+    public function ubahKelasKeahlian()
+    {
+
+    }
+
+    public function hapusKelasKeahlian()
+    {
+
+    }
+
     // tes keahlian
     public function tesKeahlian()
     {
 
     }
 
+    public function tambahTesKeahlian()
+    {
+
+    }
+
+    public function ubahTesKeahlian()
+    {
+
+    }
+
+    public function hapusTesKeahlian()
+    {
+
+    }
+
     // sesi keahlian
     public function sesiKeahlian()
+    {
+
+    }
+
+    public function tambahSesiKeahlian()
+    {
+
+    }
+
+    public function ubahSesiKeahlian()
+    {
+
+    }
+
+    public function hapusSesiKeahlian()
     {
 
     }
