@@ -38,6 +38,20 @@ class AuthController {
         }
     }
 
+    // otentikasi untuk login seleksi
+    public function loginSeleksi() {
+        $identifier = $_POST['identifier'];
+        $password = $_POST['password'];
+
+        $user = $this->user->login($identifier, $password);
+        if ($user) {
+            $_SESSION['user'] = $user;
+            header('Location: /seleksi_peserta');
+        } else {
+            echo 'Login failed!';
+        }
+    }
+
     public function register() {
         $username = $_POST['username'];
         $email = $_POST['email'];

@@ -180,7 +180,7 @@ include '../../controllers/AuthController.php';
                             masuk ke sesi tes Keahlian!
                         </p>
 
-                        <form class="user" action="/auth/login" method="post">
+                        <form class="user" action="/auth/login_seleksi" method="post">
                             <div class="form-group">
                                 <label for="nilai_tes">Username atau Email</label>
                                 <input type="text" name="identifier" class="form-control" id="nilai_tes" placeholder="Masukkan username atau email">

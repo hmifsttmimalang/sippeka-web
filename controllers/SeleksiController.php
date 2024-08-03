@@ -7,8 +7,8 @@ class SeleksiController
 
     }
 
-    public function tes_seleksi()
+    public function tesSeleksi()
     {
-        
+        include 'views/tes_seleksi/tes_seleksi_peserta.php';   
     }
 }

@@ -24,6 +24,9 @@ function route($uri) {
         '/auth/register' => 'AuthController@register',
         '/logout' => 'AuthController@logout',
 
+        // otentikasi untuk masuk seleksi
+        '/auth/login_seleksi' => 'AuthController@loginSeleksi',
+
         // pendaftaran
         '/pendaftaran' => 'RegistrationController@index',
         '/pendaftaran/proses' => 'RegistrationController@register',
@@ -34,6 +37,8 @@ function route($uri) {
         '/user/tes_seleksi' => 'UserController@showSeleksi',
         '/user/edit_profil' => 'UserController@editProfil',
 
+        // seleksi peserta
+        '/seleksi_peserta' => 'SeleksiController@tesSeleksi',
 
         // admin
         '/admin' => 'AdminController@index',
@@ -71,10 +76,6 @@ function route($uri) {
         '/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian' => 'AdminController@tambahSesiTesKeahlian',
         '/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian' => 'AdminController@editSesiTesKeahlian',
         '/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian' => 'AdminController@hapusSesiTesKeahlian',
-
-        // seleksi peserta
-
-
     ];
 
     return $routes[$uri] ?? null;
