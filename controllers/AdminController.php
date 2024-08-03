@@ -76,30 +76,49 @@ class AdminController
     // tes keahlian
     public function tesKeahlian()
     {
-
+        include 'views/admin/tes_keahlian/tes_keahlian.php';
     }
 
     public function tambahTesKeahlian()
     {
-
+        include 'views/admin/tes_keahlian/tambah_soal_keahlian.php';
     }
 
+    public function detailUjian()
+    {
+        include 'views/admin/tes_keahlian/detail_ujian.php';   
+    }
+    
+    public function editTesKeahlian()
+    {
+        include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
+    }
+    
+    public function hapusTesKeahlian()
+    {
+        include '';   
+    }
+    
+    
+    // tambah soal tes
     public function tambahSoalTesKeahlian()
     {
-
+        include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';   
     }
-
+    
     public function importSoalTesKeahlian()
     {
-        
+        include 'views/admin/tes_keahlian/import_soal_tes.php';
     }
 
-    public function ubahTesKeahlian()
+    // edit soal tes
+    public function editSoalTesKeahlian()
     {
-
+        include 'views/admin/tes_keahlian/edit_detail_tes.php';
     }
 
-    public function hapusTesKeahlian()
+    // hapus soal tes
+    public function hapusSoalTesKeahlian()
     {
 
     }

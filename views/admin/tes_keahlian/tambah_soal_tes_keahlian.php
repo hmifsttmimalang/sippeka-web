@@ -12,12 +12,12 @@
     <title>SIPPEKA Administrator - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="assets3/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="assets3/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
@@ -37,7 +37,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -48,7 +48,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="dashboard_admin.php">
+                <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -57,21 +57,21 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="kelola_data.php">
+                <a class="nav-link" href="/admin/kelola_data">
                   <i class="fas fa-fw fa-list"></i>
                   <span>Kelola Data Peserta</span>
               </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="peserta.php">
+                <a class="nav-link" href="/admin/peserta">
                   <i class="fas fa-fw fa-user"></i>
                   <span>Peserta</span>
               </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="info_user.php">
+                <a class="nav-link" href="/admin/info_user">
                   <i class="fas fa-fw fa-user"></i>
                   <span>Info User</span>
               </a>
@@ -81,17 +81,17 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="kelola_data.php" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                   <i class="fas fa-fw fa-list"></i>
                   <span>Keahlian</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="mata_soal_keahlian.php">Mata Soal Keahlian</a>
-                    <a class="collapse-item" href="kelas_keahlian.php">Kelas Keahlian</a>
-                    <a class="collapse-item active" href="tes_keahlian.php">Tes Keahlian</a>
-                    <a class="collapse-item" href="sesi_tes_keahlian.php">Sesi Tes Keahlian</a>
+                    <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                    <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                    <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
+                    <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                 </div>
             </li>
 
@@ -99,9 +99,9 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-fw fa-sign-out-alt"></i>
-                  <span>Logout</span>
+                  <span>Keluar</span>
                 </a>
             </li>
 
@@ -165,19 +165,19 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                                 <img class="img-profile rounded-circle"
-                                    src="assets3/img/undraw_profile.svg">
+                                    src="../../../assets/admin/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Profil
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Keluar
                                 </a>
                             </div>
                         </li>
@@ -263,7 +263,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                    <a href="detail_ujian.php" class="btn btn-primary">
+                                    <a href="/admin/tes_keahlian/detail_ujian" class="btn btn-primary">
                                         Simpan
                                     </a>
                                     <a href="" class="btn btn-primary">
@@ -305,31 +305,31 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Pilih "Logout" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
+                <div class="modal-body">Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Keluar</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="assets3/vendor/jquery/jquery.min.js"></script>
-    <script src="assets3/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="assets3/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assets3/js/sb-admin-2.min.js"></script>
+    <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="assets3/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="assets3/js/demo/chart-area-demo.js"></script>
-    <script src="assets3/js/demo/chart-pie-demo.js"></script>
+    <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
+    <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

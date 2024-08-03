@@ -54,7 +54,15 @@ function route($uri) {
         '/admin/kelas_keahlian/hapus_kelas_keahlian' => 'AdminController@hapusKelasKeahlian',
 
         // admin->tes_keahlian
-
+        '/admin/tes_keahlian' => 'AdminController@tesKeahlian',
+        '/admin/tes_keahlian/tambah_soal_keahlian' => 'AdminController@tambahTesKeahlian',
+        '/admin/tes_keahlian/edit_soal_keahlian' => 'AdminController@editTesKeahlian',
+        '/admin/tes_keahlian/hapus_tes_keahlian' => 'AdminController@hapusTesKeahlian',
+        '/admin/tes_keahlian/detail_ujian' => 'AdminController@detailUjian',
+        '/admin/tes_keahlian/detail_ujian/tambah_soal_tes_keahlian' => 'AdminController@tambahSoalTesKeahlian',
+        '/admin/tes_keahlian/detail_ujian/import_soal_tes_keahlian' => 'AdminController@importSoalTesKeahlian',
+        '/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian' => 'AdminController@editSoalTesKeahlian',
+        '/admin/tes_keahlian/detail_ujian/hapus_soal_tes_keahlian' => 'AdminController@hapusSoalTesKeahlian',
 
         // admin->sesi_keahlian
 

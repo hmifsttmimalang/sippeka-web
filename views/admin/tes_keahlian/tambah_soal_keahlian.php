@@ -37,7 +37,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -48,7 +48,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="dashboard_admin.php">
+                <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -57,21 +57,21 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="kelola_data.php">
+                <a class="nav-link" href="/admin/kelola_data">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="peserta.php">
+                <a class="nav-link" href="/admin/peserta">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="info_user.php">
+                <a class="nav-link" href="/admin/info_user">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Info User</span>
                 </a>
@@ -81,16 +81,16 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="kelola_data.php" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Keahlian</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="mata_soal_keahlian.php">Mata Soal Keahlian</a>
-                        <a class="collapse-item" href="kelas_keahlian.php">Kelas Keahlian</a>
-                        <a class="collapse-item active" href="tes_keahlian.php">Tes Keahlian</a>
-                        <a class="collapse-item" href="sesi_tes_keahlian.php">Sesi Tes Keahlian</a>
+                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
+                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
             </li>
 
@@ -98,9 +98,9 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
-                    <span>Logout</span>
+                    <span>Keluar</span>
                 </a>
             </li>
 
@@ -164,12 +164,12 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Profil
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Keluar
                                 </a>
                             </div>
                         </li>
@@ -183,7 +183,7 @@
                 <div class="container-fluid">
 
                     <!-- Button Kembali -->
-                    <a href="tes_keahlian.php" class="btn btn-primary btn-sm mb-6">Kembali</a>
+                    <a href="/admin/tes_keahlian" class="btn btn-primary btn-sm mb-6">Kembali</a>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
@@ -302,10 +302,10 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Pilih "Logout" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
+                <div class="modal-body">Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Keluar</a>
                 </div>
             </div>
         </div>
