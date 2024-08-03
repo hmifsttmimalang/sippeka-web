@@ -30,6 +30,11 @@ class AdminController
         include 'views/admin/info_user.php';
     }
 
+    public function detailPendaftar ()
+    {
+        include 'views/admin/detail_pendaftar.php';
+    }
+
     // halaman soal keahlian
 
     public function soalKeahlian()
@@ -96,7 +101,7 @@ class AdminController
     
     public function hapusTesKeahlian()
     {
-        include '';   
+
     }
     
     

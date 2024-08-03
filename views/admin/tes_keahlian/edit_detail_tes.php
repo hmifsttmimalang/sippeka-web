@@ -43,7 +43,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-              Admin
+                Admin
             </div>
 
             <!-- Nav Item - Dashboard -->
@@ -56,42 +56,42 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link" href="/admin/kelola_data">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Kelola Data Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Kelola Data Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/peserta">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/info_user">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Info User</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Info User</span>
+                </a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Keahlian</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                    <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
-                    <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
-                </div>
+                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Keahlian</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
+                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                    </div>
             </li>
 
             <!-- Divider -->
@@ -99,8 +99,8 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-fw fa-sign-out-alt"></i>
-                  <span>Keluar</span>
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Keluar</span>
                 </a>
             </li>
 
@@ -299,7 +299,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yakin untuk keluar?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

@@ -12,11 +12,11 @@
     <title>SIPPEKA Administrator - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="assets3/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="assets3/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -142,7 +142,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                                 <img class="img-profile rounded-circle"
-                                    src="assets3/img/undraw_profile.svg">
+                                    src="../../../assets/admin/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -178,7 +178,7 @@
                 
                                 <div class="card-body mt-3">
                                     <div class="col-auto text-center">
-                                        <img src="assets2/img/messages-3.jpg" alt="fotoprofil" class="img-fluid rounded-circle"
+                                        <img src="../../../assets/profile/img/messages-3.jpg" alt="fotoprofil" class="img-fluid rounded-circle"
                                         style="width: 200px" alt="menunggu">
                                     </div>
                                 <br>
@@ -315,21 +315,21 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="assets3/vendor/jquery/jquery.min.js"></script>
-    <script src="assets3/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="assets3/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assets3/js/sb-admin-2.min.js"></script>
+    <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="assets3/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="assets3/js/demo/chart-area-demo.js"></script>
-    <script src="assets3/js/demo/chart-pie-demo.js"></script>
+    <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
+    <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

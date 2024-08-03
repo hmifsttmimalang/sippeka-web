@@ -212,7 +212,7 @@
                                         <td></td>
                                         <td><span class="badge badge-info">Baru</span></td>
                                         <td>
-                                            <a href="/admin/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
+                                            <a href="/admin/kelola_data/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
                                             <a href="" class="btn btn-danger btn-sm">Hapus</a>
                                             <a href="" class="btn btn-primary btn-sm">Update</a>
                                         </td>
