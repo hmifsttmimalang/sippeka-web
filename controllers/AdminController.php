@@ -124,22 +124,27 @@ class AdminController
     }
 
     // sesi keahlian
-    public function sesiKeahlian()
+    public function sesiTesKeahlian()
     {
-
+        include 'views/admin/sesi_keahlian/sesi_tes_keahlian.php';
     }
 
-    public function tambahSesiKeahlian()
+    public function detailSesiTesKeahlian()
     {
-
+        include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
     }
 
-    public function ubahSesiKeahlian()
+    public function tambahSesiTesKeahlian()
     {
-
+        include 'views/admin/sesi_keahlian/tambah_sesi_keahlian.php';
     }
 
-    public function hapusSesiKeahlian()
+    public function editSesiTesKeahlian()
+    {
+        include 'views/admin/sesi_keahlian/edit_sesi_keahlian.php';
+    }
+
+    public function hapusSesiTesKeahlian()
     {
 
     }

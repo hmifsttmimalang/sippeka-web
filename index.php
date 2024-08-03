@@ -65,7 +65,11 @@ function route($uri) {
         '/admin/tes_keahlian/detail_ujian/hapus_soal_tes_keahlian' => 'AdminController@hapusSoalTesKeahlian',
 
         // admin->sesi_keahlian
-
+        '/admin/sesi_tes_keahlian' => 'AdminController@sesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian' => 'AdminController@detailSesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian' => 'AdminController@tambahSesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian' => 'AdminController@editSesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian' => 'AdminController@hapusSesiTesKeahlian',
 
         // seleksi peserta
 
