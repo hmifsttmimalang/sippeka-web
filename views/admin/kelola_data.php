@@ -29,7 +29,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -212,7 +212,7 @@
                                         <td></td>
                                         <td><span class="badge badge-info">Baru</span></td>
                                         <td>
-                                            <a href="detail_pendaftar.php" class="btn btn-info btn-sm">Cek</a>
+                                            <a href="/admin/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
                                             <a href="" class="btn btn-danger btn-sm">Hapus</a>
                                             <a href="" class="btn btn-primary btn-sm">Update</a>
                                         </td>
@@ -227,7 +227,7 @@
                                         <td></td>
                                         <td><span class="badge badge-info">Baru</span></td>
                                         <td>
-                                            <a href="detail_pendaftar.php" class="btn btn-info btn-sm">Cek</a>
+                                            <a href="/admin/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
                                             <a href="" class="btn btn-danger btn-sm">Hapus</a>
                                             <a href="" class="btn btn-primary btn-sm">Update</a>
                                         </td>
@@ -242,7 +242,7 @@
                                         <td></td>
                                         <td><span class="badge badge-info">Baru</span></td>
                                         <td>
-                                            <a href="detail_pendaftar.php" class="btn btn-info btn-sm">Cek</a>
+                                            <a href="/admin/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
                                             <a href="" class="btn btn-danger btn-sm">Hapus</a>
                                             <a href="" class="btn btn-primary btn-sm">Update</a>
                                         </td>

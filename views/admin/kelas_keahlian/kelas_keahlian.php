@@ -29,7 +29,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -210,7 +210,7 @@
                                         <td>2</td>
                                         <td>Backend Developer</td>
                                         <td>
-                                          <a href="edit_kelas_keahlian.php" class="btn btn-primary btn-sm">Edit</a>
+                                          <a href="" class="btn btn-primary btn-sm">Edit</a>
                                           <a href="" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
@@ -218,7 +218,7 @@
                                         <td>3</td>
                                         <td>Web Developer</td>
                                         <td>
-                                            <a href="edit_kelas_keahlian.php" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
                                             <a href="" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>

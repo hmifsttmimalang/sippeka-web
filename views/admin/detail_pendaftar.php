@@ -29,7 +29,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard_admin.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -40,7 +40,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="dashboard_admin.php">
+                <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -49,7 +49,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item active">
-                <a class="nav-link" href="kelola_data.php">
+                <a class="nav-link" href="/admin/kelola_data">
                   <i class="fas fa-fw fa-list"></i>
                   <span>Kelola Data Peserta</span>
               </a>
@@ -59,14 +59,14 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="peserta.php">
+                <a class="nav-link" href="/admin/peserta">
                   <i class="fas fa-fw fa-user"></i>
                   <span>Peserta</span>
               </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="info_user.php">
+                <a class="nav-link" href="/admin/info_user">
                   <i class="fas fa-fw fa-user"></i>
                   <span>Info User</span>
               </a>
@@ -76,7 +76,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-fw fa-sign-out-alt"></i>
                   <span>Logout</span>
                 </a>
@@ -152,7 +152,7 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -308,7 +308,7 @@
                 <div class="modal-body">Pilih "Logout" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
