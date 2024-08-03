@@ -110,7 +110,7 @@
             <button class="btn btn-light">10</button>
           </div>
           <hr class="sidebar-divider"> 
-          <button class="btn btn-danger btn-block">Akhiri Ujian</button>
+          <a class="btn btn-danger btn-block" href="/user">Akhiri Ujian</a>
         </div>
       </div>
     </div>
