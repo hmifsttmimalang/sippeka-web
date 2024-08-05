@@ -13,7 +13,8 @@ spl_autoload_register(function ($class_name) {
 });
 
 // Function to handle routing
-function route($uri) {
+function route($uri)
+{
     $routes = [
         '/' => 'HomeController@index',
 
@@ -62,8 +63,8 @@ function route($uri) {
         // admin->kelas_keahlian
         '/admin/kelas_keahlian' => 'AdminController@kelasKeahlian',
         '/admin/kelas_keahlian/tambah_kelas_keahlian' => 'AdminController@tambahKelasKeahlian',
-        '/admin/kelas_keahlian/edit_kelas_keahlian' => 'AdminController@ubahKelasKeahlian',
-        '/admin/kelas_keahlian/hapus_kelas_keahlian' => 'AdminController@hapusKelasKeahlian',
+        '/admin/kelas_keahlian/edit_kelas_keahlian/(\d+)' => 'AdminController@ubahKelasKeahlian',
+        '/admin/kelas_keahlian/hapus_kelas_keahlian/(\d+)' => 'AdminController@hapusKelasKeahlian',
 
         // admin->tes_keahlian
         '/admin/tes_keahlian' => 'AdminController@tesKeahlian',
@@ -84,17 +85,30 @@ function route($uri) {
         '/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian' => 'AdminController@hapusSesiTesKeahlian',
     ];
 
+    // Menggunakan regex untuk menangani parameter {id}
+    foreach ($routes as $route => $action) {
+        $pattern = str_replace(['{id}'], ['(\d+)'], $route);
+        if (preg_match("#^$pattern$#", $uri, $matches)) {
+            array_shift($matches);
+            return [$action, $matches];
+        }
+    }
+
     return $routes[$uri] ?? null;
 }
 
-// Get the request URI
+
 $request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$route = route($request_uri);
+list($route, $params) = route($request_uri);
 
 if ($route) {
     list($controller, $method) = explode('@', $route);
     $controller_instance = new $controller();
-    echo $controller_instance->$method();
+    if (empty($params)) {
+        echo $controller_instance->$method();
+    } else {
+        call_user_func_array([$controller_instance, $method], $params);
+    }
 } else {
     http_response_code(404);
     include 'views/404.php';

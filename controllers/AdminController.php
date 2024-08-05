@@ -1,11 +1,13 @@
 <?php
 
 require_once 'models/User.php';
+require_once 'models/Keahlian.php';
 require_once 'connection/database.php';
 
 class AdminController
 {
     private $user;
+    protected $kelasKeahlian;
 
     public function __construct()
     {
@@ -16,6 +18,7 @@ class AdminController
 
         global $pdo;
         $this->user = new User($pdo);
+        $this->kelasKeahlian = new Keahlian($pdo);
     }
 
     public function index()
@@ -39,7 +42,7 @@ class AdminController
         include 'views/admin/info_user.php';
     }
 
-    public function detailPendaftar ()
+    public function detailPendaftar()
     {
         include 'views/admin/detail_pendaftar.php';
     }
@@ -63,28 +66,55 @@ class AdminController
 
     public function hapusSoalKeahlian()
     {
-
     }
 
     // kelas keahlian
     public function kelasKeahlian()
     {
+        $keahlian = $this->kelasKeahlian->getAll();
         include 'views/admin/kelas_keahlian/kelas_keahlian.php';
     }
 
     public function tambahKelasKeahlian()
     {
-        include 'views/admin/kelas_keahlian/tambah_kelas_keahlian.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['nama']) && !empty(trim($_POST['nama']))) {
+                $nama = trim($_POST['nama']);
+                if ($this->kelasKeahlian->create($nama)) {
+                    header('Location: /admin/kelas_keahlian');
+                    exit();
+                } else {
+                    echo "Error saving data.";
+                }
+            } else {
+                echo "Nama Kelas Keahlian tidak boleh kosong.";
+            }
+        } else {
+            include 'views/admin/kelas_keahlian/tambah_kelas_keahlian.php';
+        }
     }
-    
-    public function ubahKelasKeahlian()
+
+    public function ubahKelasKeahlian($id)
     {
+        $nama = $_POST['nama'] ?? null;
+        if ($nama) {
+            if ($this->kelasKeahlian->update($id, $nama)) {
+                header('Location: /admin/kelas_keahlian');
+                exit; // Tambahkan exit setelah redirect
+            }
+        }
+
+        // Ambil data untuk edit jika tidak ada POST data
+        $keahlian = $this->kelasKeahlian->getById($id);
         include 'views/admin/kelas_keahlian/edit_kelas_keahlian.php';
     }
 
-    public function hapusKelasKeahlian()
+    public function hapusKelasKeahlian($id)
     {
-
+        if ($this->kelasKeahlian->delete($id)) {
+            header('Location: /admin/kelas_keahlian');
+            exit;
+        }
     }
 
     // tes keahlian
@@ -100,26 +130,25 @@ class AdminController
 
     public function detailUjian()
     {
-        include 'views/admin/tes_keahlian/detail_ujian.php';   
+        include 'views/admin/tes_keahlian/detail_ujian.php';
     }
-    
+
     public function editTesKeahlian()
     {
         include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
     }
-    
+
     public function hapusTesKeahlian()
     {
-
     }
-    
-    
+
+
     // tambah soal tes
     public function tambahSoalTesKeahlian()
     {
-        include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';   
+        include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';
     }
-    
+
     public function importSoalTesKeahlian()
     {
         include 'views/admin/tes_keahlian/import_soal_tes.php';
@@ -134,7 +163,6 @@ class AdminController
     // hapus soal tes
     public function hapusSoalTesKeahlian()
     {
-
     }
 
     // sesi keahlian
@@ -160,6 +188,5 @@ class AdminController
 
     public function hapusSesiTesKeahlian()
     {
-
     }
 }

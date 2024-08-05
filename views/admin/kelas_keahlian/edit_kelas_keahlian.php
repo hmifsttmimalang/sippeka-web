@@ -187,17 +187,13 @@
                                             <h1 class="h4 text-gray-900 mb-4">Edit Kelas Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" method="POST" action="/admin/kelas_keahlian/ubah_kelas_keahlian/<?php echo htmlspecialchars($keahlian['id']); ?>">
                                             <div class="form-group">
                                                 <label for="nama">Nama Kelas Keahlian</label>
-                                                <input type="text" name="nama" class="form-control" id="nama" placeholder="">
+                                                <input type="text" name="nama" class="form-control" id="nama" value="<?php echo htmlspecialchars($keahlian['nama']); ?>">
                                             </div>
-                                            <a href="" class="btn btn-primary">
-                                                Simpan
-                                            </a>
-                                            <a href="" class="btn btn-primary">
-                                                Reset
-                                            </a>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="reset" class="btn btn-primary">Reset</button>
                                         </form>
                                     </div>
                                 </div>

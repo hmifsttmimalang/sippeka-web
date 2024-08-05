@@ -198,30 +198,16 @@
                                     </tr>
                                   </thead>
                                   <tbody>
+                                    <?php $no = 1; foreach ($keahlian as $item) : ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Android Developer</td>
+                                        <td><?= $no++; ?></td>
+                                        <td><?= $item['nama'] ?></td>
                                         <td>
-                                          <a href="/admin/kelas_keahlian/edit_kelas_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                          <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                          <a href="/admin/kelas_keahlian/edit_kelas_keahlian/<?= $item['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                          <a href="/admin/kelas_keahlian/hapus_kelas_keahlian/<?= $item['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Backend Developer</td>
-                                        <td>
-                                          <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                          <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Web Developer</td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                     </tbody>
                                 </table>
                                 <nav aria-label="..." class="mr-3">

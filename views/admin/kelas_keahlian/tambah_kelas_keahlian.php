@@ -187,14 +187,14 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Kelas Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" action="/admin/kelas_keahlian/tambah_kelas_keahlian" method="post">
                                             <div class="form-group">
                                                 <label for="nama">Nama Keahlian</label>
-                                                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Mata Keahlian">
+                                                <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Mata Keahlian" required>
                                             </div>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary">
                                                 Simpan
-                                            </a>
+                                            </button>
                                             <a href="" class="btn btn-primary">
                                                 Reset
                                             </a>

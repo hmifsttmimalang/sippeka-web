@@ -101,12 +101,9 @@
                                             <label for="keahlian">Keahlian</label>
                                             <select name="keahlian" id="keahlian" class="form-control">
                                                 <option value="Pilih Keahlian">Pilih Keahlian</option>
-                                                <option value="Mobile Developer">Mobile Developer</option>
-                                                <option value="Web Developer">Web Developer</option>
-                                                <option value="Backend Developer">Backend Developer</option>
-                                                <option value="IT Security">IT Security</option>
-                                                <option value="Quality Assurance">Quality Assurance</option>
-                                                <option value="UI UX Designer">UI UX Designer</option>
+                                                <?php foreach ($keahlianList as $item) : ?>
+                                                    <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
 
