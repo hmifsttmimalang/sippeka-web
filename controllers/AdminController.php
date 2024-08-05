@@ -1,13 +1,21 @@
 <?php
 
+require_once 'models/User.php';
+require_once 'connection/database.php';
+
 class AdminController
 {
+    private $user;
+
     public function __construct()
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
             header('Location: /login');
             exit;
         }
+
+        global $pdo;
+        $this->user = new User($pdo);
     }
 
     public function index()
@@ -27,6 +35,7 @@ class AdminController
 
     public function infoUser()
     {
+        $users = $this->user->getUsersByRole('user');
         include 'views/admin/info_user.php';
     }
 

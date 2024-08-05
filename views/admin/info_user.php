@@ -182,46 +182,20 @@
                             <table class="table table-bordered table-hover">
                                 <tr>
                                     <td>No</td>
-                                    <td>Nama</td>
-                                    <td>Alamat</td>
-                                    <td>Keahlian</td>
+                                    <td>Username</td>
+                                    <td>Email</td>
                                     <td>Status</td>
                                 </tr>
+                                <?php $i = 1; foreach ($users as $user) : ?>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Adi Chandra</td>
-                                    <td>Jl. Dieng Atas</td>
-                                    <td>Web Developer</td>
-                                    <td><span class="badge badge-success">Terdaftar</span></td>
+                                    <td><?= $i++; ?></td>
+                                    <td><?= $user['username']; ?></td>
+                                    <td><?= $user['email']; ?></td>
+                                    <td>
+                                        <?= $user['is_registered'] ? '<span class="badge badge-success">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>' ?>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Ardiansyah</td>
-                                    <td>Jl. Candi Panggung</td>
-                                    <td>Mobile Developer</td>
-                                    <td><span class="badge badge-success">Terdaftar</span></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Aventus Akong</td>
-                                    <td>Jl. Candi Panggung Atas</td>
-                                    <td>Backend Developer</td>
-                                    <td><span class="badge badge-success">Terdaftar</span></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Farhan Kebab</td>
-                                    <td>Jl. Jambi Raya</td>
-                                    <td>IT Security</td>
-                                    <td><span class="badge badge-warning">Sedang Diproses</span></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Sigit Rendang</td>
-                                    <td>Jl. Jombang</td>
-                                    <td>UI UX Designer</td>
-                                    <td><span class="badge badge-warning">Sedang Diproses</span></td>
-                                </tr>
+                                <?php endforeach; ?>
                             </table>
                         </div>
                     </div>

@@ -57,6 +57,7 @@ class AuthController {
         $identifier = $_POST['identifier'];
         $password = $_POST['password'];
 
+
         $user = $this->user->login($identifier, $password);
         if ($user) {
             $_SESSION['user'] = $user;

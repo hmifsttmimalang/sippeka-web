@@ -35,4 +35,11 @@ class User
         }
         return false;
     }
+
+    public function getUsersByRole($role)
+    {
+        $stmt = $this->pdo->prepare('SELECT username, email, is_registered FROM users WHERE role = :role');
+        $stmt->execute(['role' => $role]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
