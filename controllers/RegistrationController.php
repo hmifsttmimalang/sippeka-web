@@ -9,6 +9,11 @@ class RegistrationController
 
     public function __construct()
     {
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'user') {
+            header('Location: /login');
+            exit;
+        }
+
         global $pdo;
 
         $this->keahlian = new Keahlian($pdo);
