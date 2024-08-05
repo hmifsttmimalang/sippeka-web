@@ -8,6 +8,11 @@ class UserController
             header('Location: /login');
             exit;
         }
+
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /pendaftaran');
+            exit;
+        }
     }
 
     public function index()
