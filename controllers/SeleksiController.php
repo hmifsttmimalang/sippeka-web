@@ -4,7 +4,7 @@ class SeleksiController
 {
     public function simulasi()
     {
-
+        include 'views/tes_seleksi/tes_simulasi_peserta.php';
     }
 
     public function tesSeleksi()

@@ -180,7 +180,7 @@ include '../../controllers/AuthController.php';
             <p class="text-danger mt-3">* Masukkan Username atau Email dan Password
               untuk mencoba proses simulasi tes keahlian dan psikologi!
             </p>
-            <form class="user" method="post" action="/auth/login">
+            <form class="user" method="post" action="/auth/login_simulasi">
 
               <div class="form-group">
                 <label for="nilai_tes">Username atau Email </label>
@@ -190,7 +190,7 @@ include '../../controllers/AuthController.php';
               <br>
               <div class="form-group">
                 <label for="nilai_interview">Password </label>
-                <input type="text" name="password" class="form-control" id="nilai_interview" placeholder="">
+                <input type="password" name="password" class="form-control" id="nilai_interview" placeholder="">
               </div>
 
               <br>

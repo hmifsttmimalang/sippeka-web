@@ -24,6 +24,9 @@ function route($uri) {
         '/auth/register' => 'AuthController@register',
         '/logout' => 'AuthController@logout',
 
+        // otentikasi untuk simulasi
+        '/auth/login_simulasi' => 'AuthController@loginSimulasi',
+
         // otentikasi untuk masuk seleksi
         '/auth/login_seleksi' => 'AuthController@loginSeleksi',
 
@@ -36,6 +39,9 @@ function route($uri) {
         '/user' => 'UserController@index',
         '/user/tes_seleksi' => 'UserController@showSeleksi',
         '/user/edit_profil' => 'UserController@editProfil',
+
+        // simulasi peserta
+        '/simulasi_peserta' => 'SeleksiController@simulasi',
 
         // seleksi peserta
         '/seleksi_peserta' => 'SeleksiController@tesSeleksi',
