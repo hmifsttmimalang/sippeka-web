@@ -187,11 +187,11 @@
                                             <div class="h3 font-weight-bold text-info text-uppercase mb-1">
                                                 Pendaftar Masuk
                                             </div>
-                                            <div class="h5 mt-3 font-weight-bold">22 Orang</div>
+                                            <div class="h5 mt-3 font-weight-bold">0 Orang</div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -213,11 +213,11 @@
                                             <div class="h3 font-weight-bold text-success text-uppercase mb-1">
                                                 Lolos Seleksi
                                             </div>
-                                            <div class="h5 mt-3 font-weight-bold">10 Orang</div>
+                                            <div class="h5 mt-3 font-weight-bold">0 Orang</div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
