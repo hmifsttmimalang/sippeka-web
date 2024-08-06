@@ -15,16 +15,10 @@
     <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 
     <!-- Custom styles for this template-->
     <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: 'textarea#tiny'
-        });
-    </script>
 
 </head>
 
@@ -225,7 +219,7 @@
                                             <div class="form-group">
                                                 <label for="nama_soal">Nama Soal</label>
                                                 <form action="" method="post">
-                                                    <textarea id="tiny"></textarea>
+                                                    <div id="editor"></div>
                                                 </form>
                                             </div>
                                             <div class="form-group row">
@@ -304,7 +298,7 @@
                 </div>
                 <div class="modal-body">Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <a class="btn btn-primary" href="/logout">Keluar</a>
                 </div>
             </div>
@@ -327,6 +321,13 @@
     <!-- Page level custom scripts -->
     <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
     <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
 
 </body>
 

@@ -15,16 +15,10 @@
     <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 
     <!-- Custom styles for this template-->
     <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-        selector: 'textarea#tiny'
-        });
-    </script>
 
 </head>
 
@@ -43,7 +37,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Admin
+              Admin
             </div>
 
             <!-- Nav Item - Dashboard -->
@@ -56,42 +50,43 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item">
+            <li class="nav-item ">
                 <a class="nav-link" href="/admin/kelola_data">
-                    <i class="fas fa-fw fa-list"></i>
-                    <span>Kelola Data Peserta</span>
-                </a>
+                  <i class="fas fa-fw fa-list"></i>
+                  <span>Kelola Data Peserta</span>
+              </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/peserta">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Peserta</span>
-                </a>
+                  <i class="fas fa-fw fa-user"></i>
+                  <span>Peserta</span>
+              </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/info_user">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Info User</span>
-                </a>
+                  <i class="fas fa-fw fa-user"></i>
+                  <span>Info User</span>
+              </a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-list"></i>
-                    <span>Keahlian</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
-                        <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
-                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
-                    </div>
+                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-fw fa-list"></i>
+                  <span>Keahlian</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                    <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                    <a class="collapse-item active" href="tes_keahlian">Tes Keahlian</a>
+                    <a class="collapse-item" href="sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -99,8 +94,8 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-fw fa-sign-out-alt"></i>
-                    <span>Keluar</span>
+                  <i class="fas fa-fw fa-sign-out-alt"></i>
+                  <span>Keluar</span>
                 </a>
             </li>
 
@@ -199,12 +194,12 @@
                                         <h1 class="h4 text-gray-900 mb-4">Edit Soal Tes Keahlian</h1>
                                     </div>
                                     <hr class="divider-sidebar">
-                                <table class="table table-bordered table-hover right-align">
+                                    <table class="table table-bordered table-hover right-align">
                                     <tr>
                                         <td><b>Soal</b></td>
                                         <td>
                                             <form action="" method="post">
-                                                <textarea id="tiny"></textarea>
+                                                <div id="editor"></div>
                                             </form>
                                         </td>
                                     </tr>
@@ -212,7 +207,7 @@
                                         <td><b>Pilihan A.</b></td>
                                         <td>
                                             <form action="" method="post">
-                                                <textarea id="tiny"></textarea>
+                                                <div id="editor1"></div>
                                             </form>
                                         </td>
                                     </tr>
@@ -220,7 +215,7 @@
                                         <td><b>Pilihan B.</b></td>
                                         <td>
                                             <form action="" method="post">
-                                                <textarea id="tiny"></textarea>
+                                                <div id="editor2"></div>
                                             </form>
                                         </td>
                                     </tr>
@@ -228,7 +223,7 @@
                                         <td><b>Pilihan C.</b></td>
                                         <td>
                                             <form action="" method="post">
-                                                <textarea id="tiny"></textarea>
+                                                <div id="editor3"></div>
                                             </form>
                                         </td>
                                     </tr>
@@ -236,7 +231,7 @@
                                         <td><b>Pilihan D.</b></td>
                                         <td>
                                             <form action="" method="post">
-                                                <textarea id="tiny"></textarea>
+                                                <div id="editor4"></div>
                                             </form>
                                         </td>
                                     </tr>
@@ -244,7 +239,7 @@
                                         <td><b>Pilihan E.</b></td>
                                         <td>
                                             <form action="" method="post">
-                                                <textarea id="tiny"></textarea>
+                                                <div id="editor5"></div>
                                             </form>
                                         </td>
                                     </tr>
@@ -252,7 +247,7 @@
                                         <td><b>Jawaban Benar</b></td>
                                         <td>
                                             <select name="acak_jawaban" id="acak_jawaban" class="form-control">
-                                                <option value=""></option>
+                                                <option value="">Pilih Jawaban</option>
                                                     <option value="a">A</option>
                                                     <option value="b">B</option>
                                                     <option value="c">C</option>
@@ -262,7 +257,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                                    <a href="#" class="btn btn-primary">
+                                    <a href="" class="btn btn-primary">
                                         Simpan
                                     </a>
                                     <a href="" class="btn btn-primary">
@@ -299,14 +294,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Yakin untuk keluar?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Yakin ingin keluar?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <a class="btn btn-primary" href="/logout">Keluar</a>
                 </div>
             </div>
@@ -330,6 +325,32 @@
     <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
     <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+
+        const quill1 = new Quill('#editor1', {
+            theme: 'snow'
+        });
+
+        const quill2 = new Quill('#editor2', {
+            theme: 'snow'
+        });
+
+        const quill3 = new Quill('#editor3', {
+            theme: 'snow'
+        });
+
+        const quill4 = new Quill('#editor4', {
+            theme: 'snow'
+        });
+
+        const quill5 = new Quill('#editor5', {
+            theme: 'snow'
+        });
+    </script>
 </body>
 
 </html>
