@@ -1,7 +1,12 @@
 <?php
 
-class UserController 
+require_once 'connection/database.php';
+require_once 'models/Pendaftaran.php';
+
+class UserController
 {
+    private $pendaftaran;
+
     public function __construct()
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'user') {
@@ -9,7 +14,13 @@ class UserController
             exit;
         }
 
-        if (!isset($_SESSION['user_id'])) {
+        global $pdo;
+
+        $this->pendaftaran = new Pendaftar($pdo);
+
+        // Check if the user has registered
+        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        if (!$pendaftaran) {
             header('Location: /pendaftaran');
             exit;
         }

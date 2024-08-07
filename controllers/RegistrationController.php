@@ -25,11 +25,25 @@ class RegistrationController
     public function index()
     {
         $keahlianList = $this->keahlian->getAll();
+
+        // jika terdaftar maka akan dibatasi
+        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        if ($pendaftaran) {
+            header('Location: /pendaftaran/terdaftar');
+            exit;
+        }
         include 'views/pendaftaran/form_registrasi.php';
     }
 
     public function register()
     {
+        // Check if the user has already registered
+        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        if ($pendaftaran) {
+            header('Location: /user');
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $keahlian_name = $_POST['keahlian'];
             $keahlian_id = $this->keahlian->getIdByName($keahlian_name);
@@ -54,7 +68,8 @@ class RegistrationController
                 exit;
             }
 
-            function sanitize_string($str) {
+            function sanitize_string($str)
+            {
                 $str = preg_replace('/[^a-zA-Z0-9_-]/', '', $str);
                 return $str;
             }
@@ -71,7 +86,7 @@ class RegistrationController
                 $file_name_ktp = $nama . '_' . $tempat_lahir . '_' . $tanggal_lahir . '_ktp.' . pathinfo($foto_ktp['name'], PATHINFO_EXTENSION);
                 $file_name_ijazah = $nama . '_' . $tempat_lahir . '_' . $tanggal_lahir . '_ijazah.' . pathinfo($foto_ijazah['name'], PATHINFO_EXTENSION);
                 $file_name_bg_biru = $nama . '_' . $tempat_lahir . '_' . $tanggal_lahir . '_bg_biru.' . pathinfo($foto_bg_biru['name'], PATHINFO_EXTENSION);
-                $file_name_kk = $nama . '_' .$tempat_lahir . '_' . $tanggal_lahir . '_kk.' . pathinfo($foto_kk['name'], PATHINFO_EXTENSION);
+                $file_name_kk = $nama . '_' . $tempat_lahir . '_' . $tanggal_lahir . '_kk.' . pathinfo($foto_kk['name'], PATHINFO_EXTENSION);
 
                 move_uploaded_file($foto_ktp['tmp_name'], $folder_path . '/' . $file_name_ktp);
                 move_uploaded_file($foto_ijazah['tmp_name'], $folder_path . '/' . $file_name_ijazah);
