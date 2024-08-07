@@ -24,6 +24,14 @@ class Keahlian
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getIdByName($nama)
+    {
+        $stmt = $this->pdo->prepare('SELECT id FROM keahlian WHERE nama = ?');
+        $stmt->execute([$nama]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['id'];
+    }
+
     public function create($nama)
     {
         $stmt = $this->pdo->prepare('INSERT INTO keahlian (nama) VALUES (?)');
