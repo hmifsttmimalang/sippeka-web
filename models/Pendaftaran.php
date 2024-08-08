@@ -11,10 +11,11 @@ class Pendaftar
         $this->pdo = $pdo;
     }
 
-    public function create($data)
+    public function create($data, $user_id)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO pendaftar (nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian_id, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $this->pdo->prepare('INSERT INTO pendaftar (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian_id, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([
+            $user_id,
             $data['nama'],
             $data['tempat_lahir'],
             $data['tanggal_lahir'],
@@ -28,7 +29,16 @@ class Pendaftar
             $data['foto_bg_biru'],
             $data['foto_kk']
         ]);
+
+        $this->updateUserRegistrationStatus($user_id);
+
         return $this->pdo->lastInsertId();
+    }
+
+    private function updateUserRegistrationStatus($user_id)
+    {
+        $stmt = $this->pdo->prepare("UPDATE users SET is_registered = 1 WHERE id = ?");
+        $stmt->execute([$user_id]);
     }
 
     public function getAll()

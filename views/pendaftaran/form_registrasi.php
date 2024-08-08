@@ -47,17 +47,17 @@
                                     <form class="user" action="/pendaftaran/proses" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
-                                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Lengkap Anda...">
+                                            <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Lengkap Anda..." required>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-6">
                                                 <label for="tempat_lahir">Tempat Lahir</label>
-                                                <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" placeholder="Tempat Lahir Anda...">
+                                                <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" placeholder="Tempat Lahir Anda..." required>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" placeholder="Tanggal Lahir Anda...">
+                                                <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" placeholder="Tanggal Lahir Anda..." required>
                                             </div>
                                         </div>
 
@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="agama">Agama</label>
-                                                <select name="agama" id="agama" class="form-control">
+                                                <select name="agama" id="agama" class="form-control" required>
                                                     <option value="">Pilih Agama</option>
                                                     <option value="Islam">Islam</option>
                                                     <option value="Kristen">Kristen</option>
@@ -89,7 +89,7 @@
 
                                         <div class="form-group">
                                             <label for="alamat">Alamat</label>
-                                            <textarea name="alamat" id="alamat" class="form-control"></textarea>
+                                            <textarea name="alamat" id="alamat" class="form-control" required></textarea>
                                         </div>
 
                                         <div class="form-group">
@@ -101,9 +101,11 @@
                                             <label for="keahlian">Keahlian</label>
                                             <select name="keahlian" id="keahlian" class="form-control">
                                                 <option value="Pilih Keahlian">Pilih Keahlian</option>
+                                                <?php if (!empty($keahlianList)) : ?>
                                                 <?php foreach ($keahlianList as $item) : ?>
                                                     <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
                                                 <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </select>
                                         </div>
 
@@ -114,18 +116,18 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="">Foto Ijazah</label>
-                                                <input style="padding:3px" type="file" name="foto_ijazah" class="form-control">
+                                                <input style="padding:3px" type="file" name="foto_ijazah" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <div class="col-md-6">
                                                 <label for="">Foto Background Biru (3x4)</label>
-                                                <input style="padding:3px" type="file" name="foto_bg_biru" class="form-control">
+                                                <input style="padding:3px" type="file" name="foto_bg_biru" class="form-control" required>
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="">Foto Kartu Keluarga</label>
-                                                <input style="padding:3px" type="file" name="foto_kk" class="form-control">
+                                                <input style="padding:3px" type="file" name="foto_kk" class="form-control" required>
                                             </div>
                                         </div>
 

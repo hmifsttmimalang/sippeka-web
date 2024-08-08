@@ -99,6 +99,7 @@ class RegistrationController
             }
 
             // Create new pendaftar
+            $user_id = $_SESSION['user']['id'];
             $data = [
                 'nama' => $nama,
                 'tempat_lahir' => $tempat_lahir,
@@ -113,7 +114,7 @@ class RegistrationController
                 'foto_bg_biru' => $file_name_bg_biru,
                 'foto_kk' => $file_name_kk
             ];
-            $this->pendaftaran->create($data);
+            $this->pendaftaran->create($data, $user_id);
 
             // Redirect to success page
             header('Location: /pendaftaran/terdaftar');
