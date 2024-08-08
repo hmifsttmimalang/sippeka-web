@@ -1,3 +1,6 @@
+<?php
+require_once 'controllers/AdminController.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -186,6 +189,7 @@
                                     <td>Email</td>
                                     <td>Status</td>
                                 </tr>
+                                <?php if (!empty($users)) : ?>
                                 <?php $i = 1; foreach ($users as $user) : ?>
                                 <tr>
                                     <td><?= $i++; ?></td>
@@ -196,6 +200,7 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
+                                <?php endif; ?>
                             </table>
                         </div>
                     </div>
