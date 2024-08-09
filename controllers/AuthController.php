@@ -2,7 +2,8 @@
 require_once 'models/User.php';
 require_once 'connection/database.php';
 
-class AuthController {
+class AuthController
+{
     private $user;
 
     public function __construct()
@@ -11,17 +12,18 @@ class AuthController {
         $this->user = new User($pdo);
     }
 
-    public function showLogin() 
+    public function showLogin()
     {
         include 'views/auth/login.php';
     }
 
-    public function showRegister() 
+    public function showRegister()
     {
         include 'views/auth/register.php';
     }
 
-    public function login() {
+    public function login()
+    {
         $identifier = $_POST['identifier'];
         $password = $_POST['password'];
 
@@ -39,7 +41,8 @@ class AuthController {
     }
 
     // otentikasi untuk login seleksi
-    public function loginSeleksi() {
+    public function loginSeleksi()
+    {
         $identifier = $_POST['identifier'];
         $password = $_POST['password'];
 
@@ -53,7 +56,8 @@ class AuthController {
     }
 
     // otentikasi untuk login simulasi
-    public function loginSimulasi() {
+    public function loginSimulasi()
+    {
         $identifier = $_POST['identifier'];
         $password = $_POST['password'];
 
@@ -67,7 +71,8 @@ class AuthController {
         }
     }
 
-    public function register() {
+    public function register()
+    {
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -77,7 +82,8 @@ class AuthController {
         header('Location: /login');
     }
 
-    public function logout() {
+    public function logout()
+    {
         unset($_SESSION['user']);
         session_destroy();
         header('Location: /');

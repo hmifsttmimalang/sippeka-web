@@ -1,12 +1,16 @@
 <?php
 
 require_once 'models/User.php';
+require_once 'models/Pendaftaran.php';
 require_once 'models/Keahlian.php';
 require_once 'connection/database.php';
 
 class AdminController
 {
     private $user;
+    private $identifier;
+    private $password;
+    private $pendaftar;
     protected $kelasKeahlian;
 
     public function __construct()
@@ -17,6 +21,7 @@ class AdminController
         }
 
         global $pdo;
+        $this->pendaftar = new Pendaftar($pdo);
         $this->user = new User($pdo);
         $this->kelasKeahlian = new Keahlian($pdo);
     }
@@ -28,6 +33,8 @@ class AdminController
 
     public function kelolaData()
     {
+        $keahlian = $this->kelasKeahlian->getAll();
+        $listPendaftar = $this->pendaftar->getAll();
         include 'views/admin/kelola_data.php';
     }
 
@@ -42,8 +49,10 @@ class AdminController
         include 'views/admin/info_user.php';
     }
 
-    public function detailPendaftar()
+    public function detailPendaftar($id)
     {
+        $user = $this->user->getUserById($id);
+        $userPendaftar = $this->pendaftar->getByUserId($id);
         include 'views/admin/detail_pendaftar.php';
     }
 
@@ -64,9 +73,7 @@ class AdminController
         include 'views/admin/mata_keahlian/edit_keahlian.php';
     }
 
-    public function hapusSoalKeahlian()
-    {
-    }
+    public function hapusSoalKeahlian() {}
 
     // kelas keahlian
     public function kelasKeahlian()
@@ -138,9 +145,7 @@ class AdminController
         include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
     }
 
-    public function hapusTesKeahlian()
-    {
-    }
+    public function hapusTesKeahlian() {}
 
 
     // tambah soal tes
@@ -161,9 +166,7 @@ class AdminController
     }
 
     // hapus soal tes
-    public function hapusSoalTesKeahlian()
-    {
-    }
+    public function hapusSoalTesKeahlian() {}
 
     // sesi keahlian
     public function sesiTesKeahlian()
@@ -186,7 +189,5 @@ class AdminController
         include 'views/admin/sesi_keahlian/edit_sesi_keahlian.php';
     }
 
-    public function hapusSesiTesKeahlian()
-    {
-    }
+    public function hapusSesiTesKeahlian() {}
 }

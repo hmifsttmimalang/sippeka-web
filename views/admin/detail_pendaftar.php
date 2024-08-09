@@ -35,7 +35,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-              Admin
+                Admin
             </div>
 
             <!-- Nav Item - Dashboard -->
@@ -50,9 +50,9 @@
 
             <li class="nav-item active">
                 <a class="nav-link" href="/admin/kelola_data">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Kelola Data Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Kelola Data Peserta</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -60,16 +60,16 @@
 
             <li class="nav-item ">
                 <a class="nav-link" href="/admin/peserta">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/info_user">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Info User</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Info User</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -77,8 +77,8 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-fw fa-sign-out-alt"></i>
-                  <span>Logout</span>
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Logout</span>
                 </a>
             </li>
 
@@ -149,12 +149,12 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Profil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Keluar
                                 </a>
                             </div>
                         </li>
@@ -168,90 +168,94 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Detail Pendaftar</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Detail Pendaftar</h1>
 
-                        <div class="row">
-                            <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary"><b>DATA DIRI</b></h6>
-                
-                                <div class="card-body mt-3">
-                                    <div class="col-auto text-center">
-                                        <img src="../../../assets/profile/img/messages-3.jpg" alt="fotoprofil" class="img-fluid rounded-circle"
-                                        style="width: 200px" alt="menunggu">
-                                    </div>
-                                <br>
-                                <h5 class="text-center card-title"><b>ADI CHANDRA</b></h5>
 
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Tempat, Tangal Lahir</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">Malang, 13 September 2004</h6>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Jenis Kelamin</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">Pria</h6>                            
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Agama</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">Islam</h6>                            
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Alamat</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">Jl.Dieng Atas Kalisongo</h6>                            
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Email</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">adi99@gmail.com</h6>                            
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Telepon</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">082236541717</h6>                            
-                                    </li>
-                                </ul>
+                                    <div class="card-body mt-3">
+                                        <div class="col-auto text-center">
+                                            <?php
+                                            $file_path = '../../../assets/uploads/' . $user['username'] . '/' . $userPendaftar['nama'] . '_' . $userPendaftar['tempat_lahir'] . '_' . $userPendaftar['tanggal_lahir'] . '_bg_biru';
+                                            $jpg_path = $file_path . '.jpg';
+                                            $jpeg_path = $file_path . '.jpeg';
+                                            ?>
+                                            <img src="<?= !$jpeg_path ? $file_path . '.jpg' : $jpeg_path ?>" alt="Foto Profil Background Biru" class="img-fluid rounded-circle" style="width: 200px" alt="menunggu">
+                                        </div>
+                                        <br>
+                                        <h5 class="text-center card-title"><b><?= $userPendaftar['nama'] ?></b></h5>
+
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Tempat, Tangal Lahir</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['tempat_lahir'] . ', ' . $userPendaftar['tanggal_lahir'] ?></h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Jenis Kelamin</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['jenis_kelamin'] ?></h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Agama</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['agama'] ?></h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Alamat</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['alamat'] ?></h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Email</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $user['email'] ?></h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Telepon</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['telepon'] ?></h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-6">
+                        <div class="col-md-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary"><b>DATA NILAI PESERTA</b></h6>
-                
-                                <div class="card-body mt-3">
-                                    <div class="alert alert-info">
-                                        Data peserta belum divalidasi
-                                    </div>
-                                <br>
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Keahlian</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Psikologi</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Rata-Rata</h6>
-                                        <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
-                                    </li>
-                                </ul>
 
-                                <tr>
-                                    <td>
-                                        <span class="badge badge-success mt-3" style="display:block; height:30px; line-height:25px;">Lolos</span>
-                                    </td>
-                                </tr>
+                                    <div class="card-body mt-3">
+                                        <div class="alert alert-info">
+                                            Data peserta belum divalidasi
+                                        </div>
+                                        <br>
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Keahlian</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Psikologi</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Rata-Rata</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                            </li>
+                                        </ul>
 
-                                <!-- <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modalvalidasi">
+                                        <tr>
+                                            <td>
+                                                <span class="badge badge-success mt-3" style="display:block; height:30px; line-height:25px;">Lolos</span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modalvalidasi">
                                     Validasi Data Peserta
                                 </button> -->
 
-                                   <!-- Modal-->
-                                <!-- <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        <!-- Modal-->
+                                        <!-- <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -271,65 +275,65 @@
                                         </div>
                                     </div>
                                 </div> -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                    </div>
+
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Yakin untuk keluar?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                        <a class="btn btn-primary" href="/logout">Keluar</a>
                     </div>
                 </div>
-
-            </div>
-
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Pilih "Logout" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/logout">Logout</a>
-                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
+        <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
-    <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
+        <!-- Page level custom scripts -->
+        <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
+        <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
 
 </body>
 

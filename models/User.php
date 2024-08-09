@@ -42,4 +42,25 @@ class User
         $stmt->execute(['role' => $role]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getEmailUserById($id) 
+    {
+        $stmt = $this->pdo->prepare('SELECT email FROM users WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getUsernameById($id) 
+    {
+        $stmt = $this->pdo->prepare('SELECT username FROM users WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getUserById($id)
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

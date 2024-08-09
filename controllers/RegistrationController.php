@@ -45,9 +45,6 @@ class RegistrationController
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $keahlian_name = $_POST['keahlian'];
-            $keahlian_id = $this->keahlian->getIdByName($keahlian_name);
-
             $nama = $_POST['nama'];
             $tempat_lahir = $_POST['tempat_lahir'];
             $tanggal_lahir = $_POST['tanggal_lahir'];
@@ -55,6 +52,7 @@ class RegistrationController
             $agama = $_POST['agama'];
             $alamat = $_POST['alamat'];
             $telepon = $_POST['telepon'];
+            $keahlian = $_POST['keahlian'];
 
             $foto_ktp = $_FILES['foto_ktp'];
             $foto_ijazah = $_FILES['foto_ijazah'];
@@ -108,7 +106,7 @@ class RegistrationController
                 'agama' => $agama,
                 'alamat' => $alamat,
                 'telepon' => $telepon,
-                'keahlian_id' => $keahlian_id,
+                'keahlian' => $keahlian,
                 'foto_ktp' => $file_name_ktp,
                 'foto_ijazah' => $file_name_ijazah,
                 'foto_bg_biru' => $file_name_bg_biru,

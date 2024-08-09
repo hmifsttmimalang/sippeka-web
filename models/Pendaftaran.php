@@ -13,7 +13,7 @@ class Pendaftar
 
     public function create($data, $user_id)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO pendaftar (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian_id, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $this->pdo->prepare('INSERT INTO pendaftar (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->execute([
             $user_id,
             $data['nama'],
@@ -23,7 +23,7 @@ class Pendaftar
             $data['agama'],
             $data['alamat'],
             $data['telepon'],
-            $data['keahlian_id'],
+            $data['keahlian'],
             $data['foto_ktp'],
             $data['foto_ijazah'],
             $data['foto_bg_biru'],

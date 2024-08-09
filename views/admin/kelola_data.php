@@ -202,51 +202,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php if (!empty($listPendaftar)) : ?>
+                                    <?php $i = 1; foreach ($listPendaftar as $item) : ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Adi Chandra</td>
-                                        <td>Jl. Dieng Atas</td>
-                                        <td>Web Developer</td>
+                                        <td><?= $i++; ?></td>
+                                        <td><?= $item['nama'] ?></td>
+                                        <td><?= $item['alamat'] ?></td>
+                                        <td><?= $item['keahlian'] ?></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td><span class="badge badge-info">Baru</span></td>
                                         <td>
-                                            <a href="/admin/kelola_data/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
+                                            <a href="/admin/kelola_data/detail_pendaftar/<?= $item['user_id'] ?>" class="btn btn-info btn-sm">Cek</a>
                                             <a href="" class="btn btn-danger btn-sm">Hapus</a>
                                             <a href="" class="btn btn-primary btn-sm">Update</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Ardiansyah</td>
-                                        <td>Jl. Candi Panggung</td>
-                                        <td>Mobile Developer</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="badge badge-info">Baru</span></td>
-                                        <td>
-                                            <a href="/admin/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
-                                            <a href="" class="btn btn-danger btn-sm">Hapus</a>
-                                            <a href="" class="btn btn-primary btn-sm">Update</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Aventus Akong</td>
-                                        <td>Jl. Candi Panggung Atas</td>
-                                        <td>Backend Developer</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="badge badge-info">Baru</span></td>
-                                        <td>
-                                            <a href="/admin/detail_pendaftar" class="btn btn-info btn-sm">Cek</a>
-                                            <a href="" class="btn btn-danger btn-sm">Hapus</a>
-                                            <a href="" class="btn btn-primary btn-sm">Update</a>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="mr-3">

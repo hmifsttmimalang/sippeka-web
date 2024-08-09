@@ -50,7 +50,7 @@ function route($uri)
         // admin
         '/admin' => 'AdminController@index',
         '/admin/kelola_data' => 'AdminController@kelolaData',
-        '/admin/kelola_data/detail_pendaftar' => 'AdminController@detailPendaftar',
+        '/admin/kelola_data/detail_pendaftar/(\d+)' => 'AdminController@detailPendaftar',
         '/admin/peserta' => 'AdminController@peserta',
         '/admin/info_user' => 'AdminController@infoUser',
 
