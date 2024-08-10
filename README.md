@@ -8,7 +8,7 @@
 Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
 untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti
 pelatihan kerja. Aplikasi ini dibuat dengan menggunakan bahasa pemrograman
-PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan Web Server XAMPP.
+PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan Web Server Laragon Apache.
 
 ## Daftar Isi
 
@@ -25,7 +25,7 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
 untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti
 pelatihan kerja. Aplikasi ini dibuat dengan menggunakan bahasa pemrograman
-PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan Web Server XAMPP.
+PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan Web Server Laragon.
 
 ## Fitur
 
@@ -38,7 +38,7 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 
 ### Prasyarat
 
-- [XAMPP](https://www.apachefriends.org/download.html)
+- [Laragon](https://laragon.org/download/)
 - PHP 7.4 atau lebih baru
 - MySQL 5.7 atau lebih baru
 
@@ -52,10 +52,10 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 
 2. **Pindahkan Folder Proyek**
 
-    Pindahkan folder proyek ke direktori `htdocs` di XAMPP.
+    Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
-    mv app_web path/to/xampp/htdocs/app_web
+    mv app_web path/to/Laragon/www/app_web
     ```
 
 3. **Buat Database**
@@ -72,17 +72,12 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 
     ```php
     <?php
-    
-    if ($_SERVER['SERVER_PORT'] == 8080) {
-    define('MAIN_URL', 'http://localhost:8080/app_web/public/');
-    } else {
-    define('MAIN_URL', 'http://localhost/app_web/public/');
-    }
 
     define('DB_HOST', 'localhost');
+    define('DB_NAME', 'data_sippeka');
     define('DB_USER', 'root');
     define('DB_PASS', '');
-    define('DB_NAME', 'data_sippeka');
+
     ```
 
 6. **Jalankan Proyek**
@@ -93,25 +88,21 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 
 ```plaintext
     app_web
-    ├── app
-    │   ├── config
-    │   │   └── config.php
-    │   ├── controllers
-    │   ├── core
-    │   │   ├── App.php
-    │   │   ├── Controller.php
-    │   │   └── Database.php
-    │   ├── views
-    │   ├── models
-    │   ├── init.php
-    │   └── .htaccess
-    └── public
-        ├── assets
-        │   ├── css
-        │   ├── js
-        │   └── img
-        ├── index.php
-        └── .htaccess
+    ├── assets
+    │   ├── admin
+    │   ├── css
+    │   ├── js
+    │   ├── profile
+    │   ├── uploads
+    │   └── user
+    ├── config
+    │   └── config.php
+    ├── connection
+    │   └── database.php
+    ├── controllers
+    ├── database
+    ├── models
+    └── views
 ```
 
 ## Penggunaan
@@ -122,7 +113,9 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 2. **Menu**: Menu yang tersedia di halaman admin.
 3. **Data Peserta**: Menampilkan data peserta yang telah terdaftar.
 4. **Kelola Data**: Menampilkan tampilan dan mengelola data seperti akun dan peserta.
-5. **Laporan**: Membuat laporan pendaftaran dalam format PDF atau Excel.
+5. **Kategori keahlian**: Membuat Kategori keahlian agar user yang mendaftar dapat memilih sesuai minat pada formulir pendaftaran.
+6. **Soal**: Membuat soal tes keahlian untuk ditampilkan pada halaman ujian seleksi pada user.
+7. **Laporan**: Membuat laporan pendaftaran dalam format PDF atau Excel.
 
 ### User
 
@@ -130,6 +123,9 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 2. **Buat Akun**: Membuat akun untuk verifikasi peserta sebagai pendaftar.
 3. **Home**: Menu yang tersedia di halaman user.
 4. **Pendaftaran**: Mendaftar sebagai peserta pelatihan melalui formulir pendaftaran.
+5. **Dashboard User**: Tampilan akun user.
+6. **Tes Simulasi**: Tampilan ujian simulasi.
+7. **Tes Seleksi**: Tampilan ujian seleksi peserta.
 
 ## Kontribusi
 
