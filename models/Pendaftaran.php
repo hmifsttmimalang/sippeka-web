@@ -13,7 +13,7 @@ class Pendaftar
 
     public function create($data, $user_id)
     {
-        $stmt = $this->pdo->prepare('INSERT INTO pendaftar (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt = $this->pdo->prepare('INSERT INTO pendaftar (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())');
         $stmt->execute([
             $user_id,
             $data['nama'],
@@ -60,5 +60,12 @@ class Pendaftar
         $stmt = $this->pdo->prepare('SELECT * FROM pendaftar WHERE user_id = ?');
         $stmt->execute([$user_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getNewRegistrations()
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM pendaftar WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 DAY)');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

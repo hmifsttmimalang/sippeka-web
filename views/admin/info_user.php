@@ -180,6 +180,7 @@ require_once 'controllers/AdminController.php';
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Info User</h1>
 
+                    <?php if (!empty($users)) : ?>
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-hover">
@@ -189,7 +190,6 @@ require_once 'controllers/AdminController.php';
                                     <td>Email</td>
                                     <td>Status</td>
                                 </tr>
-                                <?php if (!empty($users)) : ?>
                                 <?php $i = 1; foreach ($users as $user) : ?>
                                 <tr>
                                     <td><?= $i++; ?></td>
@@ -200,9 +200,11 @@ require_once 'controllers/AdminController.php';
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
-                                <?php endif; ?>
                             </table>
                         </div>
+                        <?php else : ?>
+                            <h3 class="text-center mt-5">Tidak ada user</h3>
+                        <?php endif; ?>
                     </div>
 
                 </div>

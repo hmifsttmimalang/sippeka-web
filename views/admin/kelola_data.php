@@ -178,6 +178,7 @@
                     <h1 class="h3 mb-3 text-gray-800">Data Pendaftar</h1>
 
                     <!-- Search Bar -->
+                    <?php if (!empty($listPendaftar)) : ?>
                     <div class="d-flex justify-content-between">
                         <div></div>
                         <form class="form-inline my-2 my-lg-0">
@@ -202,8 +203,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (!empty($listPendaftar)) : ?>
-                                    <?php $i = 1; foreach ($listPendaftar as $item) : ?>
+                                        <?php $i = 1; foreach ($listPendaftar as $item) : ?>
                                     <tr>
                                         <td><?= $i++; ?></td>
                                         <td><?= $item['nama'] ?></td>
@@ -220,7 +220,6 @@
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
-                                    <?php endif; ?>
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="mr-3">
@@ -241,6 +240,9 @@
                                         <a class="page-link" href="#">Next</a>
                                     </li>
                                 </ul>
+                                <?php else : ?>
+                                    <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
+                                <?php endif; ?>
                             </nav>
                         </div>
 

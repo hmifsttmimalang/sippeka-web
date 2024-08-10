@@ -28,6 +28,11 @@ class AdminController
 
     public function index()
     {
+        $pendaftar_baru = $this->pendaftar->getNewRegistrations();
+        $jumlah_pendaftar = $this->pendaftar->getAll();
+        $jumlah_pendaftar_count = count($jumlah_pendaftar);
+        $persentase_pendaftar = ($jumlah_pendaftar_count > 0) ? 100 : 0;
+
         include 'views/admin/dashboard_admin.php';
     }
 
@@ -40,6 +45,7 @@ class AdminController
 
     public function peserta()
     {
+        $listPendaftar = $this->pendaftar->getAll();
         include 'views/admin/peserta.php';
     }
 

@@ -78,7 +78,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
-                    <span>Logout</span>
+                    <span>Keluar</span>
                 </a>
             </li>
 
@@ -183,7 +183,7 @@
                                             $jpg_path = $file_path . '.jpg';
                                             $jpeg_path = $file_path . '.jpeg';
                                             ?>
-                                            <img src="<?= !$jpeg_path ? $file_path . '.jpg' : $jpeg_path ?>" alt="Foto Profil Background Biru" class="img-fluid rounded-circle" style="width: 200px" alt="menunggu">
+                                            <img src="<?= $jpg_path ? $file_path . '.jpg' : $file_path . '.jpeg' ?>" alt="Foto Profil Background Biru" class="img-fluid rounded-circle" style="width: 200px" alt="menunggu">
                                         </div>
                                         <br>
                                         <h5 class="text-center card-title"><b><?= $userPendaftar['nama'] ?></b></h5>

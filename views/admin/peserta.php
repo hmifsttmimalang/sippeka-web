@@ -177,6 +177,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Data Peserta</h1>
 
+                    <?php if (!empty($listPendaftar)) : ?>
                     <a href="" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
 
                     <div class="row">
@@ -196,11 +197,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i = 1; foreach ($listPendaftar as $item) : ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Adi Chandra</td>
-                                        <td>Jl. Dieng Atas</td>
-                                        <td>Web Developer</td>
+                                        <td><?= $i++; ?></td>
+                                        <td><?= $item['nama'] ?></td>
+                                        <td><?= $item['alamat'] ?></td>
+                                        <td><?= $item['keahlian'] ?></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -209,32 +211,7 @@
                                             <a href="" class="btn btn-warning btn-sm">Cetak</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Ardiansyah</td>
-                                        <td>Jl. Candi Panggung</td>
-                                        <td>Mobile Developer</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="badge badge-success">Lolos</span></td>
-                                        <td>
-                                            <a href="" class="btn btn-warning btn-sm">Cetak</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Aventus Akong</td>
-                                        <td>Jl. Candi Panggung Atas</td>
-                                        <td>Backend Developer</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="badge badge-success">Lolos</span></td>
-                                        <td>
-                                            <a href="" class="btn btn-warning btn-sm">Cetak</a>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="mr-3">
@@ -256,6 +233,9 @@
                                     </li>
                                 </ul>
                             </nav>
+                            <?php else : ?>
+                                <h3 class="text-center mt-5">Tidak ada  pendaftar yang masuk</h3>
+                            <?php endif; ?>
                         </div>
                     </div>
 
