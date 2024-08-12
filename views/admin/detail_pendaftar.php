@@ -75,6 +75,20 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <li class="nav-item ">
+                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Keahlian</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
+                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                    </div>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
@@ -235,7 +249,7 @@
                                                 <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
                                             </li>
                                             <li class="list-group-item">
-                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Psikologi</h6>
+                                                <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Wawancara</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
                                             </li>
                                             <li class="list-group-item">
