@@ -40,6 +40,8 @@ class UserController
     
     public function showSeleksi()
     {
+        $user = $this->user->getUserById($_SESSION['user']['id']);
+        $pendaftar = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
         include 'views/layout/user_header.php';
         include 'views/user/tes_seleksi.php';
         include 'views/layout/user_footer.php';

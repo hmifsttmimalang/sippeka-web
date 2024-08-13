@@ -27,8 +27,9 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="../../assets/profile/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Nama Peserta</span>
-                    </a><!-- End Profile Iamge Icon -->
+                        <span class="d-none d-md-block dropdown-toggle ps-2"><?= $pendaftar['nama'] ?></span>
+                    </a>
+                    <!-- End Profile Image Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
