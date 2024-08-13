@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SIPPEKA - Administrator Apps</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -179,79 +157,80 @@
 
                     <!-- Search Bar -->
                     <?php if (!empty($listPendaftar)) : ?>
-                    <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Nama</td>
-                                        <td>Alamat</td>
-                                        <td>Keahlian</td>
-                                        <td>NTK</td>
-                                        <td>NTP</td>
-                                        <td>Rata"</td>
-                                        <td>Status</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        <?php $i = 1; foreach ($listPendaftar as $item) : ?>
-                                    <tr>
-                                        <td><?= $i++; ?></td>
-                                        <td><?= $item['nama'] ?></td>
-                                        <td><?= $item['alamat'] ?></td>
-                                        <td><?= $item['keahlian'] ?></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="badge badge-info">Baru</span></td>
-                                        <td>
-                                            <a href="/admin/kelola_data/detail_pendaftar/<?= $item['user_id'] ?>" class="btn btn-info btn-sm">Cek</a>
-                                            <a href="" class="btn btn-danger btn-sm">Hapus</a>
-                                            <a href="" class="btn btn-primary btn-sm">Update</a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama</td>
+                                            <td>Alamat</td>
+                                            <td>Keahlian</td>
+                                            <td>NTK</td>
+                                            <td>NTP</td>
+                                            <td>Rata"</td>
+                                            <td>Status</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1;
+                                        foreach ($listPendaftar as $item) : ?>
+                                            <tr>
+                                                <td><?= $i++; ?></td>
+                                                <td><?= $item['nama'] ?></td>
+                                                <td><?= $item['alamat'] ?></td>
+                                                <td><?= $item['keahlian'] ?></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><span class="badge badge-info">Baru</span></td>
+                                                <td>
+                                                    <a href="/admin/kelola_data/detail_pendaftar/<?= $item['user_id'] ?>" class="btn btn-info btn-sm">Cek</a>
+                                                    <a href="" class="btn btn-danger btn-sm">Hapus</a>
+                                                    <a href="" class="btn btn-primary btn-sm">Update</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
                                 <?php else : ?>
                                     <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
                                 <?php endif; ?>
-                            </nav>
+                                </nav>
+                            </div>
+
                         </div>
 
-                    </div>
-
-                    <!-- Content Row -->
+                        <!-- Content Row -->
 
 
-                    <!-- /.container-fluid -->
+                        <!-- /.container-fluid -->
 
                 </div>
                 <!-- End of Main Content -->
@@ -285,23 +264,3 @@
                 </div>
             </div>
         </div>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="../../assets/admin/vendor/jquery/jquery.min.js"></script>
-        <script src="../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="../../assets/admin/js/sb-admin-2.min.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="../../assets/admin/vendor/chart.js/Chart.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="../../assets/admin/js/demo/chart-area-demo.js"></script>
-        <script src="../../assets/admin/js/demo/chart-pie-demo.js"></script>
-</body>
-
-</html>

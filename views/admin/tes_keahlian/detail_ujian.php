@@ -1,33 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SIPPEKA Administrator - Dashboard</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-        selector: 'textarea#tiny'
-        });
-    </script>
-
-</head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -43,7 +13,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-              Admin
+                Admin
             </div>
 
             <!-- Nav Item - Dashboard -->
@@ -58,23 +28,23 @@
 
             <li class="nav-item ">
                 <a class="nav-link" href="/admin/kelola_data">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Kelola Data Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Kelola Data Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/peserta">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/info_user">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Info User</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Info User</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -82,17 +52,17 @@
 
             <li class="nav-item ">
                 <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Keahlian</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                    <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
-                    <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
-                    <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
-                </div>
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Keahlian</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
+                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                    </div>
             </li>
 
             <!-- Divider -->
@@ -100,8 +70,8 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-fw fa-sign-out-alt"></i>
-                  <span>Keluar</span>
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Keluar</span>
                 </a>
             </li>
 
@@ -190,133 +160,133 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                <!-- Button Kembali -->
-                <a href="/admin/tes_keahlian" class="btn btn-primary btn-sm">Kembali</a>
+                    <!-- Button Kembali -->
+                    <a href="/admin/tes_keahlian" class="btn btn-primary btn-sm">Kembali</a>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="p-5">
-                                    <div class="">
-                                        <h1 class="h4 text-gray-900 mb-4">Detail Soal Keahlian</h1>
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-5">
+                                        <div class="">
+                                            <h1 class="h4 text-gray-900 mb-4">Detail Soal Keahlian</h1>
+                                        </div>
+                                        <hr class="divider-sidebar">
+                                        <table class="table table-bordered table-hover right-align">
+                                            <tr>
+                                                <th>Nama Tes Keahlian</th>
+                                                <td>Tes - Android Developer</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Mata Tes</th>
+                                                <td>Desain Sistem</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Keahlian</th>
+                                                <td>Android Developer</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jumlah Soal</th>
+                                                <td>30</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Durasi (Menit)</th>
+                                                <td>30 Menit</td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    <hr class="divider-sidebar">
-                                <table class="table table-bordered table-hover right-align">
-                                    <tr>
-                                        <th>Nama Tes Keahlian</th>
-                                        <td>Tes - Android Developer</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Mata Tes</th>
-                                        <td>Desain Sistem</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Keahlian</th>
-                                        <td>Android Developer</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Jumlah Soal</th>
-                                        <td>30</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Durasi (Menit)</th>
-                                        <td>30 Menit</td>
-                                    </tr>   
-                                </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="p-5">
-                                    <div class="">
-                                        <h1 class="h4 text-gray-900 mb-4">Soal Tes Keahlian</h1>
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-5">
+                                        <div class="">
+                                            <h1 class="h4 text-gray-900 mb-4">Soal Tes Keahlian</h1>
+                                        </div>
+                                        <hr class="divider-sidebar">
+                                        <a href="/admin/tes_keahlian/detail_ujian/tambah_soal_tes_keahlian" class="btn btn-primary mb-3">Tambah</a>
+                                        <a href="/admin/tes_keahlian/detail_ujian/import_soal_tes_keahlian" class="btn btn-primary mb-3">Import</a>
+                                        <table class="table table-bordered table-hover right-align">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Soal Tes Keahlian</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Apakah yang dimaksud metode waterfall?
+                                                    <hr class="sidebar-divider">
+                                                    <div class="ml-3">
+                                                        <div>A. Perancangan Atas</div>
+                                                        <div>B. Perancangan bawah</div>
+                                                        <div>C. Perancangan Dari atas kebawah</div>
+                                                        <div>D. Perancangan Kesamping</div>
+                                                        <div>E. Perancangan Perancangan Custom</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Apakah yang dimaksud relasi database?
+                                                    <hr class="sidebar-divider">
+                                                    <div class="ml-3">
+                                                        <div>A. Perancangan Atas</div>
+                                                        <div>B. Perancangan bawah</div>
+                                                        <div>C. Perancangan Dari atas kebawah</div>
+                                                        <div>D. Perancangan Kesamping</div>
+                                                        <div>E. Perancangan Perancangan Custom</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Bahasa Pemrograman yang levelnya mendekati manusia?
+                                                    <hr class="sidebar-divider">
+                                                    <div class="ml-3">
+                                                        <div>A. Perancangan Atas</div>
+                                                        <div>B. Perancangan bawah</div>
+                                                        <div>C. Perancangan Dari atas kebawah</div>
+                                                        <div>D. Perancangan Kesamping</div>
+                                                        <div>E. Perancangan Perancangan Custom</div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    <hr class="divider-sidebar">
-                                    <a href="/admin/tes_keahlian/detail_ujian/tambah_soal_tes_keahlian" class="btn btn-primary mb-3">Tambah</a>
-                                    <a href="/admin/tes_keahlian/detail_ujian/import_soal_tes_keahlian" class="btn btn-primary mb-3">Import</a>
-                                <table class="table table-bordered table-hover right-align">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Soal Tes Keahlian</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Apakah yang dimaksud metode waterfall?
-                                            <hr class="sidebar-divider">
-                                            <div class="ml-3">
-                                                <div>A. Perancangan Atas</div>
-                                                <div>B. Perancangan bawah</div>
-                                                <div>C. Perancangan Dari atas kebawah</div>
-                                                <div>D. Perancangan Kesamping</div>
-                                                <div>E. Perancangan Perancangan Custom</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Apakah yang dimaksud relasi database?
-                                            <hr class="sidebar-divider">
-                                            <div class="ml-3">
-                                                <div>A. Perancangan Atas</div>
-                                                <div>B. Perancangan bawah</div>
-                                                <div>C. Perancangan Dari atas kebawah</div>
-                                                <div>D. Perancangan Kesamping</div>
-                                                <div>E. Perancangan Perancangan Custom</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Bahasa Pemrograman yang levelnya mendekati manusia?
-                                            <hr class="sidebar-divider">
-                                            <div class="ml-3">
-                                                <div>A. Perancangan Atas</div>
-                                                <div>B. Perancangan bawah</div>
-                                                <div>C. Perancangan Dari atas kebawah</div>
-                                                <div>D. Perancangan Kesamping</div>
-                                                <div>E. Perancangan Perancangan Custom</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                 </div>
 
             </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -345,24 +315,3 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
-    <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
-
-</body>
-
-</html>

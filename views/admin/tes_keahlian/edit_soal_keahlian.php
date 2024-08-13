@@ -1,27 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SIPPEKA Administrator - Dashboard</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
-
-    <!-- Custom styles for this template-->
-    <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -37,7 +13,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-              Admin
+                Admin
             </div>
 
             <!-- Nav Item - Dashboard -->
@@ -52,23 +28,23 @@
 
             <li class="nav-item ">
                 <a class="nav-link" href="/admin/kelola_data">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Kelola Data Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Kelola Data Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/peserta">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Peserta</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Peserta</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="/admin/info_user">
-                  <i class="fas fa-fw fa-user"></i>
-                  <span>Info User</span>
-              </a>
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Info User</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -76,17 +52,17 @@
 
             <li class="nav-item ">
                 <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                  <i class="fas fa-fw fa-list"></i>
-                  <span>Keahlian</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                    <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
-                    <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
-                    <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
-                </div>
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Keahlian</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
+                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                    </div>
             </li>
 
             <!-- Divider -->
@@ -94,8 +70,8 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-fw fa-sign-out-alt"></i>
-                  <span>Keluar</span>
+                    <i class="fas fa-fw fa-sign-out-alt"></i>
+                    <span>Keluar</span>
                 </a>
             </li>
 
@@ -188,104 +164,104 @@
                     <a href="/admin/tes_keahlian" class="btn btn-primary btn-sm mb-6">Kembali</a>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="p-5">
-                                    <div class="">
-                                        <h1 class="h4 text-gray-900 mb-4">Edit Soal Keahlian</h1>
-                                    </div>
-                                    <hr class="divider-sidebar">
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <label for="nama_soal">Nama Tes</label>
-                                            <input type="text" name="nama_soal" class="form-control" id="nama_soal" placeholder="Masukkan Nama Mata Keahlian">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-5">
+                                        <div class="">
+                                            <h1 class="h4 text-gray-900 mb-4">Edit Soal Keahlian</h1>
                                         </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="mata_soal">Mata Soal</label>
-                                                <select name="mata_soal" id="mata_soal" class="form-control">
-                                                    <option value="">Pilih Mata Keahlian</option>
-                                                    <option value="pemrograman_web">Pemrograman Web</option>
-                                                    <option value="desain_web">Design Web</option>
-                                                    <option value="desain_sistem">Desain Sistem</option>
-                                                </select>
+                                        <hr class="divider-sidebar">
+                                        <form class="user">
+                                            <div class="form-group">
+                                                <label for="nama_soal">Nama Tes</label>
+                                                <input type="text" name="nama_soal" class="form-control" id="nama_soal" placeholder="Masukkan Nama Mata Keahlian">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="kelas">Kelas</label>
-                                                <select name="mata_soal" id="mata_soal" class="form-control">
-                                                    <option value="">Pilih Keahlian</option>
-                                                    <option value="android_developer">Android Developer</option>
-                                                    <option value="backend_developer">Backend Developer</option>
-                                                    <option value="web_developer">Web Developer</option>
-                                                    <option value="ui_ux_designer">UI UX Designer</option>
-                                                    <option value="it_security">IT Security</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <div class="col-md-6">
+                                                    <label for="mata_soal">Mata Soal</label>
+                                                    <select name="mata_soal" id="mata_soal" class="form-control">
+                                                        <option value="">Pilih Mata Keahlian</option>
+                                                        <option value="pemrograman_web">Pemrograman Web</option>
+                                                        <option value="desain_web">Design Web</option>
+                                                        <option value="desain_sistem">Desain Sistem</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="kelas">Kelas</label>
+                                                    <select name="mata_soal" id="mata_soal" class="form-control">
+                                                        <option value="">Pilih Keahlian</option>
+                                                        <option value="android_developer">Android Developer</option>
+                                                        <option value="backend_developer">Backend Developer</option>
+                                                        <option value="web_developer">Web Developer</option>
+                                                        <option value="ui_ux_designer">UI UX Designer</option>
+                                                        <option value="it_security">IT Security</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
                                             <div class="form-group">
                                                 <label for="nama_soal">Nama Soal</label>
                                                 <form action="" method="post">
                                                     <div id="editor"></div>
                                                 </form>
                                             </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="acak_soal">Acak Soal</label>
-                                                <select name="acak_soal" id="acak_soal" class="form-control">
-                                                    <option value="">Pilih</option>
-                                                    <option value="y">Y</option>
-                                                    <option value="t">T</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <div class="col-md-6">
+                                                    <label for="acak_soal">Acak Soal</label>
+                                                    <select name="acak_soal" id="acak_soal" class="form-control">
+                                                        <option value="">Pilih</option>
+                                                        <option value="y">Y</option>
+                                                        <option value="t">T</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="acak_jawaban">Acak Jawaban</label>
+                                                    <select name="acak_jawaban" id="acak_jawaban" class="form-control">
+                                                        <option value="">Pilih</option>
+                                                        <option value="y">Y</option>
+                                                        <option value="t">T</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="acak_jawaban">Acak Jawaban</label>
-                                                <select name="acak_jawaban" id="acak_jawaban" class="form-control">
-                                                    <option value="">Pilih</option>
-                                                    <option value="y">Y</option>
-                                                    <option value="t">T</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <div class="col-md-6">
+                                                    <label for="acak_soal">Acak Soal</label>
+                                                    <select name="acak_soal" id="acak_soal" class="form-control">
+                                                        <option value="">Pilih</option>
+                                                        <option value="y">Y</option>
+                                                        <option value="t">T</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="durasi_menit">Durasi (Menit)</label>
+                                                    <input type="text" name="durasi_menit" class="form-control" id="durasi_menit"
+                                                        placeholder="Masukkan Durasi Tes (Menit)">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
-                                                <label for="acak_soal">Acak Soal</label>
-                                                <select name="acak_soal" id="acak_soal" class="form-control">
-                                                    <option value="">Pilih</option>
-                                                    <option value="y">Y</option>
-                                                    <option value="t">T</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="durasi_menit">Durasi (Menit)</label>
-                                                <input type="text" name="durasi_menit" class="form-control" id="durasi_menit" 
-                                                placeholder="Masukkan Durasi Tes (Menit)">
-                                            </div>
-                                        </div>
-                                        <a href="/admin/tes_keahlian" class="btn btn-primary">
-                                            Simpan
-                                        </a>
-                                        <a href="" class="btn btn-primary">
-                                            Reset
-                                        </a>
-                                    </form>
+                                            <a href="/admin/tes_keahlian" class="btn btn-primary">
+                                                Simpan
+                                            </a>
+                                            <a href="" class="btn btn-primary">
+                                                Reset
+                                            </a>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                    </div>
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -315,22 +291,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
-    <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
@@ -338,7 +299,3 @@
             theme: 'snow'
         });
     </script>
-
-</body>
-
-</html>

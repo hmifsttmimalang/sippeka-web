@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SIPPEKA Administrator - Dashboard</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -179,7 +156,7 @@
                     <h1 class="h3 mb-3 text-gray-800 ">Sesi Tes Keahlian</h1>
 
                     <!-- Button Add Data -->
-                     <div class="d-flex justify-content-left">
+                    <div class="d-flex justify-content-left">
                         <div></div>
                         <form action="" class="form-inline my-2 my-lg-0">
                             <a href="/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian" class="btn btn-primary btn-sm mr-sm-4 mb-4">
@@ -187,20 +164,20 @@
                                 Tambah
                             </a>
                         </form>
-                     </div>
-                    
+                    </div>
+
                     <!-- Search Bar -->
-                     <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between">
                         <div></div>
                         <form class="form-inline my-2 my-lg-0">
                             <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
                         </form>
-                     </div>
+                    </div>
 
-                       <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered table-hover">
-                                  <thead>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-hover">
+                                <thead>
                                     <tr>
                                         <td>No</td>
                                         <td>Tes</td>
@@ -210,15 +187,15 @@
                                         <td>Selesai</td>
                                         <td>Aksi</td>
                                     </tr>
-                                  </thead>
-                                  <tbody>
+                                </thead>
+                                <tbody>
                                     <tr>
                                         <td>1</td>
                                         <td>
                                             Tes - Desain Sistem
                                             <ul type="disc">
                                                 <li>Kelas : Android Developer</li>
-                                                <li>Mata  : Desain Sistem </li>
+                                                <li>Mata : Desain Sistem </li>
                                             </ul type="disc">
                                         </td>
                                         <td>Desain Sistem</td>
@@ -226,45 +203,45 @@
                                         <td>2024-07-26 15:00:00</td>
                                         <td>2024-07-26 17:00:00</td>
                                         <td>
-                                        <a href="/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian" class="btn btn-secondary btn-sm">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                          <a href="" class="btn btn-danger btn-sm">
-                                            <i class="bi bi-trash"></i>
-                                          </a>
+                                            <a href="/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian" class="btn btn-secondary btn-sm">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian" class="btn btn-primary btn-sm">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a href="" class="btn btn-danger btn-sm">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
                                         </td>
                                     </tr>
-                                    </tbody>
-                                </table>
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
+                                </tbody>
+                            </table>
+                            <nav aria-label="..." class="mr-3">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link">Previous</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
-
                     </div>
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -292,23 +269,3 @@
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
-    <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
-</body>
-
-</html>

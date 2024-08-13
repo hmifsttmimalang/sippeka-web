@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SIPPEKA Administrator - Dashboard</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="../../../assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="../../../assets/admin/css/sb-admin-2.min.css" rel="stylesheet">
-
-</head>
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -55,8 +33,6 @@
                 </a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
             <li class="nav-item ">
                 <a class="nav-link" href="/admin/peserta">
@@ -88,6 +64,7 @@
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
             </li>
+            <hr class="sidebar-divider">
 
             <li class="nav-item">
                 <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
@@ -203,10 +180,35 @@
                                         <h5 class="text-center card-title"><b><?= $userPendaftar['nama'] ?></b></h5>
 
                                         <ul class="list-group">
+                                            <?php
+                                            function bulan_indo($month)
+                                            {
+                                                $indonesianMonths = [
+                                                    'Januari',
+                                                    'Februari',
+                                                    'Maret',
+                                                    'April',
+                                                    'Mei',
+                                                    'Juni',
+                                                    'Juli',
+                                                    'Agustus',
+                                                    'September',
+                                                    'Oktober',
+                                                    'November',
+                                                    'Desember'
+                                                ];
+                                                return $indonesianMonths[$month - 1]; // subtract 1 because array indices start at 0
+                                            }
+                                            ?>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Tempat, Tangal Lahir</h6>
-                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['tempat_lahir'] . ', ' . $userPendaftar['tanggal_lahir'] ?></h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;">
+                                                    <?= $userPendaftar['tempat_lahir'] . ', ' . ltrim(date('d', strtotime($userPendaftar['tanggal_lahir'])), '0') . ' ' .
+                                                        bulan_indo(date('m', strtotime($userPendaftar['tanggal_lahir']))) . ' ' .
+                                                        date('Y', strtotime($userPendaftar['tanggal_lahir'])) ?>
+                                                </h6>
                                             </li>
+
                                             <li class="list-group-item">
                                                 <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Jenis Kelamin</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['jenis_kelamin'] ?></h6>
@@ -331,24 +333,3 @@
                 </div>
             </div>
         </div>
-
-        <!-- Bootstrap core JavaScript-->
-        <script src="../../../assets/admin/vendor/jquery/jquery.min.js"></script>
-        <script src="../../../assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="../../../assets/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="../../../assets/admin/js/sb-admin-2.min.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="../../../assets/admin/vendor/chart.js/Chart.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="../../../assets/admin/js/demo/chart-area-demo.js"></script>
-        <script src="../../../assets/admin/js/demo/chart-pie-demo.js"></script>
-
-</body>
-
-</html>
