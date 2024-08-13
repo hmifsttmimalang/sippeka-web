@@ -35,6 +35,22 @@ class Pendaftar
         return $this->pdo->lastInsertId();
     }
 
+    public function update($id, $data)
+    {
+        $columns = [];
+        $values = [];
+        foreach ($data as $column => $value) {
+            $columns[] = "$column = ?";
+            $values[] = $value;
+        }
+        $columns_str = implode(', ', $columns);
+        $stmt = $this->pdo->prepare("UPDATE pendaftar SET $columns_str WHERE id = ?");
+        $values[] = $id;
+        $stmt->execute($values);
+
+        return $stmt->rowCount();
+    }
+
     private function updateUserRegistrationStatus($user_id)
     {
         $stmt = $this->pdo->prepare("UPDATE users SET is_registered = 1 WHERE id = ?");

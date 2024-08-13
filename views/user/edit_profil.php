@@ -170,20 +170,20 @@ include '../../controllers/AuthController.php';
 
         <div class="row">
             <div class="col-md-8">
-                <form class="user" method="post" action="" enctype="multipart/form-data">
+                <form class="user" method="post" action="/user/edit_profil" enctype="multipart/form-data">
                     <div class="form-group mb-3">
                         <label for="nama">Nama</label>
-                        <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Lengkap Anda...">
+                        <input type="text" name="nama" class="form-control" id="nama" value="<?= $pendaftar['nama'] ?>">
                     </div>
 
                     <div class="form-group row mb-3">
                         <div class="col-md-6">
                             <label for="tempat_lahir">Tempat Lahir</label>
-                            <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" placeholder="Tempat Lahir Anda...">
+                            <input type="text" name="tempat_lahir" class="form-control" id="tempat_lahir" value="<?= $pendaftar['tempat_lahir'] ?>">
                         </div>
                         <div class="col-md-6">
                             <label for="tanggal_lahir">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" placeholder="Tanggal Lahir Anda...">
+                            <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" value="<?= date('Y-m-d', strtotime($pendaftar['tanggal_lahir'])) ?>">
                         </div>
                     </div>
 
@@ -191,11 +191,11 @@ include '../../controllers/AuthController.php';
                         <div class="col-md-6">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
                             <div class="form-check">
-                                <input type="radio" name="jenis_kelamin" value="Laki-laki" class="form-check-input" id="laki">
+                                <input type="radio" name="jenis_kelamin" value="Laki-laki" class="form-check-input" id="laki" <?= ($pendaftar['jenis_kelamin'] == 'Laki-laki') ? 'checked' : '' ?>>
                                 <label for="laki" class="form-check-label">Laki-Laki</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" name="jenis_kelamin" value="Perempuan" class="form-check-input" id="perempuan">
+                                <input type="radio" name="jenis_kelamin" value="Perempuan" class="form-check-input" id="perempuan" <?= ($pendaftar['jenis_kelamin'] == 'Perempuan') ? 'checked' : '' ?>>
                                 <label for="perempuan" class="form-check-label">Perempuan</label>
                             </div>
                         </div>
@@ -203,30 +203,37 @@ include '../../controllers/AuthController.php';
                             <label for="agama">Agama</label>
                             <select name="agama" id="agama" class="form-control">
                                 <option value="">Pilih Agama</option>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Katolik">Katolik</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Konghucu">Konghucu</option>
+                                <?php
+                                $agama_options = [
+                                    'Islam',
+                                    'Kristen',
+                                    'Katolik',
+                                    'Hindu',
+                                    'Buddha',
+                                    'Konghucu'
+                                ];
+                                foreach ($agama_options as $option) {
+                                    $selected = ($pendaftar['agama'] == $option) ? 'selected' : '';
+                                    echo "<option value='$option' $selected>$option</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="alamat">Alamat</label>
-                        <textarea name="alamat" id="alamat" class="form-control"></textarea>
+                        <textarea name="alamat" id="alamat" class="form-control"><?= $pendaftar['alamat'] ?></textarea>
                     </div>
 
-                    <div class="form-group row mb-3">
-                        <div class="col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Email Aktif Anda...">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="telepon">Telepon</label>
-                            <input type="text" name="telepon" class="form-control" id="telepon" placeholder="No Telepon Anda...">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="telepon">Telepon</label>
+                        <input type="text" name="telepon" class="form-control" id="telepon" value="<?= $pendaftar['telepon'] ?>">
+                    </div>
+                    <hr>
+                    <div class="form-group mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email Aktif Anda...">
                     </div>
 
                     <div class="form-group row mb-4">
@@ -245,8 +252,12 @@ include '../../controllers/AuthController.php';
                 </form>
             </div>
             <div class="col-md-4">
-                <img src="../../assets/profile/img/messages-3.jpg" alt="foto profil" class="img-fluid">
-                <input type="file" name="gambar" class="form-control mt-2">
+                <?php
+                $file_path = '../../../assets/uploads/' . $user['username'] . '/' . $pendaftar['nama'] . '_' . $pendaftar['tempat_lahir'] . '_' . $pendaftar['tanggal_lahir'] . '_bg_biru';
+                $jpg_path = $file_path . '.jpg';
+                $jpeg_path = $file_path . '.jpeg';
+                ?>
+                <img src="<?= $jpg_path ? $file_path . '.jpg' : $file_path . '.jpeg' ?>" class="img-fluid">
             </div>
         </div>
 
