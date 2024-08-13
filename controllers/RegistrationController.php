@@ -32,7 +32,10 @@ class RegistrationController
             header('Location: /pendaftaran/terdaftar');
             exit;
         }
+
+        include 'views/layout/pendaftaran_header.php';
         include 'views/pendaftaran/form_registrasi.php';
+        include 'views/layout/pendaftaran_footer.php';
     }
 
     public function register()
@@ -122,6 +125,8 @@ class RegistrationController
 
     public function registered()
     {
+        include 'views/layout/terdaftar_header.php';
         include 'views/pendaftaran/terdaftar.php';
+        include 'views/layout/terdaftar_footer.php';
     }
 }
