@@ -33,7 +33,9 @@ class UserController
     {
         $user = $this->user->getUserById($_SESSION['user']['id']);
         $pendaftar = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        include 'views/layout/user_header.php';
         include 'views/user/dashboard_user.php';
+        include 'views/layout/user_footer.php';
     }
     
     public function showSeleksi()
@@ -72,7 +74,7 @@ class UserController
             header('Location: /user');
             exit;
         }
-    
+
         include 'views/user/edit_profil.php';
     }
 }
