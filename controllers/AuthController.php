@@ -14,12 +14,16 @@ class AuthController
 
     public function showLogin()
     {
+        include 'views/layout/auth_header.php';
         include 'views/auth/login.php';
+        include 'views/layout/auth_footer.php';
     }
-
+    
     public function showRegister()
     {
+        include 'views/layout/auth_header.php';
         include 'views/auth/register.php';
+        include 'views/layout/auth_footer.php';
     }
 
     public function login()
