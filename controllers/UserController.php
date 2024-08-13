@@ -40,14 +40,16 @@ class UserController
     
     public function showSeleksi()
     {
+        include 'views/layout/user_header.php';
         include 'views/user/tes_seleksi.php';
+        include 'views/layout/user_footer.php';
     }
     
     public function editProfil()
     {
         $user = $this->user->getUserById($_SESSION['user']['id']);
         $pendaftar = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
-    
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama = $_POST['nama'];
             $tempat_lahir = $_POST['tempat_lahir'];
@@ -56,7 +58,7 @@ class UserController
             $agama = $_POST['agama'];
             $alamat = $_POST['alamat'];
             $telepon = $_POST['telepon'];
-    
+            
             $data = [
                 'nama' => $nama,
                 'tempat_lahir' => $tempat_lahir,
@@ -66,15 +68,17 @@ class UserController
                 'alamat' => $alamat,
                 'telepon' => $telepon,
             ];
-    
+            
             $id = $pendaftar['id'];
             $this->pendaftaran->update($id, $data);
-    
+            
             // Redirect to the success page
             header('Location: /user');
             exit;
         }
-
+        
+        include 'views/layout/user_header.php';
         include 'views/user/edit_profil.php';
+        include 'views/layout/user_footer.php';
     }
 }
