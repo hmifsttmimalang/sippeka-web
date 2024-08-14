@@ -3,6 +3,7 @@
 require_once 'models/User.php';
 require_once 'models/Pendaftaran.php';
 require_once 'models/Keahlian.php';
+require_once 'models/TesKeahlian.php';
 require_once 'connection/database.php';
 
 class AdminController
@@ -12,6 +13,7 @@ class AdminController
     private $password;
     private $pendaftar;
     protected $kelasKeahlian;
+    protected $tesKeahlian;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class AdminController
         $this->pendaftar = new Pendaftar($pdo);
         $this->user = new User($pdo);
         $this->kelasKeahlian = new Keahlian($pdo);
+        $this->tesKeahlian = new TesKeahlian($pdo);
     }
 
     public function index()
@@ -160,6 +163,7 @@ class AdminController
     // tes keahlian
     public function tesKeahlian()
     {
+        $tesKeahlianList = $this->tesKeahlian->getAll();
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/tes_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -167,26 +171,66 @@ class AdminController
 
     public function tambahTesKeahlian()
     {
+        $keahlianList = $this->kelasKeahlian->getAll();
+        
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nama_tes = $_POST['nama_tes'];
+            $mata_soal = $_POST['mata_soal'];
+            $kelas = $_POST['kelas'];
+            $acak_soal = $_POST['acak_soal'];
+            $acak_jawaban = $_POST['acak_jawaban'];
+            $durasi_menit = $_POST['durasi_menit'];
+            
+            if ($this->tesKeahlian->create($nama_tes, $mata_soal, $kelas,  $acak_soal, $acak_jawaban, $durasi_menit)) {
+                header('Location: /admin/tes_keahlian');
+                exit;
+            }
+        }
+        
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/tambah_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-
-    public function detailUjian()
+    
+    public function detailUjian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/detail_ujian.php';
         include 'views/layout/admin_footer.php';
     }
-
-    public function editTesKeahlian()
+    
+    public function editTesKeahlian($id)
     {
+        $keahlianList = $this->kelasKeahlian->getAll();
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nama_tes = $_POST['nama_tes'];
+            $mata_soal = $_POST['mata_soal'];
+            $kelas = $_POST['kelas'];
+            $acak_soal = $_POST['acak_soal'];
+            $acak_jawaban = $_POST['acak_jawaban'];
+            $durasi_menit = $_POST['durasi_menit'];
+    
+            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal, $kelas, $acak_soal, $acak_jawaban, $durasi_menit)) {
+                header('Location: /admin/tes_keahlian');
+                exit;
+            }
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-
-    public function hapusTesKeahlian() {}
+    
+    public function hapusTesKeahlian($id) 
+    {
+        if ($this->tesKeahlian->delete($id)) {
+            header('Location: /admin/tes_keahlian');
+            exit;
+        }
+    }
 
 
     // tambah soal tes

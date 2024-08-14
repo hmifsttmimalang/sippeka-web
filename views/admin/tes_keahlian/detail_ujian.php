@@ -180,11 +180,11 @@
                                             </tr>
                                             <tr>
                                                 <th>Mata Tes</th>
-                                                <td>Desain Sistem</td>
+                                                <td><?= $tesKeahlian['mata_soal'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Keahlian</th>
-                                                <td>Android Developer</td>
+                                                <td><?= $tesKeahlian['kelas'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Jumlah Soal</th>
@@ -192,7 +192,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
-                                                <td>30 Menit</td>
+                                                <td><?= $tesKeahlian['durasi_menit'] ?> Menit</td>
                                             </tr>
                                         </table>
                                     </div>

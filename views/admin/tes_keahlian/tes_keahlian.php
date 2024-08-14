@@ -159,10 +159,11 @@
                     <div class="d-flex justify-content-left">
                         <div></div>
                         <form action="" class="form-inline my-2 my-lg-0">
-                            <a href="/admin/tes_keahlian/tambah_soal_keahlian" class="btn btn-primary btn-sm mr-sm-4 mb-4">Tambah</a>
+                            <a href="/admin/tes_keahlian/tambah_tes_keahlian" class="btn btn-primary btn-sm mr-sm-4 mb-4">Tambah</a>
                         </form>
                     </div>
 
+                    <?php if (!empty($tesKeahlianList)) : ?>
                     <!-- Search Bar -->
                     <div class="d-flex justify-content-between">
                         <div></div>
@@ -185,42 +186,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Tes - Desain Sistem</td>
-                                        <td>Desain Sistem</td>
-                                        <td>Android Developer</td>
-                                        <td>30</td>
-                                        <td>
-                                            <a href="/admin/tes_keahlian/detail_ujian" class="btn btn-secondary btn-sm">View</a>
-                                            <a href="/admin/tes_keahlian/edit_soal_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Tes - Desain Web</td>
-                                        <td>Desain Web</td>
-                                        <td>Web Developer</td>
-                                        <td>30</td>
-                                        <td>
-                                            <a href="" class="btn btn-secondary btn-sm">View</a>
-                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Tes - Programming Web</td>
-                                        <td>Programming Web</td>
-                                        <td>Backend Developer</td>
-                                        <td>30</td>
-                                        <td>
-                                            <a href="" class="btn btn-secondary btn-sm">View</a>
-                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
+                                    <?php $i = 1;
+                                    foreach ($tesKeahlianList as $item) : ?>
+                                        <tr>
+                                            <td><?= $i++; ?></td>
+                                            <td>Tes - <?= $item['nama_tes'] ?></td>
+                                            <td><?= $item['mata_soal'] ?></td>
+                                            <td><?= $item['kelas'] ?></td>
+                                            <td>30</td>
+                                            <td>
+                                                <a href="/admin/tes_keahlian/detail_ujian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">View</a>
+                                                <a href="/admin/tes_keahlian/edit_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                <a href="/admin/tes_keahlian/hapus_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="mr-3">
@@ -238,6 +218,9 @@
                             </nav>
                         </div>
                     </div>
+                    <?php else : ?>
+                        <h3 class="text-center mt-2">Tidak ada tes yang tersedia</h3>
+                    <?php endif; ?>
 
                 </div>
 

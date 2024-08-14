@@ -162,10 +162,10 @@
                                 <div class="col-md-12">
                                     <div class="p-5">
                                         <div class="">
-                                            <h1 class="h4 text-gray-900 mb-4">Tambah Soal Keahlian</h1>
+                                            <h1 class="h4 text-gray-900 mb-4">Tambah Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" method="post" action="/admin/tes_keahlian/tambah_tes_keahlian">
                                             <div class="form-group">
                                                 <label for="nama_tes">Nama Tes</label>
                                                 <input type="text" name="nama_tes" class="form-control" id="nama_tes" placeholder="Masukkan Nama Mata Keahlian">
@@ -175,29 +175,26 @@
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
-                                                        <option value="pemrograman_web">Pemrograman Web</option>
-                                                        <option value="desain_web">Design Web</option>
-                                                        <option value="desain_sistem">Desain Sistem</option>
+                                                        <option value="Pemrograman Web">Pemrograman Web</option>
+                                                        <option value="Design Web">Design Web</option>
+                                                        <option value="Desain Sistem">Desain Sistem</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="kelas">Kelas</label>
-                                                    <select name="mata_soal" id="mata_soal" class="form-control">
+                                                    <select name="kelas" id="kelas" class="form-control">
                                                         <option value="">Pilih Keahlian</option>
-                                                        <option value="android_developer">Android Developer</option>
-                                                        <option value="backend_developer">Backend Developer</option>
-                                                        <option value="web_developer">Web Developer</option>
-                                                        <option value="ui_ux_designer">UI UX Designer</option>
-                                                        <option value="it_security">IT Security</option>
+                                                        <?php foreach ($keahlianList as $item) : ?>
+                                                            <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label for="nama_soal">Nama Soal</label>
-                                                <form action="" method="post">
-                                                    <div id="editor"></div>
-                                                </form>
-                                            </div>
+                                                <div id="editor"></div>
+                                                <input type="hidden" name="nama_soal" id="nama_soal_hidden" />
+                                            </div> -->
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="acak_soal">Acak Soal</label>
@@ -230,9 +227,7 @@
                                                     <input type="text" name="durasi_menit" class="form-control" id="durasi_menit" placeholder="Masukkan Durasi Tes (Menit)">
                                                 </div>
                                             </div>
-                                            <a href="" class="btn btn-primary">
-                                                Simpan
-                                            </a>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                             <a href="" class="btn btn-primary">
                                                 Reset
                                             </a>
@@ -281,9 +276,14 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
         const quill = new Quill('#editor', {
             theme: 'snow'
         });
-    </script>
+
+        quill.on('text-change', function() {
+            const html = quill.root.innerHTML;
+            document.getElementById('nama_soal_hidden').value = html;
+        });
+    </script> -->
