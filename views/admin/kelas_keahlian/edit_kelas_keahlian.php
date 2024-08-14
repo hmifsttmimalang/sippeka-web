@@ -165,7 +165,7 @@
                                             <h1 class="h4 text-gray-900 mb-4">Edit Kelas Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user" method="POST" action="/admin/kelas_keahlian/ubah_kelas_keahlian/<?php echo htmlspecialchars($keahlian['id']); ?>">
+                                        <form class="user" method="POST" action="/admin/kelas_keahlian/edit_kelas_keahlian/<?= $keahlian['id'] ?>">
                                             <div class="form-group">
                                                 <label for="nama">Nama Kelas Keahlian</label>
                                                 <input type="text" name="nama" class="form-control" id="nama" value="<?php echo htmlspecialchars($keahlian['nama']); ?>">
