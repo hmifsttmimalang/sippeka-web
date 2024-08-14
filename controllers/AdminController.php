@@ -67,9 +67,15 @@ class AdminController
     {
         $user = $this->user->getUserById($id);
         $userPendaftar = $this->pendaftar->getByUserId($id);
-        include 'views/layout/admin_header.php';
-        include 'views/admin/detail_pendaftar.php';
-        include 'views/layout/admin_footer.php';
+
+        if (!empty($userPendaftar)) {
+            include 'views/layout/admin_header.php';
+            include 'views/admin/detail_pendaftar.php';
+            include 'views/layout/admin_footer.php';
+        } else {
+            header('Location: /admin/kelola_data');
+            exit;
+        }
     }
 
     // halaman soal keahlian
@@ -93,9 +99,9 @@ class AdminController
         include 'views/admin/mata_keahlian/edit_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function hapusSoalKeahlian() {}
-    
+
     // kelas keahlian
     public function kelasKeahlian()
     {
@@ -104,7 +110,7 @@ class AdminController
         include 'views/admin/kelas_keahlian/kelas_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function tambahKelasKeahlian()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -125,7 +131,7 @@ class AdminController
             include 'views/layout/admin_footer.php';
         }
     }
-    
+
     public function ubahKelasKeahlian($id)
     {
         $nama = $_POST['nama'] ?? null;
@@ -135,7 +141,7 @@ class AdminController
                 exit; // Tambahkan exit setelah redirect
             }
         }
-        
+
         // Ambil data untuk edit jika tidak ada POST data
         $keahlian = $this->kelasKeahlian->getById($id);
         include 'views/layout/admin_header.php';
@@ -158,31 +164,31 @@ class AdminController
         include 'views/admin/tes_keahlian/tes_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function tambahTesKeahlian()
     {
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/tambah_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function detailUjian()
     {
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/detail_ujian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function editTesKeahlian()
     {
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function hapusTesKeahlian() {}
-    
-    
+
+
     // tambah soal tes
     public function tambahSoalTesKeahlian()
     {
@@ -190,14 +196,14 @@ class AdminController
         include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function importSoalTesKeahlian()
     {
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/import_soal_tes.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     // edit soal tes
     public function editSoalTesKeahlian()
     {
@@ -205,10 +211,10 @@ class AdminController
         include 'views/admin/tes_keahlian/edit_detail_tes.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     // hapus soal tes
     public function hapusSoalTesKeahlian() {}
-    
+
     // sesi keahlian
     public function sesiTesKeahlian()
     {
@@ -216,21 +222,21 @@ class AdminController
         include 'views/admin/sesi_keahlian/sesi_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function detailSesiTesKeahlian()
     {
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function tambahSesiTesKeahlian()
     {
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/tambah_sesi_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function editSesiTesKeahlian()
     {
         include 'views/layout/admin_header.php';
