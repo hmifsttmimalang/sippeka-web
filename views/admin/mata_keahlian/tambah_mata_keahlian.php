@@ -165,14 +165,14 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Mata Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" action="/admin/mata_soal_keahlian/tambah_mata_keahlian" method="post">
                                             <div class="form-group">
                                                 <label for="nama">Nama Keahlian</label>
                                                 <input type="text" name="nama" class="form-control" id="nama" placeholder="Masukkan Nama Mata Keahlian">
                                             </div>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary">
                                                 Simpan
-                                            </a>
+                                            </button>
                                             <a href="" class="btn btn-primary">
                                                 Reset
                                             </a>

@@ -165,14 +165,14 @@
                                             <h1 class="h4 text-gray-900 mb-4">Edit Mata Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" method="post" action="/admin/mata_soal_keahlian/edit_keahlian/<?= $mataSoal['id'] ?>">
                                             <div class="form-group">
                                                 <label for="nama">Nama Mata Keahlian</label>
-                                                <input type="text" name="nama" class="form-control" id="nama" placeholder="">
+                                                <input type="text" name="nama" class="form-control" id="nama" value="<?= $mataSoal['nama'] ?>">
                                             </div>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary">
                                                 Simpan
-                                            </a>
+                                            </button>
                                             <a href="" class="btn btn-primary">
                                                 Reset
                                             </a>

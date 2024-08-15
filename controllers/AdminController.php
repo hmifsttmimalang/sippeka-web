@@ -4,6 +4,7 @@ require_once 'models/User.php';
 require_once 'models/Pendaftaran.php';
 require_once 'models/Keahlian.php';
 require_once 'models/TesKeahlian.php';
+require_once 'models/MataSoal.php';
 require_once 'connection/database.php';
 
 class AdminController
@@ -14,6 +15,7 @@ class AdminController
     private $pendaftar;
     protected $kelasKeahlian;
     protected $tesKeahlian;
+    protected $mataSoal;
 
     public function __construct()
     {
@@ -27,6 +29,7 @@ class AdminController
         $this->user = new User($pdo);
         $this->kelasKeahlian = new Keahlian($pdo);
         $this->tesKeahlian = new TesKeahlian($pdo);
+        $this->mataSoal = new MataSoal($pdo);
     }
 
     public function index()
@@ -84,6 +87,7 @@ class AdminController
     // halaman soal keahlian
     public function soalKeahlian()
     {
+        $mataSoal = $this->mataSoal->getAll();
         include 'views/layout/admin_header.php';
         include 'views/admin/mata_keahlian/mata_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -91,19 +95,48 @@ class AdminController
 
     public function tambahSoalKeahlian()
     {
-        include 'views/layout/admin_header.php';
-        include 'views/admin/mata_keahlian/tambah_mata_keahlian.php';
-        include 'views/layout/admin_footer.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['nama']) && !empty(trim($_POST['nama']))) {
+                $nama = trim($_POST['nama']);
+                if ($this->mataSoal->create($nama)) {
+                    header('Location: /admin/mata_soal_keahlian');
+                    exit();
+                } else {
+                    echo "Error saving data.";
+                }
+            } else {
+                echo "Nama Mata Soal tidak boleh kosong.";
+            }
+        } else {
+            include 'views/layout/admin_header.php';
+            include 'views/admin/mata_keahlian/tambah_mata_keahlian.php';
+            include 'views/layout/admin_footer.php';
+        }
     }
 
-    public function ubahSoalKeahlian()
+    public function ubahSoalKeahlian($id)
     {
+        $nama = $_POST['nama'] ?? null;
+        if ($nama) {
+            if ($this->mataSoal->update($id, $nama)) {
+                header('Location: /admin/kelas_keahlian');
+                exit;
+            }
+        }
+
+        $mataSoal = $this->mataSoal->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/mata_keahlian/edit_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
 
-    public function hapusSoalKeahlian() {}
+    public function hapusSoalKeahlian($id) 
+    {
+        if ($this->mataSoal->delete($id)) {
+            header('Location: /admin/mata_soal_keahlian');
+            exit;
+        }
+    }
 
     // kelas keahlian
     public function kelasKeahlian()

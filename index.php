@@ -57,8 +57,8 @@ function route($uri)
         // admin->keahlian
         '/admin/mata_soal_keahlian' => 'AdminController@soalKeahlian',
         '/admin/mata_soal_keahlian/tambah_mata_keahlian' => 'AdminController@tambahSoalKeahlian',
-        '/admin/mata_soal_keahlian/edit_keahlian' => 'AdminController@ubahSoalKeahlian',
-        '/admin/mata_soal_keahlian/hapus_keahlian' => 'AdminController@hapusSoalKeahlian',
+        '/admin/mata_soal_keahlian/edit_keahlian/(\d+)' => 'AdminController@ubahSoalKeahlian',
+        '/admin/mata_soal_keahlian/hapus_keahlian/(\d+)' => 'AdminController@hapusSoalKeahlian',
 
         // admin->kelas_keahlian
         '/admin/kelas_keahlian' => 'AdminController@kelasKeahlian',

@@ -157,6 +157,7 @@
 
                     <a href="/admin/mata_soal_keahlian/tambah_mata_keahlian" class="btn btn-primary btn-sm">Tambah</a>
 
+                    <?php if (!empty($mataSoal)) : ?>
                     <!-- Search Bar -->
                     <div class="d-flex justify-content-between">
                         <div></div>
@@ -176,30 +177,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i = 1; foreach ($mataSoal as $item) : ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>Programming Web</td>
+                                        <td><?= $i++; ?></td>
+                                        <td><?= $item['nama'] ?></td>
                                         <td>
-                                            <a href="/admin/mata_soal_keahlian/edit_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="/admin/mata_soal_keahlian/hapus_keahlian" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="/admin/mata_soal_keahlian/edit_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="/admin/mata_soal_keahlian/hapus_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Desain Web</td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Desain Sistem</td>
-                                        <td>
-                                            <a href="" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="mr-3">
@@ -215,6 +202,9 @@
                                     </li>
                                 </ul>
                             </nav>
+                            <?php else : ?>
+                                <h3 class="text-center mt-4">Tidak ada mata soal yang tersedia</h3>
+                            <?php endif; ?>
                         </div>
                     </div>
 
