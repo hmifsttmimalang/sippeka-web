@@ -172,67 +172,56 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <table class="table table-bordered table-hover right-align">
-                                            <tr>
-                                                <td><b>Soal</b></td>
-                                                <td>
-                                                    <form action="" method="post">
+                                            <form action="" method="post">
+                                                <tr>
+                                                    <td><b>Soal</b></td>
+                                                    <td>
                                                         <div id="editor"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan A.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Pilihan A.</b></td>
+                                                    <td>
                                                         <div id="editor1"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan B.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Pilihan B.</b></td>
+                                                    <td>
                                                         <div id="editor2"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan C.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Pilihan C.</b></td>
+                                                    <td>
                                                         <div id="editor3"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan D.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Pilihan D.</b></td>
+                                                    <td>
                                                         <div id="editor4"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan E.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>Pilihan E.</b></td>
+                                                    <td>
                                                         <div id="editor5"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Jawaban Benar</b></td>
-                                                <td>
-                                                    <select name="acak_jawaban" id="acak_jawaban" class="form-control">
-                                                        <option value="">Pilih Jawaban</option>
-                                                        <option value="a">A</option>
-                                                        <option value="b">B</option>
-                                                        <option value="c">C</option>
-                                                        <option value="d">D</option>
-                                                        <option value="e">E</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td for="jawaban_benar"><b>Jawaban Benar</b></td>
+                                                    <td>
+                                                        <select name="jawaban_benar" id="jawaban_benar" class="form-control">
+                                                            <option value="">Pilih Jawaban</option>
+                                                            <option value="a">A</option>
+                                                            <option value="b">B</option>
+                                                            <option value="c">C</option>
+                                                            <option value="d">D</option>
+                                                            <option value="e">E</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
                                         </table>
                                         <a href="" class="btn btn-primary">
                                             Simpan
@@ -240,6 +229,7 @@
                                         <a href="" class="btn btn-primary">
                                             Reset
                                         </a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

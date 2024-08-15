@@ -205,6 +205,7 @@ class AdminController
     public function tambahTesKeahlian()
     {
         $keahlianList = $this->kelasKeahlian->getAll();
+        $mataSoal = $this->mataSoal->getAll();
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
@@ -237,6 +238,7 @@ class AdminController
     {
         $keahlianList = $this->kelasKeahlian->getAll();
         $tesKeahlian = $this->tesKeahlian->get($id);
+        $mataSoal = $this->mataSoal->getAll();
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
