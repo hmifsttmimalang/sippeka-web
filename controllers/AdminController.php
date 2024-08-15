@@ -204,7 +204,7 @@ class AdminController
     {
         $keahlianList = $this->kelasKeahlian->getAll();
         $tesKeahlian = $this->tesKeahlian->get($id);
-
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
             $mata_soal = $_POST['mata_soal'];
@@ -218,7 +218,7 @@ class AdminController
                 exit;
             }
         }
-
+        
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -232,25 +232,28 @@ class AdminController
         }
     }
 
-
+    
     // tambah soal tes
-    public function tambahSoalTesKeahlian()
+    public function tambahSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-
-    public function importSoalTesKeahlian()
+    
+    public function importSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/import_soal_tes.php';
         include 'views/layout/admin_footer.php';
     }
-
+    
     // edit soal tes
-    public function editSoalTesKeahlian()
+    public function editSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/edit_detail_tes.php';
         include 'views/layout/admin_footer.php';

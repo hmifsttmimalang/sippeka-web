@@ -135,7 +135,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                                 <img class="img-profile rounded-circle"
-                                    src="../../../assets/admin/img/undraw_profile.svg">
+                                    src="../../../../assets/admin/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -161,7 +161,7 @@
                 <div class="container-fluid">
 
                     <!-- Button Kembali -->
-                    <a href="/admin/tes_keahlian/detail_ujian" class="btn btn-primary btn-sm">Kembali</a>
+                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>" class="btn btn-primary btn-sm">Kembali</a>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">

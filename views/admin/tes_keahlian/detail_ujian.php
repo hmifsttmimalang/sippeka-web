@@ -211,8 +211,8 @@
                                             <h1 class="h4 text-gray-900 mb-4">Soal Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <a href="/admin/tes_keahlian/detail_ujian/tambah_soal_tes_keahlian" class="btn btn-primary mb-3">Tambah</a>
-                                        <a href="/admin/tes_keahlian/detail_ujian/import_soal_tes_keahlian" class="btn btn-primary mb-3">Import</a>
+                                        <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/tambah_soal_tes_keahlian" class="btn btn-primary mb-3">Tambah</a>
+                                        <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/import_soal_tes_keahlian" class="btn btn-primary mb-3">Import</a>
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>No</th>
@@ -232,7 +232,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
                                                     <a href="" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>
