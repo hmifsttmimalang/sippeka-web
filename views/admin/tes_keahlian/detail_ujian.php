@@ -213,22 +213,24 @@
                                         <hr class="divider-sidebar">
                                         <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/tambah_soal_tes_keahlian" class="btn btn-primary mb-3">Tambah</a>
                                         <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/import_soal_tes_keahlian" class="btn btn-primary mb-3">Import</a>
+                                        <?php if (!empty($soalList)) : ?>
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>No</th>
                                                 <th>Soal Tes Keahlian</th>
                                                 <th>Aksi</th>
                                             </tr>
+                                            <?php $i = 1; foreach ($soalList as $item) : ?>
                                             <tr>
-                                                <td>1</td>
-                                                <td>Apakah yang dimaksud metode waterfall?
+                                                <td><?= $i++; ?></td>
+                                                <td><?= $item['soal'] ?>
                                                     <hr class="sidebar-divider">
                                                     <div class="ml-3">
-                                                        <div>A. Perancangan Atas</div>
-                                                        <div>B. Perancangan bawah</div>
-                                                        <div>C. Perancangan Dari atas kebawah</div>
-                                                        <div>D. Perancangan Kesamping</div>
-                                                        <div>E. Perancangan Perancangan Custom</div>
+                                                        <div>A. <?= $item['pilihan_a'] ?></div>
+                                                        <div>B. <?= $item['pilihan_b'] ?></div>
+                                                        <div>C. <?= $item['pilihan_c'] ?></div>
+                                                        <div>D. <?= $item['pilihan_d'] ?></div>
+                                                        <div>E. <?= $item['pilihan_e'] ?></div>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -236,41 +238,11 @@
                                                     <a href="" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Apakah yang dimaksud relasi database?
-                                                    <hr class="sidebar-divider">
-                                                    <div class="ml-3">
-                                                        <div>A. Perancangan Atas</div>
-                                                        <div>B. Perancangan bawah</div>
-                                                        <div>C. Perancangan Dari atas kebawah</div>
-                                                        <div>D. Perancangan Kesamping</div>
-                                                        <div>E. Perancangan Perancangan Custom</div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Bahasa Pemrograman yang levelnya mendekati manusia?
-                                                    <hr class="sidebar-divider">
-                                                    <div class="ml-3">
-                                                        <div>A. Perancangan Atas</div>
-                                                        <div>B. Perancangan bawah</div>
-                                                        <div>C. Perancangan Dari atas kebawah</div>
-                                                        <div>D. Perancangan Kesamping</div>
-                                                        <div>E. Perancangan Perancangan Custom</div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
-                                                </td>
-                                            </tr>
+                                            <?php endforeach; ?>
                                         </table>
+                                        <?php else : ?>
+                                            <h4 class="text-center mt-3">Tidak ada soal yang tersedia</h4>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>

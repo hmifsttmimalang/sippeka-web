@@ -172,41 +172,71 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <table class="table table-bordered table-hover right-align">
-                                            <form action="" method="post">
+                                            <form action="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/tambah_soal_tes_keahlian" method="post">
                                                 <tr>
-                                                    <td><b>Soal</b></td>
+                                                    <td>
+                                                        <label for="soal">
+                                                            <b>Soal</b>
+                                                        </label>
+                                                    </td>
                                                     <td>
                                                         <div id="editor"></div>
+                                                        <input type="hidden" name="soal" id="soal_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Pilihan A.</b></td>
+                                                    <td>
+                                                        <label for="pilihan_a">
+                                                            <b>Pilihan A.</b>
+                                                        </label>
+                                                    </td>
                                                     <td>
                                                         <div id="editor1"></div>
+                                                        <input type="hidden" name="pilihan_a" id="pilihan_a_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Pilihan B.</b></td>
+                                                    <td>
+                                                        <label for="pilihan_b">
+                                                            <b>Pilihan B.</b>
+                                                        </label>
+                                                    </td>
                                                     <td>
                                                         <div id="editor2"></div>
+                                                        <input type="hidden" name="pilihan_b" id="pilihan_b_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Pilihan C.</b></td>
+                                                    <td>
+                                                        <label for="pilihan_c">
+                                                            <b>Pilihan C.</b>
+                                                        </label>
+                                                    </td>
                                                     <td>
                                                         <div id="editor3"></div>
+                                                        <input type="hidden" name="pilihan_c" id="pilihan_c_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Pilihan D.</b></td>
+                                                    <td>
+                                                        <label for="pilihan_d">
+                                                            <b>Pilihan D.</b>
+                                                        </label>
+                                                    </td>
                                                     <td>
                                                         <div id="editor4"></div>
+                                                        <input type="hidden" name="pilihan_d" id="pilihan_d_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><b>Pilihan E.</b></td>
+                                                    <td>
+                                                        <label for="pilihan_e">
+                                                            <b>Pilihan E.</b>
+                                                        </label>
+                                                    </td>
                                                     <td>
                                                         <div id="editor5"></div>
+                                                        <input type="hidden" name="pilihan_e" id="pilihan_e_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -223,9 +253,9 @@
                                                     </td>
                                                 </tr>
                                         </table>
-                                        <a href="" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary">
                                             Simpan
-                                        </a>
+                                        </button>
                                         <a href="" class="btn btn-primary">
                                             Reset
                                         </a>
@@ -284,20 +314,41 @@
         const quill1 = new Quill('#editor1', {
             theme: 'snow'
         });
-
         const quill2 = new Quill('#editor2', {
             theme: 'snow'
         });
-
         const quill3 = new Quill('#editor3', {
             theme: 'snow'
         });
-
         const quill4 = new Quill('#editor4', {
             theme: 'snow'
         });
-
         const quill5 = new Quill('#editor5', {
             theme: 'snow'
+        });
+
+        quill.on('text-change', function() {
+            const html = quill.getText();
+            document.getElementById('soal_hidden').value = html;
+        });
+        quill1.on('text-change', function() {
+            const html = quill1.getText();
+            document.getElementById('pilihan_a_hidden').value = html;
+        });
+        quill2.on('text-change', function() {
+            const html = quill2.getText();
+            document.getElementById('pilihan_b_hidden').value = html;
+        });
+        quill3.on('text-change', function() {
+            const html = quill3.getText();
+            document.getElementById('pilihan_c_hidden').value = html;
+        });
+        quill4.on('text-change', function() {
+            const html = quill4.getText();
+            document.getElementById('pilihan_d_hidden').value = html;
+        });
+        quill5.on('text-change', function() {
+            const html = quill5.getText();
+            document.getElementById('pilihan_e_hidden').value = html;
         });
     </script>

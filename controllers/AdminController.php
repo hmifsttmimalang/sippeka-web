@@ -5,6 +5,7 @@ require_once 'models/Pendaftaran.php';
 require_once 'models/Keahlian.php';
 require_once 'models/TesKeahlian.php';
 require_once 'models/MataSoal.php';
+require_once 'models/Soal.php';
 require_once 'connection/database.php';
 
 class AdminController
@@ -16,6 +17,7 @@ class AdminController
     protected $kelasKeahlian;
     protected $tesKeahlian;
     protected $mataSoal;
+    private $soal;
 
     public function __construct()
     {
@@ -30,6 +32,7 @@ class AdminController
         $this->kelasKeahlian = new Keahlian($pdo);
         $this->tesKeahlian = new TesKeahlian($pdo);
         $this->mataSoal = new MataSoal($pdo);
+        $this->soal = new Soal($pdo);
     }
 
     public function index()
@@ -228,7 +231,9 @@ class AdminController
     
     public function detailUjian($id)
     {
+        $soalList = $this->soal->getAll();
         $tesKeahlian = $this->tesKeahlian->get($id);
+
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/detail_ujian.php';
         include 'views/layout/admin_footer.php';
@@ -272,6 +277,27 @@ class AdminController
     public function tambahSoalTesKeahlian($id)
     {
         $tesKeahlian = $this->tesKeahlian->get($id);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $soal = $_POST['soal'];
+            $pilihan_a = $_POST['pilihan_a'];
+            $pilihan_b = $_POST['pilihan_b'];
+            $pilihan_c = $_POST['pilihan_c'];
+            $pilihan_d = $_POST['pilihan_d'];
+            $pilihan_e = $_POST['pilihan_e'];
+            $jawaban_benar = $_POST['jawaban_benar'];
+    
+            // Save the soal data
+            if ($this->soal->create($soal, $pilihan_a, $pilihan_b, $pilihan_c, $pilihan_d, $pilihan_e, $jawaban_benar)) {
+                header('Location: /admin/tes_keahlian/detail_ujian/' . $id);
+                exit;
+            } else {
+                // handle error here, e.g. display error message to user
+                $error = "Error adding soal";
+                // ...
+            }
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
