@@ -159,7 +159,8 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                    <!-- Button Kembali -->
+                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>" class="btn btn-primary btn-sm">Kembali</a>
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
