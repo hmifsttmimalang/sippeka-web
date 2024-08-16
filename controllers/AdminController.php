@@ -6,6 +6,7 @@ require_once 'models/Keahlian.php';
 require_once 'models/TesKeahlian.php';
 require_once 'models/MataSoal.php';
 require_once 'models/Soal.php';
+require_once 'models/SesiKeahlian.php';
 require_once 'connection/database.php';
 
 class AdminController
@@ -15,6 +16,7 @@ class AdminController
     protected $kelasKeahlian;
     protected $tesKeahlian;
     protected $mataSoal;
+    protected $sesiKeahlian;
     private $soal;
 
     public function __construct()
@@ -31,6 +33,7 @@ class AdminController
         $this->tesKeahlian = new TesKeahlian($pdo);
         $this->mataSoal = new MataSoal($pdo);
         $this->soal = new Soal($pdo);
+        $this->sesiKeahlian = new SesiKeahlian($pdo);
     }
 
     public function index()
@@ -117,6 +120,11 @@ class AdminController
 
     public function ubahSoalKeahlian($id)
     {
+        if (empty($mataSoal)) {
+            header('Location: /admin/mata_soal_keahlian');
+            exit;
+        }
+
         $nama = $_POST['nama'] ?? null;
         if ($nama) {
             if ($this->mataSoal->update($id, $nama)) {
@@ -171,15 +179,19 @@ class AdminController
 
     public function ubahKelasKeahlian($id)
     {
+        if (empty($keahlian)) {
+            header('Location: /admin/kelas_keahlian');
+            exit;
+        }
+
         $nama = $_POST['nama'] ?? null;
         if ($nama) {
             if ($this->kelasKeahlian->update($id, $nama)) {
                 header('Location: /admin/kelas_keahlian');
-                exit; // Tambahkan exit setelah redirect
+                exit;
             }
         }
 
-        // Ambil data untuk edit jika tidak ada POST data
         $keahlian = $this->kelasKeahlian->getById($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/kelas_keahlian/edit_kelas_keahlian.php';
@@ -229,18 +241,28 @@ class AdminController
 
     public function detailUjian($id)
     {
-        $soalList = $this->soal->getAll();
-        $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
-        $hitungSoal = count($jumlahSoal);
-        $tesKeahlian = $this->tesKeahlian->get($id);
-
-        include 'views/layout/admin_header.php';
-        include 'views/admin/tes_keahlian/detail_ujian.php';
-        include 'views/layout/admin_footer.php';
+        if (!empty($tesKeahlian)) {
+            $soalList = $this->soal->getAll();
+            $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
+            $hitungSoal = count($jumlahSoal);
+            $tesKeahlian = $this->tesKeahlian->get($id);
+    
+            include 'views/layout/admin_header.php';
+            include 'views/admin/tes_keahlian/detail_ujian.php';
+            include 'views/layout/admin_footer.php';
+        } else {
+            header('Location: /admin/tes_keahlian');
+            exit;
+        }
     }
 
     public function editTesKeahlian($id)
     {
+        if (empty($tesKeahlian)) {
+            header('Location: /admin/tes_keahlian');
+            exit;
+        }
+
         $keahlianList = $this->kelasKeahlian->getAll();
         $tesKeahlian = $this->tesKeahlian->get($id);
         $mataSoal = $this->mataSoal->getAll();
@@ -276,6 +298,11 @@ class AdminController
     // tambah soal tes
     public function tambahSoalTesKeahlian($id)
     {
+        if (empty($tesKeahlian)) {
+            header('Location: /admin/tes_keahlian');
+            exit;
+        }
+
         $tesKeahlian = $this->tesKeahlian->get($id);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -303,15 +330,25 @@ class AdminController
 
     public function importSoalTesKeahlian($id)
     {
-        $tesKeahlian = $this->tesKeahlian->get($id);
-        include 'views/layout/admin_header.php';
-        include 'views/admin/tes_keahlian/import_soal_tes.php';
-        include 'views/layout/admin_footer.php';
+        if (!empty($tesKeahlian)) {
+            $tesKeahlian = $this->tesKeahlian->get($id);
+            include 'views/layout/admin_header.php';
+            include 'views/admin/tes_keahlian/import_soal_tes.php';
+            include 'views/layout/admin_footer.php';
+        } else {
+            header('Location: /admin/tes_keahlian');
+            exit;
+        }
     }
 
     // edit soal tes
     public function editSoalTesKeahlian($id, $id_soal)
     {
+        if (empty($tesKeahlian)) {
+            header('Location: /admin/tes_keahlian');
+            exit;
+        }
+
         $tesKeahlian = $this->tesKeahlian->get($id);
         $soal = $this->soal->get($id_soal);
 
@@ -324,7 +361,6 @@ class AdminController
             $pilihan_e = $_POST['pilihan_e'];
             $jawaban_benar = $_POST['jawaban_benar'];
 
-            // Update the soal data
             if ($this->soal->update($id, $soal, $pilihan_a, $pilihan_b, $pilihan_c, $pilihan_d, $pilihan_e, $jawaban_benar, $tesKeahlian)) {
                 header('Location: /admin/tes_keahlian/detail_ujian/' . $tesKeahlian);
                 exit;
@@ -345,41 +381,81 @@ class AdminController
         if ($this->soal->delete($id_soal)) {
             header('Location: /admin/tes_keahlian/detail_ujian/' . $id);
             exit;
-        } else {
-            // handle error here, e.g. display error message to user
-            $error = "Error deleting soal";
-            // ...
         }
     }
 
     // sesi keahlian
     public function sesiTesKeahlian()
     {
+        $sesiKeahlian = $this->sesiKeahlian->getAll();
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/sesi_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
 
-    public function detailSesiTesKeahlian()
+    public function detailSesiTesKeahlian($id)
     {
-        include 'views/layout/admin_header.php';
-        include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
-        include 'views/layout/admin_footer.php';
+        if (!empty($sesiTesKeahlian)) {
+            $sesiTesKeahlian = $this->sesiKeahlian->get($id);
+            include 'views/layout/admin_header.php';
+            include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
+            include 'views/layout/admin_footer.php';
+        } else {
+            header('Location: /admin/sesi_tes_keahlian');
+            exit;
+        }
     }
 
     public function tambahSesiTesKeahlian()
     {
+        $mataSoal = $this->mataSoal->getAll();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nama_sesi = $_POST['nama_sesi'];
+            $mata_soal = $_POST['mata_soal'];
+            $waktu_mulai = $_POST['waktu_mulai'];
+            $waktu_selesai = $_POST['waktu_selesai'];
+            $jenis_sesi = $_POST['jenis_sesi'];
+
+            if ($this->sesiKeahlian->create($nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+                header('Location: /admin/sesi_tes_keahlian');
+                exit;
+            }
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/tambah_sesi_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
 
-    public function editSesiTesKeahlian()
+    public function editSesiTesKeahlian($id)
     {
+        $mataSoal = $this->mataSoal->getAll();
+        $sesiTesKeahlian = $this->sesiKeahlian->get($id);
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nama_sesi = $_POST['nama_sesi'];
+            $mata_soal = $_POST['mata_soal'];
+            $waktu_mulai = $_POST['waktu_mulai'];
+            $waktu_selesai = $_POST['waktu_selesai'];
+            $jenis_sesi = $_POST['jenis_sesi'];
+
+            if ($this->sesiKeahlian->update($id, $nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+                header('Location: /admin/sesi_tes_keahlian');
+                exit;
+            }
+        }
+    
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/edit_sesi_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
 
-    public function hapusSesiTesKeahlian() {}
+    public function hapusSesiTesKeahlian($id)
+    {
+        if ($this->sesiKeahlian->delete($id)) {
+            header('Location: /admin/sesi_tes_keahlian');
+            exit;
+        }
+    }
 }

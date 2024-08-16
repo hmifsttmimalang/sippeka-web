@@ -165,35 +165,45 @@
                                             <h1 class="h4 text-gray-900 mb-4">Edit Sesi Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" action="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/<?= $sesiTesKeahlian['id'] ?>" method="post">
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="nama_sesi">Nama Sesi</label>
-                                                    <input type="text" name="nama_sesi" class="form-control" id="nama_sesi" placeholder="Masukkan nama sesi tes keahlian">
+                                                    <input type="text" name="nama_sesi" class="form-control" id="nama_sesi" value="<?= $sesiTesKeahlian['nama_sesi'] ?>">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Soal Keahlian</option>
-                                                        <option value="desain_sistem">Desain Sistem</option>
-                                                        <option value="pemrograman_web">Pemrograman Web</option>
-                                                        <option value="desain_web">Desain Web</option>
+                                                        <?php foreach ($mataSoal as $item) : ?>
+                                                        <option value="<?= $item['nama'] ?>" <?= ($item['nama'] == $item['nama']) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="waktu_mulai">Waktu Mulai</label>
-                                                    <input type="datetime-local" class="form-control" placeholder="Pilih Tanggal dan Waktu">
+                                                    <input type="datetime-local" class="form-control" value="<?= $sesiTesKeahlian['waktu_mulai'] ?>" name="waktu_mulai">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="waktu_selesai">Waktu Selesai</label>
-                                                    <input type="datetime-local" class="form-control" placeholder="Pilih Tanggal dan Waktu">
+                                                    <input type="datetime-local" class="form-control" value="<?= $sesiTesKeahlian['waktu_selesai'] ?>" name="waktu_selesai">
                                                 </div>
                                             </div>
-                                            <a href="sesi_tes_keahlian.php" class="btn btn-primary">
+                                            <div class="form-group row">
+                                                <div class="col-6 mb-3">
+                                                    <label for="jenis_sesi">Jenis Sesi</label>
+                                                    <select name="jenis_sesi" id="mata_soal" class="form-control">
+                                                        <option value="">Pilih Jenis Sesi</option>
+                                                        <option value="Simulasi" <?= ($sesiTesKeahlian['jenis_sesi'] == 'Simulasi') ? 'selected' : '' ?>>Simulasi</option>
+                                                        <option value="Seleksi" <?= ($sesiTesKeahlian['jenis_sesi'] == 'Seleksi') ? 'selected' : '' ?>>Seleksi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">
                                                 Simpan
-                                            </a>
+                                            </button>
                                             <a href="" class="btn btn-primary">
                                                 Reset
                                             </a>

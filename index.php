@@ -79,10 +79,10 @@ function route($uri)
 
         // admin->sesi_keahlian
         '/admin/sesi_tes_keahlian' => 'AdminController@sesiTesKeahlian',
-        '/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian' => 'AdminController@detailSesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/(\d+)' => 'AdminController@detailSesiTesKeahlian',
         '/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian' => 'AdminController@tambahSesiTesKeahlian',
-        '/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian' => 'AdminController@editSesiTesKeahlian',
-        '/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian' => 'AdminController@hapusSesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/(\d+)' => 'AdminController@editSesiTesKeahlian',
+        '/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/(\d+)' => 'AdminController@hapusSesiTesKeahlian'
     ];
 
     // Menggunakan regex untuk menangani parameter {id}

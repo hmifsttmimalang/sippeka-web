@@ -168,19 +168,23 @@
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>Nama Tes Keahlian</th>
-                                                <td>Tes - Android Developer</td>
+                                                <td>Tes - <?= $sesiTesKeahlian['nama_sesi'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Mata Tes</th>
-                                                <td>Tes - Desain Sistem</td>
+                                                <td>Tes - <?= $sesiTesKeahlian['nama_sesi'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Mata Keahlian</th>
-                                                <td>Android Developer</td>
+                                                <td><?= $sesiTesKeahlian['mata_soal'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Sesi</th>
-                                                <td>Desain Sistem</td>
+                                                <td><?= $sesiTesKeahlian['nama_sesi'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Jenis Sesi</th>
+                                                <td><?= $sesiTesKeahlian['jenis_sesi'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
@@ -188,11 +192,11 @@
                                             </tr>
                                             <tr>
                                                 <th>Mulai</th>
-                                                <td>2024-07-25 08:00:00</td>
+                                                <td><?= $sesiTesKeahlian['waktu_mulai'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Selesai</th>
-                                                <td>2024-07-25 11:00:00 </td>
+                                                <td><?= $sesiTesKeahlian['waktu_selesai'] ?></td>
                                             </tr>
                                         </table>
                                     </div>

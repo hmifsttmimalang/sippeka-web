@@ -166,6 +166,7 @@
                         </form>
                     </div>
 
+                    <?php if (!empty($sesiKeahlian)) : ?>
                     <!-- Search Bar -->
                     <div class="d-flex justify-content-between">
                         <div></div>
@@ -182,38 +183,41 @@
                                         <td>No</td>
                                         <td>Tes</td>
                                         <td>Sesi</td>
-                                        <td>Peserta</td>
                                         <td>Mulai</td>
                                         <td>Selesai</td>
+                                        <td>Jenis Sesi</td>
                                         <td>Aksi</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            Tes - Desain Sistem
-                                            <ul type="disc">
-                                                <li>Kelas : Android Developer</li>
-                                                <li>Mata : Desain Sistem </li>
-                                            </ul type="disc">
-                                        </td>
-                                        <td>Desain Sistem</td>
-                                        <td>0</td>
-                                        <td>2024-07-26 15:00:00</td>
-                                        <td>2024-07-26 17:00:00</td>
-                                        <td>
-                                            <a href="/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian" class="btn btn-secondary btn-sm">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian" class="btn btn-primary btn-sm">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a href="" class="btn btn-danger btn-sm">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    <?php $i = 1;
+                                    foreach ($sesiKeahlian as $item) : ?>
+                                        <tr>
+                                            <td><?= $i++; ?></td>
+                                            <td>
+                                                Tes - <?= $item['nama_sesi'] ?>
+                                                <ul type="disc">
+                                                    <li>Kelas : <?= $item['mata_soal'] ?></li>
+                                                    <li>Mata : <?= $item['mata_soal'] ?> </li>
+                                                </ul type="disc">
+                                            </td>
+                                            <td><?= $item['nama_sesi'] ?></td>
+                                            <td><?= $item['waktu_mulai'] ?></td>
+                                            <td><?= $item['waktu_selesai'] ?></td>
+                                            <td><?= $item['jenis_sesi'] ?></td>
+                                            <td>
+                                                <a href="/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                                <a href="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                             <nav aria-label="..." class="mr-3">
@@ -231,7 +235,9 @@
                             </nav>
                         </div>
                     </div>
-
+                    <?php else : ?>
+                        <h3 class="text-center mt-2">Tidak ada sesi yang tersedia</h3>
+                    <?php endif; ?>
                 </div>
 
             </div>
