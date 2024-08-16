@@ -87,22 +87,24 @@ PHP native yang menggunakan konsep Model Controller View (MVC) dan MySQL dengan 
 ## Struktur Direktori
 
 ```plaintext
-    app_web
-    ├── assets
-    │   ├── admin
-    │   ├── css
-    │   ├── js
-    │   ├── profile
-    │   ├── uploads
-    │   └── user
-    ├── config
+    app_web/
+    ├── assets/
+    │   ├── admin/
+    │   ├── css/
+    │   ├── js/
+    │   ├── profile/
+    │   ├── uploads/
+    │   └── user/
+    ├── config/
     │   └── config.php
-    ├── connection
+    ├── connection/
     │   └── database.php
-    ├── controllers
-    ├── database
-    ├── models
-    └── views
+    ├── controllers/
+    ├── database/
+    ├── models/
+    ├── views/
+    ├── .htaccess
+    └── index.php
 ```
 
 ## Penggunaan
@@ -137,17 +139,20 @@ Silakan ikuti panduan kontribusi berikut jika Anda ingin berkontribusi pada proy
 
     ```bash
     git checkout -b nama-branch
+    ```
 
 4. **Lakukan Perubahan**: Lakukan perubahan yang Anda inginkan.
 5. **Commit Perubahan**: Commit perubahan yang telah Anda lakukan dan berikan pesan yang jelas.
 
     ```bash
     git commit -m "Deskripsi perubahan"
+    ```
 
 6. **Push Perubahan**: Push branch ke repository forked Anda.
 
     ```bash
     git push origin nama-branch
+    ```
 
 7. **Buat Pull Request**: Ajukan pull request dan jelaskan perubahan yang Anda buat.
 
