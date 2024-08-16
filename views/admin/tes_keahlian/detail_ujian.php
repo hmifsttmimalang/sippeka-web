@@ -188,7 +188,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Jumlah Soal</th>
-                                                <td>30</td>
+                                                <td><?= $hitungSoal ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
@@ -234,8 +234,8 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian" class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/hapus_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>

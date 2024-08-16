@@ -181,7 +181,6 @@
                                         <td>Nama Tes Keahlian</td>
                                         <td>Mata Keahlian</td>
                                         <td>Kelas Keahlian</td>
-                                        <td>Jumlah Soal</td>
                                         <td>Aksi</td>
                                     </tr>
                                 </thead>
@@ -193,7 +192,6 @@
                                             <td>Tes - <?= $item['nama_tes'] ?></td>
                                             <td><?= $item['mata_soal'] ?></td>
                                             <td><?= $item['kelas'] ?></td>
-                                            <td>30</td>
                                             <td>
                                                 <a href="/admin/tes_keahlian/detail_ujian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">View</a>
                                                 <a href="/admin/tes_keahlian/edit_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>

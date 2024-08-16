@@ -135,7 +135,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                                 <img class="img-profile rounded-circle"
-                                    src="../../../assets/admin/img/undraw_profile.svg">
+                                    src="../../../../../assets/admin/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -172,80 +172,99 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <table class="table table-bordered table-hover right-align">
-                                            <tr>
-                                                <td><b>Soal</b></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        <div id="editor"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan A.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        <div id="editor1"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan B.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        <div id="editor2"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan C.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        <div id="editor3"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan D.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        <div id="editor4"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Pilihan E.</b></td>
-                                                <td>
-                                                    <form action="" method="post">
-                                                        <div id="editor5"></div>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Jawaban Benar</b></td>
-                                                <td>
-                                                    <select name="acak_jawaban" id="acak_jawaban" class="form-control">
-                                                        <option value="">Pilih Jawaban</option>
-                                                        <option value="a">A</option>
-                                                        <option value="b">B</option>
-                                                        <option value="c">C</option>
-                                                        <option value="d">D</option>
-                                                        <option value="e">E</option>
-                                                    </select>
-                                                </td>
-                                            </tr>
+                                            <form action="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian/<?= $soal['id'] ?>" method="post">
+                                                <tr>
+                                                    <td>
+                                                        <label for="soal">
+                                                            <b>Soal</b>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <div id="editor"><?= $soal['soal'] ?></div>
+                                                        <input type="hidden" name="soal" id="soal_hidden" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="pilihan_a">
+                                                            <b>Pilihan A.</b>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <div id="editor1"><?= $soal['pilihan_a'] ?></div>
+                                                        <input type="hidden" name="pilihan_a" id="pilihan_a_hidden" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="pilihan_b">
+                                                            <b>Pilihan B.</b>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <div id="editor2"><?= $soal['pilihan_b'] ?></div>
+                                                        <input type="hidden" name="pilihan_b" id="pilihan_b_hidden" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="pilihan_c">
+                                                            <b>Pilihan C.</b>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <div id="editor3"><?= $soal['pilihan_c'] ?></div>
+                                                        <input type="hidden" name="pilihan_c" id="pilihan_c_hidden" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="pilihan_d">
+                                                            <b>Pilihan D.</b>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <div id="editor4"><?= $soal['pilihan_d'] ?></div>
+                                                        <input type="hidden" name="pilihan_d" id="pilihan_d_hidden" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <label for="pilihan_e">
+                                                            <b>Pilihan E.</b>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <div id="editor5"><?= $soal['pilihan_e'] ?></div>
+                                                        <input type="hidden" name="pilihan_e" id="pilihan_e_hidden" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td for="jawaban_benar"><b>Jawaban Benar</b></td>
+                                                    <td>
+                                                        <select name="jawaban_benar" id="jawaban_benar" class="form-control">
+                                                            <option value="">Pilih Jawaban</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'a') ? 'selected' : '' ?>>A</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'b') ? 'selected' : '' ?>>B</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'c') ? 'selected' : '' ?>>C</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'd') ? 'selected' : '' ?>>D</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'e') ? 'selected' : '' ?>>E</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
                                         </table>
-                                        <a href="" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary">
                                             Simpan
-                                        </a>
+                                        </button>
                                         <a href="" class="btn btn-primary">
                                             Reset
                                         </a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
@@ -294,20 +313,52 @@
         const quill1 = new Quill('#editor1', {
             theme: 'snow'
         });
-
         const quill2 = new Quill('#editor2', {
             theme: 'snow'
         });
-
         const quill3 = new Quill('#editor3', {
             theme: 'snow'
         });
-
         const quill4 = new Quill('#editor4', {
             theme: 'snow'
         });
-
         const quill5 = new Quill('#editor5', {
             theme: 'snow'
+        });
+
+        quill.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['soal'])) ?>));
+        quill.on('text-change', function() {
+            const html = quill.root.innerHTML;
+            document.getElementById('soal_hidden').value = html;
+        });
+        
+        quill1.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_a'])) ?>));
+        quill1.on('text-change', function() {
+            const html = quill1.root.innerHTML;
+            document.getElementById('pilihan_a_hidden').value = html;
+        });
+        
+        quill2.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_b'])) ?>));
+        quill2.on('text-change', function() {
+            const html = quill2.root.innerHTML;
+            document.getElementById('pilihan_b_hidden').value = html;
+        });
+        
+        quill3.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_c'])) ?>));
+        quill3.on('text-change', function() {
+            const html = quill3.root.innerHTML;
+            document.getElementById('pilihan_c_hidden').value = html;
+        });
+        
+        quill4.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_d'])) ?>));
+        quill4.on('text-change', function() {
+            const html = quill4.root.innerHTML;
+            document.getElementById('pilihan_d_hidden').value = html;
+        });
+        
+        quill5.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_e'])) ?>));
+        quill5.on('text-change', function() {
+            const html = quill5.root.innerHTML;
+            document.getElementById('pilihan_e_hidden').value = html;
         });
     </script>

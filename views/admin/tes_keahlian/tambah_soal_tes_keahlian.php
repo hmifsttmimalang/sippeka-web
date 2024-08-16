@@ -328,27 +328,32 @@
         });
 
         quill.on('text-change', function() {
-            const html = quill.getText();
+            const html = quill.root.innerHTML;
             document.getElementById('soal_hidden').value = html;
         });
+
         quill1.on('text-change', function() {
-            const html = quill1.getText();
+            const html = quill1.root.innerHTML;
             document.getElementById('pilihan_a_hidden').value = html;
         });
+
         quill2.on('text-change', function() {
-            const html = quill2.getText();
+            const html = quill2.root.innerHTML;
             document.getElementById('pilihan_b_hidden').value = html;
         });
+
         quill3.on('text-change', function() {
-            const html = quill3.getText();
+            const html = quill3.root.innerHTML;
             document.getElementById('pilihan_c_hidden').value = html;
         });
+
         quill4.on('text-change', function() {
-            const html = quill4.getText();
+            const html = quill4.root.innerHTML;
             document.getElementById('pilihan_d_hidden').value = html;
         });
+        
         quill5.on('text-change', function() {
-            const html = quill5.getText();
+            const html = quill5.root.innerHTML;
             document.getElementById('pilihan_e_hidden').value = html;
         });
     </script>

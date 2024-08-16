@@ -11,8 +11,6 @@ require_once 'connection/database.php';
 class AdminController
 {
     private $user;
-    private $identifier;
-    private $password;
     private $pendaftar;
     protected $kelasKeahlian;
     protected $tesKeahlian;
@@ -133,7 +131,7 @@ class AdminController
         include 'views/layout/admin_footer.php';
     }
 
-    public function hapusSoalKeahlian($id) 
+    public function hapusSoalKeahlian($id)
     {
         if ($this->mataSoal->delete($id)) {
             header('Location: /admin/mata_soal_keahlian');
@@ -209,7 +207,7 @@ class AdminController
     {
         $keahlianList = $this->kelasKeahlian->getAll();
         $mataSoal = $this->mataSoal->getAll();
-        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
             $mata_soal = $_POST['mata_soal'];
@@ -217,34 +215,36 @@ class AdminController
             $acak_soal = $_POST['acak_soal'];
             $acak_jawaban = $_POST['acak_jawaban'];
             $durasi_menit = $_POST['durasi_menit'];
-            
+
             if ($this->tesKeahlian->create($nama_tes, $mata_soal, $kelas,  $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
         }
-        
+
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/tambah_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function detailUjian($id)
     {
         $soalList = $this->soal->getAll();
+        $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
+        $hitungSoal = count($jumlahSoal);
         $tesKeahlian = $this->tesKeahlian->get($id);
 
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/detail_ujian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function editTesKeahlian($id)
     {
         $keahlianList = $this->kelasKeahlian->getAll();
         $tesKeahlian = $this->tesKeahlian->get($id);
         $mataSoal = $this->mataSoal->getAll();
-        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
             $mata_soal = $_POST['mata_soal'];
@@ -252,19 +252,19 @@ class AdminController
             $acak_soal = $_POST['acak_soal'];
             $acak_jawaban = $_POST['acak_jawaban'];
             $durasi_menit = $_POST['durasi_menit'];
-    
+
             if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal, $kelas, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
         }
-        
+
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/edit_soal_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
-    public function hapusTesKeahlian($id) 
+
+    public function hapusTesKeahlian($id)
     {
         if ($this->tesKeahlian->delete($id)) {
             header('Location: /admin/tes_keahlian');
@@ -272,7 +272,7 @@ class AdminController
         }
     }
 
-    
+
     // tambah soal tes
     public function tambahSoalTesKeahlian($id)
     {
@@ -286,15 +286,13 @@ class AdminController
             $pilihan_d = $_POST['pilihan_d'];
             $pilihan_e = $_POST['pilihan_e'];
             $jawaban_benar = $_POST['jawaban_benar'];
-    
+
+            $tes_keahlian_id = $tesKeahlian['id'];
+
             // Save the soal data
-            if ($this->soal->create($soal, $pilihan_a, $pilihan_b, $pilihan_c, $pilihan_d, $pilihan_e, $jawaban_benar)) {
+            if ($this->soal->create($soal, $pilihan_a, $pilihan_b, $pilihan_c, $pilihan_d, $pilihan_e, $jawaban_benar, $tes_keahlian_id)) {
                 header('Location: /admin/tes_keahlian/detail_ujian/' . $id);
                 exit;
-            } else {
-                // handle error here, e.g. display error message to user
-                $error = "Error adding soal";
-                // ...
             }
         }
 
@@ -302,7 +300,7 @@ class AdminController
         include 'views/admin/tes_keahlian/tambah_soal_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     public function importSoalTesKeahlian($id)
     {
         $tesKeahlian = $this->tesKeahlian->get($id);
@@ -310,18 +308,49 @@ class AdminController
         include 'views/admin/tes_keahlian/import_soal_tes.php';
         include 'views/layout/admin_footer.php';
     }
-    
+
     // edit soal tes
-    public function editSoalTesKeahlian($id)
+    public function editSoalTesKeahlian($id, $id_soal)
     {
         $tesKeahlian = $this->tesKeahlian->get($id);
+        $soal = $this->soal->get($id_soal);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $soal = $_POST['soal'];
+            $pilihan_a = $_POST['pilihan_a'];
+            $pilihan_b = $_POST['pilihan_b'];
+            $pilihan_c = $_POST['pilihan_c'];
+            $pilihan_d = $_POST['pilihan_d'];
+            $pilihan_e = $_POST['pilihan_e'];
+            $jawaban_benar = $_POST['jawaban_benar'];
+
+            // Update the soal data
+            if ($this->soal->update($id, $soal, $pilihan_a, $pilihan_b, $pilihan_c, $pilihan_d, $pilihan_e, $jawaban_benar, $tesKeahlian)) {
+                header('Location: /admin/tes_keahlian/detail_ujian/' . $tesKeahlian);
+                exit;
+            }
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/tes_keahlian/edit_detail_tes.php';
         include 'views/layout/admin_footer.php';
     }
 
     // hapus soal tes
-    public function hapusSoalTesKeahlian() {}
+    public function hapusSoalTesKeahlian($id, $id_soal)
+    {
+        $tesKeahlianId = $this->tesKeahlian->get($id);
+        $soal = $this->soal->get($id_soal);
+
+        if ($this->soal->delete($id_soal)) {
+            header('Location: /admin/tes_keahlian/detail_ujian/' . $id);
+            exit;
+        } else {
+            // handle error here, e.g. display error message to user
+            $error = "Error deleting soal";
+            // ...
+        }
+    }
 
     // sesi keahlian
     public function sesiTesKeahlian()
