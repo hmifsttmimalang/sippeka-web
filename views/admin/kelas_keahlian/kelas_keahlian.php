@@ -1,5 +1,3 @@
-
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -158,36 +156,38 @@
                     <h1 class="h3 mb-3 text-gray-800 ">Kelas Keahlian</h1>
 
                     <a href="/admin/kelas_keahlian/tambah_kelas_keahlian" class="btn btn-primary btn-sm">Tambah</a>
-                    
-                    <!-- Search Bar -->
-                     <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                     </div>
+
+                    <?php if (!empty($keahlian)) : ?>
+                        <!-- Search Bar -->
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
-                                  <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Nama Kelas Keahlian</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <?php $no = 1; foreach ($keahlian as $item) : ?>
-                                    <tr>
-                                        <td><?= $no++; ?></td>
-                                        <td><?= $item['nama'] ?></td>
-                                        <td>
-                                          <a href="/admin/kelas_keahlian/edit_kelas_keahlian/<?= $item['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                          <a href="/admin/kelas_keahlian/hapus_kelas_keahlian/<?= $item['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama Kelas Keahlian</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1;
+                                        foreach ($keahlian as $item) : ?>
+                                            <tr>
+                                                <td><?= $no++; ?></td>
+                                                <td><?= $item['nama'] ?></td>
+                                                <td>
+                                                    <a href="/admin/kelas_keahlian/edit_kelas_keahlian/<?= $item['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="/admin/kelas_keahlian/hapus_kelas_keahlian/<?= $item['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
                                     </tbody>
                                 </table>
                                 <nav aria-label="..." class="mr-3">
@@ -205,17 +205,19 @@
                                 </nav>
                             </div>
                         </div>
-
-                    </div>
-
+                    <?php else : ?>
+                        <h3 class="text-center mt-2">Tidak ada keahlian yang tersedia</h3>
+                    <?php endif; ?>
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -243,4 +245,3 @@
             </div>
         </div>
     </div>
-

@@ -203,7 +203,7 @@
                                 </ul>
                             </nav>
                             <?php else : ?>
-                                <h3 class="text-center mt-4">Tidak ada mata soal yang tersedia</h3>
+                                <h3 class="text-center mt-2">Tidak ada mata soal yang tersedia</h3>
                             <?php endif; ?>
                         </div>
                     </div>
