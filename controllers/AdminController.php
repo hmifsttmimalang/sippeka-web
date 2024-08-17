@@ -177,7 +177,7 @@ class AdminController
             include 'views/layout/admin_footer.php';
         }
     }
-    
+
     public function ubahKelasKeahlian($id)
     {
         $keahlian = $this->kelasKeahlian->getById($id);
@@ -244,12 +244,12 @@ class AdminController
     public function detailUjian($id)
     {
         $tesKeahlian = $this->tesKeahlian->get($id);
-        
+
         if (!empty($tesKeahlian)) {
             $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
             $hitungSoal = count($jumlahSoal);
             $soalList = $this->soal->getAll();
-    
+
             include 'views/layout/admin_header.php';
             include 'views/admin/tes_keahlian/detail_ujian.php';
             include 'views/layout/admin_footer.php';
@@ -262,12 +262,12 @@ class AdminController
     public function editTesKeahlian($id)
     {
         $tesKeahlian = $this->tesKeahlian->get($id);
-        
+
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
-        
+
         $keahlianList = $this->kelasKeahlian->getAll();
         $mataSoal = $this->mataSoal->getAll();
 
@@ -351,7 +351,7 @@ class AdminController
     public function editSoalTesKeahlian($id, $id_soal)
     {
         $tesKeahlian = $this->tesKeahlian->get($id);
-        
+
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
@@ -403,8 +403,21 @@ class AdminController
     public function detailSesiTesKeahlian($id)
     {
         $sesiTesKeahlian = $this->sesiKeahlian->get($id);
-
+    
         if (!empty($sesiTesKeahlian)) {
+            $startTime = strtotime($sesiTesKeahlian['waktu_mulai']);
+            $endTime = strtotime($sesiTesKeahlian['waktu_selesai']);
+            $durationInSeconds = $endTime - $startTime;
+            $durationInMinutes = floor($durationInSeconds / 60);
+            $hours = floor($durationInMinutes / 60);
+            $minutes = $durationInMinutes % 60;
+            $durationString = sprintf('%02d:%02d', $hours, $minutes);
+    
+            $data = [
+                'sesiTesKeahlian' => $sesiTesKeahlian,
+                'duration' => $durationString
+            ];
+    
             include 'views/layout/admin_header.php';
             include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
             include 'views/layout/admin_footer.php';
@@ -439,14 +452,14 @@ class AdminController
     public function editSesiTesKeahlian($id)
     {
         $sesiTesKeahlian = $this->sesiKeahlian->get($id);
-        
+
         if (empty($sesiTesKeahlian)) {
             header('Location: /admin/sesi_tes_keahlian');
             exit;
         }
-        
+
         $mataSoal = $this->mataSoal->getAll();
-        
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_sesi = $_POST['nama_sesi'];
             $mata_soal = $_POST['mata_soal'];
@@ -459,7 +472,7 @@ class AdminController
                 exit;
             }
         }
-    
+
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/edit_sesi_keahlian.php';
         include 'views/layout/admin_footer.php';

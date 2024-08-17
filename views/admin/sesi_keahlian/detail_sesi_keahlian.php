@@ -188,7 +188,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
-                                                <td>180 Menit</td>
+                                                <td><?= $durationInMinutes ?> Menit</td>
                                             </tr>
                                             <tr>
                                                 <th>Mulai</th>
