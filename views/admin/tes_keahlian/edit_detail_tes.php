@@ -244,11 +244,11 @@
                                                     <td>
                                                         <select name="jawaban_benar" id="jawaban_benar" class="form-control">
                                                             <option value="">Pilih Jawaban</option>
-                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'a') ? 'selected' : '' ?>>A</option>
-                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'b') ? 'selected' : '' ?>>B</option>
-                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'c') ? 'selected' : '' ?>>C</option>
-                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'd') ? 'selected' : '' ?>>D</option>
-                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'e') ? 'selected' : '' ?>>E</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'A') ? 'selected' : '' ?>>A</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'B') ? 'selected' : '' ?>>B</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'C') ? 'selected' : '' ?>>C</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'D') ? 'selected' : '' ?>>D</option>
+                                                            <option value="<?= $soal['jawaban_benar'] ?>" <?= ($soal['jawaban_benar'] == 'E') ? 'selected' : '' ?>>E</option>
                                                         </select>
                                                     </td>
                                                 </tr>

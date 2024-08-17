@@ -244,11 +244,11 @@
                                                     <td>
                                                         <select name="jawaban_benar" id="jawaban_benar" class="form-control">
                                                             <option value="">Pilih Jawaban</option>
-                                                            <option value="a">A</option>
-                                                            <option value="b">B</option>
-                                                            <option value="c">C</option>
-                                                            <option value="d">D</option>
-                                                            <option value="e">E</option>
+                                                            <option value="A">A</option>
+                                                            <option value="B">B</option>
+                                                            <option value="C">C</option>
+                                                            <option value="D">D</option>
+                                                            <option value="E">E</option>
                                                         </select>
                                                     </td>
                                                 </tr>

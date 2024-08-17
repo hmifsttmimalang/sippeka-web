@@ -43,6 +43,7 @@ function route($uri)
 
         // simulasi peserta
         '/simulasi_peserta' => 'SeleksiController@simulasi',
+        '/hasil_simulasi' => 'SeleksiController@hasilSimulasi',
 
         // seleksi peserta
         '/seleksi_peserta' => 'SeleksiController@tesSeleksi',
