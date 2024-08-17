@@ -177,7 +177,7 @@
                                             <img src="<?= $jpg_path ? $file_path . '.jpg' : $file_path . '.jpeg' ?>" alt="Foto Profil Background Biru" class="img-fluid rounded-circle" style="width: 200px" alt="menunggu">
                                         </div>
                                         <br>
-                                        <h5 class="text-center card-title"><b><?= $userPendaftar['nama'] ?></b></h5>
+                                        <h5 class="text-center card-title"><b><?= strtoupper($userPendaftar['nama']) ?></b></h5>
 
                                         <ul class="list-group">
                                             <?php

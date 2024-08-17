@@ -115,6 +115,7 @@ class RegistrationController
                 'foto_bg_biru' => $file_name_bg_biru,
                 'foto_kk' => $file_name_kk
             ];
+            
             $this->pendaftaran->create($data, $user_id);
 
             // Redirect to success page
