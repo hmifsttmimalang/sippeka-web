@@ -120,6 +120,8 @@ class AdminController
 
     public function ubahSoalKeahlian($id)
     {
+        $mataSoal = $this->mataSoal->get($id);
+
         if (empty($mataSoal)) {
             header('Location: /admin/mata_soal_keahlian');
             exit;
@@ -133,7 +135,6 @@ class AdminController
             }
         }
 
-        $mataSoal = $this->mataSoal->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/mata_keahlian/edit_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -176,9 +177,11 @@ class AdminController
             include 'views/layout/admin_footer.php';
         }
     }
-
+    
     public function ubahKelasKeahlian($id)
     {
+        $keahlian = $this->kelasKeahlian->getById($id);
+
         if (empty($keahlian)) {
             header('Location: /admin/kelas_keahlian');
             exit;
@@ -192,7 +195,6 @@ class AdminController
             }
         }
 
-        $keahlian = $this->kelasKeahlian->getById($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/kelas_keahlian/edit_kelas_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -241,11 +243,12 @@ class AdminController
 
     public function detailUjian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+        
         if (!empty($tesKeahlian)) {
-            $soalList = $this->soal->getAll();
             $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
             $hitungSoal = count($jumlahSoal);
-            $tesKeahlian = $this->tesKeahlian->get($id);
+            $soalList = $this->soal->getAll();
     
             include 'views/layout/admin_header.php';
             include 'views/admin/tes_keahlian/detail_ujian.php';
@@ -258,13 +261,14 @@ class AdminController
 
     public function editTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+        
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
-
+        
         $keahlianList = $this->kelasKeahlian->getAll();
-        $tesKeahlian = $this->tesKeahlian->get($id);
         $mataSoal = $this->mataSoal->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -298,12 +302,13 @@ class AdminController
     // tambah soal tes
     public function tambahSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
 
-        $tesKeahlian = $this->tesKeahlian->get($id);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $soal = $_POST['soal'];
@@ -330,8 +335,9 @@ class AdminController
 
     public function importSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (!empty($tesKeahlian)) {
-            $tesKeahlian = $this->tesKeahlian->get($id);
             include 'views/layout/admin_header.php';
             include 'views/admin/tes_keahlian/import_soal_tes.php';
             include 'views/layout/admin_footer.php';
@@ -344,12 +350,13 @@ class AdminController
     // edit soal tes
     public function editSoalTesKeahlian($id, $id_soal)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+        
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
 
-        $tesKeahlian = $this->tesKeahlian->get($id);
         $soal = $this->soal->get($id_soal);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -395,8 +402,9 @@ class AdminController
 
     public function detailSesiTesKeahlian($id)
     {
+        $sesiTesKeahlian = $this->sesiKeahlian->get($id);
+
         if (!empty($sesiTesKeahlian)) {
-            $sesiTesKeahlian = $this->sesiKeahlian->get($id);
             include 'views/layout/admin_header.php';
             include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
             include 'views/layout/admin_footer.php';
@@ -430,9 +438,15 @@ class AdminController
 
     public function editSesiTesKeahlian($id)
     {
-        $mataSoal = $this->mataSoal->getAll();
         $sesiTesKeahlian = $this->sesiKeahlian->get($id);
-    
+        
+        if (empty($sesiTesKeahlian)) {
+            header('Location: /admin/sesi_tes_keahlian');
+            exit;
+        }
+        
+        $mataSoal = $this->mataSoal->getAll();
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_sesi = $_POST['nama_sesi'];
             $mata_soal = $_POST['mata_soal'];

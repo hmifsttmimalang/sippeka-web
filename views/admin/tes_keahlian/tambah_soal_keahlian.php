@@ -190,11 +190,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group">
-                                                <label for="nama_soal">Nama Soal</label>
-                                                <div id="editor"></div>
-                                                <input type="hidden" name="nama_soal" id="nama_soal_hidden" />
-                                            </div> -->
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="acak_soal">Acak Soal</label>
@@ -215,20 +210,12 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-6">
-                                                    <label for="acak_soal">Acak Soal</label>
-                                                    <select name="acak_soal" id="acak_soal" class="form-control">
-                                                        <option value="">Pilih</option>
-                                                        <option value="y">Y</option>
-                                                        <option value="t">T</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <label for="durasi_menit">Durasi (Menit)</label>
                                                     <input type="text" name="durasi_menit" class="form-control" id="durasi_menit" placeholder="Masukkan Durasi Tes (Menit)">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary mt-2">Simpan</button>
+                                            <a href="" class="btn btn-primary mt-2">
                                                 Reset
                                             </a>
                                         </form>
