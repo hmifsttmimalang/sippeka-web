@@ -1,10 +1,12 @@
 <?php
 
 require_once 'models/Soal.php';
+require_once 'models/Pendaftaran.php';
 
 class SeleksiController 
 {
     private $soal;
+    private $pendaftaran;
 
     public function __construct()
     {
@@ -16,6 +18,14 @@ class SeleksiController
         global $pdo;
 
         $this->soal = new Soal($pdo);
+        $this->pendaftaran = new Pendaftar($pdo);
+
+        // Check if the user has registered
+        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        if (!$pendaftaran) {
+            header('Location: /pendaftaran');
+            exit;
+        }
     }
 
     public function simulasi()
