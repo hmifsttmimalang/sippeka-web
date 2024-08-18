@@ -1,16 +1,4 @@
 <body>
-
-  <?php
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $userAnswers = $_POST['userAnswers'];
-    foreach ($userAnswers as $questionId => $answer) {
-      $_SESSION['userAnswers'][$questionId] = $answer;
-    }
-    header('Location: /hasil_simulasi');
-    exit;
-  }
-  ?>
-
   <div class="container mt-5">
     <div class="row">
       <div class="col-md-8">

@@ -35,48 +35,40 @@
     }
 </style>
 
-<?php
-$score = 0;
-$userAnswers = $_SESSION['userAnswers'];
-
-foreach ($questions as $question) {
-    $userAnswer = $userAnswers[$question['id']];
-    if (in_array($question['jawaban_benar'], $userAnswer)) {
-        $score++;
-    }
-}
-
-
-?>
-
 <div class="container">
     <h1>Hasil Ujian</h1>
-
     <ol>
         <?php foreach ($questions as $question) : ?>
-            <?php $userAnswer = $userAnswers[$question['id']]; ?>
-            <li class="pertanyaan">
-                <p class="tanya"><?= $question['soal'] ?></p>
-                <p class="jawab">Jawaban Benar: <span class="benar"><?= $question['jawaban_benar'] ?></span></p>
-                <?php if (isCorrectAnswer($userAnswer, $question['jawaban_benar'])) : ?>
-                    <p class="jawab">Jawaban Anda: <span class="benar"><?= implode(', ', $userAnswer) ?></span></p>
-                <?php else : ?>
-                    <p class="jawab">Jawaban Anda: <span class="salah"><?= implode(', ', $userAnswer) ?></span></p>
-                <?php endif; ?>
-            </li>
+            <?php if (isset($userAnswers[$question['id']])) : ?>
+                <?php
+                $userAnswer = is_array($userAnswers[$question['id']]) ? $userAnswers[$question['id']] : explode(',', $userAnswers[$question['id']]);
+                $isCorrect = isCorrectAnswer($userAnswer, $question['jawaban_benar']);
+                ?>
+                <li class="pertanyaan">
+                    <p class="tanya"><?= $question['soal'] ?></p>
+                    <p class="jawab">Jawaban Benar: <span class="benar"><?= htmlspecialchars($question['jawaban_benar']) ?></span></p>
+                    <p class="jawab">Jawaban Anda:
+                        <span class="<?= $isCorrect ? 'benar' : 'salah' ?>">
+                            <?= implode(', ', array_map('htmlspecialchars', $userAnswer)) ?>
+                        </span>
+                    </p>
+                </li>
+            <?php endif; ?>
         <?php endforeach; ?>
-    </ol>
-    <p>Skor: <?= $score . ' / ' . count($questions) ?></p>
 
-    <?php if ($score >= (count($questions) * 0.7)) : ?>
-        <p class="alert alert-success">Selamat! Anda telah lulus ujian dengan skor <?= $score ?></p>
+    </ol>
+    <p>Jumlah Soal yang Benar: <?= htmlspecialchars($score) . ' / ' . count($questions) ?></p>
+
+    <?php if ($scorePercentage >= 70 && $scorePercentage <= 100) : ?>
+        <p class="alert alert-success">Nilai Anda <?= htmlspecialchars($scorePercentage) ?>, tingkatkan dan pertahankan</p>
     <?php else : ?>
-        <p class="alert alert-danger">Maaf, Anda belum lulus ujian. Skor Anda adalah <?= $score ?> Silakan mencoba lagi!</p>
+        <p class="alert alert-danger">Nilai Anda <?= htmlspecialchars($scorePercentage) ?>, coba lagi!</p>
     <?php endif; ?>
 </div>
 
 <?php
-function isCorrectAnswer($userAnswer, $correctAnswer) {
+function isCorrectAnswer($userAnswer, $correctAnswer)
+{
     return in_array($correctAnswer, $userAnswer);
 }
 ?>

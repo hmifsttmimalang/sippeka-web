@@ -113,31 +113,35 @@
         }
 
         $('#finish-test').click(function() {
-            // Get the user's answers from the questionStates object
             var userAnswers = {};
             $.each(questionStates, function(questionId, state) {
                 userAnswers[questionId] = state.optionBtns;
             });
 
-            // Log the userAnswers object to the console
-            console.log(userAnswers);
+            console.log('User Answers before sending:', JSON.stringify(userAnswers)); // Debugging output
 
-            // Send the user's answers to the server using an AJAX request
             $.ajax({
-                type: 'POST',
-                url: '/simulasi_peserta',
-                data: { userAnswers: JSON.stringify(<?php echo json_encode($_SESSION['userAnswers']); ?>) },
-                contentType: 'application/json',
-                success: function(data) {
-                    alert('tes selesai');
-                    console.log('Answers submitted successfully!');
+                type: 'post', // Menggunakan metode POST
+                url: '/hasil_simulasi', // URL endpoint yang akan dituju
+                data: {
+                    userAnswers: userAnswers // Data jawaban peserta yang dikirim
+                },
+                dataType: 'json', // Tipe data yang diharapkan sebagai respons (JSON)
+                success: function(response) {
+                    // Jika request berhasil
+                    alert('Your score is: ' + response.scorePercentage); // Menampilkan skor dalam alert
+                    // Redirect ke halaman hasil jika diperlukan
                     window.location.href = '/hasil_simulasi';
                 },
                 error: function(xhr, status, error) {
-                    console.log('Error submitting answers:', error);
+                    // Jika terjadi error, tampilkan pesan error
+                    console.error('Error:', error);
+                    console.log('Response:', xhr.responseText); // Debugging output
+                    alert('Error: ' + error);
                 }
             });
         });
+
 
         // Set the initial timer value
         var timerValue = 5400; // 1 hour, 30 minutes, 00 seconds in seconds
@@ -155,8 +159,6 @@
                 alert('Waktu habis!');
             }
         }, 1000); // decrement every 1000ms (1 second)
-
-        // ... rest of the code ...
 
         function formatTime(seconds) {
             var hours = Math.floor(seconds / 3600);
