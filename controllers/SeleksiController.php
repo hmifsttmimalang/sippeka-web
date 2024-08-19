@@ -10,10 +10,10 @@ class SeleksiController
 
     public function __construct()
     {
-        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'user') {
-            header('Location: /login');
-            exit;
-        }
+        // if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'user') {
+        //     header('Location: /login');
+        //     exit;
+        // }
 
         global $pdo;
 
@@ -21,17 +21,21 @@ class SeleksiController
         $this->pendaftaran = new Pendaftar($pdo);
 
         // Check if the user has registered
-        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
-        if (!$pendaftaran) {
-            header('Location: /pendaftaran');
-            exit;
-        }
+        // $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        // if (!$pendaftaran) {
+        //     header('Location: /pendaftaran');
+        //     exit;
+        // }
     }
 
     public function simulasi()
     {
         if ($this->isAjaxRequest()) {
             // Menerima data yang dikirim melalui AJAX
+            if (empty($_SESSION['userAnswers'])) {
+                $_SESSION['userAnswers'];
+            }
+
             $userAnswers = isset($_POST['userAnswers']) ? json_decode($_POST['userAnswers'], true) : [];
             if (json_last_error() === JSON_ERROR_NONE) {
                 $_SESSION['userAnswers'] = $userAnswers;
@@ -84,14 +88,6 @@ class SeleksiController
             $questions = $this->soal->getAll();
             $score = $this->calculateScore($userAnswers, $questions);
             $scorePercentage = ($score / count($questions)) * 100;
-
-            // Pass the variables to the view
-            $data = [
-                'userAnswers' => $userAnswers,
-                'questions' => $questions,
-                'score' => $score,
-                'scorePercentage' => $scorePercentage,
-            ];
 
             include 'views/layout/simulasi_header.php';
             include 'views/tes_seleksi/hasil_simulasi.php';
