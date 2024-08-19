@@ -112,7 +112,9 @@
             $('#completed-badge').text(completedCount + ' Dikerjakan');
         }
 
-        $('#finish-test').click(function() {
+        $('#finish-test').click(function(e) {
+            e.preventDefault(); // Mencegah form default submission
+
             var userAnswers = {};
             $.each(questionStates, function(questionId, state) {
                 userAnswers[questionId] = state.optionBtns;
@@ -121,26 +123,24 @@
             console.log('User Answers before sending:', JSON.stringify(userAnswers)); // Debugging output
 
             $.ajax({
-                type: 'post', // Menggunakan metode POST
-                url: '/hasil_simulasi', // URL endpoint yang akan dituju
+                type: 'post',
+                url: '/hasil_simulasi',
                 data: {
-                    userAnswers: userAnswers // Data jawaban peserta yang dikirim
+                    userAnswers: JSON.stringify(userAnswers) // Pastikan ini adalah JSON string
                 },
-                dataType: 'json', // Tipe data yang diharapkan sebagai respons (JSON)
+                dataType: 'json',
                 success: function(response) {
-                    // Jika request berhasil
-                    alert('Your score is: ' + response.scorePercentage); // Menampilkan skor dalam alert
-                    // Redirect ke halaman hasil jika diperlukan
-                    window.location.href = '/hasil_simulasi';
+                    alert('Your score is: ' + response.scorePercentage);
+                    window.location.href = '/hasil_simulasi'; // Redirect ke halaman hasil
                 },
                 error: function(xhr, status, error) {
-                    // Jika terjadi error, tampilkan pesan error
                     console.error('Error:', error);
-                    console.log('Response:', xhr.responseText); // Debugging output
+                    console.log('Response:', xhr.responseText);
                     alert('Error: ' + error);
                 }
             });
         });
+
 
 
         // Set the initial timer value

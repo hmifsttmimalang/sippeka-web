@@ -62,7 +62,7 @@
             </div>
             <hr class="sidebar-divider">
             <form action="/simulasi_peserta" method="post">
-              <input type="hidden" name="userAnswers" value="<?= json_encode($_SESSION['userAnswers']); ?>">
+              <input type="hidden" name="userAnswers" value="<?= isset($_SESSION['userAnswers']) ? htmlspecialchars(json_encode($_SESSION['userAnswers'])) : '[]'; ?>">
               <button class="btn btn-danger btn-block" id="finish-test">Akhiri Ujian</button>
             </form>
           </div>
