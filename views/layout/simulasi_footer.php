@@ -120,17 +120,16 @@
                 userAnswers[questionId] = state.optionBtns;
             });
 
-            console.log('User Answers before sending:', JSON.stringify(userAnswers)); // Debugging output
+            console.log('User Answers before sending:', JSON.stringify(userAnswers));
 
             $.ajax({
-                type: 'post',
-                url: '/hasil_simulasi',
+                url: '/simulasi_peserta',
+                method: 'post',
                 data: {
                     userAnswers: JSON.stringify(userAnswers) // Pastikan ini adalah JSON string
                 },
                 dataType: 'json',
                 success: function(response) {
-                    alert('Your score is: ' + response.scorePercentage);
                     window.location.href = '/hasil_simulasi'; // Redirect ke halaman hasil
                 },
                 error: function(xhr, status, error) {
@@ -140,8 +139,6 @@
                 }
             });
         });
-
-
 
         // Set the initial timer value
         var timerValue = 5400; // 1 hour, 30 minutes, 00 seconds in seconds

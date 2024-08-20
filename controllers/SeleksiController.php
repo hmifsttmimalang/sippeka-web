@@ -10,10 +10,10 @@ class SeleksiController
 
     public function __construct()
     {
-        // if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'user') {
-        //     header('Location: /login');
-        //     exit;
-        // }
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'user') {
+            header('Location: /login');
+            exit;
+        }
 
         global $pdo;
 
@@ -21,17 +21,17 @@ class SeleksiController
         $this->pendaftaran = new Pendaftar($pdo);
 
         // Check if the user has registered
-        // $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
-        // if (!$pendaftaran) {
-        //     header('Location: /pendaftaran');
-        //     exit;
-        // }
+        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        if (!$pendaftaran) {
+            header('Location: /pendaftaran');
+            exit;
+        }
     }
 
     public function simulasi()
     {
-        if ($this->isAjaxRequest()) {
-            $userAnswers = isset($_POST['userAnswers']) ? $_POST['userAnswers'] : null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isAjaxRequest()) {
+            $userAnswers = isset($_POST['userAnswers']) ? $_POST['userAnswers'] : [];
 
             if ($userAnswers) {
                 $userAnswers = json_decode($userAnswers, true);
@@ -48,6 +48,11 @@ class SeleksiController
             echo json_encode(['status' => 'error', 'message' => 'No user answers provided']);
             exit;
         } else {
+            // Inisialisasi userAnswers jika belum ada
+            if (!isset($_SESSION['userAnswers'])) {
+                $_SESSION['userAnswers'] = [];
+            }
+            
             if (isset($_POST['userAnswers'])) {
                 $userAnswers = json_decode($_POST['userAnswers'], true);
                 if (json_last_error() === JSON_ERROR_NONE) {
@@ -56,11 +61,6 @@ class SeleksiController
                     echo "Error decoding JSON: " . json_last_error_msg();
                     exit;
                 }
-            }
-
-            // Inisialisasi userAnswers jika belum ada
-            if (!isset($_SESSION['userAnswers'])) {
-                $_SESSION['userAnswers'] = [];
             }
 
             $questions = $this->soal->getAll();
@@ -91,7 +91,7 @@ class SeleksiController
                 echo "Tidak ada jawaban yang disimpan di session.";
                 exit;
             }
-
+            
             $questions = $this->soal->getAll();
             $score = $this->calculateScore($userAnswers, $questions);
             $scorePercentage = ($score / count($questions)) * 100;
@@ -101,7 +101,6 @@ class SeleksiController
             include 'views/layout/simulasi_footer.php';
         }
     }
-
 
     private function calculateScore($userAnswers, $questions)
     {
