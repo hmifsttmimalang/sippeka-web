@@ -21,11 +21,11 @@ class SeleksiController
         $this->pendaftaran = new Pendaftar($pdo);
 
         // Check if the user has registered
-        // $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
-        // if (!$pendaftaran) {
-        //     header('Location: /pendaftaran');
-        //     exit;
-        // }
+        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
+        if (!$pendaftaran) {
+            header('Location: /pendaftaran');
+            exit;
+        }
     }
 
     public function simulasi()
