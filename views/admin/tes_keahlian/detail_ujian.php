@@ -176,7 +176,7 @@
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>Nama Tes Keahlian</th>
-                                                <td>Tes - Android Developer</td>
+                                                <td>Tes - <?= $tesKeahlian['nama_tes'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Mata Tes</th>

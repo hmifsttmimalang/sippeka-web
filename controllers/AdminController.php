@@ -130,7 +130,7 @@ class AdminController
         $nama = $_POST['nama'] ?? null;
         if ($nama) {
             if ($this->mataSoal->update($id, $nama)) {
-                header('Location: /admin/kelas_keahlian');
+                header('Location: /admin/mata_soal_keahlian');
                 exit;
             }
         }
