@@ -18,7 +18,7 @@ class SeleksiController
         global $pdo;
 
         $this->soal = new Soal($pdo);
-        $this->pendaftaran = new Pendaftar($pdo);
+        $this->pendaftaran = new Pendaftaran($pdo);
 
         // Check if the user has registered
         $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
