@@ -175,8 +175,8 @@
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
-                                                        <?php foreach ($mataSoal as $item) : ?>
-                                                            <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                        <?php foreach ($mataSoalList as $item) : ?>
+                                                            <option value="<?= $item['id'] ?>"><?= $item['nama'] ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>

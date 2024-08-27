@@ -235,17 +235,17 @@ class AdminController
     public function tambahTesKeahlian()
     {
         $keahlianList = $this->kelasKeahlian->getAll();
-        $mataSoal = $this->mataSoal->getAll();
+        $mataSoalList = $this->mataSoal->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
-            $mata_soal = $_POST['mata_soal'];
+            $mata_soal_id = $_POST['mata_soal'];
             $keahlian_id = $_POST['keahlian_id']; // Update untuk menggunakan keahlian_id
             $acak_soal = $_POST['acak_soal'];
             $acak_jawaban = $_POST['acak_jawaban'];
             $durasi_menit = $_POST['durasi_menit'];
 
-            if ($this->tesKeahlian->create($nama_tes, $mata_soal, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
+            if ($this->tesKeahlian->create($nama_tes, $mata_soal_id, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
@@ -284,17 +284,17 @@ class AdminController
         }
 
         $keahlianList = $this->kelasKeahlian->getAll();
-        $mataSoal = $this->mataSoal->getAll();
+        $mataSoalList = $this->mataSoal->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'] ?? null;
-            $mata_soal = $_POST['mata_soal'] ?? null;
+            $mata_soal_id = $_POST['mata_soal'] ?? null;
             $keahlian_id = $_POST['keahlian_id'] ?? null; // Update untuk menggunakan keahlian_id
             $acak_soal = $_POST['acak_soal'] ?? 't';
             $acak_jawaban = $_POST['acak_jawaban'] ?? 't';
             $durasi_menit = $_POST['durasi_menit'] ?? null;
 
-            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
+            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal_id, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
