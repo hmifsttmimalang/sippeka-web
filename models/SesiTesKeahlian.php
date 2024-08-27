@@ -2,7 +2,7 @@
 
 require_once 'connection/database.php';
 
-class SesiKeahlian
+class SesiTesKeahlian
 {
     private $pdo;
     const SELEKSI = 'Seleksi';

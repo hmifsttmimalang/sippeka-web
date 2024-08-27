@@ -6,17 +6,17 @@ require_once 'models/Keahlian.php';
 require_once 'models/TesKeahlian.php';
 require_once 'models/MataSoal.php';
 require_once 'models/Soal.php';
-require_once 'models/SesiKeahlian.php';
+require_once 'models/SesiTesKeahlian.php';
 require_once 'connection/database.php';
 
 class AdminController
 {
     private $user;
-    private $pendaftar;
+    private $pendaftaran;
     protected $kelasKeahlian;
     protected $tesKeahlian;
     protected $mataSoal;
-    protected $sesiKeahlian;
+    protected $sesiTesKeahlian;
     private $soal;
 
     public function __construct()
@@ -27,19 +27,19 @@ class AdminController
         }
 
         global $pdo;
-        $this->pendaftar = new Pendaftar($pdo);
+        $this->pendaftaran = new Pendaftaran($pdo);
         $this->user = new User($pdo);
         $this->kelasKeahlian = new Keahlian($pdo);
         $this->tesKeahlian = new TesKeahlian($pdo);
         $this->mataSoal = new MataSoal($pdo);
         $this->soal = new Soal($pdo);
-        $this->sesiKeahlian = new SesiKeahlian($pdo);
+        $this->sesiTesKeahlian = new SesiTesKeahlian($pdo);
     }
 
     public function index()
     {
-        $pendaftar_baru = $this->pendaftar->getNewRegistrations();
-        $jumlah_pendaftar = $this->pendaftar->getAll();
+        $pendaftar_baru = $this->pendaftaran->getNewRegistrations();
+        $jumlah_pendaftar = $this->pendaftaran->getAll();
         $jumlah_pendaftar_count = count($jumlah_pendaftar);
         $persentase_pendaftar = ($jumlah_pendaftar_count > 0) ? 100 : 0;
 
@@ -50,7 +50,7 @@ class AdminController
 
     public function kelolaData()
     {
-        $listPendaftar = $this->pendaftar->getAll();
+        $listPendaftar = $this->pendaftaran->getAll();
 
         // Tambahkan nama keahlian ke data pendaftar
         foreach ($listPendaftar as &$pendaftar) {
@@ -66,7 +66,7 @@ class AdminController
 
     public function peserta()
     {
-        $listPendaftar = $this->pendaftar->getAll();
+        $listPendaftar = $this->pendaftaran->getAll();
 
         // Tambahkan nama keahlian ke data pendaftar
         foreach ($listPendaftar as &$pendaftar) {
@@ -91,7 +91,7 @@ class AdminController
     public function detailPendaftar($id)
     {
         $user = $this->user->getUserById($id);
-        $userPendaftar = $this->pendaftar->getByUserId($id);
+        $userPendaftar = $this->pendaftaran->getByUserId($id);
 
         if (!empty($userPendaftar)) {
             include 'views/layout/admin_header.php';
@@ -408,7 +408,7 @@ class AdminController
     // sesi keahlian
     public function sesiTesKeahlian()
     {
-        $sesiKeahlian = $this->sesiKeahlian->getAll();
+        $sesiTesKeahlian = $this->sesiTesKeahlian->getAll();
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/sesi_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -416,7 +416,7 @@ class AdminController
 
     public function detailSesiTesKeahlian($id)
     {
-        $sesiTesKeahlian = $this->sesiKeahlian->get($id);
+        $sesiTesKeahlian = $this->sesiTesKeahlian->get($id);
 
         if (!empty($sesiTesKeahlian)) {
             $startTime = strtotime($sesiTesKeahlian['waktu_mulai']);
@@ -452,7 +452,7 @@ class AdminController
             $waktu_selesai = $_POST['waktu_selesai'];
             $jenis_sesi = $_POST['jenis_sesi'];
 
-            if ($this->sesiKeahlian->create($nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+            if ($this->sesiTesKeahlian->create($nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
                 header('Location: /admin/sesi_tes_keahlian');
                 exit;
             }
@@ -465,7 +465,7 @@ class AdminController
 
     public function editSesiTesKeahlian($id)
     {
-        $sesiTesKeahlian = $this->sesiKeahlian->get($id);
+        $sesiTesKeahlian = $this->sesiTesKeahlian->get($id);
 
         if (empty($sesiTesKeahlian)) {
             header('Location: /admin/sesi_tes_keahlian');
@@ -481,7 +481,7 @@ class AdminController
             $waktu_selesai = $_POST['waktu_selesai'];
             $jenis_sesi = $_POST['jenis_sesi'];
 
-            if ($this->sesiKeahlian->update($id, $nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+            if ($this->sesiTesKeahlian->update($id, $nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
                 header('Location: /admin/sesi_tes_keahlian');
                 exit;
             }
@@ -494,7 +494,7 @@ class AdminController
 
     public function hapusSesiTesKeahlian($id)
     {
-        if ($this->sesiKeahlian->delete($id)) {
+        if ($this->sesiTesKeahlian->delete($id)) {
             header('Location: /admin/sesi_tes_keahlian');
             exit;
         }

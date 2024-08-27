@@ -3,7 +3,7 @@
 require_once 'models/Keahlian.php';
 require_once 'connection/database.php';
 
-class Pendaftar
+class Pendaftaran
 {
     private $pdo;
     protected $keahlian;
