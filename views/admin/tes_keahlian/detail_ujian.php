@@ -180,7 +180,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Mata Tes</th>
-                                                <td><?= $tesKeahlian['mata_soal'] ?></td>
+                                                <td><?= $tesKeahlian['mata_soal_nama'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Keahlian</th>
