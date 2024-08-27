@@ -2,11 +2,13 @@
 
 require_once 'models/Soal.php';
 require_once 'models/Pendaftaran.php';
+require_once 'models/SesiTesKeahlian.php';
 
 class SeleksiController
 {
     private $soal;
     private $pendaftaran;
+    private $sesiTesKeahlian;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class SeleksiController
 
         $this->soal = new Soal($pdo);
         $this->pendaftaran = new Pendaftaran($pdo);
+        $this->sesiTesKeahlian = new SesiTesKeahlian($pdo);
 
         // Check if the user has registered
         $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
@@ -52,7 +55,15 @@ class SeleksiController
             if (!isset($_SESSION['userAnswers'])) {
                 $_SESSION['userAnswers'] = [];
             }
-            
+
+            $ongoingSeleksi = $this->getActiveSesi('Seleksi');
+
+            // Jika ada sesi seleksi aktif, batasi soal simulasi
+            if ($ongoingSeleksi && $this->isSesiAktif($ongoingSeleksi)) {
+                echo "Simulasi tidak tersedia saat sesi seleksi berlangsung.";
+                exit;
+            }
+
             if (isset($_POST['userAnswers'])) {
                 $userAnswers = json_decode($_POST['userAnswers'], true);
                 if (json_last_error() === JSON_ERROR_NONE) {
@@ -91,7 +102,7 @@ class SeleksiController
                 echo "Tidak ada jawaban yang disimpan di session.";
                 exit;
             }
-            
+
             $questions = $this->soal->getAll();
             $score = $this->calculateScore($userAnswers, $questions);
             $scorePercentage = ($score / count($questions)) * 100;
@@ -121,8 +132,44 @@ class SeleksiController
         return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
     }
 
+    private function getActiveSesi($jenisSesi)
+    {
+        $sesiList = $this->sesiTesKeahlian->getAll();
+        foreach ($sesiList as $sesi) {
+            if ($sesi['jenis_sesi'] === $jenisSesi && $this->isSesiAktif($sesi)) {
+                return $sesi;
+            }
+        }
+        return null;
+    }
+
+    private function isSesiAktif($sesi)
+    {
+        $now = new DateTime();
+        $waktuMulai = new DateTime($sesi['waktu_mulai']);
+        $waktuSelesai = new DateTime($sesi['waktu_selesai']);
+        return $now >= $waktuMulai && $now <= $waktuSelesai;
+    }
+
     public function tesSeleksi()
     {
+        // Dapatkan sesi seleksi aktif
+        $activeSesi = $this->getActiveSesi('Seleksi');
+
+        if (!$activeSesi) {
+            echo "Tidak ada sesi seleksi yang aktif saat ini.";
+            exit;
+        }
+
+        // Cek apakah sesi masih aktif berdasarkan waktu
+        if (!$this->isSesiAktif($activeSesi)) {
+            echo "Sesi seleksi sudah berakhir.";
+            exit;
+        }
+
+        // Ambil soal berdasarkan keahlian peserta dan sesi seleksi
+        $soal = $this->sesiTesKeahlian->getSoalBySesiId($activeSesi['id']);
+
         include 'views/layout/tes_header.php';
         include 'views/tes_seleksi/tes_seleksi_peserta.php';
         include 'views/layout/tes_footer.php';

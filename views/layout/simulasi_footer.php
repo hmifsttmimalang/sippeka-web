@@ -10,7 +10,11 @@
 
         // Hide all questions except the first one
         $('.question').hide();
-        $('#question-1').show();
+        if ('#question-1') {
+            $('#question-1').show();
+        } else {
+            $('#question-' + questionId).show();
+        }
 
         // Add event listeners to navigation buttons
         $('#prev-question').click(function() {
@@ -40,7 +44,7 @@
             $('#question-' + questionId).show();
             $('#current-question-number').text(questionId);
 
-            // Restore the state of the current question's option buttons and nav buttons
+            // Pastikan tombol navigasi dan pilihan opsi disinkronkan dengan keadaan yang disimpan
             if (questionStates[questionId]) {
                 var state = questionStates[questionId];
                 $('.option-btn', '#question-' + questionId).each(function() {
