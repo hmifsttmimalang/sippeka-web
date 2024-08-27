@@ -232,6 +232,10 @@
                                                         <div>D. <?= $item['pilihan_d'] ?></div>
                                                         <div>E. <?= $item['pilihan_e'] ?></div>
                                                     </div>
+                                                    <hr class="sidebar-divider">
+                                                    <div class="ml-3">
+                                                        <p>Jawaban yang benar: <?= $item['jawaban_benar'] ?></p>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
