@@ -23,7 +23,7 @@ class SeleksiController
         $this->pendaftaran = new Pendaftaran($pdo);
         $this->sesiTesKeahlian = new SesiTesKeahlian($pdo);
 
-        // Check if the user has registered
+        // memeriksa apabila user belum terdaftar akan diarahkan ke halaman pendaftaran
         $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
         if (!$pendaftaran) {
             header('Location: /pendaftaran');

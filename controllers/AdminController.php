@@ -263,7 +263,7 @@ class AdminController
         if (!empty($tesKeahlian)) {
             $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
             $hitungSoal = count($jumlahSoal);
-            $soalList = $this->soal->getAll();
+            $soalList = $this->soal->getSoalByTesKeahlianId($id);
 
             include 'views/layout/admin_header.php';
             include 'views/admin/tes_keahlian/detail_ujian.php';
@@ -410,13 +410,11 @@ class AdminController
     {
         $sesiTesKeahlian = $this->sesiTesKeahlian->getAll();
         $tesKeahlianList = $this->tesKeahlian->getAll();
-        
-        foreach ($sesiTesKeahlian as &$item) {
-            foreach ($tesKeahlianList as $tes) {
-                if ($item['tes_keahlian_id'] == $tes['id']) {
-                    $item['tes_keahlian_nama'] = $tes['nama_tes'];
-                    break;
-                }
+
+        // Cek apakah ID yang digunakan benar-benar ada
+        foreach ($sesiTesKeahlian as $item) {
+            if (!isset($tesKeahlianMap[$item['tes_keahlian_id']])) {
+                error_log("ID tidak ditemukan: " . $item['tes_keahlian_id']);
             }
         }
 
