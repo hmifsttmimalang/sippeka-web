@@ -38,6 +38,12 @@
 <div class="container">
     <h1>Hasil Simulasi Ujian</h1>
     <hr>
+    <a href="/user" class="btn btn-danger">Kembali ke Dashboard</a>
+    <a href="/simulasi_peserta" class="btn btn-primary">Kerjakan Ulang</a>
+    <hr>
+    <strong>
+        <p class="text-center">Riwayat Soal yang dikerjakan</p>
+    </strong>
     <ol>
         <?php foreach ($questions as $question) : ?>
             <?php if (isset($userAnswers[$question['id']])) : ?>
@@ -75,7 +81,7 @@
             <?php endforeach; ?>
         </ol>
         <hr>
-    <p>Jumlah Soal yang Benar: <?= htmlspecialchars($score) . ' / ' . count($questions) ?></p>
+    <p class="text-center"><?= htmlspecialchars($score) . ' dari ' . count($questions) ?> jawaban soal yang benar</p>
 
     <?php if ($scorePercentage >= 70 && $scorePercentage <= 100) : ?>
         <p class="alert alert-success">Nilai Anda <?= htmlspecialchars($scorePercentage) ?>, tingkatkan dan pertahankan</p>
