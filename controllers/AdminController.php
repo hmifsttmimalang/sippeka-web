@@ -50,8 +50,15 @@ class AdminController
 
     public function kelolaData()
     {
-        $keahlian = $this->kelasKeahlian->getAll();
         $listPendaftar = $this->pendaftar->getAll();
+
+        // Tambahkan nama keahlian ke data pendaftar
+        foreach ($listPendaftar as &$pendaftar) {
+            $keahlianId = $pendaftar['keahlian'];
+            $keahlianData = $this->kelasKeahlian->getById($keahlianId);
+            $pendaftar['keahlian_nama'] = $keahlianData['nama']; // Sesuaikan dengan nama kolom di tabel keahlian
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/kelola_data.php';
         include 'views/layout/admin_footer.php';
@@ -60,6 +67,14 @@ class AdminController
     public function peserta()
     {
         $listPendaftar = $this->pendaftar->getAll();
+
+        // Tambahkan nama keahlian ke data pendaftar
+        foreach ($listPendaftar as &$pendaftar) {
+            $keahlianId = $pendaftar['keahlian'];
+            $keahlianData = $this->kelasKeahlian->getById($keahlianId);
+            $pendaftar['keahlian_nama'] = $keahlianData['nama']; // Sesuaikan dengan nama kolom di tabel keahlian
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/peserta.php';
         include 'views/layout/admin_footer.php';
@@ -403,7 +418,7 @@ class AdminController
     public function detailSesiTesKeahlian($id)
     {
         $sesiTesKeahlian = $this->sesiKeahlian->get($id);
-    
+
         if (!empty($sesiTesKeahlian)) {
             $startTime = strtotime($sesiTesKeahlian['waktu_mulai']);
             $endTime = strtotime($sesiTesKeahlian['waktu_selesai']);
@@ -412,12 +427,12 @@ class AdminController
             $hours = floor($durationInMinutes / 60);
             $minutes = $durationInMinutes % 60;
             $durationString = sprintf('%02d:%02d', $hours, $minutes);
-    
+
             $data = [
                 'sesiTesKeahlian' => $sesiTesKeahlian,
                 'duration' => $durationString
             ];
-    
+
             include 'views/layout/admin_header.php';
             include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
             include 'views/layout/admin_footer.php';

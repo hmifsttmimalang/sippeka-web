@@ -181,7 +181,7 @@
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $item['nama'] ?></td>
                                                 <td><?= $item['alamat'] ?></td>
-                                                <td><?= $item['keahlian'] ?></td>
+                                                <td><?= $item['keahlian_nama'] ?></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>

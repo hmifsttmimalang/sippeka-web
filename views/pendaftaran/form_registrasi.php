@@ -72,10 +72,10 @@
                                         <div class="form-group">
                                             <label for="keahlian">Keahlian</label>
                                             <select name="keahlian" id="keahlian" class="form-control">
-                                                <option value="Pilih Keahlian">Pilih Keahlian</option>
+                                                <option value="">Pilih Keahlian</option>
                                                 <?php if (!empty($keahlianList)) : ?>
-                                                    <?php foreach ($keahlianList as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                    <?php foreach ($keahlianList as $keahlian): ?>
+                                                        <option value="<?= $keahlian['id']; ?>"><?= $keahlian['nama']; ?></option>
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
                                             </select>

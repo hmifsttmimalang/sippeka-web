@@ -1,25 +1,43 @@
 <?php
 
+require_once 'models/Keahlian.php';
 require_once 'connection/database.php';
 
 class Pendaftar
 {
     private $pdo;
+    protected $keahlian;
 
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
+
+        $this->keahlian = new Keahlian($pdo);
     }
 
     public function create($data, $user_id)
     {
+        // Validasi tanggal lahir
         if (!$this->validateTanggalLahir($data['tanggal_lahir'])) {
-            // Handle the error
             return false;
         }
 
+        // Ambil ID keahlian dari data yang diterima
+        $keahlianId = $data['keahlian'];
+
+        // Pastikan ID keahlian valid
+        if ($keahlianId === null || !$this->keahlian->exists($keahlianId)) {
+            echo 'Error: Keahlian tidak ditemukan.';
+            return false;
+        }
+
+        // Lanjutkan dengan memasukkan data ke tabel pendaftar
         $stmt = $this->pdo->prepare('INSERT INTO pendaftar (user_id, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, agama, alamat, telepon, keahlian, foto_ktp, foto_ijazah, foto_bg_biru, foto_kk, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())');
-        $stmt->execute([
+
+        // Debugging: Tampilkan query dan parameter
+        echo 'Query: ' . $stmt->queryString . '<br>';
+        echo 'Parameters: ';
+        print_r([
             $user_id,
             $data['nama'],
             $data['tempat_lahir'],
@@ -28,12 +46,33 @@ class Pendaftar
             $data['agama'],
             $data['alamat'],
             $data['telepon'],
-            $data['keahlian'],
+            $keahlianId, // Gunakan ID keahlian
             $data['foto_ktp'],
             $data['foto_ijazah'],
             $data['foto_bg_biru'],
             $data['foto_kk']
         ]);
+
+        // Eksekusi query dan tangkap kesalahan
+        if (!$stmt->execute([
+            $user_id,
+            $data['nama'],
+            $data['tempat_lahir'],
+            $data['tanggal_lahir'],
+            $data['jenis_kelamin'],
+            $data['agama'],
+            $data['alamat'],
+            $data['telepon'],
+            $keahlianId, // Gunakan ID keahlian
+            $data['foto_ktp'],
+            $data['foto_ijazah'],
+            $data['foto_bg_biru'],
+            $data['foto_kk']
+        ])) {
+            echo 'Error Info: ';
+            print_r($stmt->errorInfo()); // Tampilkan info error jika ada
+            return false;
+        }
 
         $this->updateUserRegistrationStatus($user_id, 1);
 
@@ -42,14 +81,22 @@ class Pendaftar
 
     public function update($id, $data)
     {
+        // Validasi tanggal lahir
         if (!$this->validateTanggalLahir($data['tanggal_lahir'])) {
-            // Handle the error
             return false;
         }
 
+        // Ambil ID keahlian berdasarkan nama
+        $keahlianId = $this->keahlian->getIdByName($data['keahlian']);
+
+        // Proses update
         $columns = [];
         $values = [];
         foreach ($data as $column => $value) {
+            // Ganti nilai keahlian menjadi ID
+            if ($column === 'keahlian') {
+                $value = $keahlianId;
+            }
             $columns[] = "$column = ?";
             $values[] = $value;
         }
@@ -60,6 +107,7 @@ class Pendaftar
 
         return $stmt->rowCount();
     }
+
 
     public function delete($id)
     {
@@ -88,6 +136,17 @@ class Pendaftar
         $stmt = $this->pdo->prepare('SELECT * FROM pendaftar WHERE id = ?');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllWithKeahlian()
+    {
+        $stmt = $this->pdo->prepare('
+            SELECT pendaftar.*, keahlian.nama AS nama_keahlian
+            FROM pendaftar
+            JOIN keahlian ON pendaftar.keahlian = keahlian.id
+        ');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getByUserId($user_id)

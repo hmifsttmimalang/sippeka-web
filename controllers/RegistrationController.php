@@ -26,7 +26,7 @@ class RegistrationController
     {
         $keahlianList = $this->keahlian->getAll();
 
-        // jika terdaftar maka akan dibatasi
+        // Jika sudah terdaftar, redirect ke halaman "terdaftar"
         $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
         if ($pendaftaran) {
             header('Location: /pendaftaran/terdaftar');
@@ -40,13 +40,6 @@ class RegistrationController
 
     public function register()
     {
-        // Check if the user has already registered
-        $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
-        if ($pendaftaran) {
-            header('Location: /user');
-            exit;
-        }
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama = $_POST['nama'];
             $tempat_lahir = $_POST['tempat_lahir'];
@@ -57,14 +50,19 @@ class RegistrationController
             $telepon = $_POST['telepon'];
             $keahlian = $_POST['keahlian'];
 
+            // Validasi ID keahlian sebelum disimpan
+            if (empty($keahlian) && !$this->keahlian->exists($keahlian)) {
+                echo 'Error: Keahlian yang dipilih tidak valid.';
+                exit;
+            }
+
+            // Validasi file upload
             $foto_ktp = $_FILES['foto_ktp'];
             $foto_ijazah = $_FILES['foto_ijazah'];
             $foto_bg_biru = $_FILES['foto_bg_biru'];
             $foto_kk = $_FILES['foto_kk'];
 
-            // Validate uploaded files
             if (!isset($foto_ktp['tmp_name']) || !isset($foto_ijazah['tmp_name']) || !isset($foto_bg_biru['tmp_name']) || !isset($foto_kk['tmp_name'])) {
-                // Handle error: no files uploaded
                 echo 'Error: no files uploaded';
                 exit;
             }
@@ -94,7 +92,6 @@ class RegistrationController
                 move_uploaded_file($foto_bg_biru['tmp_name'], $folder_path . '/' . $file_name_bg_biru);
                 move_uploaded_file($foto_kk['tmp_name'], $folder_path . '/' . $file_name_kk);
             } catch (Exception $e) {
-                // Handle error: file upload failed
                 echo 'Error: file upload failed';
                 exit;
             }
@@ -115,12 +112,15 @@ class RegistrationController
                 'foto_bg_biru' => $file_name_bg_biru,
                 'foto_kk' => $file_name_kk
             ];
-            
-            $this->pendaftaran->create($data, $user_id);
 
-            // Redirect to success page
-            header('Location: /pendaftaran/terdaftar');
-            exit;
+            $result = $this->pendaftaran->create($data, $user_id);
+
+            if ($result) {
+                header('Location: /pendaftaran/terdaftar');
+                exit;
+            } else {
+                echo 'Error: Data tidak berhasil ditambahkan ke database!';
+            }
         }
     }
 

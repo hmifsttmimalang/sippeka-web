@@ -187,15 +187,15 @@
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $item['nama'] ?></td>
                                                 <td><?= $item['alamat'] ?></td>
-                                                <td><?= $item['keahlian'] ?></td>
+                                                <td><?= $item['keahlian_nama'] ?></td> <!-- Menampilkan nama keahlian -->
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td><span class="badge badge-info">Baru</span></td>
                                                 <td>
-                                                    <a href="/admin/kelola_data/detail_pendaftar/<?= $item['user_id'] ?>" class="btn btn-info btn-sm">Cek</a>
-                                                    <a href="" class="btn btn-danger btn-sm">Hapus</a>
-                                                    <a href="" class="btn btn-primary btn-sm">Update</a>
+                                                    <a href="/admin/kelola_data/detail_pendaftar/<?= $item['user_id'] ?>" class="btn btn-info btn-sm">Periksa</a>
+                                                    <!-- <a href="" class="btn btn-danger btn-sm">Hapus</a>
+                                                    <a href="" class="btn btn-primary btn-sm">Update</a> -->
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

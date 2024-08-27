@@ -2,7 +2,7 @@
 
 require_once 'connection/database.php';
 
-class Keahlian 
+class Keahlian
 {
     protected $pdo;
 
@@ -24,12 +24,19 @@ class Keahlian
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getIdByName($nama)
+    public function getIdByName($name)
     {
         $stmt = $this->pdo->prepare('SELECT id FROM keahlian WHERE nama = ?');
-        $stmt->execute([$nama]);
+        $stmt->execute([$name]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['id'];
+        return $result ? $result['id'] : null; // Kembalikan ID atau null jika tidak ditemukan
+    }
+
+    public function exists($id)
+    {
+        $stmt = $this->pdo->prepare('SELECT COUNT(*) FROM keahlian WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchColumn() > 0;
     }
 
     public function create($nama)
