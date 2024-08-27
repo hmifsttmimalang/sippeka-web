@@ -169,14 +169,14 @@
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="nama_sesi">Nama Sesi</label>
-                                                    <input type="text" name="nama_sesi" class="form-control" id="nama_sesi" value="<?= $sesiTesKeahlian['nama_sesi'] ?>">
+                                                    <input type="text" name="nama_sesi" class="form-control" id="nama_sesi" value="<?= htmlspecialchars($sesiTesKeahlian['nama_sesi']) ?>">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="mata_soal">Mata Soal</label>
-                                                    <select name="mata_soal" id="mata_soal" class="form-control">
-                                                        <option value="">Pilih Mata Soal Keahlian</option>
-                                                        <?php foreach ($mataSoal as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>" <?= ($item['nama'] == $item['nama']) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
+                                                    <label for="tes_keahlian_id">Tes Keahlian</label>
+                                                    <select name="tes_keahlian_id" id="tes_keahlian_id" class="form-control">
+                                                        <option value="">Pilih Tes Keahlian</option>
+                                                        <?php foreach ($tesKeahlianList as $item) : ?>
+                                                            <option value="<?= $item['id'] ?>" <?= ($item['id'] == $sesiTesKeahlian['tes_keahlian_id']) ? 'selected' : '' ?>><?= htmlspecialchars($item['nama_tes']) ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -184,17 +184,17 @@
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="waktu_mulai">Waktu Mulai</label>
-                                                    <input type="datetime-local" class="form-control" value="<?= $sesiTesKeahlian['waktu_mulai'] ?>" name="waktu_mulai">
+                                                    <input type="datetime-local" class="form-control" value="<?= htmlspecialchars($sesiTesKeahlian['waktu_mulai']) ?>" name="waktu_mulai">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="waktu_selesai">Waktu Selesai</label>
-                                                    <input type="datetime-local" class="form-control" value="<?= $sesiTesKeahlian['waktu_selesai'] ?>" name="waktu_selesai">
+                                                    <input type="datetime-local" class="form-control" value="<?= htmlspecialchars($sesiTesKeahlian['waktu_selesai']) ?>" name="waktu_selesai">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-6 mb-3">
                                                     <label for="jenis_sesi">Jenis Sesi</label>
-                                                    <select name="jenis_sesi" id="mata_soal" class="form-control">
+                                                    <select name="jenis_sesi" id="jenis_sesi" class="form-control">
                                                         <option value="">Pilih Jenis Sesi</option>
                                                         <option value="Simulasi" <?= ($sesiTesKeahlian['jenis_sesi'] == 'Simulasi') ? 'selected' : '' ?>>Simulasi</option>
                                                         <option value="Seleksi" <?= ($sesiTesKeahlian['jenis_sesi'] == 'Seleksi') ? 'selected' : '' ?>>Seleksi</option>
@@ -204,9 +204,9 @@
                                             <button type="submit" class="btn btn-primary">
                                                 Simpan
                                             </button>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="reset" class="btn btn-primary">
                                                 Reset
-                                            </a>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

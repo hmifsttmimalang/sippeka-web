@@ -409,6 +409,17 @@ class AdminController
     public function sesiTesKeahlian()
     {
         $sesiTesKeahlian = $this->sesiTesKeahlian->getAll();
+        $tesKeahlianList = $this->tesKeahlian->getAll();
+        
+        foreach ($sesiTesKeahlian as &$item) {
+            foreach ($tesKeahlianList as $tes) {
+                if ($item['tes_keahlian_id'] == $tes['id']) {
+                    $item['tes_keahlian_nama'] = $tes['nama_tes'];
+                    break;
+                }
+            }
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/sesi_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -427,9 +438,12 @@ class AdminController
             $minutes = $durationInMinutes % 60;
             $durationString = sprintf('%02d:%02d', $hours, $minutes);
 
+            $soalList = $this->sesiTesKeahlian->getSoalBySesiId($id); // Ambil soal terkait
+
             $data = [
                 'sesiTesKeahlian' => $sesiTesKeahlian,
-                'duration' => $durationString
+                'duration' => $durationString,
+                'soalList' => $soalList // Tambahkan soal ke data
             ];
 
             include 'views/layout/admin_header.php';
@@ -443,16 +457,16 @@ class AdminController
 
     public function tambahSesiTesKeahlian()
     {
-        $mataSoal = $this->mataSoal->getAll();
+        $tesKeahlianList = $this->tesKeahlian->getAll(); // Ganti mataSoal dengan tesKeahlian
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_sesi = $_POST['nama_sesi'];
-            $mata_soal = $_POST['mata_soal'];
+            $tes_keahlian_id = $_POST['tes_keahlian_id']; // Ganti mata_soal dengan tes_keahlian_id
             $waktu_mulai = $_POST['waktu_mulai'];
             $waktu_selesai = $_POST['waktu_selesai'];
             $jenis_sesi = $_POST['jenis_sesi'];
 
-            if ($this->sesiTesKeahlian->create($nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+            if ($this->sesiTesKeahlian->create($nama_sesi, $tes_keahlian_id, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
                 header('Location: /admin/sesi_tes_keahlian');
                 exit;
             }
@@ -472,16 +486,16 @@ class AdminController
             exit;
         }
 
-        $mataSoal = $this->mataSoal->getAll();
+        $tesKeahlianList = $this->tesKeahlian->getAll(); // Ganti mataSoal dengan tesKeahlian
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_sesi = $_POST['nama_sesi'];
-            $mata_soal = $_POST['mata_soal'];
+            $tes_keahlian_id = $_POST['tes_keahlian_id']; // Ganti mata_soal dengan tes_keahlian_id
             $waktu_mulai = $_POST['waktu_mulai'];
             $waktu_selesai = $_POST['waktu_selesai'];
             $jenis_sesi = $_POST['jenis_sesi'];
 
-            if ($this->sesiTesKeahlian->update($id, $nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+            if ($this->sesiTesKeahlian->update($id, $nama_sesi, $tes_keahlian_id, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
                 header('Location: /admin/sesi_tes_keahlian');
                 exit;
             }

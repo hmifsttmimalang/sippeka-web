@@ -166,75 +166,74 @@
                         </form>
                     </div>
 
-                    <?php if (!empty($sesiKeahlian)) : ?>
-                    <!-- Search Bar -->
-                    <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Tes</td>
-                                        <td>Sesi</td>
-                                        <td>Mulai</td>
-                                        <td>Selesai</td>
-                                        <td>Jenis Sesi</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1;
-                                    foreach ($sesiKeahlian as $item) : ?>
-                                        <tr>
-                                            <td><?= $i++; ?></td>
-                                            <td>
-                                                Tes - <?= $item['nama_sesi'] ?>
-                                                <ul type="disc">
-                                                    <li>Kelas : <?= $item['mata_soal'] ?></li>
-                                                    <li>Mata : <?= $item['mata_soal'] ?> </li>
-                                                </ul type="disc">
-                                            </td>
-                                            <td><?= $item['nama_sesi'] ?></td>
-                                            <td><?= $item['waktu_mulai'] ?></td>
-                                            <td><?= $item['waktu_selesai'] ?></td>
-                                            <td><?= $item['jenis_sesi'] ?></td>
-                                            <td>
-                                                <a href="/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">
-                                                    <i class="bi bi-eye"></i>
-                                                </a>
-                                                <a href="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                <a href="/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">
-                                                    <i class="bi bi-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                    <?php if (!empty($sesiTesKeahlian)) : ?>
+                        <!-- Search Bar -->
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Tes</td>
+                                            <td>Sesi</td>
+                                            <td>Mulai</td>
+                                            <td>Selesai</td>
+                                            <td>Jenis Sesi</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1;
+                                        foreach ($sesiTesKeahlian as $item) : ?>
+                                            <tr>
+                                                <td><?= $i++; ?></td>
+                                                <td>
+                                                    Tes - <?= htmlspecialchars($item['nama_sesi']) ?>
+                                                    <ul type="disc">
+                                                        <li>Nama Tes Keahlian: <?= htmlspecialchars($item['tes_keahlian_nama']) ?></li>
+                                                    </ul>
+                                                </td>
+                                                <td><?= htmlspecialchars($item['nama_sesi']) ?></td>
+                                                <td><?= htmlspecialchars($item['waktu_mulai']) ?></td>
+                                                <td><?= htmlspecialchars($item['waktu_selesai']) ?></td>
+                                                <td><?= htmlspecialchars($item['jenis_sesi']) ?></td>
+                                                <td>
+                                                    <a href="/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                    <a href="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+                                                    <a href="/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     <?php else : ?>
                         <h3 class="text-center mt-2">Tidak ada sesi yang tersedia</h3>
                     <?php endif; ?>
