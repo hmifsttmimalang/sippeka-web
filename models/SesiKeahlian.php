@@ -5,8 +5,8 @@ require_once 'connection/database.php';
 class SesiKeahlian
 {
     private $pdo;
-    const JENIS_SESI_SELEKSI = 'Seleksi';
-    const JENIS_SESI_SIMULASI = 'Simulasi';
+    const SELEKSI = 'Seleksi';
+    const SIMULASI = 'Simulasi';
 
     public function __construct($pdo)
     {
@@ -69,8 +69,8 @@ class SesiKeahlian
     private function validateJenisSesi($jenis_sesi)
     {
         $validJenisSesi = [
-            self::JENIS_SESI_SELEKSI,
-            self::JENIS_SESI_SIMULASI,
+            self::SELEKSI,
+            self::SIMULASI,
         ];
 
         if (!in_array($jenis_sesi, $validJenisSesi)) {
