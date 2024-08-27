@@ -18,7 +18,7 @@ class UserController
 
         global $pdo;
 
-        $this->pendaftaran = new Pendaftar($pdo);
+        $this->pendaftaran = new Pendaftaran($pdo);
         $this->user = new User($pdo);
 
         // Check if the user has registered

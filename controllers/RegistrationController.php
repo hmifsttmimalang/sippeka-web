@@ -19,7 +19,7 @@ class RegistrationController
         global $pdo;
 
         $this->keahlian = new Keahlian($pdo);
-        $this->pendaftaran = new Pendaftar($pdo);
+        $this->pendaftaran = new Pendaftaran($pdo);
     }
 
     public function index()
