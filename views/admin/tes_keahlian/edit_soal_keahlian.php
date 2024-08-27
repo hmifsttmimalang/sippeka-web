@@ -184,16 +184,17 @@
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
                                                         <?php foreach ($mataSoal as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>" <?= ($item['nama'] == $item['nama']) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
+                                                            <option value="<?= $item['nama'] ?>" <?= ($item['nama'] == $item['nama']) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="kelas">Kelas</label>
-                                                    <select name="kelas" id="kelas" class="form-control">
-                                                        <option value="">Pilih Keahlian</option>
-                                                        <?php foreach ($keahlianList as $item) : ?>
-                                                            <option value="<?= $item['nama'] ?>" <?= (!isset($item['nama'])) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
+                                                    <label for="keahlian_id">Keahlian</label>
+                                                    <select name="keahlian_id" id="keahlian_id" class="form-control" required>
+                                                        <?php foreach ($keahlianList as $keahlian) : ?>
+                                                            <option value="<?= $keahlian['id'] ?>" <?= $keahlian['id'] == $tesKeahlian['keahlian_id'] ? 'selected' : '' ?>>
+                                                                <?= htmlspecialchars($keahlian['nama']) ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>

@@ -184,7 +184,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Keahlian</th>
-                                                <td><?= $tesKeahlian['kelas'] ?></td>
+                                                <td><?= $tesKeahlian['keahlian_nama'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Jumlah Soal</th>

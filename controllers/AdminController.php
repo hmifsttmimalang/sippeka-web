@@ -240,12 +240,12 @@ class AdminController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
             $mata_soal = $_POST['mata_soal'];
-            $kelas = $_POST['kelas'];
+            $keahlian_id = $_POST['keahlian_id']; // Update untuk menggunakan keahlian_id
             $acak_soal = $_POST['acak_soal'];
             $acak_jawaban = $_POST['acak_jawaban'];
             $durasi_menit = $_POST['durasi_menit'];
 
-            if ($this->tesKeahlian->create($nama_tes, $mata_soal, $kelas,  $acak_soal, $acak_jawaban, $durasi_menit)) {
+            if ($this->tesKeahlian->create($nama_tes, $mata_soal, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
@@ -287,14 +287,14 @@ class AdminController
         $mataSoal = $this->mataSoal->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $nama_tes = $_POST['nama_tes'];
-            $mata_soal = $_POST['mata_soal'];
-            $kelas = $_POST['kelas'];
-            $acak_soal = $_POST['acak_soal'];
-            $acak_jawaban = $_POST['acak_jawaban'];
-            $durasi_menit = $_POST['durasi_menit'];
+            $nama_tes = $_POST['nama_tes'] ?? null;
+            $mata_soal = $_POST['mata_soal'] ?? null;
+            $keahlian_id = $_POST['keahlian_id'] ?? null; // Update untuk menggunakan keahlian_id
+            $acak_soal = $_POST['acak_soal'] ?? 't';
+            $acak_jawaban = $_POST['acak_jawaban'] ?? 't';
+            $durasi_menit = $_POST['durasi_menit'] ?? null;
 
-            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal, $kelas, $acak_soal, $acak_jawaban, $durasi_menit)) {
+            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
@@ -312,7 +312,6 @@ class AdminController
             exit;
         }
     }
-
 
     // tambah soal tes
     public function tambahSoalTesKeahlian($id)

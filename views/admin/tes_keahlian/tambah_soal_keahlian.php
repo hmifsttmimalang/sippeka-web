@@ -176,16 +176,18 @@
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
                                                         <?php foreach ($mataSoal as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                            <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="kelas">Kelas</label>
-                                                    <select name="kelas" id="kelas" class="form-control">
+                                                    <label for="keahlian_id">Kelas</label>
+                                                    <select name="keahlian_id" id="kelas" class="form-control">
                                                         <option value="">Pilih Keahlian</option>
-                                                        <?php foreach ($keahlianList as $item) : ?>
-                                                            <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                        <?php foreach ($keahlianList as $keahlian) : ?>
+                                                            <option value="<?= $keahlian['id'] ?>">
+                                                                <?= $keahlian['nama'] ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
