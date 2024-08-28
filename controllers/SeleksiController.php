@@ -107,7 +107,7 @@ class SeleksiController
             $score = $this->calculateScore($userAnswers, $questions);
             $scorePercentage = ($score / count($questions)) * 100;
 
-            include 'views/layout/simulasi_header.php';
+            include 'views/layout/hasil_simulasi_header.php';
             include 'views/tes_seleksi/hasil_simulasi.php';
             include 'views/layout/simulasi_footer.php';
         }

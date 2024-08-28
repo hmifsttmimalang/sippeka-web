@@ -7,5 +7,5 @@
   <title>Tes Simulasi Peserta</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/style2.css">
+  <link rel="stylesheet" href="../../assets/css/style3.css">
 </head>
