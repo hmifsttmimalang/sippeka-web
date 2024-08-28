@@ -183,17 +183,20 @@
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
-                                                        <?php foreach ($mataSoal as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>" <?= ($item['nama'] == $item['nama']) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
+                                                        <?php foreach ($mataSoalList as $mataSoal) : ?>
+                                                            <option value="<?= $mataSoal['id'] ?>" <?= ($mataSoal['id'] == $tesKeahlian['mata_soal_id']) ? 'selected' : '' ?>>
+                                                                <?= htmlspecialchars($mataSoal['nama']) ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="kelas">Kelas</label>
-                                                    <select name="kelas" id="kelas" class="form-control">
-                                                        <option value="">Pilih Keahlian</option>
-                                                        <?php foreach ($keahlianList as $item) : ?>
-                                                            <option value="<?= $item['nama'] ?>" <?= ($item['nama'] == $item['nama']) ? 'selected' : '' ?>><?= $item['nama'] ?></option>
+                                                    <label for="keahlian_id">Keahlian</label>
+                                                    <select name="keahlian_id" id="keahlian_id" class="form-control" required>
+                                                        <?php foreach ($keahlianList as $keahlian) : ?>
+                                                            <option value="<?= $keahlian['id'] ?>" <?= $keahlian['id'] == $tesKeahlian['keahlian_id'] ? 'selected' : '' ?>>
+                                                                <?= htmlspecialchars($keahlian['nama']) ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -203,40 +206,32 @@
                                                     <label for="acak_soal">Acak Soal</label>
                                                     <select name="acak_soal" id="acak_soal" class="form-control">
                                                         <option value="">Pilih</option>
-                                                        <option value="y">Y</option>
-                                                        <option value="t">T</option>
+                                                        <option value="y" <?= ($tesKeahlian['acak_soal'] == 1) ? 'selected' : '' ?>>Y</option>
+                                                        <option value="t" <?= ($tesKeahlian['acak_soal'] == 0) ? 'selected' : '' ?>>T</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="acak_jawaban">Acak Jawaban</label>
                                                     <select name="acak_jawaban" id="acak_jawaban" class="form-control">
                                                         <option value="">Pilih</option>
-                                                        <option value="y">Y</option>
-                                                        <option value="t">T</option>
+                                                        <option value="y" <?= ($tesKeahlian['acak_jawaban'] == 1) ? 'selected' : '' ?>>Y</option>
+                                                        <option value="t" <?= ($tesKeahlian['acak_jawaban'] == 0) ? 'selected' : '' ?>>T</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <div class="col-md-6">
-                                                    <label for="acak_soal">Acak Soal</label>
-                                                    <select name="acak_soal" id="acak_soal" class="form-control">
-                                                        <option value="">Pilih</option>
-                                                        <option value="y">Y</option>
-                                                        <option value="t">T</option>
-                                                    </select>
-                                                </div>
                                                 <div class="col-md-6">
                                                     <label for="durasi_menit">Durasi (Menit)</label>
                                                     <input type="text" name="durasi_menit" class="form-control" id="durasi_menit"
                                                         value="<?= $tesKeahlian['durasi_menit'] ?>">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary mt-2">
                                                 Simpan
                                             </button>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="reset" class="btn btn-primary mt-2">
                                                 Reset
-                                            </a>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

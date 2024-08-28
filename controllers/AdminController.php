@@ -6,17 +6,17 @@ require_once 'models/Keahlian.php';
 require_once 'models/TesKeahlian.php';
 require_once 'models/MataSoal.php';
 require_once 'models/Soal.php';
-require_once 'models/SesiKeahlian.php';
+require_once 'models/SesiTesKeahlian.php';
 require_once 'connection/database.php';
 
 class AdminController
 {
     private $user;
-    private $pendaftar;
+    private $pendaftaran;
     protected $kelasKeahlian;
     protected $tesKeahlian;
     protected $mataSoal;
-    protected $sesiKeahlian;
+    protected $sesiTesKeahlian;
     private $soal;
 
     public function __construct()
@@ -27,19 +27,19 @@ class AdminController
         }
 
         global $pdo;
-        $this->pendaftar = new Pendaftar($pdo);
+        $this->pendaftaran = new Pendaftaran($pdo);
         $this->user = new User($pdo);
         $this->kelasKeahlian = new Keahlian($pdo);
         $this->tesKeahlian = new TesKeahlian($pdo);
         $this->mataSoal = new MataSoal($pdo);
         $this->soal = new Soal($pdo);
-        $this->sesiKeahlian = new SesiKeahlian($pdo);
+        $this->sesiTesKeahlian = new SesiTesKeahlian($pdo);
     }
 
     public function index()
     {
-        $pendaftar_baru = $this->pendaftar->getNewRegistrations();
-        $jumlah_pendaftar = $this->pendaftar->getAll();
+        $pendaftar_baru = $this->pendaftaran->getNewRegistrations();
+        $jumlah_pendaftar = $this->pendaftaran->getAll();
         $jumlah_pendaftar_count = count($jumlah_pendaftar);
         $persentase_pendaftar = ($jumlah_pendaftar_count > 0) ? 100 : 0;
 
@@ -50,8 +50,15 @@ class AdminController
 
     public function kelolaData()
     {
-        $keahlian = $this->kelasKeahlian->getAll();
-        $listPendaftar = $this->pendaftar->getAll();
+        $listPendaftar = $this->pendaftaran->getAll();
+
+        // Tambahkan nama keahlian ke data pendaftar
+        foreach ($listPendaftar as &$pendaftar) {
+            $keahlianId = $pendaftar['keahlian'];
+            $keahlianData = $this->kelasKeahlian->getById($keahlianId);
+            $pendaftar['keahlian_nama'] = $keahlianData['nama']; // Sesuaikan dengan nama kolom di tabel keahlian
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/kelola_data.php';
         include 'views/layout/admin_footer.php';
@@ -59,7 +66,15 @@ class AdminController
 
     public function peserta()
     {
-        $listPendaftar = $this->pendaftar->getAll();
+        $listPendaftar = $this->pendaftaran->getAll();
+
+        // Tambahkan nama keahlian ke data pendaftar
+        foreach ($listPendaftar as &$pendaftar) {
+            $keahlianId = $pendaftar['keahlian'];
+            $keahlianData = $this->kelasKeahlian->getById($keahlianId);
+            $pendaftar['keahlian_nama'] = $keahlianData['nama']; // Sesuaikan dengan nama kolom di tabel keahlian
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/peserta.php';
         include 'views/layout/admin_footer.php';
@@ -76,7 +91,7 @@ class AdminController
     public function detailPendaftar($id)
     {
         $user = $this->user->getUserById($id);
-        $userPendaftar = $this->pendaftar->getByUserId($id);
+        $userPendaftar = $this->pendaftaran->getByUserId($id);
 
         if (!empty($userPendaftar)) {
             include 'views/layout/admin_header.php';
@@ -120,6 +135,8 @@ class AdminController
 
     public function ubahSoalKeahlian($id)
     {
+        $mataSoal = $this->mataSoal->get($id);
+
         if (empty($mataSoal)) {
             header('Location: /admin/mata_soal_keahlian');
             exit;
@@ -128,12 +145,11 @@ class AdminController
         $nama = $_POST['nama'] ?? null;
         if ($nama) {
             if ($this->mataSoal->update($id, $nama)) {
-                header('Location: /admin/kelas_keahlian');
+                header('Location: /admin/mata_soal_keahlian');
                 exit;
             }
         }
 
-        $mataSoal = $this->mataSoal->get($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/mata_keahlian/edit_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -179,6 +195,8 @@ class AdminController
 
     public function ubahKelasKeahlian($id)
     {
+        $keahlian = $this->kelasKeahlian->getById($id);
+
         if (empty($keahlian)) {
             header('Location: /admin/kelas_keahlian');
             exit;
@@ -192,7 +210,6 @@ class AdminController
             }
         }
 
-        $keahlian = $this->kelasKeahlian->getById($id);
         include 'views/layout/admin_header.php';
         include 'views/admin/kelas_keahlian/edit_kelas_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -218,17 +235,17 @@ class AdminController
     public function tambahTesKeahlian()
     {
         $keahlianList = $this->kelasKeahlian->getAll();
-        $mataSoal = $this->mataSoal->getAll();
+        $mataSoalList = $this->mataSoal->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_tes = $_POST['nama_tes'];
-            $mata_soal = $_POST['mata_soal'];
-            $kelas = $_POST['kelas'];
+            $mata_soal_id = $_POST['mata_soal'];
+            $keahlian_id = $_POST['keahlian_id']; // Update untuk menggunakan keahlian_id
             $acak_soal = $_POST['acak_soal'];
             $acak_jawaban = $_POST['acak_jawaban'];
             $durasi_menit = $_POST['durasi_menit'];
 
-            if ($this->tesKeahlian->create($nama_tes, $mata_soal, $kelas,  $acak_soal, $acak_jawaban, $durasi_menit)) {
+            if ($this->tesKeahlian->create($nama_tes, $mata_soal_id, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
@@ -241,12 +258,13 @@ class AdminController
 
     public function detailUjian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (!empty($tesKeahlian)) {
-            $soalList = $this->soal->getAll();
             $jumlahSoal = $this->soal->getSoalByTesKeahlianId($id);
             $hitungSoal = count($jumlahSoal);
-            $tesKeahlian = $this->tesKeahlian->get($id);
-    
+            $soalList = $this->soal->getSoalByTesKeahlianId($id);
+
             include 'views/layout/admin_header.php';
             include 'views/admin/tes_keahlian/detail_ujian.php';
             include 'views/layout/admin_footer.php';
@@ -258,24 +276,25 @@ class AdminController
 
     public function editTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
 
         $keahlianList = $this->kelasKeahlian->getAll();
-        $tesKeahlian = $this->tesKeahlian->get($id);
-        $mataSoal = $this->mataSoal->getAll();
+        $mataSoalList = $this->mataSoal->getAll();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $nama_tes = $_POST['nama_tes'];
-            $mata_soal = $_POST['mata_soal'];
-            $kelas = $_POST['kelas'];
-            $acak_soal = $_POST['acak_soal'];
-            $acak_jawaban = $_POST['acak_jawaban'];
-            $durasi_menit = $_POST['durasi_menit'];
+            $nama_tes = $_POST['nama_tes'] ?? null;
+            $mata_soal_id = $_POST['mata_soal'] ?? null;
+            $keahlian_id = $_POST['keahlian_id'] ?? null; // Update untuk menggunakan keahlian_id
+            $acak_soal = $_POST['acak_soal'] ?? 't';
+            $acak_jawaban = $_POST['acak_jawaban'] ?? 't';
+            $durasi_menit = $_POST['durasi_menit'] ?? null;
 
-            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal, $kelas, $acak_soal, $acak_jawaban, $durasi_menit)) {
+            if ($this->tesKeahlian->update($id, $nama_tes, $mata_soal_id, $keahlian_id, $acak_soal, $acak_jawaban, $durasi_menit)) {
                 header('Location: /admin/tes_keahlian');
                 exit;
             }
@@ -294,16 +313,16 @@ class AdminController
         }
     }
 
-
     // tambah soal tes
     public function tambahSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
 
-        $tesKeahlian = $this->tesKeahlian->get($id);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $soal = $_POST['soal'];
@@ -330,8 +349,9 @@ class AdminController
 
     public function importSoalTesKeahlian($id)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (!empty($tesKeahlian)) {
-            $tesKeahlian = $this->tesKeahlian->get($id);
             include 'views/layout/admin_header.php';
             include 'views/admin/tes_keahlian/import_soal_tes.php';
             include 'views/layout/admin_footer.php';
@@ -344,12 +364,13 @@ class AdminController
     // edit soal tes
     public function editSoalTesKeahlian($id, $id_soal)
     {
+        $tesKeahlian = $this->tesKeahlian->get($id);
+
         if (empty($tesKeahlian)) {
             header('Location: /admin/tes_keahlian');
             exit;
         }
 
-        $tesKeahlian = $this->tesKeahlian->get($id);
         $soal = $this->soal->get($id_soal);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -387,7 +408,16 @@ class AdminController
     // sesi keahlian
     public function sesiTesKeahlian()
     {
-        $sesiKeahlian = $this->sesiKeahlian->getAll();
+        $sesiTesKeahlian = $this->sesiTesKeahlian->getAll();
+        $tesKeahlianList = $this->tesKeahlian->getAll();
+
+        // Cek apakah ID yang digunakan benar-benar ada
+        foreach ($sesiTesKeahlian as $item) {
+            if (!isset($tesKeahlianMap[$item['tes_keahlian_id']])) {
+                error_log("ID tidak ditemukan: " . $item['tes_keahlian_id']);
+            }
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/sesi_tes_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -395,8 +425,25 @@ class AdminController
 
     public function detailSesiTesKeahlian($id)
     {
+        $sesiTesKeahlian = $this->sesiTesKeahlian->get($id);
+
         if (!empty($sesiTesKeahlian)) {
-            $sesiTesKeahlian = $this->sesiKeahlian->get($id);
+            $startTime = strtotime($sesiTesKeahlian['waktu_mulai']);
+            $endTime = strtotime($sesiTesKeahlian['waktu_selesai']);
+            $durationInSeconds = $endTime - $startTime;
+            $durationInMinutes = floor($durationInSeconds / 60);
+            $hours = floor($durationInMinutes / 60);
+            $minutes = $durationInMinutes % 60;
+            $durationString = sprintf('%02d:%02d', $hours, $minutes);
+
+            $soalList = $this->sesiTesKeahlian->getSoalBySesiId($id); // Ambil soal terkait
+
+            $data = [
+                'sesiTesKeahlian' => $sesiTesKeahlian,
+                'duration' => $durationString,
+                'soalList' => $soalList // Tambahkan soal ke data
+            ];
+
             include 'views/layout/admin_header.php';
             include 'views/admin/sesi_keahlian/detail_sesi_keahlian.php';
             include 'views/layout/admin_footer.php';
@@ -408,16 +455,16 @@ class AdminController
 
     public function tambahSesiTesKeahlian()
     {
-        $mataSoal = $this->mataSoal->getAll();
+        $tesKeahlianList = $this->tesKeahlian->getAll(); // Ganti mataSoal dengan tesKeahlian
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_sesi = $_POST['nama_sesi'];
-            $mata_soal = $_POST['mata_soal'];
+            $tes_keahlian_id = $_POST['tes_keahlian_id']; // Ganti mata_soal dengan tes_keahlian_id
             $waktu_mulai = $_POST['waktu_mulai'];
             $waktu_selesai = $_POST['waktu_selesai'];
             $jenis_sesi = $_POST['jenis_sesi'];
 
-            if ($this->sesiKeahlian->create($nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+            if ($this->sesiTesKeahlian->create($nama_sesi, $tes_keahlian_id, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
                 header('Location: /admin/sesi_tes_keahlian');
                 exit;
             }
@@ -430,22 +477,28 @@ class AdminController
 
     public function editSesiTesKeahlian($id)
     {
-        $mataSoal = $this->mataSoal->getAll();
-        $sesiTesKeahlian = $this->sesiKeahlian->get($id);
-    
+        $sesiTesKeahlian = $this->sesiTesKeahlian->get($id);
+
+        if (empty($sesiTesKeahlian)) {
+            header('Location: /admin/sesi_tes_keahlian');
+            exit;
+        }
+
+        $tesKeahlianList = $this->tesKeahlian->getAll(); // Ganti mataSoal dengan tesKeahlian
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nama_sesi = $_POST['nama_sesi'];
-            $mata_soal = $_POST['mata_soal'];
+            $tes_keahlian_id = $_POST['tes_keahlian_id']; // Ganti mata_soal dengan tes_keahlian_id
             $waktu_mulai = $_POST['waktu_mulai'];
             $waktu_selesai = $_POST['waktu_selesai'];
             $jenis_sesi = $_POST['jenis_sesi'];
 
-            if ($this->sesiKeahlian->update($id, $nama_sesi, $mata_soal, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
+            if ($this->sesiTesKeahlian->update($id, $nama_sesi, $tes_keahlian_id, $waktu_mulai, $waktu_selesai, $jenis_sesi)) {
                 header('Location: /admin/sesi_tes_keahlian');
                 exit;
             }
         }
-    
+
         include 'views/layout/admin_header.php';
         include 'views/admin/sesi_keahlian/edit_sesi_keahlian.php';
         include 'views/layout/admin_footer.php';
@@ -453,7 +506,7 @@ class AdminController
 
     public function hapusSesiTesKeahlian($id)
     {
-        if ($this->sesiKeahlian->delete($id)) {
+        if ($this->sesiTesKeahlian->delete($id)) {
             header('Location: /admin/sesi_tes_keahlian');
             exit;
         }

@@ -175,26 +175,23 @@
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
-                                                        <?php foreach ($mataSoal as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                        <?php foreach ($mataSoalList as $item) : ?>
+                                                            <option value="<?= $item['id'] ?>"><?= $item['nama'] ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="kelas">Kelas</label>
-                                                    <select name="kelas" id="kelas" class="form-control">
+                                                    <label for="keahlian_id">Kelas</label>
+                                                    <select name="keahlian_id" id="kelas" class="form-control">
                                                         <option value="">Pilih Keahlian</option>
-                                                        <?php foreach ($keahlianList as $item) : ?>
-                                                            <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                        <?php foreach ($keahlianList as $keahlian) : ?>
+                                                            <option value="<?= $keahlian['id'] ?>">
+                                                                <?= $keahlian['nama'] ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group">
-                                                <label for="nama_soal">Nama Soal</label>
-                                                <div id="editor"></div>
-                                                <input type="hidden" name="nama_soal" id="nama_soal_hidden" />
-                                            </div> -->
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="acak_soal">Acak Soal</label>
@@ -215,20 +212,12 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-6">
-                                                    <label for="acak_soal">Acak Soal</label>
-                                                    <select name="acak_soal" id="acak_soal" class="form-control">
-                                                        <option value="">Pilih</option>
-                                                        <option value="y">Y</option>
-                                                        <option value="t">T</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
                                                     <label for="durasi_menit">Durasi (Menit)</label>
                                                     <input type="text" name="durasi_menit" class="form-control" id="durasi_menit" placeholder="Masukkan Durasi Tes (Menit)">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
-                                            <a href="" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary mt-2">Simpan</button>
+                                            <a href="" class="btn btn-primary mt-2">
                                                 Reset
                                             </a>
                                         </form>

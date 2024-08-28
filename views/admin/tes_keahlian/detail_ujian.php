@@ -176,15 +176,15 @@
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>Nama Tes Keahlian</th>
-                                                <td>Tes - Android Developer</td>
+                                                <td>Tes - <?= $tesKeahlian['nama_tes'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Mata Tes</th>
-                                                <td><?= $tesKeahlian['mata_soal'] ?></td>
+                                                <td><?= $tesKeahlian['mata_soal_nama'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Keahlian</th>
-                                                <td><?= $tesKeahlian['kelas'] ?></td>
+                                                <td><?= $tesKeahlian['keahlian_nama'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Jumlah Soal</th>
@@ -231,6 +231,10 @@
                                                         <div>C. <?= $item['pilihan_c'] ?></div>
                                                         <div>D. <?= $item['pilihan_d'] ?></div>
                                                         <div>E. <?= $item['pilihan_e'] ?></div>
+                                                    </div>
+                                                    <hr class="sidebar-divider">
+                                                    <div class="ml-3">
+                                                        <p>Jawaban yang benar: <?= $item['jawaban_benar'] ?></p>
                                                     </div>
                                                 </td>
                                                 <td>

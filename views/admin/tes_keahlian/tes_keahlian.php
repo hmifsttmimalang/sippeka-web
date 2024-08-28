@@ -190,8 +190,8 @@
                                         <tr>
                                             <td><?= $i++; ?></td>
                                             <td>Tes - <?= $item['nama_tes'] ?></td>
-                                            <td><?= $item['mata_soal'] ?></td>
-                                            <td><?= $item['kelas'] ?></td>
+                                            <td><?= $item['mata_soal_nama'] ?></td>
+                                            <td><?= $item['keahlian_nama'] ?></td>
                                             <td>
                                                 <a href="/admin/tes_keahlian/detail_ujian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">View</a>
                                                 <a href="/admin/tes_keahlian/edit_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>

@@ -1,34 +1,176 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Set the countdown time in seconds (1 hour 30 minutes = 5400 seconds)
-        var countdownTime = 5400;
+        var currentQuestion = 1;
+        var totalQuestions = <?= count($questions) ?>;
+        var questionId; // Define questionId as a global variable
+        var questionStates = {};
 
-        function updateTimer() {
-            var hours = Math.floor(countdownTime / 3600);
-            var minutes = Math.floor((countdownTime % 3600) / 60);
-            var seconds = countdownTime % 60;
+        showQuestion(currentQuestion);
 
-            // Format the time as "HH jam, MM menit, SS detik"
-            var formattedTime = hours + ' jam, ' +
-                (minutes < 10 ? '0' : '') + minutes + ' menit, ' +
-                (seconds < 10 ? '0' : '') + seconds + ' detik';
+        // Hide all questions except the first one
+        $('.question').hide();
+        if ('#question-1') {
+            $('#question-1').show();
+        } else {
+            $('#question-' + questionId).show();
+        }
 
-            $('#timer-text').text(formattedTime);
+        // Add event listeners to navigation buttons
+        $('#prev-question').click(function() {
+            currentQuestion--;
+            if (currentQuestion < 1) {
+                currentQuestion = 1;
+            }
+            showQuestion(currentQuestion);
+        });
 
-            // Decrement the countdown time
-            countdownTime--;
+        $('#next-question').click(function() {
+            currentQuestion++;
+            if (currentQuestion > totalQuestions) {
+                currentQuestion = totalQuestions;
+            }
+            showQuestion(currentQuestion);
+        });
 
-            // Check if the countdown is over
-            if (countdownTime < 0) {
-                clearInterval(timerInterval);
-                alert('Waktu pengerjaan telah habis!');
-                // Optionally, you can submit the form or perform any other action here
+        $('.question-nav button').click(function() {
+            questionId = $(this).attr('id').replace('question-', '');
+            currentQuestion = parseInt(questionId);
+            showQuestion(currentQuestion);
+        });
+
+        function showQuestion(questionId) {
+            $('.question').hide();
+            $('#question-' + questionId).show();
+            $('#current-question-number').text(questionId);
+
+            // Pastikan tombol navigasi dan pilihan opsi disinkronkan dengan keadaan yang disimpan
+            if (questionStates[questionId]) {
+                var state = questionStates[questionId];
+                $('.option-btn', '#question-' + questionId).each(function() {
+                    if (state.optionBtns.includes($(this).text())) {
+                        $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+                    } else {
+                        $(this).removeClass('btn-primary').addClass('btn-outline-primary');
+                    }
+                });
+                $('#question-' + questionId + '-nav').removeClass('btn-outline-primary').addClass(state.navButtonClass);
             }
         }
 
-        // Update the timer every second
-        var timerInterval = setInterval(updateTimer, 1000);
+        // Initialize the questionStates object from localStorage
+        // var questionStates = JSON.parse(localStorage.getItem('questionStates')) || {};
+        var questionStates = {};
+
+        $('.option-btn').on('click', function() {
+            var questionId = $(this).closest('.question').attr('id').replace('question-', '');
+            var navButton = $('#question-' + questionId + '-nav');
+            var optionBtnsState = questionStates[questionId] || {
+                optionBtns: [],
+                navButtonClass: 'btn-outline-primary'
+            };
+
+            // Store the user's answer in the questionStates object
+            var questionId = $(this).closest('.question').attr('id').replace('question-', '');
+            var optionBtnsState = questionStates[questionId] || {
+                optionBtns: [],
+                navButtonClass: 'btn-outline-primary'
+            };
+
+            $('.option-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+            $(this).toggleClass('btn-primary btn-outline-primary');
+
+            // Clear the optionBtns array when a new option is selected
+            optionBtnsState.optionBtns = [];
+
+            if ($(this).hasClass('btn-primary')) {
+                optionBtnsState.optionBtns.push($(this).text());
+                navButton.removeClass('btn-outline-primary').addClass('btn-primary');
+                optionBtnsState.navButtonClass = 'btn-primary';
+            } else {
+                navButton.removeClass('btn-primary').addClass('btn-outline-primary');
+                optionBtnsState.navButtonClass = 'btn-outline-primary';
+            }
+
+            questionStates[questionId] = optionBtnsState;
+
+            // Store the updated questionStates object in localStorage
+            localStorage.setItem('questionStates', JSON.stringify(questionStates));
+            updateBadgeCount();
+        });
+
+        // Initialize the badge count on page load
+        var completedCount = 0;
+        updateBadgeCount();
+
+        function updateBadgeCount() {
+            completedCount = 0;
+            for (var questionId in questionStates) {
+                if (questionStates.hasOwnProperty(questionId)) {
+                    var state = questionStates[questionId];
+                    if (state.navButtonClass === 'btn-primary') {
+                        completedCount++;
+                    }
+                }
+            }
+            $('#completed-badge').text(completedCount + ' Dikerjakan');
+        }
+
+        $('#finish-test').click(function(e) {
+            e.preventDefault(); // Mencegah form default submission
+
+            var userAnswers = {};
+            $.each(questionStates, function(questionId, state) {
+                userAnswers[questionId] = state.optionBtns;
+            });
+
+            console.log('User Answers before sending:', JSON.stringify(userAnswers));
+
+            $.ajax({
+                url: '/simulasi_peserta',
+                method: 'post',
+                data: {
+                    userAnswers: JSON.stringify(userAnswers) // Pastikan ini adalah JSON string
+                },
+                dataType: 'json',
+                success: function(response) {
+                    window.location.href = '/hasil_simulasi'; // Redirect ke halaman hasil
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                    console.log('Response:', xhr.responseText);
+                    alert('Error: ' + error);
+                }
+            });
+        });
+
+        // Set the initial timer value
+        var timerValue = 5400; // 1 hour, 30 minutes, 00 seconds in seconds
+        var timerInterval;
+
+        // Display the initial timer value
+        $('#timer-text').text(formatTime(timerValue));
+
+        // Start the timer when the page loads
+        timerInterval = setInterval(function() {
+            timerValue -= 1; // decrement by 1 seconds each time
+            $('#timer-text').text(formatTime(timerValue));
+            if (timerValue <= 0) {
+                clearInterval(timerInterval);
+                alert('Waktu habis!');
+            }
+        }, 1000); // decrement every 1000ms (1 second)
+
+        function formatTime(seconds) {
+            var hours = Math.floor(seconds / 3600);
+            var minutes = Math.floor((seconds % 3600) / 60);
+            var seconds = seconds % 60;
+            return hours + ' jam, ' + minutes + ' menit, ' + padZero(seconds) + ' detik';
+        }
+
+        function padZero(number) {
+            return (number < 10 ? '0' : '') + number;
+        }
     });
 </script>
 </body>

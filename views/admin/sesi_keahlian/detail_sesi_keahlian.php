@@ -167,16 +167,8 @@
                                         <hr class="divider-sidebar">
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
-                                                <th>Nama Tes Keahlian</th>
+                                                <th>Nama Tes</th>
                                                 <td>Tes - <?= $sesiTesKeahlian['nama_sesi'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Mata Tes</th>
-                                                <td>Tes - <?= $sesiTesKeahlian['nama_sesi'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Mata Keahlian</th>
-                                                <td><?= $sesiTesKeahlian['mata_soal'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th>Sesi</th>
@@ -188,7 +180,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
-                                                <td>180 Menit</td>
+                                                <td><?= $durationInMinutes ?> Menit</td>
                                             </tr>
                                             <tr>
                                                 <th>Mulai</th>

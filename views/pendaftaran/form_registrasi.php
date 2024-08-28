@@ -29,7 +29,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                                                <input type="date" name="tanggal_lahir" class="form-control" id="tanggal_lahir" placeholder="Tanggal Lahir Anda..." required>
+                                                <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" min="" required>
                                             </div>
                                         </div>
 
@@ -72,10 +72,10 @@
                                         <div class="form-group">
                                             <label for="keahlian">Keahlian</label>
                                             <select name="keahlian" id="keahlian" class="form-control">
-                                                <option value="Pilih Keahlian">Pilih Keahlian</option>
+                                                <option value="">Pilih Keahlian</option>
                                                 <?php if (!empty($keahlianList)) : ?>
-                                                    <?php foreach ($keahlianList as $item) : ?>
-                                                        <option value="<?= $item['nama'] ?>"><?= $item['nama'] ?></option>
+                                                    <?php foreach ($keahlianList as $keahlian): ?>
+                                                        <option value="<?= $keahlian['id']; ?>"><?= $keahlian['nama']; ?></option>
                                                     <?php endforeach; ?>
                                                 <?php endif; ?>
                                             </select>
@@ -116,3 +116,29 @@
         </div>
 
     </div>
+
+    <script>
+        const tanggalLahirInput = document.getElementById('tanggal_lahir');
+
+        tanggalLahirInput.addEventListener('input', () => {
+            const inputValue = tanggalLahirInput.value;
+            const inputDate = new Date(inputValue);
+            const currentDate = new Date();
+
+            if (isNaN(inputDate.getTime())) {
+                alert('Tanggal lahir tidak valid');
+                tanggalLahirInput.value = '';
+            } else {
+                const age = currentDate.getFullYear() - inputDate.getFullYear();
+                const isWithinRange = age >= 17 && age <= 40;
+
+                if (!isWithinRange) {
+                    if (age < 17) {
+                        alert(' Anda harus berusia minimal 17 tahun untuk mendaftar.');
+                    } else if (age >= 40) {
+                        alert(' Anda harus berusia maksimal 40 tahun untuk mendaftar.');
+                    }
+                }
+            }
+        });
+    </script>
