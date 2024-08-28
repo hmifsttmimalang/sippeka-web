@@ -7,7 +7,7 @@
     @vite('resources/js/app.js')
     
     {{-- favicon --}}
-    <link href="{{ asset('assets/user/img/silastri/logo_jatim.png') }}" rel="icon">
+    <link href="{{ asset('assets/profile/img/logo_jatim.png') }}" rel="icon">
     <link href="{{ asset('assets/user/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     
     {{-- fonts --}}
