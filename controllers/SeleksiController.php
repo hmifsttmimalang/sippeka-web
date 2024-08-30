@@ -109,12 +109,23 @@ class SeleksiController
             exit;
         } else {
             $userAnswers = $_SESSION['userAnswers'] ?? [];
+            $user_id = $_SESSION['user_id'] ?? [];
+
+            $keahlianData = $this->pendaftaran->getKeahlianByUserId($user_id);
+
             if (empty($userAnswers)) {
                 echo "Tidak ada jawaban yang disimpan di session.";
                 exit;
             }
 
-            $questions = $this->soal->getAll();
+            $tes_keahlian_id = $keahlianData['tes_keahlian_id'] ?? null;
+
+            if (!$keahlianData || !isset($keahlianData['tes_keahlian_id'])) {
+                echo "Tes keahlian tidak ditemukan untuk pengguna ini.";
+                exit;
+            }
+
+            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
             $score = $this->calculateScore($userAnswers, $questions);
             $scorePercentage = ($score / count($questions)) * 100;
 

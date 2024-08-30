@@ -1,36 +1,33 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        var currentQuestion = 1;
-        var totalQuestions = <?= count($questions) ?>;
-        var questionId; // Define questionId as a global variable
-        var questionStates = {};
+        var currentIndex = 0;
+        var questionIds = <?= json_encode(array_column($questions, 'id')); ?>;
 
-        showQuestion(currentQuestion);
-
-        // Hide all questions except the first one
+        // Pastikan semua pertanyaan disembunyikan terlebih dahulu
         $('.question').hide();
-        if ('#question-1') {
-            $('#question-1').show();
-        } else {
-            $('#question-' + questionId).show();
+
+        if (questionIds.length > 0) {
+            showQuestion(questionIds[currentIndex]);
         }
 
-        // Add event listeners to navigation buttons
+        // Temukan soal pertama yang sesuai dengan `tes_keahlian_id`
+        var firstQuestionId = '<?= isset($questions[0]['id']) ? $questions[0]['id'] : '' ?>';
+
+        // Navigasi soal sebelumnya
         $('#prev-question').click(function() {
-            currentQuestion--;
-            if (currentQuestion < 1) {
-                currentQuestion = 1;
+            if (currentIndex > 0) {
+                currentIndex--;
+                showQuestion(questionIds[currentIndex]);
             }
-            showQuestion(currentQuestion);
         });
 
+        // Navigasi soal selanjutnya
         $('#next-question').click(function() {
-            currentQuestion++;
-            if (currentQuestion > totalQuestions) {
-                currentQuestion = totalQuestions;
+            if (currentIndex < questionIds.length - 1) {
+                currentIndex++;
+                showQuestion(questionIds[currentIndex]);
             }
-            showQuestion(currentQuestion);
         });
 
         $('.question-nav button').click(function() {
@@ -42,24 +39,10 @@
         function showQuestion(questionId) {
             $('.question').hide();
             $('#question-' + questionId).show();
-            $('#current-question-number').text(questionId);
-
-            // Pastikan tombol navigasi dan pilihan opsi disinkronkan dengan keadaan yang disimpan
-            if (questionStates[questionId]) {
-                var state = questionStates[questionId];
-                $('.option-btn', '#question-' + questionId).each(function() {
-                    if (state.optionBtns.includes($(this).text())) {
-                        $(this).removeClass('btn-outline-primary').addClass('btn-primary');
-                    } else {
-                        $(this).removeClass('btn-primary').addClass('btn-outline-primary');
-                    }
-                });
-                $('#question-' + questionId + '-nav').removeClass('btn-outline-primary').addClass(state.navButtonClass);
-            }
+            $('#current-question-number').text(questionIds.indexOf(questionId) + 1);
         }
 
-        // Initialize the questionStates object from localStorage
-        // var questionStates = JSON.parse(localStorage.getItem('questionStates')) || {};
+        // Inisialisasi state pertanyaan
         var questionStates = {};
 
         $('.option-btn').on('click', function() {
@@ -70,17 +53,9 @@
                 navButtonClass: 'btn-outline-primary'
             };
 
-            // Store the user's answer in the questionStates object
-            var questionId = $(this).closest('.question').attr('id').replace('question-', '');
-            var optionBtnsState = questionStates[questionId] || {
-                optionBtns: [],
-                navButtonClass: 'btn-outline-primary'
-            };
-
             $('.option-btn').removeClass('btn-primary').addClass('btn-outline-primary');
             $(this).toggleClass('btn-primary btn-outline-primary');
 
-            // Clear the optionBtns array when a new option is selected
             optionBtnsState.optionBtns = [];
 
             if ($(this).hasClass('btn-primary')) {
@@ -94,12 +69,10 @@
 
             questionStates[questionId] = optionBtnsState;
 
-            // Store the updated questionStates object in localStorage
             localStorage.setItem('questionStates', JSON.stringify(questionStates));
             updateBadgeCount();
         });
 
-        // Initialize the badge count on page load
         var completedCount = 0;
         updateBadgeCount();
 
@@ -117,49 +90,42 @@
         }
 
         $('#finish-test').click(function(e) {
-            e.preventDefault(); // Mencegah form default submission
-
+            e.preventDefault();
             var userAnswers = {};
             $.each(questionStates, function(questionId, state) {
                 userAnswers[questionId] = state.optionBtns;
             });
 
-            console.log('User Answers before sending:', JSON.stringify(userAnswers));
-
             $.ajax({
                 url: '/simulasi_peserta',
                 method: 'post',
                 data: {
-                    userAnswers: JSON.stringify(userAnswers) // Pastikan ini adalah JSON string
+                    userAnswers: JSON.stringify(userAnswers)
                 },
                 dataType: 'json',
                 success: function(response) {
-                    window.location.href = '/hasil_simulasi'; // Redirect ke halaman hasil
+                    window.location.href = '/hasil_simulasi';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
-                    console.log('Response:', xhr.responseText);
                     alert('Error: ' + error);
                 }
             });
         });
 
-        // Set the initial timer value
-        var timerValue = 5400; // 1 hour, 30 minutes, 00 seconds in seconds
+        var timerValue = 5400;
         var timerInterval;
 
-        // Display the initial timer value
         $('#timer-text').text(formatTime(timerValue));
 
-        // Start the timer when the page loads
         timerInterval = setInterval(function() {
-            timerValue -= 1; // decrement by 1 seconds each time
+            timerValue -= 1;
             $('#timer-text').text(formatTime(timerValue));
             if (timerValue <= 0) {
                 clearInterval(timerInterval);
                 alert('Waktu habis!');
             }
-        }, 1000); // decrement every 1000ms (1 second)
+        }, 1000);
 
         function formatTime(seconds) {
             var hours = Math.floor(seconds / 3600);
