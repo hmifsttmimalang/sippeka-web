@@ -68,6 +68,7 @@ class AuthController
         $user = $this->user->login($identifier, $password);
         if ($user) {
             $_SESSION['user'] = $user;
+            $_SESSION['user_id'] = $user['id'];
             header('Location: /simulasi_peserta');
         } else {
             echo 'Login failed!';

@@ -51,6 +51,10 @@ class SeleksiController
             echo json_encode(['status' => 'error', 'message' => 'No user answers provided']);
             exit;
         } else {
+            $user_id = $_SESSION['user_id'];
+
+            $keahlianData = $this->pendaftaran->getKeahlianByUserId($user_id);
+
             // Inisialisasi userAnswers jika belum ada
             if (!isset($_SESSION['userAnswers'])) {
                 $_SESSION['userAnswers'] = [];
@@ -74,7 +78,14 @@ class SeleksiController
                 }
             }
 
-            $questions = $this->soal->getAll();
+            $tes_keahlian_id = $keahlianData['tes_keahlian_id'] ?? null;
+
+            if (!$keahlianData || !isset($keahlianData['tes_keahlian_id'])) {
+                echo "Tes keahlian tidak ditemukan untuk pengguna ini.";
+                exit;
+            }
+
+            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
 
             include 'views/layout/simulasi_header.php';
             include 'views/tes_seleksi/tes_simulasi_peserta.php';
