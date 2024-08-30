@@ -87,6 +87,11 @@ class SeleksiController
 
             $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
 
+            if (empty($questions)) {
+                echo 'Soal tidak tersedia saat ini!';
+                exit;
+            }
+
             include 'views/layout/simulasi_header.php';
             include 'views/tes_seleksi/tes_simulasi_peserta.php';
             include 'views/layout/simulasi_footer.php';
@@ -126,8 +131,15 @@ class SeleksiController
             }
 
             $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
+            
+            if (empty($questions)) {
+                header('Location: /user');
+                exit;
+            }
+
             $score = $this->calculateScore($userAnswers, $questions);
             $scorePercentage = ($score / count($questions)) * 100;
+
 
             include 'views/layout/hasil_simulasi_header.php';
             include 'views/tes_seleksi/hasil_simulasi.php';
