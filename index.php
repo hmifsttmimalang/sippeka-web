@@ -47,6 +47,7 @@ function route($uri)
 
         // seleksi peserta
         '/seleksi_peserta' => 'SeleksiController@tesSeleksi',
+        '/waktu_habis' => 'SeleksiController@waktuHabis',
 
         // admin
         '/admin' => 'AdminController@index',

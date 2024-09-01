@@ -61,7 +61,7 @@
     <div class="container">
         <div class="alert">
             <h4>Waktu Sesi Habis</h4>
-            <p>Maaf, waktu untuk mengerjakan simulasi telah habis. Silakan coba lagi nanti.</p>
+            <p>Maaf, waktu untuk mengerjakan ujian telah habis.</p>
         </div>
         <a href="/user" class="btn btn-primary">Kembali ke Dashboard</a>
     </div>
