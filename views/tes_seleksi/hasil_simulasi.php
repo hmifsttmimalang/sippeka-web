@@ -1,8 +1,10 @@
 <div class="container">
-    <h1>Hasil Simulasi Ujian</h1>
+    <h1 class="text-center">Hasil Simulasi Ujian</h1>
     <hr>
-    <a href="/user" class="btn btn-danger">Kembali ke Dashboard</a>
-    <a href="/simulasi_peserta" class="btn btn-primary">Kerjakan Ulang</a>
+    <center>
+        <a href="/user" class="btn btn-danger">Kembali ke Dashboard</a>
+        <a href="/simulasi_peserta" class="btn btn-primary">Kerjakan Ulang</a>
+    </center>
     <hr>
     <strong>
         <p class="text-center">Riwayat Soal yang dikerjakan</p>
