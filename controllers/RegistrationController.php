@@ -118,8 +118,6 @@ class RegistrationController
             if ($result) {
                 header('Location: /pendaftaran/terdaftar');
                 exit;
-            } else {
-                echo 'Error: Data tidak berhasil ditambahkan ke database!';
             }
         }
     }
