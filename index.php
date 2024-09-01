@@ -42,13 +42,13 @@ function route($uri)
         '/user/edit_profil' => 'UserController@editProfil',
 
         // simulasi peserta
-        '/simulasi_peserta' => 'SeleksiController@simulasi',
-        '/hasil_simulasi' => 'SeleksiController@hasilSimulasi',
+        '/simulasi_peserta' => 'ExamController@simulasi',
+        '/hasil_simulasi' => 'ExamController@hasilSimulasi',
 
         // seleksi peserta
-        '/seleksi_peserta' => 'SeleksiController@tesSeleksi',
-        '/waktu_habis' => 'SeleksiController@waktuHabis',
-        '/hasil_seleksi' => 'SeleksiController@hasilSeleksi', // debug
+        '/seleksi_peserta' => 'ExamController@tesSeleksi',
+        '/waktu_habis' => 'ExamController@waktuHabis',
+        '/hasil_seleksi' => 'ExamController@hasilSeleksi', // debug
 
         // admin
         '/admin' => 'AdminController@index',

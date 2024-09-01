@@ -4,7 +4,7 @@ require_once 'models/Soal.php';
 require_once 'models/Pendaftaran.php';
 require_once 'models/SesiTesKeahlian.php';
 
-class SeleksiController
+class ExamController
 {
     private $soal;
     private $pendaftaran;
