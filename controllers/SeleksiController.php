@@ -53,7 +53,7 @@ class SeleksiController
         } else {
             $user_id = $_SESSION['user_id'];
 
-            $keahlianData = $this->pendaftaran->getKeahlianByUserId($user_id);
+            $keahlianPeserta = $this->pendaftaran->getKeahlianByUserId($user_id);
 
             // Inisialisasi userAnswers jika belum ada
             if (!isset($_SESSION['userAnswers'])) {
@@ -78,9 +78,9 @@ class SeleksiController
                 }
             }
 
-            $tes_keahlian_id = $keahlianData['tes_keahlian_id'] ?? null;
+            $tes_keahlian_id = $keahlianPeserta['tes_keahlian_id'] ?? null;
 
-            if (!$keahlianData || !isset($keahlianData['tes_keahlian_id'])) {
+            if (!$keahlianPeserta || !isset($keahlianPeserta['tes_keahlian_id'])) {
                 echo "Tes keahlian tidak ditemukan untuk pengguna ini.";
                 exit;
             }
@@ -169,12 +169,12 @@ class SeleksiController
     private function getActiveSesi($jenisSesi)
     {
         $sesiList = $this->sesiTesKeahlian->getAll();
-        
+
         foreach ($sesiList as $sesi) {
             if ($sesi['jenis_sesi'] === $jenisSesi && $this->isSesiAktif($sesi)) {
                 return $sesi;
             }
-        }        
+        }
     }
 
     private function isSesiAktif($sesi)
@@ -183,52 +183,99 @@ class SeleksiController
         $now = new DateTime('now', $timezone); // Waktu sekarang dengan timezone yang sesuai
         $waktuMulai = new DateTime($sesi['waktu_mulai'], $timezone); // Waktu mulai sesi dengan timezone
         $waktuSelesai = new DateTime($sesi['waktu_selesai'], $timezone); // Waktu selesai sesi dengan timezone
-        return $now >= $waktuMulai && $now <= $waktuSelesai;
-    }  
+
+        // Hitung sisa waktu dalam detik
+        $remainingSeconds = $waktuSelesai->getTimestamp() - $now->getTimestamp();
+
+        // Periksa apakah sesi aktif
+        if ($now >= $waktuMulai && $now <= $waktuSelesai) {
+            return $remainingSeconds; // Kembalikan sisa waktu dalam detik
+        }
+
+        return 0; // Jika sesi tidak aktif, kembalikan 0 detik
+    }
 
     public function tesSeleksi()
     {
-        // Dapatkan sesi seleksi aktif
-        $activeSesi = $this->getActiveSesi('Seleksi');
+        // debug
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isAjaxRequest()) {
+            $userAnswers = isset($_POST['userAnswers']) ? $_POST['userAnswers'] : [];
 
-        if (!$activeSesi) {
-            echo "Tidak ada sesi seleksi yang aktif saat ini.";
+            $user_id = $_SESSION['user_id'];
+            $keahlianPeserta = $this->pendaftaran->getKeahlianByUserId($user_id);
+
+            $tes_keahlian_id = $keahlianPeserta['tes_keahlian_id'] ?? null;
+
+            if ($userAnswers) {
+                $userAnswers = json_decode($userAnswers, true);
+                if (json_last_error() === JSON_ERROR_NONE) {
+                    $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
+                    $score = $this->calculateScore($userAnswers, $questions);
+                    $scorePercentage = ($score / count($questions)) * 100;
+
+                    // Simpan jawaban pengguna di sesi
+                    $_SESSION['userAnswers'] = $userAnswers;
+
+                    echo json_encode([
+                        'status' => 'success',
+                        'score' => $score,
+                        'scorePercentage' => $scorePercentage
+                    ]);
+                    exit;
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => json_last_error_msg()]);
+                    exit;
+                }
+            }
+
+            echo json_encode(['status' => 'error', 'message' => 'No user answers provided']);
             exit;
+        } else {
+            // Dapatkan sesi seleksi aktif
+            $activeSesi = $this->getActiveSesi('Seleksi');
+
+            if (!$activeSesi) {
+                echo "Tidak ada sesi seleksi yang aktif saat ini.";
+                exit;
+            }
+
+            // Cek apakah sesi masih aktif berdasarkan waktu
+            $remainingSeconds = $this->isSesiAktif($activeSesi);
+
+            if ($remainingSeconds <= 0) {
+                echo "Sesi seleksi sudah berakhir.";
+                exit;
+            }
+
+            // Ambil data peserta untuk mendapatkan keahlian yang dipilih
+            $user_id = $_SESSION['user_id'];
+            $keahlianPeserta = $this->pendaftaran->getKeahlianByUserId($user_id);
+
+            // Inisialisasi userAnswers jika belum ada
+            if (!isset($_SESSION['userAnswers'])) {
+                $_SESSION['userAnswers'] = [];
+            }
+
+            $tes_keahlian_id = $keahlianPeserta['tes_keahlian_id'] ?? null;
+
+            if (!$keahlianPeserta || !isset($keahlianPeserta['tes_keahlian_id'])) {
+                echo "Tes keahlian tidak ditemukan untuk pengguna ini.";
+                exit;
+            }
+
+            // Ambil soal berdasarkan keahlian peserta
+            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
+
+            if (empty($questions)) {
+                echo "Tidak ada soal untuk keahlian ini.";
+                exit;
+            }
+
+            // Kirim sisa waktu sesi ke tampilan
+            include 'views/layout/tes_header.php';
+            include 'views/tes_seleksi/tes_seleksi_peserta.php';
+            include 'views/layout/tes_footer.php';
         }
-
-        // Cek apakah sesi masih aktif berdasarkan waktu
-        if (!$this->isSesiAktif($activeSesi)) {
-            echo "Sesi seleksi sudah berakhir.";
-            exit;
-        }
-
-        // Ambil data peserta untuk mendapatkan keahlian yang dipilih
-        $user_id = $_SESSION['user_id'];
-        $keahlianData = $this->pendaftaran->getKeahlianByUserId($user_id);
-
-        // Inisialisasi userAnswers jika belum ada
-        if (!isset($_SESSION['userAnswers'])) {
-            $_SESSION['userAnswers'] = [];
-        }
-
-        $tes_keahlian_id = $keahlianData['tes_keahlian_id'] ?? null;
-
-        if (!$keahlianData || !isset($keahlianData['tes_keahlian_id'])) {
-            echo "Tes keahlian tidak ditemukan untuk pengguna ini.";
-            exit;
-        }
-        
-        // Ambil soal berdasarkan keahlian peserta
-        $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
-
-        if (empty($questions)) {
-            echo "Tidak ada soal untuk keahlian ini.";
-            exit;
-        }
-
-        include 'views/layout/tes_header.php';
-        include 'views/tes_seleksi/tes_seleksi_peserta.php';
-        include 'views/layout/tes_footer.php';
     }
 
     public function waktuHabis()
