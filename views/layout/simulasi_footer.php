@@ -1,8 +1,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     $(document).ready(function() {
-        var currentIndex = 0;
-        var questionIds = <?= json_encode(array_column($questions, 'id')); ?>;
+        let currentIndex = 0;
+        const questionIds = <?= json_encode(array_column($questions, 'id')); ?>;
 
         // Pastikan semua pertanyaan disembunyikan terlebih dahulu
         $('.question').hide();
@@ -12,7 +12,7 @@
         }
 
         // Temukan soal pertama yang sesuai dengan `tes_keahlian_id`
-        var firstQuestionId = '<?= isset($questions[0]['id']) ? $questions[0]['id'] : '' ?>';
+        const firstQuestionId = '<?= isset($questions[0]['id']) ? $questions[0]['id'] : '' ?>';
 
         // Navigasi soal sebelumnya
         $('#prev-question').click(function() {
@@ -31,24 +31,26 @@
         });
 
         $('.question-nav button').click(function() {
-            questionId = $(this).attr('id').replace('question-', '');
-            currentQuestion = parseInt(questionId);
-            showQuestion(currentQuestion);
+            const questionId = $(this).attr('id').replace('question-', '');
+            currentIndex = questionIds.indexOf(questionId);
+            if (currentIndex >= 0) {
+                showQuestion(questionId);
+            }
         });
 
         function showQuestion(questionId) {
             $('.question').hide();
-            $('#question-' + questionId).show();
+            $(`#question-${questionId}`).show();
             $('#current-question-number').text(questionIds.indexOf(questionId) + 1);
         }
 
         // Inisialisasi state pertanyaan
-        var questionStates = {};
+        const questionStates = {};
 
         $('.option-btn').on('click', function() {
-            var questionId = $(this).closest('.question').attr('id').replace('question-', '');
-            var navButton = $('#question-' + questionId + '-nav');
-            var optionBtnsState = questionStates[questionId] || {
+            const questionId = $(this).closest('.question').attr('id').replace('question-', '');
+            const navButton = $(`#question-${questionId}-nav`);
+            const optionBtnsState = questionStates[questionId] || {
                 optionBtns: [],
                 navButtonClass: 'btn-outline-primary'
             };
@@ -73,25 +75,25 @@
             updateBadgeCount();
         });
 
-        var completedCount = 0;
+        let completedCount = 0;
         updateBadgeCount();
 
         function updateBadgeCount() {
             completedCount = 0;
-            for (var questionId in questionStates) {
+            for (const questionId in questionStates) {
                 if (questionStates.hasOwnProperty(questionId)) {
-                    var state = questionStates[questionId];
+                    const state = questionStates[questionId];
                     if (state.navButtonClass === 'btn-primary') {
                         completedCount++;
                     }
                 }
             }
-            $('#completed-badge').text(completedCount + ' Dikerjakan');
+            $('#completed-badge').text(`${completedCount} Dikerjakan`);
         }
 
         $('#finish-test').click(function(e) {
             e.preventDefault();
-            var userAnswers = {};
+            const userAnswers = {};
             $.each(questionStates, function(questionId, state) {
                 userAnswers[questionId] = state.optionBtns;
             });
@@ -113,8 +115,8 @@
             });
         });
 
-        var timerValue = 5400;
-        var timerInterval;
+        let timerValue = 5400;
+        let timerInterval;
 
         $('#timer-text').text(formatTime(timerValue));
 
@@ -128,10 +130,10 @@
         }, 1000);
 
         function formatTime(seconds) {
-            var hours = Math.floor(seconds / 3600);
-            var minutes = Math.floor((seconds % 3600) / 60);
-            var seconds = seconds % 60;
-            return hours + ' jam, ' + minutes + ' menit, ' + padZero(seconds) + ' detik';
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const seconds = seconds % 60;
+            return `${hours} jam, ${minutes} menit, ${padZero(seconds)} detik`;
         }
 
         function padZero(number) {
