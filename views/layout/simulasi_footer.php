@@ -31,11 +31,9 @@
         });
 
         $('.question-nav button').click(function() {
-            const questionId = $(this).attr('id').replace('question-', '');
-            currentIndex = questionIds.indexOf(questionId);
-            if (currentIndex >= 0) {
-                showQuestion(questionId);
-            }
+            questionId = $(this).attr('id').replace('question-', '');
+            currentQuestion = parseInt(questionId);
+            showQuestion(currentQuestion);
         });
 
         function showQuestion(questionId) {
@@ -49,7 +47,7 @@
 
         $('.option-btn').on('click', function() {
             const questionId = $(this).closest('.question').attr('id').replace('question-', '');
-            const navButton = $(`#question-${questionId}-nav`);
+            const navButton = $('#question-' + questionId + '-nav');
             const optionBtnsState = questionStates[questionId] || {
                 optionBtns: [],
                 navButtonClass: 'btn-outline-primary'
@@ -129,10 +127,10 @@
             }
         }, 1000);
 
-        function formatTime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const seconds = seconds % 60;
+        function formatTime(totalSeconds) {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
             return `${hours} jam, ${minutes} menit, ${padZero(seconds)} detik`;
         }
 

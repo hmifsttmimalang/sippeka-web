@@ -31,11 +31,9 @@
         });
 
         $('.question-nav button').click(function() {
-            const questionId = $(this).attr('id').replace('question-', '');
-            currentIndex = questionIds.indexOf(questionId);
-            if (currentIndex >= 0) {
-                showQuestion(questionId);
-            }
+            questionId = $(this).attr('id').replace('question-', '');
+            currentQuestion = parseInt(questionId);
+            showQuestion(currentQuestion);
         });
 
         function showQuestion(questionId) {
@@ -138,11 +136,11 @@
             }
         }, 1000);
 
-        function formatTime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const seconds = seconds % 60;
-            return hours + ' jam, ' + minutes + ' menit, ' + padZero(seconds) + ' detik';
+        function formatTime(totalSeconds) {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return `${hours} jam, ${minutes} menit, ${padZero(seconds)} detik`;
         }
 
         function padZero(number) {
