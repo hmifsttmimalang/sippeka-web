@@ -16,16 +16,13 @@
                 <img src="assets/user/img/hero-services-img.webp" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
             </div>
         </div>
-
-    </section><!-- /Hero Section -->
+    </section>
+    <!-- /Hero Section -->
 
     <!-- Featured Services Section -->
     <section id="featured-services" class="featured-services section">
-
         <div class="container">
-
             <div class="row gy-4">
-
                 <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-item d-flex">
                         <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
@@ -46,7 +43,8 @@
                             <p class="description">Menjadi pusat unggulan pengembangan keterampilan tenaga kerja yang kompeten dan profesional.</p>
                         </div>
                     </div>
-                </div><!-- End Service Item -->
+                </div>
+                <!-- End Service Item -->
 
                 <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-item d-flex">
@@ -57,21 +55,18 @@
                                 Menyediakan pelatihan berkualitas, bekerja sama dengan industri, dan mendukung penempatan kerja, sembari meningkatkan profesionalisme staf dan instruktur.</p>
                         </div>
                     </div>
-                </div><!-- End Service Item -->
+                </div>
+                <!-- End Service Item -->
 
             </div>
-
         </div>
-
-    </section><!-- /Featured Services Section -->
+    </section>
+    <!-- /Featured Services Section -->
 
     <!-- About Section -->
     <section id="about" class="about section">
-
         <div class="container">
-
             <div class="row gy-4">
-
                 <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
                     <p class="who-we-are">Who We Are</p>
                     <h3>SILASTRI UPT BLK SINGOSARI</h3>
@@ -102,46 +97,45 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-    </section><!-- /About Section -->
+    </section>
+    <!-- /About Section -->
 
     <!-- Clients Section -->
     <section id="clients" class="clients section">
-
         <div class="container" data-aos="fade-up">
-
             <div class="row gy-4">
-
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     <img src="assets/user/img/silastri/logo_jatim.png" class="img-fluid" alt="">
-                </div><!-- End Client Item -->
+                </div>
+                <!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     <img src="assets/user/img/silastri/logo_disnakertrans.png" class="img-fluid" alt="">
-                </div><!-- End Client Item -->
+                </div>
+                <!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     <img src="assets/user/img/silastri/logo_berakhlak.png" class="img-fluid" alt="">
-                </div><!-- End Client Item -->
+                </div>
+                <!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     <img src="assets/user/img/silastri/logo_bangga.png" class="img-fluid" alt="">
-                </div><!-- End Client Item -->
+                </div>
+                <!-- End Client Item -->
 
                 <div class="col-xl-2 col-md-3 col-6 client-logo">
                     <img src="assets/user/img/silastri/logo_zona_integritas.png" class="img-fluid" alt="">
-                </div><!-- End Client Item -->
+                </div>
+                <!-- End Client Item -->
 
             </div>
-
         </div>
-
-    </section><!-- /Clients Section -->
+    </section>
+    <!-- /Clients Section -->
 
     <!-- Features Section -->
     <section id="features" class="features section">
@@ -194,43 +188,39 @@
                                 </div>
                             </a>
                         </li>
-                    </ul><!-- End Tab Nav -->
+                    </ul>
+                    <!-- End Tab Nav -->
 
                 </div>
 
                 <div class="col-lg-6">
-
                     <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-
                         <div class="tab-pane fade active show" id="features-tab-1">
                             <img src="assets/user/img/tabs-1.jpg" alt="" class="img-fluid">
-                        </div><!-- End Tab Content Item -->
+                        </div>
+                        <!-- End Tab Content Item -->
 
                         <div class="tab-pane fade" id="features-tab-2">
                             <img src="assets/user/img/tabs-2.jpg" alt="" class="img-fluid">
-                        </div><!-- End Tab Content Item -->
+                        </div>
+                        <!-- End Tab Content Item -->
 
                         <div class="tab-pane fade" id="features-tab-3">
                             <img src="assets/user/img/tabs-3.jpg" alt="" class="img-fluid">
-                        </div><!-- End Tab Content Item -->
+                        </div>
+                        <!-- End Tab Content Item -->
+
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </section>
     <!-- /Features Section -->
 
     <!-- Features Details Section -->
     <section id="features-details" class="features-details section">
-
         <div class="container">
-
             <div class="row gy-4 justify-content-between features-item">
-
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <img src="assets/user/img/features-1.jpg" class="img-fluid" alt="">
                 </div>
@@ -250,9 +240,7 @@
             <!-- Features Item -->
 
             <div class="row gy-4 justify-content-between features-item">
-
                 <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
-
                     <div class="content">
                         <h3>Informasi Pelatihan</h3>
                         <p>
@@ -261,18 +249,15 @@
                         <p></p>
                         <a href="#" class="btn more-btn">Cek Disini!</a>
                     </div>
-
                 </div>
 
                 <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
                     <img src="assets/user/img/features-2.jpg" class="img-fluid" alt="">
                 </div>
-
             </div>
             <!-- Features Item -->
 
         </div>
-
     </section>
     <!-- /Features Details Section -->
 
@@ -287,9 +272,7 @@
         <!-- End Section Title -->
 
         <div class="container">
-
             <div class="row g-5">
-
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-item item-cyan position-relative">
                         <i class="bi bi-activity icon"></i>
@@ -299,7 +282,8 @@
                             <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-                </div><!-- End Service Item -->
+                </div>
+                <!-- End Service Item -->
 
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-item item-orange position-relative">
@@ -310,7 +294,8 @@
                             <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-                </div><!-- End Service Item -->
+                </div>
+                <!-- End Service Item -->
 
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
                     <div class="service-item item-teal position-relative">
@@ -321,7 +306,8 @@
                             <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-                </div><!-- End Service Item -->
+                </div>
+                <!-- End Service Item -->
 
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
                     <div class="service-item item-red position-relative">
@@ -373,9 +359,7 @@
                 <!-- End Service Item -->
 
             </div>
-
         </div>
-
     </section>
     <!-- /Services Section -->
 
