@@ -113,12 +113,10 @@ class RegistrationController
                 'foto_kk' => $file_name_kk
             ];
 
-            $result = $this->pendaftaran->create($data, $user_id);
+            $this->pendaftaran->create($data, $user_id);
 
-            if ($result) {
-                header('Location: /pendaftaran/terdaftar');
-                exit;
-            }
+            header('Location: /pendaftaran/terdaftar');
+            exit;
         }
     }
 
