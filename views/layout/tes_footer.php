@@ -105,13 +105,10 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        console.log('Skor:', response.score);
-                        console.log('Persentase Skor:', response.scorePercentage, '%');
+                        window.location.href = '/tes_terkirim';
                     } else {
                         console.error('Error:', response.message);
                     }
-                    alert('Ujian terkirim');
-                    window.location.href = '/user';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
@@ -131,7 +128,6 @@
             $('#timer-text').text(formatTime(timerValue));
             if (timerValue <= 0) {
                 clearInterval(timerInterval);
-                alert('Waktu habis!');
                 window.location.href = '/waktu_habis';
             }
         }, 1000);
