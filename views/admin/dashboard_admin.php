@@ -1,5 +1,3 @@
-
-
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -64,6 +62,7 @@
                         <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -195,11 +194,16 @@
                                             <div class="h3 font-weight-bold text-success text-uppercase mb-1">
                                                 Lolos Seleksi
                                             </div>
-                                            <div class="h5 mt-3 font-weight-bold">0 Orang</div>
+                                            <div class="h5 mt-3 font-weight-bold"><?= $lolosSeleksiCount ?> Orang</div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
+                                                    <?php
+                                                    // Hitung persentase jika Anda memiliki total peserta
+                                                    $totalPeserta = count($jumlah_pendaftar); // Asumsi bahwa ini adalah total peserta
+                                                    $persentaseLolos = ($totalPeserta > 0) ? ($lolosSeleksiCount / $totalPeserta) * 100 : 0;
+                                                    ?>
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: <?= $persentaseLolos ?>%" aria-valuenow="<?= $persentaseLolos ?>" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -218,7 +222,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <?php if (!empty($pendaftar_baru)) : ?>
-                                <table class="table table-bordered table-hover">
+                                <table class="table table-bordered table-hover mt-3">
                                     <tr>
                                         <td>No</td>
                                         <td>Nama</td>
