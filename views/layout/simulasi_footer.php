@@ -113,7 +113,8 @@
             });
         });
 
-        let timerValue = 5400;
+        // let timerValue = 5400;
+        let timerValue = 10;
         let timerInterval;
 
         $('#timer-text').text(formatTime(timerValue));
@@ -123,7 +124,7 @@
             $('#timer-text').text(formatTime(timerValue));
             if (timerValue <= 0) {
                 clearInterval(timerInterval);
-                alert('Waktu habis!');
+                window.location.href = '/waktu_simulasi_habis';
             }
         }, 1000);
 
