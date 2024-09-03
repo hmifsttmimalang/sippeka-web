@@ -63,6 +63,7 @@
                         <a class="collapse-item active" href="tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -331,31 +332,31 @@
             const html = quill.root.innerHTML;
             document.getElementById('soal_hidden').value = html;
         });
-        
+
         quill1.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_a'])) ?>));
         quill1.on('text-change', function() {
             const html = quill1.root.innerHTML;
             document.getElementById('pilihan_a_hidden').value = html;
         });
-        
+
         quill2.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_b'])) ?>));
         quill2.on('text-change', function() {
             const html = quill2.root.innerHTML;
             document.getElementById('pilihan_b_hidden').value = html;
         });
-        
+
         quill3.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_c'])) ?>));
         quill3.on('text-change', function() {
             const html = quill3.root.innerHTML;
             document.getElementById('pilihan_c_hidden').value = html;
         });
-        
+
         quill4.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_d'])) ?>));
         quill4.on('text-change', function() {
             const html = quill4.root.innerHTML;
             document.getElementById('pilihan_d_hidden').value = html;
         });
-        
+
         quill5.setContents(JSON.parse(<?= json_encode(htmlspecialchars($soal['pilihan_e'])) ?>));
         quill5.on('text-change', function() {
             const html = quill5.root.innerHTML;

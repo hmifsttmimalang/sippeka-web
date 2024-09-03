@@ -63,6 +63,7 @@
                         <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -351,7 +352,7 @@
             const html = quill4.root.innerHTML;
             document.getElementById('pilihan_d_hidden').value = html;
         });
-        
+
         quill5.on('text-change', function() {
             const html = quill5.root.innerHTML;
             document.getElementById('pilihan_e_hidden').value = html;

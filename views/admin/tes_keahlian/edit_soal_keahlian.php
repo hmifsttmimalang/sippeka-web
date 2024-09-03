@@ -63,6 +63,7 @@
                         <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->

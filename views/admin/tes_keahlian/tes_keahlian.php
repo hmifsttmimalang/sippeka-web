@@ -62,6 +62,7 @@
                         <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -164,58 +165,58 @@
                     </div>
 
                     <?php if (!empty($tesKeahlianList)) : ?>
-                    <!-- Search Bar -->
-                    <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover text-center">
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Nama Tes Keahlian</td>
-                                        <td>Mata Keahlian</td>
-                                        <td>Kelas Keahlian</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1;
-                                    foreach ($tesKeahlianList as $item) : ?>
-                                        <tr>
-                                            <td><?= $i++; ?></td>
-                                            <td>Tes - <?= $item['nama_tes'] ?></td>
-                                            <td><?= $item['mata_soal_nama'] ?></td>
-                                            <td><?= $item['keahlian_nama'] ?></td>
-                                            <td>
-                                                <a href="/admin/tes_keahlian/detail_ujian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">View</a>
-                                                <a href="/admin/tes_keahlian/edit_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                <a href="/admin/tes_keahlian/hapus_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        <!-- Search Bar -->
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama Tes Keahlian</td>
+                                            <td>Mata Keahlian</td>
+                                            <td>Kelas Keahlian</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1;
+                                        foreach ($tesKeahlianList as $item) : ?>
+                                            <tr>
+                                                <td><?= $i++; ?></td>
+                                                <td>Tes - <?= $item['nama_tes'] ?></td>
+                                                <td><?= $item['mata_soal_nama'] ?></td>
+                                                <td><?= $item['keahlian_nama'] ?></td>
+                                                <td>
+                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $item['id'] ?>" class="btn btn-secondary btn-sm">View</a>
+                                                    <a href="/admin/tes_keahlian/edit_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="/admin/tes_keahlian/hapus_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     <?php else : ?>
                         <h3 class="text-center mt-2">Tidak ada tes yang tersedia</h3>
                     <?php endif; ?>

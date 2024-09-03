@@ -62,6 +62,7 @@
                         <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -158,55 +159,56 @@
                     <a href="/admin/mata_soal_keahlian/tambah_mata_keahlian" class="btn btn-primary btn-sm">Tambah</a>
 
                     <?php if (!empty($mataSoal)) : ?>
-                    <!-- Search Bar -->
-                    <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
+                        <!-- Search Bar -->
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Nama Mata Keahlian</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; foreach ($mataSoal as $item) : ?>
-                                    <tr>
-                                        <td><?= $i++; ?></td>
-                                        <td><?= $item['nama'] ?></td>
-                                        <td>
-                                            <a href="/admin/mata_soal_keahlian/edit_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="/admin/mata_soal_keahlian/hapus_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama Mata Keahlian</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1;
+                                        foreach ($mataSoal as $item) : ?>
+                                            <tr>
+                                                <td><?= $i++; ?></td>
+                                                <td><?= $item['nama'] ?></td>
+                                                <td>
+                                                    <a href="/admin/mata_soal_keahlian/edit_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="/admin/mata_soal_keahlian/hapus_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
                             <?php else : ?>
                                 <h3 class="text-center mt-2">Tidak ada mata soal yang tersedia</h3>
                             <?php endif; ?>
+                            </div>
                         </div>
-                    </div>
 
                 </div>
 

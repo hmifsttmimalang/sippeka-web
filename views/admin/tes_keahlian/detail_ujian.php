@@ -63,6 +63,7 @@
                         <a class="collapse-item active" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -214,36 +215,37 @@
                                         <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/tambah_soal_tes_keahlian" class="btn btn-primary mb-3">Tambah</a>
                                         <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/import_soal_tes_keahlian" class="btn btn-primary mb-3">Import</a>
                                         <?php if (!empty($soalList)) : ?>
-                                        <table class="table table-bordered table-hover right-align">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Soal Tes Keahlian</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                            <?php $i = 1; foreach ($soalList as $item) : ?>
-                                            <tr>
-                                                <td><?= $i++; ?></td>
-                                                <td><?= $item['soal'] ?>
-                                                    <hr class="sidebar-divider">
-                                                    <div class="ml-3">
-                                                        <div>A. <?= $item['pilihan_a'] ?></div>
-                                                        <div>B. <?= $item['pilihan_b'] ?></div>
-                                                        <div>C. <?= $item['pilihan_c'] ?></div>
-                                                        <div>D. <?= $item['pilihan_d'] ?></div>
-                                                        <div>E. <?= $item['pilihan_e'] ?></div>
-                                                    </div>
-                                                    <hr class="sidebar-divider">
-                                                    <div class="ml-3">
-                                                        <p>Jawaban yang benar: <?= $item['jawaban_benar'] ?></p>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/hapus_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        </table>
+                                            <table class="table table-bordered table-hover right-align">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Soal Tes Keahlian</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                                <?php $i = 1;
+                                                foreach ($soalList as $item) : ?>
+                                                    <tr>
+                                                        <td><?= $i++; ?></td>
+                                                        <td><?= $item['soal'] ?>
+                                                            <hr class="sidebar-divider">
+                                                            <div class="ml-3">
+                                                                <div>A. <?= $item['pilihan_a'] ?></div>
+                                                                <div>B. <?= $item['pilihan_b'] ?></div>
+                                                                <div>C. <?= $item['pilihan_c'] ?></div>
+                                                                <div>D. <?= $item['pilihan_d'] ?></div>
+                                                                <div>E. <?= $item['pilihan_e'] ?></div>
+                                                            </div>
+                                                            <hr class="sidebar-divider">
+                                                            <div class="ml-3">
+                                                                <p>Jawaban yang benar: <?= $item['jawaban_benar'] ?></p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/edit_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                            <a href="/admin/tes_keahlian/detail_ujian/<?= $tesKeahlian['id'] ?>/hapus_soal_tes_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </table>
                                         <?php else : ?>
                                             <h4 class="text-center mt-3">Tidak ada soal yang tersedia</h4>
                                         <?php endif; ?>
