@@ -1,7 +1,5 @@
 <?php
 
-require_once 'connection/database.php';
-
 class MataSoal 
 {
     private $pdo;

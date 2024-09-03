@@ -1,9 +1,5 @@
 <?php
 
-require_once 'connection/database.php';
-require_once 'models/Pendaftaran.php';
-require_once 'models/User.php';
-
 class UserController
 {
     private $pendaftaran;

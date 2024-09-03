@@ -1,9 +1,5 @@
 <?php
 
-require_once 'models/Keahlian.php';
-require_once 'models/Pendaftaran.php';
-require_once 'connection/database.php';
-
 class RegistrationController
 {
     protected $keahlian;
