@@ -1,14 +1,5 @@
 <?php
 
-require_once 'models/User.php';
-require_once 'models/Pendaftaran.php';
-require_once 'models/Keahlian.php';
-require_once 'models/TesKeahlian.php';
-require_once 'models/MataSoal.php';
-require_once 'models/Soal.php';
-require_once 'models/SesiTesKeahlian.php';
-require_once 'connection/database.php';
-
 class AdminController
 {
     private $user;
@@ -49,6 +40,18 @@ class AdminController
             $keahlianData = $this->kelasKeahlian->getById($keahlianId);
             $pendaftar['keahlian_nama'] = $keahlianData['nama']; // Sesuaikan dengan nama kolom di tabel keahlian
         }
+
+        $lolosSeleksiCount = array_reduce($jumlah_pendaftar, function ($count, $item) {
+            $nilai_keahlian = $item['nilai_keahlian'] ?? null;
+            $nilai_wawancara = $item['nilai_wawancara'] ?? null;
+            if ($nilai_keahlian !== null && $nilai_wawancara !== null) {
+                $rataRata = ($nilai_keahlian + $nilai_wawancara) / 2;
+                if ($rataRata >= 70) {
+                    $count++;
+                }
+            }
+            return $count;
+        }, 0);
 
         include 'views/layout/admin_header.php';
         include 'views/admin/dashboard_admin.php';
@@ -99,7 +102,17 @@ class AdminController
     {
         $user = $this->user->getUserById($id);
         $userPendaftar = $this->pendaftaran->getByUserId($id);
-
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $nilai_wawancara = $_POST['nilai_wawancara'] ?? null;
+    
+            // Menyimpan nilai tes wawancara
+            if ($this->pendaftaran->saveTesWawancara($id, $nilai_wawancara)) {
+                header('Location: /admin/kelola_data/detail_pendaftar/' . $id);
+                exit;
+            }
+        }
+    
         if (!empty($userPendaftar)) {
             include 'views/layout/admin_header.php';
             include 'views/admin/detail_pendaftar.php';
@@ -108,7 +121,7 @@ class AdminController
             header('Location: /admin/kelola_data');
             exit;
         }
-    }
+    }    
 
     // halaman soal keahlian
     public function soalKeahlian()

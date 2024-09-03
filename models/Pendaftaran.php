@@ -84,6 +84,28 @@ class Pendaftaran
         return $stmt->rowCount();
     }
 
+    public function saveTesKeahlian($user_id, $nilai_keahlian)
+    {
+        $stmt = $this->pdo->prepare('UPDATE pendaftar SET nilai_keahlian = ? WHERE user_id = ?');
+        $stmt->execute([$nilai_keahlian, $user_id]);
+
+        return $stmt->rowCount();
+    }
+
+    public function getNilaiTesKeahlian($user_id) 
+    {
+        $stmt = $this->pdo->prepare('SELECT nilai_keahlian FROM pendaftar WHERE user_id = ?');
+        $stmt->execute([$user_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function saveTesWawancara($user_id, $nilai_wawancara)
+    {
+        $stmt = $this->pdo->prepare('UPDATE pendaftar SET nilai_wawancara = ? WHERE user_id = ?');
+        $stmt->execute([$nilai_wawancara, $user_id]);
+
+        return $stmt->rowCount();
+    }
 
     public function delete($id)
     {

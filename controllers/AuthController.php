@@ -1,6 +1,4 @@
 <?php
-require_once 'models/User.php';
-require_once 'connection/database.php';
 
 class AuthController
 {

@@ -2,6 +2,13 @@
 session_start();
 require 'controllers/AuthController.php';
 require_once 'connection/database.php';
+require_once 'models/Keahlian.php';
+require_once 'models/MataSoal.php';
+require_once 'models/Pendaftaran.php';
+require_once 'models/SesiTesKeahlian.php';
+require_once 'models/TesKeahlian.php';
+require_once 'models/Soal.php';
+require_once 'models/User.php';
 
 // Autoload controllers
 spl_autoload_register(function ($class_name) {
@@ -44,11 +51,13 @@ function route($uri)
         // simulasi peserta
         '/simulasi_peserta' => 'ExamController@simulasi',
         '/hasil_simulasi' => 'ExamController@hasilSimulasi',
+        '/waktu_simulasi_habis' => 'ExamController@waktuSimulasiHabis',
 
         // seleksi peserta
         '/seleksi_peserta' => 'ExamController@tesSeleksi',
         '/waktu_habis' => 'ExamController@waktuHabis',
-        '/hasil_seleksi' => 'ExamController@hasilSeleksi', // debug
+        '/tes_terkirim' => 'ExamController@tesTerkirim',
+        '/tes_selesai' => 'ExamController@tesSelesai',
 
         // admin
         '/admin' => 'AdminController@index',

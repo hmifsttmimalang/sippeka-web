@@ -1,9 +1,5 @@
 <?php
 
-require_once 'models/Soal.php';
-require_once 'models/Pendaftaran.php';
-require_once 'models/SesiTesKeahlian.php';
-
 class ExamController
 {
     private $soal;
@@ -197,13 +193,21 @@ class ExamController
 
     public function tesSeleksi()
     {
-        // debug
+        $user_id = $_SESSION['user_id'];
+
+        // Cek apakah user sudah pernah mengirim jawaban sebelumnya
+        $existingScore = $this->pendaftaran->getNilaiTesKeahlian($user_id);
+
+        if ($existingScore !== null) {
+            // Jika user sudah mengerjakan, tampilkan pesan atau arahkan ke halaman lain
+            header('Location: /tes_selesai');
+            exit;
+        }
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->isAjaxRequest()) {
             $userAnswers = isset($_POST['userAnswers']) ? $_POST['userAnswers'] : [];
 
-            $user_id = $_SESSION['user_id'];
             $keahlianPeserta = $this->pendaftaran->getKeahlianByUserId($user_id);
-
             $tes_keahlian_id = $keahlianPeserta['tes_keahlian_id'] ?? null;
 
             if ($userAnswers) {
@@ -215,6 +219,9 @@ class ExamController
 
                     // Simpan jawaban pengguna di sesi
                     $_SESSION['userAnswers'] = $userAnswers;
+
+                    // Simpan nilai jawaban ke database
+                    $this->pendaftaran->saveTesKeahlian($user_id, $scorePercentage);
 
                     echo json_encode([
                         'status' => 'success',
@@ -248,7 +255,6 @@ class ExamController
             }
 
             // Ambil data peserta untuk mendapatkan keahlian yang dipilih
-            $user_id = $_SESSION['user_id'];
             $keahlianPeserta = $this->pendaftaran->getKeahlianByUserId($user_id);
 
             // Inisialisasi userAnswers jika belum ada
@@ -281,5 +287,20 @@ class ExamController
     public function waktuHabis()
     {
         include 'views/tes_seleksi/waktu_habis.php';
+    }
+
+    public function waktuSimulasiHabis()
+    {
+        include 'views/tes_seleksi/waktu_simulasi_habis.php';
+    }
+
+    public function tesTerkirim()
+    {
+        include 'views/tes_seleksi/tes_terkirim.php';
+    }
+
+    public function tesSelesai()
+    {
+        include 'views/tes_seleksi/tes_selesai.php';
     }
 }
