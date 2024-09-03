@@ -43,6 +43,13 @@ class AdminController
         $jumlah_pendaftar_count = count($jumlah_pendaftar);
         $persentase_pendaftar = ($jumlah_pendaftar_count > 0) ? 100 : 0;
 
+        // Tambahkan nama keahlian ke data pendaftar
+        foreach ($pendaftar_baru as &$pendaftar) {
+            $keahlianId = $pendaftar['keahlian'];
+            $keahlianData = $this->kelasKeahlian->getById($keahlianId);
+            $pendaftar['keahlian_nama'] = $keahlianData['nama']; // Sesuaikan dengan nama kolom di tabel keahlian
+        }
+
         include 'views/layout/admin_header.php';
         include 'views/admin/dashboard_admin.php';
         include 'views/layout/admin_footer.php';

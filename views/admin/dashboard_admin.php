@@ -231,7 +231,7 @@
                                             <td><?= $i++; ?></td>
                                             <td><?= $item['nama'] ?></td>
                                             <td><?= $item['alamat'] ?></td>
-                                            <td><?= $item['keahlian'] ?></td>
+                                            <td><?= $item['keahlian_nama'] ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </table>
