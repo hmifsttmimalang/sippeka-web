@@ -242,85 +242,97 @@
         </div>
       </div>
 
-      <!-- Hasil Penilaian -->
-      <div class="col-md-6">
+      <?php if (is_null($pendaftar['nilai_keahlian']) || is_null($pendaftar['nilai_wawancara'])) : ?>
 
-        <!-- Illustrations -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><b>PENGUMUMAN HASIL SELEKSI</b></h6>
-          </div>
-          <div class="card-body mt-4">
-            <div class="card text-center">
-              <div class="card-body">
-                <h5 class="card-title mb-3">Proses Penilaian</h5>
-                <div class="col-auto">
-                  <i class="fa-solid fa-spinner text-warning" style="font-size: 90px;"></i>
-                  <p class="card-text mt-3">
-                    Terima Kasih telah melaksanakan tes keahlian di SIPPEKA Singasari. Pengumuman pada tanggal :
-                  </p>
-                  <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
+        <!-- Hasil Penilaian -->
+        <div class="col-md-6">
+
+          <!-- Illustrations -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><b>PENGUMUMAN HASIL SELEKSI</b></h6>
+            </div>
+            <div class="card-body mt-4">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Proses Penilaian</h5>
+                  <div class="col-auto">
+                    <i class="fa-solid fa-spinner text-warning" style="font-size: 90px;"></i>
+                    <p class="card-text mt-3">
+                      Terima Kasih telah melaksanakan tes keahlian di SIPPEKA Singasari. Pengumuman pada tanggal :
+                    </p>
+                    <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card-footer">
-                <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
+                <div class="card-footer">
+                  <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      <?php endif; ?>
 
-      <div class="col-md-6">
+      <?php
+
+      $rataRata = ($pendaftar['nilai_keahlian'] + $pendaftar['nilai_wawancara']) / 2;
+
+      ?>
+
+      <?php if ($rataRata <= 100 && $rataRata >= 70) : ?>
         <!-- Success -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><b>ANDA LOLOS</b></h6>
-          </div>
-          <div class="card-body mt-4">
-            <div class="card text-center">
-              <div class="card-body">
-                <h5 class="card-title mb-3">Proses Penilaian</h5>
-                <div class="col-auto">
-                  <i class="fa-regular fa-circle-check text-success" style="font-size: 90px;"></i>
-                  <p class="card-text mt-3">
-                    Selamat anda lolos seleksi pelatihan pekerja SIPPEKA BALAI UPT SINGASARI. Silahkan lakukan daftar ulang.
-                  </p>
-                  <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
+        <div class="col-md-6">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><b>ANDA LOLOS</b></h6>
+            </div>
+            <div class="card-body mt-4">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Proses Penilaian</h5>
+                  <div class="col-auto">
+                    <i class="fa-regular fa-circle-check text-success" style="font-size: 90px;"></i>
+                    <p class="card-text mt-3">
+                      Selamat anda lolos seleksi pelatihan pekerja SIPPEKA BALAI UPT SINGASARI. Silahkan lakukan daftar ulang.
+                    </p>
+                    <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
+                  </div>
                 </div>
-              </div>
-              <div class="card-footer">
-                <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
+                <div class="card-footer">
+                  <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-6">
+      <?php else : ?>
         <!-- Failed -->
-        <div class="card shadow mb-4">
-          <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><b>ANDA TIDAK LOLOS</b></h6>
-          </div>
-          <div class="card-body mt-4">
-            <div class="card text-center">
-              <div class="card-body">
-                <h5 class="card-title mb-3">Proses Penilaian</h5>
-                <div class="col-auto">
-                  <i class="fa-solid fa-xmark text-danger" style="font-size: 90px;"></i>
-                  <p class="card-text mt-3">
-                    Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan coba lagi di seleksi pelatihan berikutnya.
-                  </p>
+        <div class="col-md-6">
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary"><b>ANDA TIDAK LOLOS</b></h6>
+            </div>
+            <div class="card-body mt-4">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title mb-3">Proses Penilaian</h5>
+                  <div class="col-auto">
+                    <i class="fa-solid fa-xmark text-danger" style="font-size: 90px;"></i>
+                    <p class="card-text mt-3">
+                      Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan coba lagi di seleksi pelatihan berikutnya.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="card-footer">
-                <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
+                <div class="card-footer">
+                  <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
+      <?php endif; ?>
     </div>
     <!-- End Content -->
 
