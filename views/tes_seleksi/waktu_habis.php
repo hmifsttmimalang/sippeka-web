@@ -60,7 +60,7 @@
 <body>
     <div class="container">
         <div class="alert">
-            <h4>Waktu Sesi Habis</h4>
+            <h4>Waktu Habis</h4>
             <p>Maaf, waktu untuk mengerjakan ujian telah habis.</p>
         </div>
         <a href="/user" class="btn btn-primary">Kembali ke Dashboard</a>
