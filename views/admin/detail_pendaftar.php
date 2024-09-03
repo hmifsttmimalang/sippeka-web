@@ -63,6 +63,7 @@
                         <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
             <hr class="sidebar-divider">
 
@@ -248,54 +249,74 @@
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Keahlian</h6>
-                                                <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['nilai_keahlian'] ?? 'Sedang diproses' ?></h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Tes Wawancara</h6>
-                                                <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;"><?= $userPendaftar['nilai_wawancara'] ?? 'Belum diisi' ?></h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Nilai Rata-Rata</h6>
-                                                <h6 class="mb-0" style="color: black; text-align: left;">80</h6>
+                                                <h6 class="mb-0" style="color: black; text-align: left;">
+                                                    <?php
+                                                    if (is_null($userPendaftar['nilai_keahlian']) || is_null($userPendaftar['nilai_wawancara'])) {
+                                                        $rataRata = null;
+                                                    } else {
+                                                        $rataRata = ($userPendaftar['nilai_keahlian'] + $userPendaftar['nilai_wawancara']) / 2;
+                                                    }
+                                                    ?>
+                                                    <?= $rataRata ?? 'Sedang diproses' ?>
+                                                </h6>
                                             </li>
                                         </ul>
 
                                         <tr>
                                             <td>
-                                                <span class="badge badge-success mt-3" style="display:block; height:30px; line-height:25px;">Lolos</span>
+                                            <td>
+                                                <?php if (is_null($rataRata)) : ?>
+                                                    <span class="badge badge-warning mt-3" style="display:block; height:30px; line-height:25px;">Sedang diproses</span>
+                                                <?php elseif ($rataRata <= 100 && $rataRata >= 70) : ?>
+                                                    <span class="badge badge-success mt-3" style="display:block; height:30px; line-height:25px;">Lulus</span>
+                                                <?php elseif ($rataRata < 70) : ?>
+                                                    <span class="badge badge-danger">Gagal</span>
+                                                    <span class="badge badge-danger mt-3" style="display:block; height:30px; line-height:25px;">Gagal</span>
+                                                <?php endif; ?>
                                             </td>
                                         </tr>
 
-                                        <!-- <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modalvalidasi">
+                                        <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal" data-target="#modalvalidasi">
                                             Validasi Data Peserta
-                                        </button> -->
+                                        </button>
 
                                         <!-- Modal-->
-                                        <!-- <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                            aria-hidden="true">
+                                        <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Penilaian Data Peserta</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Penilaian Wawancara Peserta</h5>
                                                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">×</span>
                                                         </button>
                                                     </div>
-                                                    <div class="modal-body text-center">
-                                                        <a href="" class="btn btn-success mr-3">LOLOS</a>
-                                                        <a href="" class="btn btn-danger">TIDAK LOLOS</a>
+                                                    <div class="modal-body">
+                                                        <form method="post" action="/admin/kelola_data/detail_pendaftar/<?= $userPendaftar['id'] ?>">
+                                                            <div class="mb-3">
+                                                                <label for="nilai-wawancara" class="col-form-label">Nilai Wawancara:</label>
+                                                                <input type="text" class="form-control" id="nilai_wawancara" name="nilai_wawancara" value="<?= $userPendaftar['nilai_wawancara'] ?? '' ?>">
+                                                            </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                        <button class="btn btn-primary" type="submit">Validasi</button>
+                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- /.container-fluid -->
