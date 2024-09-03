@@ -62,6 +62,7 @@
                         <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -167,9 +168,9 @@
                                             <td>Nama</td>
                                             <td>Alamat</td>
                                             <td>Keahlian</td>
-                                            <td>NTK</td>
-                                            <td>NTP</td>
-                                            <td>Rata"</td>
+                                            <td>Nilai Tes Keahlian</td>
+                                            <td>Nilai Tes Wawancara</td>
+                                            <td>Rata-Rata</td>
                                             <td>Status</td>
                                             <td>Aksi</td>
                                         </tr>
@@ -182,10 +183,27 @@
                                                 <td><?= $item['nama'] ?></td>
                                                 <td><?= $item['alamat'] ?></td>
                                                 <td><?= $item['keahlian_nama'] ?></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span class="badge badge-success">Lolos</span></td>
+                                                <td><?= $item['nilai_keahlian'] ?? 'Sedang diproses' ?></td>
+                                                <td><?= $item['nilai_wawancara'] ?? 'Sedang diproses' ?></td>
+                                                <td>
+                                                    <?php
+                                                    if (is_null($item['nilai_keahlian']) || is_null($item['nilai_wawancara'])) {
+                                                        $rataRata = null;
+                                                    } else {
+                                                        $rataRata = ($item['nilai_keahlian'] + $item['nilai_wawancara']) / 2;
+                                                    }
+                                                    ?>
+                                                    <?= $rataRata ?? 'Sedang diproses' ?>
+                                                </td>
+                                                <td>
+                                                    <?php if (is_null($rataRata)) : ?>
+                                                        <span class="badge badge-warning">Sedang diproses</span>
+                                                    <?php elseif ($rataRata <= 100 && $rataRata >= 70) : ?>
+                                                        <span class="badge badge-success">Lulus</span>
+                                                    <?php elseif ($rataRata < 70) : ?>
+                                                        <span class="badge badge-danger">Gagal</span>
+                                                    <?php endif; ?>
+                                                </td>
                                                 <td>
                                                     <a href="" class="btn btn-warning btn-sm">Cetak</a>
                                                 </td>
