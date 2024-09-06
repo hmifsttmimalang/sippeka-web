@@ -24,9 +24,13 @@
                 <!-- End Search Icon-->
 
                 <li class="nav-item dropdown pe-3">
-
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="../../assets/profile/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <?php
+                        $file_path = '../../../assets/uploads/' . $user['username'] . '/' . $pendaftar['nama'] . '_' . $pendaftar['tempat_lahir'] . '_' . $pendaftar['tanggal_lahir'] . '_bg_biru';
+                        $jpg_path = $file_path . '.jpg';
+                        $jpeg_path = $file_path . '.jpeg';
+                        ?>
+                        <img src="<?= $jpg_path ? $file_path . '.jpg' : $file_path . '.jpeg' ?>" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"><?= $pendaftar['nama'] ?></span>
                     </a>
                     <!-- End Profile Image Icon -->
