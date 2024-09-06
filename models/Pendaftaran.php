@@ -92,11 +92,14 @@ class Pendaftaran
         return $stmt->rowCount();
     }
 
-    public function getNilaiTesKeahlian($user_id) 
+    public function getNilaiTesKeahlian($user_id)
     {
         $stmt = $this->pdo->prepare('SELECT nilai_keahlian FROM pendaftar WHERE user_id = ?');
         $stmt->execute([$user_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Jika nilai_keahlian adalah NULL, kembalikan NULL secara eksplisit
+        return $result ? $result['nilai_keahlian'] : null;
     }
 
     public function saveTesWawancara($user_id, $nilai_wawancara)

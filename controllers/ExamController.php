@@ -5,6 +5,7 @@ class ExamController
     private $soal;
     private $pendaftaran;
     private $sesiTesKeahlian;
+    private $tesKeahlian;
 
     public function __construct()
     {
@@ -18,6 +19,7 @@ class ExamController
         $this->soal = new Soal($pdo);
         $this->pendaftaran = new Pendaftaran($pdo);
         $this->sesiTesKeahlian = new SesiTesKeahlian($pdo);
+        $this->tesKeahlian = new TesKeahlian($pdo);
 
         // memeriksa apabila user belum terdaftar akan diarahkan ke halaman pendaftaran
         $pendaftaran = $this->pendaftaran->getByUserId($_SESSION['user']['id']);
@@ -48,8 +50,8 @@ class ExamController
             exit;
         } else {
             $user_id = $_SESSION['user_id'];
-
             $keahlianPeserta = $this->pendaftaran->getKeahlianByUserId($user_id);
+            $tes_keahlian_id = $keahlianPeserta['tes_keahlian_id'] ?? null;
 
             // Inisialisasi userAnswers jika belum ada
             if (!isset($_SESSION['userAnswers'])) {
@@ -74,14 +76,18 @@ class ExamController
                 }
             }
 
-            $tes_keahlian_id = $keahlianPeserta['tes_keahlian_id'] ?? null;
-
             if (!$keahlianPeserta || !isset($keahlianPeserta['tes_keahlian_id'])) {
                 echo "Tes keahlian tidak ditemukan untuk pengguna ini.";
                 exit;
             }
 
-            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
+            // Ambil informasi tes keahlian untuk cek apakah soal dan jawaban diacak
+            $tesKeahlian = $this->tesKeahlian->get($tes_keahlian_id);
+            $acak_soal = $tesKeahlian['acak_soal'];
+            $acak_jawaban = $tesKeahlian['acak_jawaban'];
+
+            // Ambil soal dengan pengaturan acak soal dan acak jawaban
+            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id, $acak_soal, $acak_jawaban);
 
             if (empty($questions)) {
                 echo 'Soal tidak tersedia saat ini!';
@@ -269,8 +275,13 @@ class ExamController
                 exit;
             }
 
-            // Ambil soal berdasarkan keahlian peserta
-            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id);
+            // Ambil informasi tes keahlian untuk cek apakah soal dan jawaban diacak
+            $tesKeahlian = $this->tesKeahlian->get($tes_keahlian_id);
+            $acak_soal = $tesKeahlian['acak_soal'];
+            $acak_jawaban = $tesKeahlian['acak_jawaban'];
+
+            // Ambil soal dengan pengaturan acak soal dan acak jawaban
+            $questions = $this->soal->getSoalByTesKeahlianId($tes_keahlian_id, $acak_soal, $acak_jawaban);
 
             if (empty($questions)) {
                 echo "Tidak ada soal untuk keahlian ini.";
