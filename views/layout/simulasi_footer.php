@@ -113,8 +113,7 @@
             });
         });
 
-        // let timerValue = 5400;
-        let timerValue = 10;
+        let timerValue = 5400;
         let timerInterval;
 
         $('#timer-text').text(formatTime(timerValue));
