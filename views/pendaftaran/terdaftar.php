@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Registrasi Peserta Pelatihan Pekerja</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Registrasi telah terkirim</h1>
                                     </div>
 
                                     <a href="/" class="btn btn-primary btn-user btn-block mt-5">Kembali Ke Halaman Utama</a>
