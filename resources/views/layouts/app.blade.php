@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,15 +26,12 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/user/css/main.css') }}" rel="stylesheet">
 </head>
-
 <body>
     <!-- Header -->
     @include('layouts.header')
 
     <!-- Content -->
-    <div class="container">
-        @yield('content')
-    </div>
+    @yield('content')
 
     <!-- Footer -->
     @include('layouts.footer')
@@ -50,5 +46,4 @@
     <!-- Main JS File -->
     <script src="{{ asset('assets/user/js/main.js') }}"></script>
 </body>
-
 </html>
