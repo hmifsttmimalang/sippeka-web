@@ -9,20 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('user');
-            $table->string('status_register')->default('user');
+            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('status_register', ['tidak terdaftar', 'terdaftar'])->default('tidak terdaftar');
             $table->rememberToken();
             $table->timestamps();
         });
-    }
+    }    
 
     /**
      * Reverse the migrations.

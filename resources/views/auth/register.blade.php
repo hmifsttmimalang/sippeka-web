@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Register')
+@section('title', 'Daftar Akun')
 
 @section('content')
     <main>
@@ -24,33 +24,33 @@
                                         <p class="text-center small">Masukkan informasi Anda untuk membuat akun!</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="post" action="/auth/register">
+                                    <form class="row g-3 needs-validation" method="post" action="{{ url('register') }}">
+                                        @csrf
                                         <div class="col-12">
-                                            <label for="yourUsername" class="form-label">Username</label>
+                                            <label for="username" class="form-label">Username</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="username" class="form-control" id="yourUsername"
-                                                    required>
+                                                <input type="text" name="username" class="form-control" id="yourUsername" required>
                                                 <div class="invalid-feedback">Silakan pilih nama pengguna!</div>
                                             </div>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="yourEmail" class="form-label">Email Kamu</label>
+                                            <label for="email" class="form-label">Email Kamu</label>
                                             <input type="email" name="email" class="form-control" id="yourEmail"
                                                 required>
                                             <div class="invalid-feedback">Silakan masukkan email yang benar!</div>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="userPwd" class="form-control" id="yourPassword"
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" id="yourPassword"
                                                 required>
                                             <div class="invalid-feedback">Silakan masukkan password kamu!</div>
                                         </div>
 
                                         <div class="col-12">
-                                            <label for="yourRepeatPassword" class="form-label">Ulangi Password</label>
-                                            <input type="password" name="password" class="form-control"
+                                            <label for="password_confirmation" class="form-label">Ulangi Password</label>
+                                            <input type="password" name="password_confirmation" class="form-control"
                                                 id="yourRepeatPassword" required>
                                             <div class="invalid-feedback">Silakan masukkan password ulang!</div>
                                         </div>
@@ -71,7 +71,7 @@
                                                 Akun</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Sudah mempunyai akun? <a href="/login">Masuk</a></p>
+                                            <p class="small mb-0">Sudah mempunyai akun? <a href="{{ url('login') }}">Masuk</a></p>
                                         </div>
                                     </form>
                                 </div>

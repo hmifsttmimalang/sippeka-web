@@ -270,7 +270,7 @@
                     </div>
 
                     <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
-                        <img src="{{ asset('assets/user/img/features-2.jpg')}}" class="img-fluid" alt="">
+                        <img src="{{ asset('assets/user/img/features-2.jpg') }}" class="img-fluid" alt="">
                     </div>
                 </div>
                 <!-- Features Item -->
@@ -302,7 +302,7 @@
                         </div>
                     </div>
                     <!-- End Service Item -->
-    
+
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                         <div class="service-item item-orange position-relative">
                             <i class="bi bi-broadcast icon"></i>
@@ -314,7 +314,7 @@
                         </div>
                     </div>
                     <!-- End Service Item -->
-    
+
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
                         <div class="service-item item-teal position-relative">
                             <i class="bi bi-easel icon"></i>
@@ -326,7 +326,7 @@
                         </div>
                     </div>
                     <!-- End Service Item -->
-    
+
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
                         <div class="service-item item-red position-relative">
                             <i class="bi bi-bounding-box-circles icon"></i>
@@ -338,7 +338,7 @@
                         </div>
                     </div>
                     <!-- End Service Item -->
-    
+
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
                         <div class="service-item item-indigo position-relative">
                             <i class="bi bi-calendar4-week icon"></i>
@@ -350,7 +350,7 @@
                         </div>
                     </div>
                     <!-- End Service Item -->
-    
+
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
                         <div class="service-item item-pink position-relative">
                             <i class="bi bi-chat-square-text icon"></i>
@@ -364,15 +364,14 @@
                         </div>
                     </div>
                     <!-- End Service Item -->
-    
+
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
                         <div class="service-item item-pink position-relative">
                             <i class="bi bi-chat-square-text icon"></i>
                             <div>
                                 <h3>Realisasi Kinerja Tahun 2024</h3>
                                 <p>Realisasi Kinerja Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i
-                                        class="bi bi-arrow-right"></i></a>
+                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -384,10 +383,4 @@
         <!-- /Services Section -->
 
     </main>
-
-    <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Preloader -->
-    <div id="preloader"></div>
 @endsection
