@@ -25,6 +25,8 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Route::get();
+
 // halaman admin
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', function () {
@@ -117,5 +119,12 @@ Route::group(['middleware' => 'admin'], function () {
     });
     Route::get('/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/{id}', function () {
         return view('');
+    });
+});
+
+// halaman user
+Route::group(['middleware' => 'user'], function () {
+    Route::get('/pendaftaran', function () {
+        return view('pendaftaran.index');
     });
 });
