@@ -36,4 +36,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/peserta', function () {
         return view('admin.peserta');
     });
+    Route::get('/admin/info_user', function () {
+        return view('admin.info-user');
+    });
 });
