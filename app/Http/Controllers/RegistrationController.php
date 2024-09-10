@@ -17,6 +17,7 @@ class RegistrationController extends Controller
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'telepon' => 'required',
+            'keahlian' => 'required',
             'foto_ktp' => 'required',
             'foto_ijazah' => 'required',
             'foto_bg_biru' => 'required',
