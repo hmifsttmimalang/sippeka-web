@@ -19,8 +19,9 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Registrasi Peserta Pelatihan Pekerja</h1>
                                     </div>
-                                    <form class="user" action="/pendaftaran/proses" method="post"
+                                    <form class="user" action="{{ route('pendaftaran.register') }}" method="post"
                                         enctype="multipart/form-data">
+                                        @csrf
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
                                             <input type="text" name="nama" class="form-control" id="nama"
@@ -81,13 +82,11 @@
 
                                         <div class="form-group">
                                             <label for="keahlian">Keahlian</label>
-                                            <select name="keahlian" id="keahlian" class="form-control">
+                                            <select name="keahlian" class="form-control" id="keahlian">
                                                 <option value="">Pilih Keahlian</option>
-                                                <?php if (!empty($keahlianList)) : ?>
-                                                <?php foreach ($keahlianList as $keahlian): ?>
-                                                <option value="<?= $keahlian['id'] ?>"><?= $keahlian['nama'] ?></option>
-                                                <?php endforeach; ?>
-                                                <?php endif; ?>
+                                                @foreach($skills as $skill)
+                                                    <option value="{{ $skill->id }}">{{ $skill->nama }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 

@@ -27,8 +27,6 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route::get();
-
 // halaman admin
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', function () {
@@ -120,7 +118,12 @@ Route::group(['middleware' => 'admin'], function () {
 
 // halaman user
 Route::group(['middleware' => 'user'], function () {
-    Route::get('/pendaftaran', [RegistrationController::class, 'index'])->name('pendaftaran.index');
+
+    // pendaftaran
+    Route::get('/pendaftaran', [RegistrationController::class, 'index'])->name('pendaftaran.form_registrasi');
     Route::post('/pendaftaran', [RegistrationController::class, 'register'])->name('pendaftaran.register');
     Route::get('/pendaftaran/terkirim', [RegistrationController::class, 'registered'])->name('pendaftaran.terkirim');
+    Route::get('/pendaftaran/terdaftar', [RegistrationController::class, 'isRegistered'])->name('pendaftaran.terdaftar');
+
+    // dashboard user
 });
