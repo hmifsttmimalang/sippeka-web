@@ -39,4 +39,32 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/info_user', function () {
         return view('admin.info-user');
     });
+    Route::get('/admin/detail_pendaftar/{id}', function () {
+        return view('admin.detail-pendaftar');
+    });
+
+    // keahlian
+    Route::get('/admin/kelas_keahlian', function () {
+        return view('admin.keahlian.keahlian');
+    });
+    Route::get('/admin/kelas_keahlian/tambah_kelas_keahlian', function () {
+        return view('admin.keahlian.tambah-keahlian');
+    });
+    Route::get('/admin/kelas_keahlian/edit_kelas_keahlian/{id}', function () {
+        return view('admin.keahlian.edit-keahlian');
+    });
+    Route::get('/admin/kelas_keahlian/hapus_kelas_keahlian/{id}', function () {
+        return view('admin.keahlian.keahlian');
+    });
+
+    // mata soal
+
+
+    // tes keahlian
+
+
+    // soal tes
+
+
+    // sesi tes
 });
