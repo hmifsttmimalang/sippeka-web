@@ -32,7 +32,7 @@ class Registration extends Model
 
     public function keahlian()
     {
-        return $this->belongsTo(Skill::class, 'keahlian');
+        return $this->belongsTo(Skill::class);
     }
 
     public function validateTanggalLahir($tanggal_lahir)

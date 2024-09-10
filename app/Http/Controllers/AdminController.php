@@ -12,8 +12,10 @@ class AdminController extends Controller
     public function peserta()
     {
         // Mengambil data pendaftar
-        $listPendaftar = Registration::with('keahlian') // Jika ada relasi ke model Skill
-            ->get();
+        $listPendaftar = Registration::latest()
+        ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+        ->select('registrations.*', 'skills.nama as keahlian_nama')
+        ->get();    
 
         return view('admin.peserta', compact('listPendaftar'));
     }

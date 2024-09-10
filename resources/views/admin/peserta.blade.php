@@ -195,7 +195,7 @@
                                                 <td>{{ $i++ }}</td>
                                                 <td>{{ $item->nama }}</td>
                                                 <td>{{ $item->alamat }}</td>
-                                                <td>{{ $item->keahlian->nama ?? 'Tidak Diketahui' }}</td>
+                                                <td>{{ $item->keahlian_nama }}</td>
                                                 <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
                                                 <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
                                                 <td>

@@ -11,4 +11,10 @@ class Skill extends Model
 
     protected $table = 'skills';
     protected $fillable = ['nama'];
+
+    // Relasi satu ke banyak dengan model Registration
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
+    }
 }
