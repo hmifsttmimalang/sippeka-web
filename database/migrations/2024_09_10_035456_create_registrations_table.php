@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('agama');
             $table->text('alamat');
             $table->string('telepon');
-            $table->unsignedBigInteger('keahlian');
+            $table->foreignId('keahlian')->constrained('skills');
             $table->string('foto_ktp');
             $table->string('foto_ijazah');
             $table->string('foto_bg_biru');
