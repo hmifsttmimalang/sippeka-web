@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,21 +36,21 @@ Route::group(['middleware' => 'admin'], function () {
     })->name('admin.dashboard');
     Route::get('/admin/kelola_data', function () {
         return view('admin.kelola-data');
-    });
+    })->name('admin.kelola_data');
     Route::get('/admin/peserta', function () {
         return view('admin.peserta');
-    });
+    })->name('admin.peserta');
     Route::get('/admin/info_user', function () {
         return view('admin.info-user');
-    });
+    })->name('admin.info_user');
     Route::get('/admin/detail_pendaftar/{id}', function () {
         return view('admin.detail-pendaftar');
-    });
+    })->name('admin.detail_pendaftar');
 
     // mata soal
     Route::get('/admin/mata_soal_keahlian', function () {
         return view('admin.mata-soal.mata-soal');
-    });
+    })->name('admin.mata_soal_keahlian');
     Route::get('/admin/mata_soal_keahlian/tambah_mata_keahlian', function () {
         return view('admin.mata-soal.tambah-mata-soal');
     });
@@ -60,23 +62,17 @@ Route::group(['middleware' => 'admin'], function () {
     });
 
     // keahlian
-    Route::get('/admin/kelas_keahlian', function () {
-        return view('admin.keahlian.keahlian');
-    });
-    Route::get('/admin/kelas_keahlian/tambah_kelas_keahlian', function () {
-        return view('admin.keahlian.tambah-keahlian');
-    });
-    Route::get('/admin/kelas_keahlian/edit_kelas_keahlian/{id}', function () {
-        return view('admin.keahlian.edit-keahlian');
-    });
-    Route::get('/admin/kelas_keahlian/hapus_kelas_keahlian/{id}', function () {
-        return view('');
-    });
+    Route::get('/admin/kelas_keahlian', [AdminController::class, 'indexKeahlian'])->name('kelas_keahlian.index');
+    Route::get('/admin/kelas_keahlian/tambah_kelas_keahlian', [AdminController::class, 'createKeahlian'])->name('keahlian.create');
+    Route::post('/admin/kelas_keahlian/tambah_kelas_keahlian', [AdminController::class, 'storeKeahlian'])->name('kelas_keahlian.store');
+    Route::get('/admin/kelas_keahlian/edit_kelas_keahlian/{id}', [AdminController::class, 'editKeahlian'])->name('keahlian.edit');
+    Route::put('/admin/kelas_keahlian/update_kelas_keahlian/{id}', [AdminController::class, 'updateKeahlian'])->name('kelas_keahlian.update');
+    Route::get('/admin/kelas_keahlian/hapus_kelas_keahlian/{id}', [AdminController::class, 'destroyKeahlian'])->name('keahlian.destroy');
 
     // tes keahlian
     Route::get('/admin/tes_keahlian', function () {
         return view('admin.tes-keahlian.tes-keahlian');
-    });
+    })->name('admin.tes_keahlian');
     Route::get('/admin/tes_keahlian/tambah_tes_keahlian', function () {
         return view('admin.tes-keahlian.tambah-tes-keahlian');
     });
@@ -107,7 +103,7 @@ Route::group(['middleware' => 'admin'], function () {
     // sesi tes
     Route::get('/admin/sesi_tes_keahlian', function () {
         return view('admin.sesi-tes-keahlian.sesi-tes-keahlian');
-    });
+    })->name('admin.sesi_tes_keahlian');
     Route::get('/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian', function () {
         return view('admin.sesi-tes-keahlian.tambah-sesi-tes-keahlian');
     });
@@ -124,7 +120,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 // halaman user
 Route::group(['middleware' => 'user'], function () {
-    Route::get('/pendaftaran', function () {
-        return view('pendaftaran.index');
-    });
+    Route::get('/pendaftaran', [RegistrationController::class, 'index'])->name('pendaftaran.index');
+    Route::post('/pendaftaran', [RegistrationController::class, 'register'])->name('pendaftaran.register');
+    Route::get('/pendaftaran/terkirim', [RegistrationController::class, 'registered'])->name('pendaftaran.terkirim');
 });

@@ -23,7 +23,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -53,7 +54,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
@@ -62,7 +63,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                        <a class="collapse-item active" href="/admin/kelas_keahlian">Kelas Keahlian</a>
+                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
                         <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
                         <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
                     </div>
@@ -170,18 +171,18 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Kelas Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user" action="/admin/kelas_keahlian/tambah_kelas_keahlian"
-                                            method="post">
+                                        <form class="user" action="{{ route('kelas_keahlian.store') }}" method="post">
+                                            @csrf
                                             <div class="form-group">
-                                                <label for="nama">Nama Keahlian</label>
+                                                <label for="nama">Nama Kelas Keahlian</label>
                                                 <input type="text" name="nama" class="form-control" id="nama"
-                                                    placeholder="Masukkan Nama Mata Keahlian" required>
+                                                    placeholder="Masukkan Nama Kelas Keahlian" required>
                                             </div>
                                             <button type="submit" class="btn btn-primary">
                                                 Simpan
                                             </button>
-                                            <a href="" class="btn btn-primary">
-                                                Reset
+                                            <a href="/admin/kelas_keahlian" class="btn btn-secondary">
+                                                Kembali
                                             </a>
                                         </form>
                                     </div>
