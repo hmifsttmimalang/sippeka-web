@@ -72,10 +72,35 @@ Route::group(['middleware' => 'admin'], function () {
     });
 
     // tes keahlian
-
-
+    Route::get('/admin/tes_keahlian', function () {
+        return view('admin.tes-keahlian.tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/tambah_tes_keahlian', function () {
+        return view('admin.tes-keahlian.tambah-tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/edit_tes_keahlian/{id}', function () {
+        return view('admin.tes-keahlian.edit-tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/hapus_tes_keahlian/{id}', function () {
+        return view('');
+    });
+    
     // soal tes
-
+    Route::get('/admin/tes_keahlian/detail_ujian', function () {
+        return view('admin.tes-keahlian.soal-tes.detail-tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian', function () {
+        return view('admin.tes-keahlian.soal-tes.tambah-soal-tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}/import_soal_tes_keahlian', function () {
+        return view('admin.tes-keahlian.soal-tes.import-soal-tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian/{id}', function () {
+        return view('admin.tes-keahlian.soal-tes.edit-soal-tes-keahlian');
+    });
+    Route::get('/admin/tes_keahlian/detail_ujian/hapus_soal_tes_keahlian/{id}', function () {
+        return view('');
+    });
 
     // sesi tes
 
