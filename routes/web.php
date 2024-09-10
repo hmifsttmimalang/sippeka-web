@@ -33,4 +33,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/kelola_data', function () {
         return view('admin.kelola-data');
     });
+    Route::get('/admin/peserta', function () {
+        return view('admin.peserta');
+    });
 });
