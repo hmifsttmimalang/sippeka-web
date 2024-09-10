@@ -30,4 +30,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    Route::get('/admin/kelola_data', function () {
+        return view('admin.kelola-data');
+    });
 });
