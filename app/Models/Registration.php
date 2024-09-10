@@ -30,7 +30,7 @@ class Registration extends Model
         'nilai_wawancara'
     ];
 
-    public function keahlian() 
+    public function keahlian()
     {
         return $this->belongsTo(Skill::class, 'keahlian');
     }

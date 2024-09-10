@@ -137,16 +137,18 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Keluar
-                                </a>
+                                    <a class="dropdown-item" href="/logout" data-toggle="modal"
+                                        data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Keluar
+                                    </a>
                             </div>
                         </li>
 
@@ -161,93 +163,94 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Data Peserta</h1>
 
-                    <?php if (!empty($listPendaftar)) : ?>
-                    <a href="" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
+                    @if ($listPendaftar->isNotEmpty())
+                        <a href="" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Nama</td>
-                                        <td>Alamat</td>
-                                        <td>Keahlian</td>
-                                        <td>Nilai Tes Keahlian</td>
-                                        <td>Nilai Tes Wawancara</td>
-                                        <td>Rata-Rata</td>
-                                        <td>Status</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1;
-                                        foreach ($listPendaftar as $item) : ?>
-                                    <tr>
-                                        <td><?= $i++ ?></td>
-                                        <td><?= $item['nama'] ?></td>
-                                        <td><?= $item['alamat'] ?></td>
-                                        <td><?= $item['keahlian_nama'] ?></td>
-                                        <td><?= $item['nilai_keahlian'] ?? 'Sedang diproses' ?></td>
-                                        <td><?= $item['nilai_wawancara'] ?? 'Sedang diproses' ?></td>
-                                        <td>
-                                            <?php
-                                            if (is_null($item['nilai_keahlian']) || is_null($item['nilai_wawancara'])) {
-                                                $rataRata = null;
-                                            } else {
-                                                $rataRata = ($item['nilai_keahlian'] + $item['nilai_wawancara']) / 2;
-                                            }
-                                            ?>
-                                            <?= $rataRata ?? 'Sedang diproses' ?>
-                                        </td>
-                                        <td>
-                                            <?php if (is_null($rataRata)) : ?>
-                                            <span class="badge badge-warning">Sedang diproses</span>
-                                            <?php elseif ($rataRata <= 100 && $rataRata >= 70) : ?>
-                                            <span class="badge badge-success">Lulus</span>
-                                            <?php elseif ($rataRata < 70) : ?>
-                                            <span class="badge badge-danger">Gagal</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <a href="" class="btn btn-warning btn-sm">Cetak</a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <?php else : ?>
-                            <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
-                            <?php endif; ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama</td>
+                                            <td>Alamat</td>
+                                            <td>Keahlian</td>
+                                            <td>Nilai Tes Keahlian</td>
+                                            <td>Nilai Tes Wawancara</td>
+                                            <td>Rata-Rata</td>
+                                            <td>Status</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php $i = 1; @endphp
+                                        @foreach ($listPendaftar as $item)
+                                            @php
+                                                $rataRata =
+                                                    is_null($item->nilai_keahlian) || is_null($item->nilai_wawancara)
+                                                        ? null
+                                                        : ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $i++ }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>{{ $item->alamat }}</td>
+                                                <td>{{ $item->keahlian->nama ?? 'Tidak Diketahui' }}</td>
+                                                <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
+                                                <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
+                                                <td>
+                                                    {{ $rataRata ? $rataRata : 'Sedang diproses' }}
+                                                </td>
+                                                <td>
+                                                    @if (is_null($rataRata))
+                                                        <span class="badge badge-warning">Sedang diproses</span>
+                                                    @elseif ($rataRata <= 100 && $rataRata >= 70)
+                                                        <span class="badge badge-success">Lulus</span>
+                                                    @elseif ($rataRata < 70)
+                                                        <span class="badge badge-danger">Gagal</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="" class="btn btn-warning btn-sm">Cetak</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
-                    </div>
-
+                    @else
+                        <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
+                    @endif
                 </div>
-
             </div>
-            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Main Content -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
 
     </div>
     <!-- End of Content Wrapper -->

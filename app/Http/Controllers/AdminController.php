@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\Registration;
 
 class AdminController extends Controller
 {
+    public function peserta()
+    {
+        // Mengambil data pendaftar
+        $listPendaftar = Registration::with('keahlian') // Jika ada relasi ke model Skill
+            ->get();
+
+        return view('admin.peserta', compact('listPendaftar'));
+    }
+
     public function infoUser()
     {
         // Mengambil semua user dengan role user
