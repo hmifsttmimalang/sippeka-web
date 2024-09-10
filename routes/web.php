@@ -43,6 +43,20 @@ Route::group(['middleware' => 'admin'], function () {
         return view('admin.detail-pendaftar');
     });
 
+    // mata soal
+    Route::get('/admin/mata_soal_keahlian', function () {
+        return view('admin.mata-soal.mata-soal');
+    });
+    Route::get('/admin/mata_soal_keahlian/tambah_mata_keahlian', function () {
+        return view('admin.mata-soal.tambah-mata-soal');
+    });
+    Route::get('/admin/mata_soal_keahlian/edit_mata_soal_keahlian/{id}', function () {
+        return view('admin.mata-soal.edit-mata-soal');
+    });
+    Route::get('/admin/mata_soal_keahlian/hapus_mata_soal_keahlian/{id}', function () {
+        return view('');
+    });
+
     // keahlian
     Route::get('/admin/kelas_keahlian', function () {
         return view('admin.keahlian.keahlian');
@@ -54,11 +68,8 @@ Route::group(['middleware' => 'admin'], function () {
         return view('admin.keahlian.edit-keahlian');
     });
     Route::get('/admin/kelas_keahlian/hapus_kelas_keahlian/{id}', function () {
-        return view('admin.keahlian.keahlian');
+        return view('');
     });
-
-    // mata soal
-
 
     // tes keahlian
 
@@ -67,4 +78,5 @@ Route::group(['middleware' => 'admin'], function () {
 
 
     // sesi tes
+
 });
