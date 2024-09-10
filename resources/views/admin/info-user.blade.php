@@ -137,7 +137,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -160,32 +160,36 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Info User</h1>
 
-                    <?php if (!empty($users)) : ?>
+                    @if ($users->isNotEmpty())
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-hover">
-                                <tr>
-                                    <td>No</td>
-                                    <td>Username</td>
-                                    <td>Email</td>
-                                    <td>Status</td>
-                                </tr>
-                                <?php $i = 1;
-                                    foreach ($users as $user) : ?>
-                                <tr>
-                                    <td><?= $i++ ?></td>
-                                    <td><?= $user['username'] ?></td>
-                                    <td><?= $user['email'] ?></td>
-                                    <td>
-                                        <?= $user['is_registered'] ? '<span class="badge badge-success">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>' ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($users as $index => $user)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>
+                                            {!! $user->status_register ? '<span class="badge badge-success">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>' !!}
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
                             </table>
                         </div>
-                        <?php else : ?>
-                        <h3 class="text-center mt-5">Tidak ada user</h3>
-                        <?php endif; ?>
+                    </div>
+                    @else
+                    <h3 class="text-center mt-5">Tidak ada user</h3>
+                    @endif
                     </div>
 
                 </div>

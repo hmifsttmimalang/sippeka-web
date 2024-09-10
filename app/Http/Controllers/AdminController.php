@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Skill;
+use App\Models\User;
 
 class AdminController extends Controller
 {
+    public function infoUser()
+    {
+        // Mengambil semua user dengan role user
+        $users = User::where('role', 'user')->get();
+        return view('admin.info-user', compact('users'));
+    }
+
     public function indexKeahlian()
     {
         // Mengambil semua keahlian

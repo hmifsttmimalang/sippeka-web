@@ -38,9 +38,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/peserta', function () {
         return view('admin.peserta');
     })->name('admin.peserta');
-    Route::get('/admin/info_user', function () {
-        return view('admin.info-user');
-    })->name('admin.info_user');
+    Route::get('/admin/info_user', [AdminController::class, 'infoUser'])->name('info.user');
     Route::get('/admin/detail_pendaftar/{id}', function () {
         return view('admin.detail-pendaftar');
     })->name('admin.detail_pendaftar');
