@@ -182,8 +182,8 @@
                                                 <td><?= $i++; ?></td>
                                                 <td><?= $item['nama'] ?></td>
                                                 <td>
-                                                    <a href="/admin/mata_soal_keahlian/edit_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="/admin/mata_soal_keahlian/hapus_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="/admin/mata_soal_keahlian/edit_mata_soal_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Ubah</a>
+                                                    <a href="/admin/mata_soal_keahlian/hapus_mata_soal_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Hapus</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
