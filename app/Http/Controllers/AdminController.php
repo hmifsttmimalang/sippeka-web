@@ -9,6 +9,17 @@ use App\Models\Registration;
 
 class AdminController extends Controller
 {
+    public function kelolaData()
+    {
+        // Mengambil data pendaftar dengan keahlian
+        $listPendaftar = Registration::latest()
+            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama')
+            ->get();    
+    
+        return view('admin.kelola-data', compact('listPendaftar'));
+    }    
+
     public function peserta()
     {
         // Mengambil data pendaftar

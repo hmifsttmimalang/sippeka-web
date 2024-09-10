@@ -32,9 +32,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-    Route::get('/admin/kelola_data', function () {
-        return view('admin.kelola-data');
-    })->name('admin.kelola_data');
+    Route::get('/admin/kelola_data', [AdminController::class, 'kelolaData'])->name('admin.kelola_data');
     Route::get('/admin/peserta', [AdminController::class, 'peserta'])->name('admin.peserta');
     Route::get('/admin/info_user', [AdminController::class, 'infoUser'])->name('info.user');
     Route::get('/admin/detail_pendaftar/{id}', function () {
