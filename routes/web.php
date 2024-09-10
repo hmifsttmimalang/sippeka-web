@@ -103,5 +103,19 @@ Route::group(['middleware' => 'admin'], function () {
     });
 
     // sesi tes
-
+    Route::get('/admin/sesi_tes_keahlian', function () {
+        return view('admin.sesi-tes-keahlian.sesi-tes-keahlian');
+    });
+    Route::get('/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian', function () {
+        return view('admin.sesi-tes-keahlian.tambah-sesi-tes-keahlian');
+    });
+    Route::get('/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/{id}', function () {
+        return view('admin.sesi-tes-keahlian.edit-sesi-tes-keahlian');
+    });
+    Route::get('/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/{id}', function () {
+        return view('admin.sesi-tes-keahlian.detail-sesi-tes-keahlian');
+    });
+    Route::get('/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/{id}', function () {
+        return view('');
+    });
 });
