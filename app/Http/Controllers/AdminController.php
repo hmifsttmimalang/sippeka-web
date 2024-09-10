@@ -15,18 +15,25 @@ class AdminController extends Controller
         $listPendaftar = Registration::latest()
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();    
-    
+            ->get();
+
         return view('admin.kelola-data', compact('listPendaftar'));
-    }    
+    }
+
+    public function show($user_id)
+    {
+        $pendaftar = Registration::with('user')->where('user_id', $user_id)->first(); // Mengambil data berdasarkan user_id
+
+        return view('admin.detail-pendaftar', compact('pendaftar'));
+    }
 
     public function peserta()
     {
         // Mengambil data pendaftar
         $listPendaftar = Registration::latest()
-        ->join('skills', 'registrations.keahlian', '=', 'skills.id')
-        ->select('registrations.*', 'skills.nama as keahlian_nama')
-        ->get();    
+            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama')
+            ->get();
 
         return view('admin.peserta', compact('listPendaftar'));
     }

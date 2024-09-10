@@ -67,4 +67,9 @@ class Registration extends Model
     {
         $this->find($id)->delete();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -136,7 +136,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -167,17 +168,14 @@
 
                                     <div class="card-body mt-3">
                                         <div class="col-auto text-center">
-                                            <?php
-                                            // $file_path = '../../../assets/uploads/' . $user['username'] . '/' . $userPendaftar['nama'] . '_' . $userPendaftar['tempat_lahir'] . '_' . $userPendaftar['tanggal_lahir'] . '_bg_biru';
-                                            // $jpg_path = $file_path . '.jpg';
-                                            // $jpeg_path = $file_path . '.jpeg';
-                                            ?>
-                                            <img src=""
+                                            <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}"
                                                 alt="Foto Profil Background Biru" class="img-fluid rounded-circle"
                                                 style="width: 200px" alt="menunggu">
                                         </div>
                                         <br>
-                                        <h5 class="text-center card-title"><b></b>
+                                        <h5 class="text-center card-title"><b>
+                                                {{ strtoupper($pendaftar->nama) }}
+                                            </b>
                                         </h5>
 
                                         <ul class="list-group">
@@ -193,7 +191,7 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Tempat,
                                                     Tangal Lahir</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    
+                                                    {{ $pendaftar->tempat_lahir }}, {{ $pendaftar->tanggal_lahir }}
                                                 </h6>
                                             </li>
 
@@ -202,31 +200,36 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Jenis
                                                     Kelamin</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                    {{ $pendaftar->jenis_kelamin }}
+                                                </h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
                                                     style="color: black; font-weight: bold; text-align: left;">Agama</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                    {{ $pendaftar->agama }}
+                                                </h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
                                                     style="color: black; font-weight: bold; text-align: left;">Alamat</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                    {{ $pendaftar->alamat }}
+                                                </h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
                                                     style="color: black; font-weight: bold; text-align: left;">Email</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                    {{ $pendaftar->user->email }}
+                                                </h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
                                                     style="color: black; font-weight: bold; text-align: left;">Telepon</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                    {{ $pendaftar->telepon }}
+                                                </h6>
                                             </li>
                                         </ul>
                                     </div>
@@ -250,14 +253,14 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai Tes
                                                     Keahlian</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                </h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai Tes
                                                     Wawancara</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    </h6>
+                                                </h6>
                                             </li>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
@@ -275,19 +278,13 @@
                                             </li>
                                         </ul>
 
-                                        <tr>
-                                            <td>
-                                            <td>
-                                                <span class="badge badge-warning mt-3"
-                                                    style="display:block; height:30px; line-height:25px;">Sedang
-                                                    diproses</span>
-                                                <span class="badge badge-success mt-3"
-                                                    style="display:block; height:30px; line-height:25px;">Lulus</span>
-                                                <span class="badge badge-danger">Gagal</span>
-                                                <span class="badge badge-danger mt-3"
-                                                    style="display:block; height:30px; line-height:25px;">Gagal</span>
-                                            </td>
-                                        </tr>
+                                        <span class="badge badge-warning mt-3"
+                                            style="display:block; height:30px; line-height:25px;">Sedang
+                                            diproses</span>
+                                        <span class="badge badge-success mt-3"
+                                            style="display:block; height:30px; line-height:25px;">Lulus</span>
+                                        <span class="badge badge-danger mt-3"
+                                            style="display:block; height:30px; line-height:25px;">Gagal</span>
 
                                         <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal"
                                             data-target="#modalvalidasi">
@@ -309,13 +306,13 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="post"
-                                                            action="/admin/kelola_data/detail_pendaftar/{id}">
+                                                            action="/admin/kelola_data/detail_pendaftar/{{ $pendaftar->user_id }}">
                                                             <div class="mb-3">
                                                                 <label for="nilai-wawancara" class="col-form-label">Nilai
                                                                     Wawancara:</label>
                                                                 <input type="text" class="form-control"
                                                                     id="nilai_wawancara" name="nilai_wawancara"
-                                                                    value="0">
+                                                                    value="">
                                                             </div>
                                                     </div>
                                                     <div class="modal-footer">
