@@ -119,4 +119,7 @@ Route::group(['middleware' => 'user'], function () {
 
     // dashboard user
     Route::get('/{username}', [UserController::class, 'index'])->name('user');
+    Route::get('/{username}/tes_seleksi', [UserController::class, 'formTesSeleksi'])->name('user.tes_seleksi');
+    Route::get('/{username}/edit_profil', [UserController::class, 'editProfil'])->name('user.edit_profil');
+    Route::post('/{username}/edit_profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
 });

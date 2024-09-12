@@ -44,7 +44,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/user/edit_profil">
+                            <a class="dropdown-item d-flex align-items-center" href="/{{ auth()->user()->username }}/edit_profil">
                                 <i class="bi bi-person"></i>
                                 <span>Edit Profil</span>
                             </a>
@@ -54,28 +54,30 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/logout">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Keluar</span>
                             </a>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                    </ul>
+                    <!-- End Profile Dropdown Items -->
+
+                </li>
+                <!-- End Profile Nav -->
 
             </ul>
-        </nav><!-- End Icons Navigation -->
+        </nav>
+        <!-- End Icons Navigation -->
 
     </header>
     <!-- End Header -->
 
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
-
         <ul class="sidebar-nav" id="sidebar-nav">
-
             <li class="nav-item">
-                <a class="nav-link" href="/user">
+                <a class="nav-link" href="{{ route('user', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -83,7 +85,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/user/tes_seleksi">
+                <a class="nav-link collapsed" href="{{ route('user.tes_seleksi', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -91,7 +93,7 @@
             <!-- End Nilai Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/user/edit_profil">
+                <a class="nav-link collapsed" href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-person-fill-gear"></i>
                     <span>Edit Profil</span>
                 </a>
@@ -99,7 +101,7 @@
             <!-- End Edit Profil Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/logout" data-modal="modal" data-target="#logoutModal">
+                <a class="nav-link collapsed" href="{{ route('logout') }}" data-modal="modal" data-target="#logoutModal">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Keluar</span>
                 </a>
@@ -107,7 +109,6 @@
             <!-- End Log Out Page Nav -->
 
         </ul>
-
     </aside>
     <!-- End Sidebar-->
 
@@ -139,24 +140,20 @@
                             untuk mencoba proses simulasi tes keahlian dan psikologi!
                         </p>
                         <form class="user" method="post" action="/auth/login_simulasi">
-
                             <div class="form-group">
                                 <label for="nilai_tes">Username atau Email </label>
                                 <input type="text" name="identifier" class="form-control" id="nilai_tes"
                                     placeholder="Masukkan username atau email">
                             </div>
-
                             <br>
                             <div class="form-group">
                                 <label for="nilai_interview">Password </label>
                                 <input type="password" name="password" class="form-control" id="nilai_interview"
                                     placeholder="Masukkan password">
                             </div>
-
                             <br>
                             <div class="text-right" style="text-align: end;">
                                 <button type="submit" name="simpan" class="btn btn-primary">Masuk</button>
-                                <a href="/user" class="btn btn-danger">Kembali</a>
                             </div>
                         </form>
                     </div>
@@ -176,7 +173,7 @@
                             </div>
 
                             <div class="text-right" style="text-align: end;">
-                                <a href="/user/edit_profil" class="btn btn-warning btn-sm">Edit Profil</a>
+                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}" class="btn btn-warning btn-sm">Edit Profil</a>
                             </div>
 
                             <h5 class="text-center card-title"><b><?= strtoupper($pendaftar->nama) ?></b></h5>
@@ -338,7 +335,5 @@
             </div>
         </div>
     </div>
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 @endsection

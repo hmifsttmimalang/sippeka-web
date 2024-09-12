@@ -46,4 +46,65 @@ class UserController extends Controller
         // Mengirim data user ke view dashboard
         return view('user.dashboard-user', compact('user', 'pendaftar', 'formatted_date'));
     }
+
+    public function formTesSeleksi($username)
+    {
+        // Cari user berdasarkan username
+        $user = User::where('username', $username)->firstOrFail();
+
+        $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
+        
+        return view('user.auth-tes-seleksi', compact('user', 'pendaftar'));
+    }
+    
+    public function editProfil($username) 
+    {
+        // Cari user berdasarkan username
+        $user = User::where('username', $username)->firstOrFail();
+
+        $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
+
+        return view('user.edit-profil', compact('user', 'pendaftar'));
+    }
+
+    public function updateProfil(Request $request, $username)
+    {
+        // Validasi input
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string',
+            'alamat' => 'required|string',
+            'telepon' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'nullable|confirmed|min:8',
+        ]);
+    
+        // Temukan user berdasarkan username
+        $user = User::where('username', $username)->firstOrFail();
+        $pendaftar = Registration::where('user_id', $user->id)->firstOrFail();
+    
+        // Update data user
+        $user->update([
+            'email' => $validatedData['email'],
+            'password' => $request->filled('password') ? bcrypt($validatedData['password']) : $user->password,
+        ]);
+    
+        // Update data pendaftar
+        $pendaftar->update([
+            'nama' => $validatedData['nama'],
+            'tempat_lahir' => $validatedData['tempat_lahir'],
+            'tanggal_lahir' => $validatedData['tanggal_lahir'],
+            'jenis_kelamin' => $validatedData['jenis_kelamin'],
+            'agama' => $validatedData['agama'],
+            'alamat' => $validatedData['alamat'],
+            'telepon' => $validatedData['telepon'],
+        ]);
+    
+        // Redirect ke halaman profil dengan pesan sukses
+        return redirect()->route('user.edit_profil', ['username' => $username])->with('success', 'Profil berhasil diperbarui!');
+    }
+
 }
