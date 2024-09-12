@@ -253,6 +253,7 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai Tes
                                                     Keahlian</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
+                                                    {{ $pendaftar->nilai_keahlian ?? 'Sedang diproses' }}
                                                 </h6>
                                             </li>
                                             <li class="list-group-item">
@@ -260,6 +261,7 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai Tes
                                                     Wawancara</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
+                                                    {{ $pendaftar->nilai_wawancara ?? 'Sedang diproses' }}
                                                 </h6>
                                             </li>
                                             <li class="list-group-item">
@@ -267,24 +269,27 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai
                                                     Rata-Rata</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    <?php
-                                                    // if (is_null($userPendaftar['nilai_keahlian']) || is_null($userPendaftar['nilai_wawancara'])) {
-                                                    //     $rataRata = null;
-                                                    // } else {
-                                                    //     $rataRata = ($userPendaftar['nilai_keahlian'] + $userPendaftar['nilai_wawancara']) / 2;
-                                                    // }
-                                                    ?>
+                                                    @if (is_null($pendaftar->nilai_keahlian) || is_null($pendaftar->nilai_wawancara))
+                                                        {{ $rataRata = null }}
+                                                        Belum terisi
+                                                    @else 
+                                                        {{ $rataRata = ($pendaftar['nilai_keahlian'] + $pendaftar['nilai_wawancara']) / 2 }}
+                                                    @endif
                                                 </h6>
                                             </li>
                                         </ul>
 
+                                        @if (is_null($rataRata))
                                         <span class="badge badge-warning mt-3"
                                             style="display:block; height:30px; line-height:25px;">Sedang
                                             diproses</span>
+                                        @elseif ($rataRata <= 100 && $rataRata >= 70)
                                         <span class="badge badge-success mt-3"
                                             style="display:block; height:30px; line-height:25px;">Lulus</span>
+                                        @else
                                         <span class="badge badge-danger mt-3"
                                             style="display:block; height:30px; line-height:25px;">Gagal</span>
+                                        @endif
 
                                         <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal"
                                             data-target="#modalvalidasi">
