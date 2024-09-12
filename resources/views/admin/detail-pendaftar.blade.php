@@ -243,9 +243,11 @@
                                     <h6 class="m-0 font-weight-bold text-primary"><b>DATA NILAI PESERTA</b></h6>
 
                                     <div class="card-body mt-3">
+                                        @if (is_null($pendaftar->nilai_wawancara))
                                         <div class="alert alert-info">
                                             Data peserta belum divalidasi
                                         </div>
+                                        @endif
                                         <br>
                                         <ul class="list-group">
                                             <li class="list-group-item">
@@ -269,11 +271,11 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai
                                                     Rata-Rata</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    @if (is_null($pendaftar->nilai_keahlian) || is_null($pendaftar->nilai_wawancara))
+                                                    @if (is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara))
                                                         {{ $rataRata = null }}
-                                                        Belum terisi
+                                                        Sedang diproses
                                                     @else 
-                                                        {{ $rataRata = ($pendaftar['nilai_keahlian'] + $pendaftar['nilai_wawancara']) / 2 }}
+                                                        {{ $rataRata = ($pendaftar->nilai_keahlian + $pendaftar->nilai_wawancara) / 2 }}
                                                     @endif
                                                 </h6>
                                             </li>
