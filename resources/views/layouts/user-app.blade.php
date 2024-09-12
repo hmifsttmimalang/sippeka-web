@@ -47,8 +47,6 @@
     <!-- Content -->
     @yield('content')
 
-    
-
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/profile/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/profile/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
