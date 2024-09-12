@@ -2,11 +2,12 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-2.0.0-green.svg)
-![Laravel](https://img.shields.io/badge/Laravel-10.x-red.svg)
 
 ## Deskripsi
 
-Sistem Informasi Pendaftaran Pelatihan Kerja (Sippeka) adalah aplikasi untuk mengelola pendaftaran peserta pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan database MySQL. Autentikasi dalam sistem ini menggunakan mekanisme kostum, tanpa menggunakan library Breeze.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
+untuk melakukan pendaftaran pelatihan kerja bagi peserta yang ingin mengikuti
+pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan menggunakan database MySQL. Otentikasi pengguna dilakukan dengan sistem kustom sendiri dan tidak menggunakan npm JavaScript, mengikuti dokumentasi lama.
 
 ## Daftar Isi
 
@@ -20,24 +21,24 @@ Sistem Informasi Pendaftaran Pelatihan Kerja (Sippeka) adalah aplikasi untuk men
 
 ## Pendahuluan
 
-Aplikasi Sippeka mempermudah proses pendaftaran pelatihan kerja, dengan fitur pengelolaan data peserta, autentikasi admin dan user, serta laporan pendaftaran. Sistem ini telah di-upgrade menggunakan framework Laravel 10 dan database MySQL untuk performa dan skalabilitas yang lebih baik.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
+untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun dengan Laravel 10 dan menggunakan database MySQL. Otentikasi pengguna dilakukan dengan sistem kustom dan tidak menggunakan npm JavaScript.
 
 ## Fitur
 
-- Autentikasi pengguna kostum (Admin dan User)
+- Autentikasi pengguna (Admin dan User) dengan sistem kustom
 - Pendaftaran peserta pelatihan
-- Laporan pendaftaran dalam format PDF dan Excel
-- Manajemen data peserta pelatihan
-- Manajemen keahlian dan soal ujian seleksi
+- Laporan pendaftaran
+- Manajemen data peserta
 
 ## Instalasi
 
 ### Prasyarat
 
-- [Composer](https://getcomposer.org/)
-- PHP 8.1 atau lebih baru
+- [Laravel 10](https://laravel.com/docs/10.x)
 - MySQL 5.7 atau lebih baru
-- [Node.js](https://nodejs.org/) dan npm
+- PHP 8.0 atau lebih baru
+- Composer (untuk mengelola dependensi Laravel)
 
 ### Langkah-langkah Instalasi
 
@@ -49,75 +50,103 @@ Aplikasi Sippeka mempermudah proses pendaftaran pelatihan kerja, dengan fitur pe
 
 2. **Pindahkan Folder Proyek**
 
-    Pindahkan folder proyek ke direktori server development (misalnya `laragon/www` atau folder server lokal Anda).
-
-3. **Buat Database**
-
-    Buat database baru di MySQL dengan nama `sippeka`.
-
-4. **Sesuaikan Konfigurasi Database**
-
-    Edit file `.env` dan sesuaikan konfigurasi database dengan detail MySQL Anda:
+    Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
+    mv sippeka_web path/to/Laragon/www/sippeka_web
+    ```
+
+3. **Instalasi Dependensi**
+
+    Masuk ke direktori proyek dan instal dependensi menggunakan Composer.
+
+    ```bash
+    cd path/to/Laragon/www/sippeka_web
+    composer install
+    ```
+
+4. **Buat Database**
+
+    Buat database baru di phpMyAdmin dengan nama `data_sippeka` (untuk nama database bebas).
+
+5. **Import Database**
+
+    Import file `data_sippeka.sql` yang ada di folder `database` ke dalam database tersebut.
+
+6. **Konfigurasi Environment**
+
+    Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database Anda.
+
+    ```bash
+    cp .env.example .env
+    ```
+
+    Edit file `.env` dan ubah konfigurasi database:
+
+    ```env
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
-    DB_DATABASE=sippeka
+    DB_DATABASE=data_sippeka
     DB_USERNAME=root
     DB_PASSWORD=
     ```
 
-5. **Instal Dependensi**
+7. **Generate Kunci Aplikasi**
 
-    Jalankan perintah berikut untuk menginstal semua dependensi PHP dan JavaScript:
+    Jalankan perintah untuk menghasilkan kunci aplikasi:
 
     ```bash
-    composer install
-    npm install
-    npm run dev
+    php artisan key:generate
     ```
 
-6. **Jalankan Migrasi Database**
+8. **Jalankan Migrasi**
 
-    Jalankan migrasi untuk membuat tabel yang diperlukan:
+    Jalankan migrasi untuk membuat tabel-tabel yang diperlukan di database:
 
     ```bash
     php artisan migrate
     ```
 
-7. **Jalankan Proyek**
+9. **Jalankan Proyek**
 
-    Setelah semua konfigurasi selesai, jalankan server development:
-
-    ```bash
-    php artisan serve
-    ```
-
-    Akses proyek di browser melalui `http://localhost:8000`.
+    Buka browser dan akses `http://localhost/sippeka_web/`.
 
 ## Struktur Direktori
 
 ```plaintext
-sippeka_web/
-├── app/
-├── bootstrap/
-├── config/
-├── database/
-│   ├── factories/
-│   ├── migrations/
-│   └── seeders/
-├── public/
-├── resources/
-│   ├── views/
-│   ├── css/
-│   ├── js/
-├── routes/
-├── storage/
-├── tests/
-├── .env
-├── composer.json
-└── package.json
+    sippeka_web/
+    ├── app/
+    │   ├── Console/
+    │   ├── Exceptions/
+    │   ├── Http/
+    │   ├── Models/
+    │   ├── Providers/
+    │   └── Services/
+    ├── bootstrap/
+    ├── config/
+    ├── database/
+    │   ├── factories/
+    │   ├── migrations/
+    │   └── seeders/
+    ├── public/
+    │   ├── assets/
+    │   ├── css/
+    │   ├── js/
+    │   ├── uploads/
+    │   └── index.php
+    ├── resources/
+    │   ├── lang/
+    │   └── views/
+    ├── routes/
+    ├── storage/
+    ├── tests/
+    ├── .env
+    ├── .gitignore
+    ├── artisan
+    ├── composer.json
+    ├── composer.lock
+    └── phpunit.xml
 ```
 
 ## Penggunaan
