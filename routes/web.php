@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,7 @@ use App\Http\Controllers\RegistrationController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // otentikasi login dan register akun
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
@@ -118,4 +118,5 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/pendaftaran/terdaftar', [RegistrationController::class, 'isRegistered'])->name('pendaftaran.terdaftar');
 
     // dashboard user
+    Route::get('/user/{username}', [UserController::class, 'index'])->name('user.dashboard');
 });
