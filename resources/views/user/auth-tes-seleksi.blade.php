@@ -84,7 +84,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.tes_seleksi', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link" href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -138,7 +138,7 @@
                             masuk ke sesi tes Keahlian!
                         </p>
 
-                        <form class="user" action="/auth/login_seleksi" method="post">
+                        <form class="user" action="{{ route('login_seleksi', ['username' => auth()->user()->username]) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label for="nilai_tes">Username atau Email</label>

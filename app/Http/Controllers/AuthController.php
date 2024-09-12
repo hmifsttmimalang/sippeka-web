@@ -70,6 +70,56 @@ class AuthController extends Controller
         ]);
     }
 
+    public function loginSimulasi(Request $request, $username)
+    {
+        $request->validate([
+            'identifier' => 'required',
+            'password' => 'required',
+        ]);
+
+        // Cek apakah input login adalah email atau username
+        $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        // Coba autentikasi berdasarkan username atau email
+        $credentials = [
+            $loginType => $request->identifier,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('simulasi_peserta', $username);
+        }
+
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
+    public function loginSeleksi(Request $request, $username)
+    {
+        $request->validate([
+            'identifier' => 'required',
+            'password' => 'required',
+        ]);
+
+        // Cek apakah input login adalah email atau username
+        $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        // Coba autentikasi berdasarkan username atau email
+        $credentials = [
+            $loginType => $request->identifier,
+            'password' => $request->password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->route('seleksi_peserta', $username);
+        }
+
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
     public function logout()
     {
         Auth::logout();

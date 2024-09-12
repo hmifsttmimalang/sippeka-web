@@ -44,7 +44,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="/{{ auth()->user()->username }}/edit_profil">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                                 <i class="bi bi-person"></i>
                                 <span>Edit Profil</span>
                             </a>
@@ -85,7 +85,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user.tes_seleksi', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed" href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -137,17 +137,18 @@
                     </div>
                     <div class="card-body">
                         <p class="text-danger mt-3">* Masukkan Username atau Email dan Password
-                            untuk mencoba proses simulasi tes keahlian dan psikologi!
+                            untuk mencoba proses simulasi tes keahlian
                         </p>
-                        <form class="user" method="post" action="/auth/login_simulasi">
+                        <form class="user" method="post" action="{{ route('login_simulasi', ['username' => auth()->user()->username]) }}">
+                            @csrf
                             <div class="form-group">
-                                <label for="nilai_tes">Username atau Email </label>
+                                <label for="identifier">Username atau Email </label>
                                 <input type="text" name="identifier" class="form-control" id="nilai_tes"
                                     placeholder="Masukkan username atau email">
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="nilai_interview">Password </label>
+                                <label for="password">Password </label>
                                 <input type="password" name="password" class="form-control" id="nilai_interview"
                                     placeholder="Masukkan password">
                             </div>
@@ -173,7 +174,7 @@
                             </div>
 
                             <div class="text-right" style="text-align: end;">
-                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}" class="btn btn-warning btn-sm">Edit Profil</a>
+                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()]) }}" class="btn btn-warning btn-sm">Edit Profil</a>
                             </div>
 
                             <h5 class="text-center card-title"><b><?= strtoupper($pendaftar->nama) ?></b></h5>

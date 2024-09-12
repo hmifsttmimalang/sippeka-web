@@ -84,7 +84,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user.tes_seleksi', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed" href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>

@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\SelectionTestController;
+use App\Http\Controllers\SimulationTestController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -116,10 +118,21 @@ Route::group(['middleware' => 'user'], function () {
     Route::post('/pendaftaran', [RegistrationController::class, 'register'])->name('pendaftaran.register');
     Route::get('/pendaftaran/terkirim', [RegistrationController::class, 'registered'])->name('pendaftaran.terkirim');
     Route::get('/pendaftaran/terdaftar', [RegistrationController::class, 'isRegistered'])->name('pendaftaran.terdaftar');
-
+    
     // dashboard user
     Route::get('/{username}', [UserController::class, 'index'])->name('user');
-    Route::get('/{username}/tes_seleksi', [UserController::class, 'formTesSeleksi'])->name('user.tes_seleksi');
+    Route::post('/{username}/login_simulasi', [AuthController::class, 'loginSimulasi'])->name('login_simulasi');
+    Route::get('/{username}/login_seleksi', [UserController::class, 'formTesSeleksi'])->name('user.login_seleksi');
     Route::get('/{username}/edit_profil', [UserController::class, 'editProfil'])->name('user.edit_profil');
     Route::post('/{username}/edit_profil', [UserController::class, 'updateProfil'])->name('user.update_profil');
+    
+    Route::post('/{username}/login_seleksi', [AuthController::class, 'loginSeleksi'])->name('login_seleksi');
+
+    // halaman tes simulasi
+    Route::get('/{username}/simulasi', [SimulationTestController::class, 'index'])->name('simulasi_peserta');
+    
+    // halaman tes seleksi
+    Route::get('/{username}/seleksi', [SelectionTestController::class, 'index'])->name('seleksi_peserta');
+
+
 });
