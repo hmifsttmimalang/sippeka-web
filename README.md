@@ -1,8 +1,9 @@
 # Sistem Informasi Pendaftaran Pelatihan Kerja (Sippeka)
 
+<img src="https://img.shields.io/badge/Laravel-10.x-red.svg" alt="Laravel" />
+
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-2.0.0-green.svg)
-![Laravel](https://img.shields.io/badge/Laravel-10.x-red.svg)
 
 ## Deskripsi
 
@@ -44,7 +45,7 @@ Aplikasi Sippeka mempermudah proses pendaftaran pelatihan kerja, dengan fitur pe
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/ardie069/app_web.git
+    git clone https://github.com/ardie069/sippeka_web.git
     ```
 
 2. **Pindahkan Folder Proyek**
@@ -99,7 +100,7 @@ Aplikasi Sippeka mempermudah proses pendaftaran pelatihan kerja, dengan fitur pe
 ## Struktur Direktori
 
 ```plaintext
-app_web/
+sippeka_web/
 ├── app/
 ├── bootstrap/
 ├── config/
