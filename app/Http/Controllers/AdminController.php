@@ -20,11 +20,39 @@ class AdminController extends Controller
         return view('admin.kelola-data', compact('listPendaftar'));
     }
 
-    public function show($user_id)
+    public function detailPendaftar($user_id)
     {
         $pendaftar = Registration::with('user')->where('user_id', $user_id)->first(); // Mengambil data berdasarkan user_id
 
-        return view('admin.detail-pendaftar', compact('pendaftar'));
+        $tanggal_lahir = $pendaftar->tanggal_lahir;
+
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+
+        // Ekstrak bagian tanggal
+        $hari = date('d', strtotime($tanggal_lahir));
+        $bulan_num = date('m', strtotime($tanggal_lahir));
+        $tahun = date('Y', strtotime($tanggal_lahir));
+
+        // Ambil nama bulan dari array
+        $nama_bulan = $bulan[(int)$bulan_num];
+
+        // Gabungkan format tanggal
+        $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
+
+        return view('admin.detail-pendaftar', compact('pendaftar', 'formatted_date'));
     }
 
     public function peserta()

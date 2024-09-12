@@ -179,19 +179,12 @@
                                         </h5>
 
                                         <ul class="list-group">
-                                            <?php
-                                            // function bulan_indo($month)
-                                            // {
-                                            //     $indonesianMonths = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                                            //     return $indonesianMonths[$month - 1]; // subtract 1 because array indices start at 0
-                                            // }
-                                            ?>
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
                                                     style="color: black; font-weight: bold; text-align: left;">Tempat,
                                                     Tangal Lahir</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    {{ $pendaftar->tempat_lahir }}, {{ $pendaftar->tanggal_lahir }}
+                                                    {{ $pendaftar->tempat_lahir }}, {{ $formatted_date }}
                                                 </h6>
                                             </li>
 

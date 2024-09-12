@@ -35,7 +35,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/kelola_data', [AdminController::class, 'kelolaData'])->name('admin.kelola_data');
     Route::get('/admin/peserta', [AdminController::class, 'peserta'])->name('admin.peserta');
     Route::get('/admin/info_user', [AdminController::class, 'infoUser'])->name('info.user');
-    Route::get('/admin/kelola_data/detail_pendaftar/{user_id}', [AdminController::class, 'show'])->name('admin.detail_pendaftar');
+    Route::get('/admin/kelola_data/detail_pendaftar/{user_id}', [AdminController::class, 'detailPendaftar'])->name('admin.detail_pendaftar');
 
     // mata soal
     Route::get('/admin/mata_soal_keahlian', function () {
