@@ -18,8 +18,8 @@
 
         @if (Route::has('login'))
         @auth
-        <a class="btn-getstarted" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">{{ auth()->user()->username }}</a>
-        <a class="btn-getstarted" href="/logout">Keluar</a>
+        <a class="btn-getstarted" href="{{ route('user', ['username' => auth()->user()->username]) }}">{{ auth()->user()->username }}</a>
+        <a class="btn-getstarted" href="{{ route('logout') }}">Keluar</a>
         @else
         <a class="btn-getstarted" href="{{ route('login') }}">Masuk</a>
         <a class="btn-getstarted" href="{{ route('register') }}">Buat Akun</a>

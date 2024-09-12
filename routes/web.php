@@ -118,5 +118,5 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/pendaftaran/terdaftar', [RegistrationController::class, 'isRegistered'])->name('pendaftaran.terdaftar');
 
     // dashboard user
-    Route::get('/user/{username}', [UserController::class, 'index'])->name('user.dashboard');
+    Route::get('/{username}', [UserController::class, 'index'])->name('user');
 });
