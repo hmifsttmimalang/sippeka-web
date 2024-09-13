@@ -3,7 +3,6 @@
 @section('title', auth()->user()->username . ' | Sippeka User')
 
 @section('content')
-
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -172,13 +171,10 @@
                                     alt="Foto Profil Background Biru" class="img-fluid rounded-circle"
                                     style="width: 200px" alt="menunggu">
                             </div>
-
                             <div class="text-right" style="text-align: end;">
-                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()]) }}" class="btn btn-warning btn-sm">Edit Profil</a>
+                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}" class="btn btn-warning btn-sm">Edit Profil</a>
                             </div>
-
                             <h5 class="text-center card-title"><b><?= strtoupper($pendaftar->nama) ?></b></h5>
-
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Tempat,
@@ -336,5 +332,4 @@
             </div>
         </div>
     </div>
-
 @endsection
