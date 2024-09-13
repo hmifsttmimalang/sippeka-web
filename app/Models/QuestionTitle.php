@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionTitle extends Model
 {
     use HasFactory;
+
+    protected $table = 'question_titles';
+    protected $fillable = ['nama'];
 }
