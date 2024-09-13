@@ -56,23 +56,15 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/kelas_keahlian/hapus_kelas_keahlian/{id}', [AdminController::class, 'destroyKeahlian'])->name('keahlian.destroy');
 
     // tes keahlian
-    Route::get('/admin/tes_keahlian', function () {
-        return view('admin.tes-keahlian.tes-keahlian');
-    })->name('admin.tes_keahlian');
-    Route::get('/admin/tes_keahlian/tambah_tes_keahlian', function () {
-        return view('admin.tes-keahlian.tambah-tes-keahlian');
-    });
-    Route::get('/admin/tes_keahlian/edit_tes_keahlian/{id}', function () {
-        return view('admin.tes-keahlian.edit-tes-keahlian');
-    });
-    Route::get('/admin/tes_keahlian/hapus_tes_keahlian/{id}', function () {
-        return view('');
-    });
+    Route::get('/admin/tes_keahlian', [AdminController::class, 'tesKeahlian'])->name('admin.tes_keahlian');
+    Route::get('/admin/tes_keahlian/tambah_tes_keahlian', [AdminController::class, 'tambahTesKeahlian'])->name('admin.tambah_tes_keahlian');
+    Route::post('/admin/tes_keahlian/tambah_tes_keahlian', [AdminController::class, 'simpanTesKeahlian'])->name('tes_keahlian.store');
+    Route::get('/admin/tes_keahlian/edit_tes_keahlian/{id}', [AdminController::class, 'editTesKeahlian'])->name('admin.edit-tes-keahlian');
+    Route::put('/admin/tes_keahlian/edit_tes_keahlian/{id}', [AdminController::class, 'updateTesKeahlian'])->name('admin.update-tes-keahlian');
+    Route::get('/admin/tes_keahlian/hapus_tes_keahlian/{id}', [AdminController::class, 'hapusTesKeahlian'])->name('admin.hapus-tes-keahlian');
     
     // soal tes
-    Route::get('/admin/tes_keahlian/detail_ujian', function () {
-        return view('admin.tes-keahlian.soal-tes.detail-tes-keahlian');
-    });
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}', [AdminController::class, 'detailUjian'])->name('admin.detail-ujian');
     Route::get('/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian', function () {
         return view('admin.tes-keahlian.soal-tes.tambah-soal-tes-keahlian');
     });

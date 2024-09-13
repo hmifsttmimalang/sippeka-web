@@ -137,7 +137,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -170,8 +171,9 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user" method="post"
-                                            action="/admin/tes_keahlian/tambah_tes_keahlian">
+                                        <form class="user" method="post" action="{{ route('tes_keahlian.store') }}">
+                                            @csrf
+                                            @method('POST')
                                             <div class="form-group">
                                                 <label for="nama_tes">Nama Tes</label>
                                                 <input type="text" name="nama_tes" class="form-control"
@@ -182,14 +184,20 @@
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
-                                                        <option value=""></option>
+                                                        @foreach ($mataSoalList as $listSoal)
+                                                            <option value="{{ $listSoal->id }}">{{ $listSoal->nama }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="keahlian_id">Kelas</label>
-                                                    <select name="keahlian_id" id="kelas" class="form-control">
+                                                    <label for="keahlian">Kelas</label>
+                                                    <select name="keahlian" id="kelas" class="form-control">
                                                         <option value="">Pilih Keahlian</option>
-                                                        <option value=""></option>
+                                                        @foreach ($keahlianList as $keahlian)
+                                                            <option value="{{ $keahlian->id }}">{{ $keahlian->nama }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -219,18 +227,14 @@
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary mt-2">Simpan</button>
-                                            <a href="" class="btn btn-primary mt-2">
-                                                Reset
-                                            </a>
+                                            <a href="" class="btn btn-primary mt-2">Reset</a>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 

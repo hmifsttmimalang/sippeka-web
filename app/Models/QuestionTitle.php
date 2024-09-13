@@ -11,4 +11,9 @@ class QuestionTitle extends Model
 
     protected $table = 'question_titles';
     protected $fillable = ['nama'];
+
+    public function skillTest() 
+    {
+        return $this->hasOne(SkillTest::class);
+    }
 }

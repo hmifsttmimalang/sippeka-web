@@ -173,15 +173,15 @@
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>Nama Tes Keahlian</th>
-                                                <td>Tes - </td>
+                                                <td>Tes - {{ $tesKeahlian->nama_tes }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Mata Tes</th>
-                                                <td></td>
+                                                <th>Mata Soal</th>
+                                                <td>{{ $tesKeahlian->mata_soal_nama }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Keahlian</th>
-                                                <td></td>
+                                                <td>{{ $tesKeahlian->keahlian_nama }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Jumlah Soal</th>
@@ -189,7 +189,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
-                                                <td>90 Menit</td>
+                                                <td>{{ $tesKeahlian->durasi_menit }} Menit</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -227,7 +227,6 @@
                                                         <div>B. </div>
                                                         <div>C. </div>
                                                         <div>D. </div>
-                                                        <div>E. </div>
                                                     </div>
                                                     <hr class="sidebar-divider">
                                                     <div class="ml-3">

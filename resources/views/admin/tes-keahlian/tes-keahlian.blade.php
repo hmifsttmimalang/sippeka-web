@@ -137,7 +137,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -169,67 +170,75 @@
                         </form>
                     </div>
 
-                    <?php if (!empty($tesKeahlianList)) : ?>
-                    <!-- Search Bar -->
-                    <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
-                                aria-label="Search">
-                        </form>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover text-center">
-                                <thead>
-                                    <tr>
-                                        <td>No</td>
-                                        <td>Nama Tes Keahlian</td>
-                                        <td>Mata Keahlian</td>
-                                        <td>Kelas Keahlian</td>
-                                        <td>Aksi</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1;
-                                        foreach ($tesKeahlianList as $item) : ?>
-                                    <tr>
-                                        <td><?= $i++ ?></td>
-                                        <td>Tes - <?= $item['nama_tes'] ?></td>
-                                        <td><?= $item['mata_soal_nama'] ?></td>
-                                        <td><?= $item['keahlian_nama'] ?></td>
-                                        <td>
-                                            <a href="/admin/tes_keahlian/detail_ujian/<?= $item['id'] ?>"
-                                                class="btn btn-secondary btn-sm">Lihat</a>
-                                            <a href="/admin/tes_keahlian/edit_tes_keahlian/<?= $item['id'] ?>"
-                                                class="btn btn-primary btn-sm">Ubah</a>
-                                            <a href="/admin/tes_keahlian/hapus_tes_keahlian/<?= $item['id'] ?>"
-                                                class="btn btn-danger btn-sm">Hapus</a>
-                                        </td>
-                                    </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
                         </div>
-                    </div>
-                    <?php else : ?>
-                    <h3 class="text-center mt-2">Tidak ada tes yang tersedia</h3>
-                    <?php endif; ?>
+                    @endif
 
+                    @if ($tesKeahlian->isNotEmpty())
+                        <!-- Search Bar -->
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
+                                    aria-label="Search">
+                            </form>
+                        </div>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <td>No</td>
+                                            <td>Nama Tes Keahlian</td>
+                                            <td>Mata Keahlian</td>
+                                            <td>Kelas Keahlian</td>
+                                            <td>Aksi</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($tesKeahlian as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>Tes - {{ $item->nama_tes }}</td>
+                                                <td>{{ $item->mata_soal_nama }}</td>
+                                                <td>{{ $item->keahlian_nama }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.detail-ujian', ['id' => $item->id]) }}"
+                                                        class="btn btn-secondary btn-sm">Lihat</a>
+                                                    <a href="{{ route('admin.edit-tes-keahlian', ['id' => $item->id]) }}"
+                                                        class="btn btn-primary btn-sm">Ubah</a>
+                                                    <a href="{{ route('admin.hapus-tes-keahlian', ['id' => $item->id]) }}"
+                                                        class="btn btn-danger btn-sm">Hapus</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    @else
+                        <h3 class="text-center mt-2">Tidak ada tes yang tersedia</h3>
+                    @endif
                 </div>
 
             </div>

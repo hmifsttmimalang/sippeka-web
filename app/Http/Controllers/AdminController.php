@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\Registration;
+use App\Models\SkillTest;
 
 class AdminController extends Controller
 {
@@ -184,5 +185,111 @@ class AdminController extends Controller
         $keahlian->delete();
 
         return redirect()->route('kelas_keahlian.index')->with('success', 'Keahlian berhasil dihapus');
+    }
+
+    // tes keahlian
+    public function tesKeahlian()
+    {
+        $tesKeahlian = SkillTest::latest()
+            ->leftJoin('skills', 'skill_tests.keahlian', '=', 'skills.id')
+            ->leftJoin('question_titles', 'skill_tests.mata_soal', '=', 'question_titles.id')
+            ->select('skill_tests.*', 'skills.nama as keahlian_nama', 'question_titles.nama as mata_soal_nama')
+            ->get();
+
+        return view('admin.tes-keahlian.tes-keahlian', compact('tesKeahlian'));
+    }
+
+    public function tambahTesKeahlian()
+    {
+        $mataSoalList = QuestionTitle::all();
+        $keahlianList = Skill::all();
+
+        return view('admin.tes-keahlian.tambah-tes-keahlian', compact('keahlianList', 'mataSoalList'));
+    }
+
+    public function simpanTesKeahlian(Request $request) 
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'nama_tes' => 'required|string|max:255',
+            'mata_soal' => 'required|exists:question_titles,id',
+            'keahlian' => 'required|exists:skills,id',
+            'acak_soal' => 'required|in:y,t',
+            'acak_jawaban' => 'required|in:y,t',
+            'durasi_menit' => 'required|integer|min:1',
+        ]);
+
+        // Simpan data tes keahlian
+        $tesKeahlian = new SkillTest;
+        $tesKeahlian->nama_tes = $validated['nama_tes'];
+        $tesKeahlian->mata_soal = $validated['mata_soal'];
+        $tesKeahlian->keahlian = $validated['keahlian'];
+        $tesKeahlian->acak_soal = $validated['acak_soal'];
+        $tesKeahlian->acak_jawaban = $validated['acak_jawaban'];
+        $tesKeahlian->durasi_menit = $validated['durasi_menit'];
+        $tesKeahlian->save();
+
+        // Redirect ke halaman yang sesuai dengan pesan sukses
+        return redirect()->route('admin.tes_keahlian')->with('success', 'Tes keahlian berhasil ditambahkan');
+    }
+
+    public function editTesKeahlian($id) 
+    {
+        $tesKeahlian = SkillTest::findOrFail($id);
+        $mataSoalList = QuestionTitle::all();
+        $keahlianList = Skill::all();
+
+        return view('admin.tes-keahlian.edit-tes-keahlian', compact('tesKeahlian', 'mataSoalList', 'keahlianList'));
+    }
+
+    public function updateTesKeahlian(Request $request, $id) 
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'nama_tes' => 'required|string|max:255',
+            'mata_soal' => 'required|exists:question_titles,id',
+            'keahlian' => 'required|exists:skills,id',
+            'acak_soal' => 'required|in:y,t',
+            'acak_jawaban' => 'required|in:y,t',
+            'durasi_menit' => 'required|integer|min:1',
+        ]);
+
+        $tesKeahlian = SkillTest::findOrFail($id);
+        
+        // Ubah data tes keahlian
+        $tesKeahlian->nama_tes = $validated['nama_tes'];
+        $tesKeahlian->mata_soal = $validated['mata_soal'];
+        $tesKeahlian->keahlian = $validated['keahlian'];
+        $tesKeahlian->acak_soal = $validated['acak_soal'];
+        $tesKeahlian->acak_jawaban = $validated['acak_jawaban'];
+        $tesKeahlian->durasi_menit = $validated['durasi_menit'];
+        $tesKeahlian->save();
+
+        // Redirect ke halaman yang sesuai dengan pesan sukses
+        return redirect()->route('admin.tes_keahlian')->with('success', 'Tes keahlian berhasil diubah');
+    }
+    
+    public function hapusTesKeahlian($id) 
+    {
+        $tesKeahlian = SkillTest::findOrFail($id);
+        $tesKeahlian->delete();
+        
+        return redirect()->route('admin.tes_keahlian')->with('success', 'Tes keahlian berhasil dihapus');
+    }
+    
+    // soal tes
+    public function detailUjian($id)
+    {
+        $tesKeahlian = SkillTest::where('skill_tests.id', $id)
+        ->leftJoin('skills', 'skill_tests.keahlian', '=', 'skills.id')
+        ->leftJoin('question_titles', 'skill_tests.mata_soal', '=', 'question_titles.id')
+        ->select('skill_tests.*', 'skills.nama as keahlian_nama', 'question_titles.nama as mata_soal_nama')
+        ->first();
+
+        if (!$tesKeahlian) {
+            return redirect()->route('admin.tes-keahlian')->with('error', 'Tes keahlian tidak ditemukan.');
+        }
+
+        return view('admin.tes-keahlian.soal-tes.detail-tes-keahlian', compact('tesKeahlian'));
     }
 }

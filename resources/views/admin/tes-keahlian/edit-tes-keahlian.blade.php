@@ -137,7 +137,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -171,27 +171,34 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <form class="user" method="post"
-                                            action="/admin/tes_keahlian/edit_tes_keahlian/{id}">
+                                            action="{{ route('admin.update-tes-keahlian', ['id' => $tesKeahlian->id]) }}">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="form-group">
                                                 <label for="nama_tes">Nama Tes</label>
                                                 <input type="text" name="nama_tes" class="form-control"
-                                                    id="nama_tes" value="">
+                                                    id="nama_tes" value="{{ $tesKeahlian->nama_tes }}">
                                             </div>
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
                                                         <option value="">Pilih Mata Keahlian</option>
-                                                        <option value="">
+                                                        @foreach ($mataSoalList as $soalList)
+                                                        <option value="{{ $soalList->id }}" {{ ($soalList->id == $tesKeahlian->mata_soal) ? 'selected' : '' }}>
+                                                            {{ $soalList->nama }}
                                                         </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="keahlian_id">Keahlian</label>
-                                                    <select name="keahlian_id" id="keahlian_id" class="form-control"
+                                                    <label for="keahlian">Keahlian</label>
+                                                    <select name="keahlian" id="keahlian" class="form-control"
                                                         required>
-                                                        <option value="">
-                                                        </option>
+                                                        <option value="">Pilih Keahlian</option>
+                                                        @foreach ($keahlianList as $keahlian)
+                                                        <option value="{{ $keahlian->id }}" {{ ($keahlian->id == $tesKeahlian->keahlian) ? 'selected' : ''}}>{{ $keahlian->nama }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -200,9 +207,9 @@
                                                     <label for="acak_soal">Acak Soal</label>
                                                     <select name="acak_soal" id="acak_soal" class="form-control">
                                                         <option value="">Pilih</option>
-                                                        <option value="y">Y
+                                                        <option value="y" {{ ($tesKeahlian->acak_soal == 'y') ? 'selected' : '' }}>Y
                                                         </option>
-                                                        <option value="t">T
+                                                        <option value="t" {{ ($tesKeahlian->acak_soal == 't') ? 'selected' : '' }}>T
                                                         </option>
                                                     </select>
                                                 </div>
@@ -211,10 +218,10 @@
                                                     <select name="acak_jawaban" id="acak_jawaban" class="form-control">
                                                         <option value="">Pilih</option>
                                                         <option value="y"
-                                                            >Y
+                                                        {{ ($tesKeahlian->acak_jawaban == 'y') ? 'selected' : '' }}>Y
                                                         </option>
                                                         <option value="t"
-                                                            >T
+                                                        {{ ($tesKeahlian->acak_jawaban == 't') ? 'selected' : '' }}>T
                                                         </option>
                                                     </select>
                                                 </div>
@@ -223,7 +230,7 @@
                                                 <div class="col-md-6">
                                                     <label for="durasi_menit">Durasi (Menit)</label>
                                                     <input type="text" name="durasi_menit" class="form-control"
-                                                        id="durasi_menit" value="">
+                                                        id="durasi_menit" value="{{ $tesKeahlian->durasi_menit }}">
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary mt-2">
@@ -238,9 +245,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 
