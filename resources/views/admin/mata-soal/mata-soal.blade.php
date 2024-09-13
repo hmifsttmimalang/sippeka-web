@@ -54,7 +54,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Keahlian</span>
                 </a>
@@ -108,14 +109,17 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -130,12 +134,14 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
                                 <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Keluar
@@ -154,14 +160,15 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Mata Soal Keahlian</h1>
 
-                    <a href="/admin/mata_soal_keahlian/tambah_mata_keahlian" class="btn btn-primary btn-sm">Tambah</a>
+                    <a href="{{ route('admin.tambah-mata-soal-keahlian') }}" class="btn btn-primary btn-sm">Tambah</a>
 
-                    <?php if (!empty($mataSoal)) : ?>
+                    @if ($mataSoal->isNotEmpty())
                         <!-- Search Bar -->
                         <div class="d-flex justify-content-between">
                             <div></div>
                             <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search" aria-label="Search">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
+                                    aria-label="Search">
                             </form>
                         </div>
 
@@ -176,17 +183,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = 1;
-                                        foreach ($mataSoal as $item) : ?>
+                                        @foreach ($mataSoal as $item)
                                             <tr>
-                                                <td><?= $i++; ?></td>
-                                                <td><?= $item['nama'] ?></td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->nama }}</td>
                                                 <td>
-                                                    <a href="/admin/mata_soal_keahlian/edit_mata_soal_keahlian/<?= $item['id'] ?>" class="btn btn-primary btn-sm">Ubah</a>
-                                                    <a href="/admin/mata_soal_keahlian/hapus_mata_soal_keahlian/<?= $item['id'] ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                                    <a href="/admin/mata_soal_keahlian/edit_mata_soal_keahlian/{{ $item->id }}"
+                                                        class="btn btn-primary btn-sm">Ubah</a>
+                                                    <a href="/admin/mata_soal_keahlian/hapus_mata_soal_keahlian/{{ $item->id }}"
+                                                        class="btn btn-danger btn-sm">Hapus</a>
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <nav aria-label="..." class="mr-3">
@@ -202,19 +210,18 @@
                                         </li>
                                     </ul>
                                 </nav>
-                            <?php else : ?>
+                            @else
                                 <h3 class="text-center mt-2">Tidak ada mata soal yang tersedia</h3>
-                            <?php endif; ?>
-                            </div>
-                        </div>
-
+                    @endif
                 </div>
-
             </div>
-            <!-- /.container-fluid -->
-
         </div>
-        <!-- End of Main Content -->
+
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
 
     </div>
     <!-- End of Content Wrapper -->

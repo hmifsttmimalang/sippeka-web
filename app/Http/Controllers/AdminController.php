@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\QuestionTitle;
 use Illuminate\Http\Request;
 use App\Models\Skill;
 use App\Models\User;
@@ -73,6 +74,59 @@ class AdminController extends Controller
         return view('admin.info-user', compact('users'));
     }
 
+    // mata soal
+    public function indexMataSoal()
+    {
+        $mataSoal = QuestionTitle::all();
+        return view('admin.mata-soal.mata-soal', compact('mataSoal'));
+    }
+
+    public function createMataSoal()
+    {
+        return view('admin.mata-soal.tambah-mata-soal');
+    }
+
+    public function storeMataSoal(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255'
+        ]);
+
+        $mataSoal = new QuestionTitle();
+        $mataSoal->nama = $validated['nama'];
+        $mataSoal->save();
+
+        return redirect()->route('admin.mata_soal_keahlian')->with('Success', 'Mata soal berhasil ditambahkan');
+    }
+
+    public function editMataSoal($id)
+    {
+        $mataSoal = QuestionTitle::findOrFail($id);
+        return view('admin.mata-soal.edit-mata-soal', compact('mataSoal'));
+    }
+
+    public function updateMataSoal(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+        ]);
+
+        $mataSoal = QuestionTitle::findOrFail($id);
+        $mataSoal->nama = $validated['nama'];
+        $mataSoal->save();
+
+        return redirect()->route('admin.mata_soal_keahlian')->with('success', 'Mata soal berhasil diperbarui');
+    }
+
+    public function hapusMataSoal($id)
+    {
+        $mataSoal = QuestionTitle::findOrFail($id);
+        $mataSoal->delete();
+
+        return redirect()->route('admin.mata_soal_keahlian')->with('success', 'Mata soal berhasil dihapus');
+    }
+
+    // kelas keahlian
     public function indexKeahlian()
     {
         // Mengambil semua keahlian

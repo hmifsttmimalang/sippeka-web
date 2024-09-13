@@ -137,7 +137,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -170,8 +170,10 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Mata Soal Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user" action="/admin/mata_soal_keahlian/tambah_mata_keahlian"
+                                        <form class="user" action="{{ route('admin.tambah-mata-soal-keahlian') }}"
                                             method="post">
+                                            @csrf
+                                            @method('POST')
                                             <div class="form-group">
                                                 <label for="nama">Nama Keahlian</label>
                                                 <input type="text" name="nama" class="form-control" id="nama"

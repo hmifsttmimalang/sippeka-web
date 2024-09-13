@@ -176,11 +176,13 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <form class="user" method="post"
-                                            action="/admin/mata_soal_keahlian/edit_keahlian/{id}">
+                                            action="{{ route('admin.update-mata-soal', ['id' => $mataSoal->id]) }}">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="form-group">
                                                 <label for="nama">Nama Mata Keahlian</label>
                                                 <input type="text" name="nama" class="form-control" id="nama"
-                                                    value="">
+                                                    value="{{ $mataSoal->nama }}">
                                             </div>
                                             <button type="submit" class="btn btn-primary">
                                                 Simpan
@@ -194,9 +196,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <!-- /.container-fluid -->
 

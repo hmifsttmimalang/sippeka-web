@@ -40,18 +40,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/kelola_data/detail_pendaftar/{user_id}', [AdminController::class, 'detailPendaftar'])->name('admin.detail_pendaftar');
 
     // mata soal
-    Route::get('/admin/mata_soal_keahlian', function () {
-        return view('admin.mata-soal.mata-soal');
-    })->name('admin.mata_soal_keahlian');
-    Route::get('/admin/mata_soal_keahlian/tambah_mata_keahlian', function () {
-        return view('admin.mata-soal.tambah-mata-soal');
-    });
-    Route::get('/admin/mata_soal_keahlian/edit_mata_soal_keahlian/{id}', function () {
-        return view('admin.mata-soal.edit-mata-soal');
-    });
-    Route::get('/admin/mata_soal_keahlian/hapus_mata_soal_keahlian/{id}', function () {
-        return view('');
-    });
+    Route::get('/admin/mata_soal_keahlian', [AdminController::class, 'indexMataSoal'])->name('admin.mata_soal_keahlian');
+    Route::get('/admin/mata_soal_keahlian/tambah_mata_keahlian', [AdminController::class, 'createMataSoal'])->name('admin.tambah-mata-soal-keahlian');
+    Route::post('/admin/mata_soal_keahlian/tambah_mata_keahlian', [AdminController::class, 'storeMataSoal'])->name('admin.tambah-mata-soal-keahlian');
+    Route::get('/admin/mata_soal_keahlian/edit_mata_soal_keahlian/{id}', [AdminController::class, 'editMataSoal'])->name('admin.edit-mata-soal');
+    Route::put('/admin/mata_soal_keahlian/edit_mata_soal_keahlian/{id}', [AdminController::class, 'updateMataSoal'])->name('admin.update-mata-soal');
+    Route::get('/admin/mata_soal_keahlian/hapus_mata_soal_keahlian/{id}', [AdminController::class, 'hapusMataSoal']);
 
     // keahlian
     Route::get('/admin/kelas_keahlian', [AdminController::class, 'indexKeahlian'])->name('kelas_keahlian.index');
