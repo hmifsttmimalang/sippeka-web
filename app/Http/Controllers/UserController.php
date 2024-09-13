@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Registration;
 use App\Models\User;
 
@@ -14,6 +16,10 @@ class UserController extends Controller
         $user = User::where('username', $username)->firstOrFail();
 
         $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
+
+        if (!$pendaftar) {
+            return redirect()->route('pendaftaran.form_registrasi')->with('warning', 'Anda belum terdaftar. Silakan daftar terlebih dahulu');
+        }
 
         $tanggal_lahir = $pendaftar->tanggal_lahir;
 
@@ -53,11 +59,11 @@ class UserController extends Controller
         $user = User::where('username', $username)->firstOrFail();
 
         $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
-        
+
         return view('user.auth-tes-seleksi', compact('user', 'pendaftar'));
     }
-    
-    public function editProfil($username) 
+
+    public function editProfil($username)
     {
         // Cari user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
@@ -81,17 +87,17 @@ class UserController extends Controller
             'email' => 'required|email',
             'password' => 'nullable|confirmed|min:8',
         ]);
-    
-        // Temukan user berdasarkan username
+
+        // Temukan user dan pendaftar berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
         $pendaftar = Registration::where('user_id', $user->id)->firstOrFail();
-    
+
         // Update data user
         $user->update([
             'email' => $validatedData['email'],
             'password' => $request->filled('password') ? bcrypt($validatedData['password']) : $user->password,
         ]);
-    
+
         // Update data pendaftar
         $pendaftar->update([
             'nama' => $validatedData['nama'],
@@ -102,9 +108,54 @@ class UserController extends Controller
             'alamat' => $validatedData['alamat'],
             'telepon' => $validatedData['telepon'],
         ]);
-    
-        // Redirect ke halaman profil dengan pesan sukses
-        return redirect()->route('user.edit_profil', ['username' => $username])->with('success', 'Profil berhasil diperbarui!');
-    }
 
+        // Buat folder berdasarkan username
+        $folderPath = 'uploads/' . $username;
+
+        // Ambil data nama, tempat lahir, dan tanggal lahir untuk penamaan file
+        $nama = str_replace(' ', '_', $pendaftar->nama); // Ubah spasi menjadi underscore
+        $tempatLahir = str_replace(' ', '_', $pendaftar->tempat_lahir); // Ubah spasi menjadi underscore
+        $tanggalLahir = date('d-m-Y', strtotime($pendaftar->tanggal_lahir)); // Format tanggal
+
+        // Helper function untuk menangani file
+        function updateFile($file, $folderPath, $nama, $tempatLahir, $tanggalLahir, $existingPath = null)
+        {
+            $newFileName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_" . basename($file->getClientOriginalName());
+
+            // Simpan file dengan nama yang baru
+            $filePath = $file->storeAs($folderPath, $newFileName, 'public');
+
+            // Log path file yang disimpan
+            Log::info("File disimpan di path: " . $filePath);
+
+            // Hapus file lama jika ada
+            if ($existingPath && Storage::disk('public')->exists($existingPath)) {
+                Storage::disk('public')->delete($existingPath);
+                // Log penghapusan file
+                Log::info("File lama dihapus: " . $existingPath);
+            }
+
+            return $filePath;
+        }
+
+        // Update file jika ada
+        if ($request->hasFile('foto_ktp')) {
+            $pendaftar->foto_ktp = updateFile($request->file('foto_ktp'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_ktp);
+        }
+        if ($request->hasFile('foto_ijazah')) {
+            $pendaftar->foto_ijazah = updateFile($request->file('foto_ijazah'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_ijazah);
+        }
+        if ($request->hasFile('foto_bg_biru')) {
+            $pendaftar->foto_bg_biru = updateFile($request->file('foto_bg_biru'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_bg_biru);
+        }
+        if ($request->hasFile('foto_kk')) {
+            $pendaftar->foto_kk = updateFile($request->file('foto_kk'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_kk);
+        }
+
+        // Simpan perubahan
+        $pendaftar->save();
+
+        // Redirect ke halaman profil dengan pesan sukses
+        return redirect()->route('user', ['username' => $username])->with('success', 'Profil berhasil diperbarui!');
+    }
 }

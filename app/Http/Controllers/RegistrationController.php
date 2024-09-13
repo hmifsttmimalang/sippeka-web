@@ -58,18 +58,32 @@ class RegistrationController extends Controller
         // Buat folder dengan nama username di dalam folder uploads
         $folderPath = 'uploads/' . $username;
 
+        $nama = str_replace(' ', '_', $request->nama);
+        $tempatLahir = str_replace(' ', '_', $request->tempat_lahir);
+        $tanggalLahir = date('d-m-Y', strtotime($request->tanggal_lahir));
+
         // Simpan file yang diunggah ke folder tersebut
         if ($request->hasFile('foto_ktp')) {
-            $fotoKtpPath = $request->file('foto_ktp')->store($folderPath . '/ktp', 'public');
+            $fotoKtpName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_ktp." . $request->file('foto_ktp')->getClientOriginalExtension();
+            $fotoKtpPath = $request->file('foto_ktp')->storeAs($folderPath, $fotoKtpName, 'public');
         }
+
+        // Simpan file Ijazah
         if ($request->hasFile('foto_ijazah')) {
-            $fotoIjazahPath = $request->file('foto_ijazah')->store($folderPath . '/ijazah', 'public');
+            $fotoIjazahName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_ijazah." . $request->file('foto_ijazah')->getClientOriginalExtension();
+            $fotoIjazahPath = $request->file('foto_ijazah')->storeAs($folderPath, $fotoIjazahName, 'public');
         }
+
+        // Simpan file Foto Background Biru
         if ($request->hasFile('foto_bg_biru')) {
-            $fotoBgBiruPath = $request->file('foto_bg_biru')->store($folderPath . '/bg_biru', 'public');
+            $fotoBgBiruName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_bg_biru." . $request->file('foto_bg_biru')->getClientOriginalExtension();
+            $fotoBgBiruPath = $request->file('foto_bg_biru')->storeAs($folderPath, $fotoBgBiruName, 'public');
         }
+
+        // Simpan file Kartu Keluarga
         if ($request->hasFile('foto_kk')) {
-            $fotoKkPath = $request->file('foto_kk')->store($folderPath . '/kk', 'public');
+            $fotoKkName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_kk." . $request->file('foto_kk')->getClientOriginalExtension();
+            $fotoKkPath = $request->file('foto_kk')->storeAs($folderPath, $fotoKkName, 'public');
         }
 
         // Ambil user_id dari session atau authentication
@@ -99,7 +113,7 @@ class RegistrationController extends Controller
     {
         return view('pendaftaran.terkirim');
     }
-    
+
     public function isRegistered()
     {
         return view('pendaftaran.terdaftar');
