@@ -175,7 +175,7 @@
                                             @csrf
                                             @method('POST')
                                             <div class="form-group">
-                                                <label for="nama">Nama Keahlian</label>
+                                                <label for="nama">Nama Mata Soal</label>
                                                 <input type="text" name="nama" class="form-control" id="nama"
                                                     placeholder="Masukkan Nama Mata Soal Keahlian">
                                             </div>
