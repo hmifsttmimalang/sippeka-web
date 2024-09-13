@@ -129,10 +129,10 @@ Route::group(['middleware' => 'user'], function () {
     Route::post('/{username}/login_seleksi', [AuthController::class, 'loginSeleksi'])->name('login_seleksi');
 
     // halaman tes simulasi
-    Route::get('/{username}/simulasi', [SimulationTestController::class, 'index'])->name('simulasi_peserta');
+    Route::get('/{username}/simulasi', [SimulationTestController::class, 'index'])->middleware('cekPendaftaran')->name('simulasi_peserta');
     
     // halaman tes seleksi
-    Route::get('/{username}/seleksi', [SelectionTestController::class, 'index'])->name('seleksi_peserta');
+    Route::get('/{username}/seleksi', [SelectionTestController::class, 'index'])->middleware('cekPendaftaran')->name('seleksi_peserta');
 
 
 });
