@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    protected $table = 'questions';
+    protected $fillable = [
+        'skill_tests_id',
+        'soal',
+        'pilihan_a',
+        'pilihan_b',
+        'pilihan_c',
+        'pilihan_d',
+        'jawaban_benar'
+    ];
+
+    public function skillTests() 
+    {
+        return $this->belongsTo(SkillTest::class);
+    }
 }

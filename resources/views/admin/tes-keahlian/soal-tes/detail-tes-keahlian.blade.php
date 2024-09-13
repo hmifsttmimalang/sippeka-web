@@ -137,7 +137,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -185,7 +186,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Jumlah Soal</th>
-                                                <td>0</td>
+                                                <td>{{ $jumlahSoal }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
@@ -199,48 +200,59 @@
                     </div>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
+                        <!-- Nested Row within Card Body -->
                         <div class="card-body p-0">
-                            <!-- Nested Row within Card Body -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="p-5">
+                                        @if (session('success'))
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
                                         <div class="">
                                             <h1 class="h4 text-gray-900 mb-4">Soal Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <a href="/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian"
+                                        <a href="{{ route('tambah-soal', ['id' => $tesKeahlian->id]) }}"
                                             class="btn btn-primary mb-3">Tambah</a>
-                                        <a href="/admin/tes_keahlian/detail_ujian/{id}/import_soal_tes_keahlian"
+                                        <a href="{{ route('import-soal', ['id' => $tesKeahlian->id]) }}"
                                             class="btn btn-primary mb-3">Import</a>
-                                        <table class="table table-bordered table-hover right-align">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Soal Tes Keahlian</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Soal
-                                                    <hr class="sidebar-divider">
-                                                    <div class="ml-3">
-                                                        <div>A. </div>
-                                                        <div>B. </div>
-                                                        <div>C. </div>
-                                                        <div>D. </div>
-                                                    </div>
-                                                    <hr class="sidebar-divider">
-                                                    <div class="ml-3">
-                                                        <p>Jawaban yang benar: A</p>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian/{id}"
-                                                        class="btn btn-primary btn-sm">Ubah</a>
-                                                    <a href="/admin/tes_keahlian/detail_ujian/hapus_soal_tes_keahlian/{id}"
-                                                        class="btn btn-danger btn-sm">Hapus</a>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                        @if ($soal->isNotEmpty())
+                                            <table class="table table-bordered table-hover right-align">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Soal Tes Keahlian</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                                @foreach ($soal as $item)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ strip_tags($item->soal) }}
+                                                            <hr class="sidebar-divider">
+                                                            <div class="ml-3">
+                                                                <div>A. {{ strip_tags($item->pilihan_a) }}</div>
+                                                                <div>B. {{ strip_tags($item->pilihan_b) }}</div>
+                                                                <div>C. {{ strip_tags($item->pilihan_c) }}</div>
+                                                                <div>D. {{ strip_tags($item->pilihan_d) }}</div>
+                                                            </div>
+                                                            <hr class="sidebar-divider">
+                                                            <div class="ml-3">
+                                                                <p>Jawaban yang benar: {{ $item->jawaban_benar }}</p>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ route('edit-soal', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
+                                                                class="btn btn-primary btn-sm">Ubah</a>
+                                                            <a href="{{ route('hapus-soal', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
+                                                                class="btn btn-danger btn-sm">Hapus</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </table>
+                                        @else
+                                            <h4 class="text-center mt-3">Tidak ada soal yang tersedia</h4>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

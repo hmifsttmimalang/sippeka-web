@@ -158,7 +158,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Button Kembali -->
-                    <a href="/admin/tes_keahlian/detail_ujian"
+                    <a href="{{ route('admin.detail-ujian', ['id' => $tesKeahlian->id]) }}"
                         class="btn btn-primary btn-sm">Kembali</a>
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
@@ -170,10 +170,11 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Soal Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <table class="table table-bordered table-hover right-align">
-                                            <form
-                                                action="/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian"
-                                                method="post">
+                                        <form action="{{ route('simpan-soal', ['id' => $tesKeahlian->id]) }}"
+                                            method="post">
+                                            <table class="table table-bordered table-hover right-align">
+                                                @csrf
+                                                @method('POST')
                                                 <tr>
                                                     <td>
                                                         <label for="soal">
@@ -230,17 +231,6 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>
-                                                        <label for="pilihan_e">
-                                                            <b>Pilihan E.</b>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div id="editor5"></div>
-                                                        <input type="hidden" name="pilihan_e" id="pilihan_e_hidden" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
                                                     <td for="jawaban_benar"><b>Jawaban Benar</b></td>
                                                     <td>
                                                         <select name="jawaban_benar" id="jawaban_benar"
@@ -250,17 +240,16 @@
                                                             <option value="B">B</option>
                                                             <option value="C">C</option>
                                                             <option value="D">D</option>
-                                                            <option value="E">E</option>
                                                         </select>
                                                     </td>
                                                 </tr>
-                                        </table>
-                                        <button type="submit" class="btn btn-primary">
-                                            Simpan
-                                        </button>
-                                        <a href="" class="btn btn-primary">
-                                            Reset
-                                        </a>
+                                            </table>
+                                            <button type="submit" class="btn btn-primary">
+                                                Simpan
+                                            </button>
+                                            <a href="" class="btn btn-primary">
+                                                Reset
+                                            </a>
                                         </form>
                                     </div>
                                 </div>
@@ -284,7 +273,7 @@
         const quill = new Quill('#editor', {
             theme: 'snow'
         });
-    
+
         const quill1 = new Quill('#editor1', {
             theme: 'snow'
         });
@@ -297,38 +286,30 @@
         const quill4 = new Quill('#editor4', {
             theme: 'snow'
         });
-        const quill5 = new Quill('#editor5', {
-            theme: 'snow'
-        });
-    
+
         quill.on('text-change', function() {
             const html = quill.root.innerHTML;
             document.getElementById('soal_hidden').value = html;
         });
-    
+
         quill1.on('text-change', function() {
             const html = quill1.root.innerHTML;
             document.getElementById('pilihan_a_hidden').value = html;
         });
-    
+
         quill2.on('text-change', function() {
             const html = quill2.root.innerHTML;
             document.getElementById('pilihan_b_hidden').value = html;
         });
-    
+
         quill3.on('text-change', function() {
             const html = quill3.root.innerHTML;
             document.getElementById('pilihan_c_hidden').value = html;
         });
-    
+
         quill4.on('text-change', function() {
             const html = quill4.root.innerHTML;
             document.getElementById('pilihan_d_hidden').value = html;
-        });
-    
-        quill5.on('text-change', function() {
-            const html = quill5.root.innerHTML;
-            document.getElementById('pilihan_e_hidden').value = html;
         });
     </script>
 @endsection

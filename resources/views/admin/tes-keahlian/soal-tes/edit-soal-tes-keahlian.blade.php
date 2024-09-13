@@ -156,7 +156,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Button Kembali -->
-                    <a href="/admin/tes_keahlian/detail_ujian"
+                    <a href="{{ route('admin.detail-ujian', ['id' => $tesKeahlian->id]) }}"
                         class="btn btn-primary btn-sm">Kembali</a>
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
@@ -168,10 +168,12 @@
                                             <h1 class="h4 text-gray-900 mb-4">Edit Soal Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <table class="table table-bordered table-hover right-align">
-                                            <form
-                                                action="/admin/tes_keahlian/detail_ujian/{id}/edit_soal_tes_keahlian/{id}"
-                                                method="post">
+                                        <form
+                                            action="{{ route('update-soal', ['id' => $soal->skill_test_id, 'soal_id' => $soal->id]) }}"
+                                            method="post">
+                                            <table class="table table-bordered table-hover right-align">
+                                                @csrf
+                                                @method('PUT')
                                                 <tr>
                                                     <td>
                                                         <label for="soal">
@@ -179,7 +181,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor"></div>
+                                                        <div id="editor">{{!! $soal->soal !!}}</div>
                                                         <input type="hidden" name="soal" id="soal_hidden" />
                                                     </td>
                                                 </tr>
@@ -190,7 +192,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor1"></div>
+                                                        <div id="editor1">{{!! $soal->pilihan_a !!}}</div>
                                                         <input type="hidden" name="pilihan_a" id="pilihan_a_hidden" />
                                                     </td>
                                                 </tr>
@@ -201,7 +203,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor2"></div>
+                                                        <div id="editor2">{{!! $soal->pilihan_b !!}}</div>
                                                         <input type="hidden" name="pilihan_b" id="pilihan_b_hidden" />
                                                     </td>
                                                 </tr>
@@ -212,7 +214,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor3"></div>
+                                                        <div id="editor3">{{!! $soal->pilihan_c !!}}</div>
                                                         <input type="hidden" name="pilihan_c" id="pilihan_c_hidden" />
                                                     </td>
                                                 </tr>
@@ -223,19 +225,8 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor4"></div>
+                                                        <div id="editor4">{{!! $soal->pilihan_d !!}}</div>
                                                         <input type="hidden" name="pilihan_d" id="pilihan_d_hidden" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label for="pilihan_e">
-                                                            <b>Pilihan E.</b>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div id="editor5"></div>
-                                                        <input type="hidden" name="pilihan_e" id="pilihan_e_hidden" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -244,31 +235,28 @@
                                                         <select name="jawaban_benar" id="jawaban_benar"
                                                             class="form-control">
                                                             <option value="">Pilih Jawaban</option>
-                                                            <option value=""
-                                                                >A
+                                                            <option value="{{ $soal->jawaban_benar }}"
+                                                                {{ $soal->jawaban_benar == 'A' ? 'selected' : '' }}>A
                                                             </option>
-                                                            <option value=""
-                                                               >B
+                                                            <option value="{{ $soal->jawaban_benar }}"
+                                                                {{ $soal->jawaban_benar == 'B' ? 'selected' : '' }}>B
                                                             </option>
-                                                            <option value=""
-                                                                >C
+                                                            <option value="{{ $soal->jawaban_benar }}"
+                                                                {{ $soal->jawaban_benar == 'C' ? 'selected' : '' }}>C
                                                             </option>
-                                                            <option value=""
-                                                               >D
-                                                            </option>
-                                                            <option value=""
-                                                                >E
+                                                            <option value="{{ $soal->jawaban_benar }}"
+                                                                {{ $soal->jawaban_benar == 'D' ? 'selected' : '' }}>D
                                                             </option>
                                                         </select>
                                                     </td>
                                                 </tr>
-                                        </table>
-                                        <button type="submit" class="btn btn-primary">
-                                            Simpan
-                                        </button>
-                                        <a href="" class="btn btn-primary">
-                                            Reset
-                                        </a>
+                                            </table>
+                                            <button type="submit" class="btn btn-primary">
+                                                Simpan
+                                            </button>
+                                            <button type="reset" class="btn btn-secondary">
+                                                Reset
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -288,10 +276,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <script>
+        // Inisialisasi Quill untuk setiap editor
         const quill = new Quill('#editor', {
             theme: 'snow'
         });
-
         const quill1 = new Quill('#editor1', {
             theme: 'snow'
         });
@@ -304,44 +292,33 @@
         const quill4 = new Quill('#editor4', {
             theme: 'snow'
         });
-        const quill5 = new Quill('#editor5', {
-            theme: 'snow'
-        });
 
-        quill.setContents(JSON.parse());
+        // Set konten awal editor dari server
+        quill.root.innerHTML = `{!! $soal->soal !!}`;
+        quill1.root.innerHTML = `{!! $soal->pilihan_a !!}`;
+        quill2.root.innerHTML = `{!! $soal->pilihan_b !!}`;
+        quill3.root.innerHTML = `{!! $soal->pilihan_c !!}`;
+        quill4.root.innerHTML = `{!! $soal->pilihan_d !!}`;
+
+        // Simpan konten dari editor ke input hidden pada setiap perubahan
         quill.on('text-change', function() {
-            const html = quill.root.innerHTML;
-            document.getElementById('soal_hidden').value = html;
+            document.getElementById('soal_hidden').value = quill.root.innerHTML;
         });
 
-        quill1.setContents(JSON.parse());
         quill1.on('text-change', function() {
-            const html = quill1.root.innerHTML;
-            document.getElementById('pilihan_a_hidden').value = html;
+            document.getElementById('pilihan_a_hidden').value = quill1.root.innerHTML;
         });
 
-        quill2.setContents(JSON.parse());
         quill2.on('text-change', function() {
-            const html = quill2.root.innerHTML;
-            document.getElementById('pilihan_b_hidden').value = html;
+            document.getElementById('pilihan_b_hidden').value = quill2.root.innerHTML;
         });
 
-        quill3.setContents(JSON.parse());
         quill3.on('text-change', function() {
-            const html = quill3.root.innerHTML;
-            document.getElementById('pilihan_c_hidden').value = html;
+            document.getElementById('pilihan_c_hidden').value = quill3.root.innerHTML;
         });
 
-        quill4.setContents(JSON.parse());
         quill4.on('text-change', function() {
-            const html = quill4.root.innerHTML;
-            document.getElementById('pilihan_d_hidden').value = html;
-        });
-
-        quill5.setContents(JSON.parse());
-        quill5.on('text-change', function() {
-            const html = quill5.root.innerHTML;
-            document.getElementById('pilihan_e_hidden').value = html;
+            document.getElementById('pilihan_d_hidden').value = quill4.root.innerHTML;
         });
     </script>
 @endsection

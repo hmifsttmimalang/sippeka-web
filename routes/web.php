@@ -31,9 +31,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // halaman admin
 Route::group(['middleware' => 'admin'], function () {
+
+    // fitur belum diupdate
     Route::get('/admin', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+
     Route::get('/admin/kelola_data', [AdminController::class, 'kelolaData'])->name('admin.kelola_data');
     Route::get('/admin/peserta', [AdminController::class, 'peserta'])->name('admin.peserta');
     Route::get('/admin/info_user', [AdminController::class, 'infoUser'])->name('info.user');
@@ -65,18 +69,12 @@ Route::group(['middleware' => 'admin'], function () {
     
     // soal tes
     Route::get('/admin/tes_keahlian/detail_ujian/{id}', [AdminController::class, 'detailUjian'])->name('admin.detail-ujian');
-    Route::get('/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian', function () {
-        return view('admin.tes-keahlian.soal-tes.tambah-soal-tes-keahlian');
-    });
-    Route::get('/admin/tes_keahlian/detail_ujian/{id}/import_soal_tes_keahlian', function () {
-        return view('admin.tes-keahlian.soal-tes.import-soal-tes-keahlian');
-    });
-    Route::get('/admin/tes_keahlian/detail_ujian/edit_soal_tes_keahlian/{id}', function () {
-        return view('admin.tes-keahlian.soal-tes.edit-soal-tes-keahlian');
-    });
-    Route::get('/admin/tes_keahlian/detail_ujian/hapus_soal_tes_keahlian/{id}', function () {
-        return view('');
-    });
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian', [AdminController::class, 'tambahSoalTesKeahlian'])->name('tambah-soal');
+    Route::post('/admin/tes_keahlian/detail_ujian/{id}/tambah_soal_tes_keahlian', [AdminController::class, 'simpanSoalTesKeahlian'])->name('simpan-soal');
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}/import_soal_tes_keahlian', [AdminController::class, 'importSoalTesKeahlian'])->name('import-soal');
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}/edit_soal_tes_keahlian/{soal_id}', [AdminController::class, 'editSoalTesKeahlian'])->name('edit-soal');
+    Route::put('/admin/tes_keahlian/detail_ujian/{id}/edit_soal_tes_keahlian/{soal_id}', [AdminController::class, 'updateSoalTesKeahlian'])->name('update-soal');
+    Route::get('/admin/tes_keahlian/detail_ujian/{id}/hapus_soal_tes_keahlian/{soal_id}', [AdminController::class, 'hapusSoalTesKeahlian'])->name('hapus-soal');
 
     // sesi tes
     Route::get('/admin/sesi_tes_keahlian', function () {
