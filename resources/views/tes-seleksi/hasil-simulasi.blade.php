@@ -20,7 +20,7 @@
         </center>
         <hr>
         <strong>
-            <p class="text-center">Riwayat Soal yang dikerjakan</p>
+            <p class="text-center">Riwayat soal yang dikerjakan</p>
         </strong>
         <ol>
             @foreach ($questions as $question)
