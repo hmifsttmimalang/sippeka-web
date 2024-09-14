@@ -114,6 +114,9 @@ Route::group(['middleware' => 'user'], function () {
 
     // halaman tes simulasi
     Route::get('/{username}/simulasi', [SimulationTestController::class, 'index'])->middleware('cekPendaftaran')->name('simulasi_peserta');
+    Route::post('/{username}/simulasi', [SimulationTestController::class, 'kirimJawabanSimulasi'])->middleware('cekPendaftaran')->name('kirim_jawaban_simulasi');
+    Route::get('/{username}/hasil_simulasi', [SimulationTestController::class, 'hasilSimulasi'])->middleware('cekPendaftaran')->name('hasil_simulasi');
+    Route::get('/{username}/waktu_simulasi_habis', [SimulationTestController::class, 'index'])->middleware('cekPendaftaran')->name('hasil_simulasi');
     
     // halaman tes seleksi
     Route::get('/{username}/seleksi', [SelectionTestController::class, 'index'])->middleware('cekPendaftaran')->name('seleksi_peserta');
