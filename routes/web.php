@@ -23,15 +23,15 @@ use App\Http\Controllers\UserController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Otentikasi login dan register akun
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('auth.register');
+Route::post('/register', [AuthController::class, 'register'])->name('auth.register.store');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'login'])->name('auth.login.store');
+Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
 
 // Halaman admin
 Route::group(['middleware' => 'admin'], function () {
-
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/kelola-data', [AdminController::class, 'kelolaData'])->name('admin.kelola_data');
     Route::get('/admin/peserta', [AdminController::class, 'peserta'])->name('admin.peserta');
@@ -85,7 +85,6 @@ Route::group(['middleware' => 'admin'], function () {
 
 // Halaman user
 Route::group(['middleware' => 'user'], function () {
-
     // Pendaftaran
     Route::get('/pendaftaran', [RegistrationController::class, 'index'])->name('pendaftaran.form');
     Route::post('/pendaftaran', [RegistrationController::class, 'register'])->name('pendaftaran.store');
