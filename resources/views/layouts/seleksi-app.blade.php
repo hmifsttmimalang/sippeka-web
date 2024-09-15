@@ -7,54 +7,18 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
-
-    <style>
-        body {
-            background-color: #F9F9FF;
-            color: #444444;
-        }
-
-        .question-container {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .option-btn {
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        .option-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .timer {
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-        }
-
-        .timer i {
-            margin-right: 8px;
-        }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .question-nav button {
-            margin-right: 5px;
-            margin-bottom: 10px;
-        }
-    </style>
+        @vite('resources/css/seleksi.css')
 </head>
 <body>
     @yield('content')
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Mendeklarasikan variabel global untuk digunakan di file JS
+        window.questionIds = @json($questions->pluck('id')->toArray());
+        window.username = '{{ auth()->user()->username }}'; // Mengambil username dari Laravel
+        window.csrfToken = '{{ csrf_token() }}'; // Token CSRF untuk keamanan
+    </script>
+    @vite('resources/js/seleksi.js')
 </body>
 </html>
