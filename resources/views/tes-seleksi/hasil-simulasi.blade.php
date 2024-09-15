@@ -48,7 +48,7 @@
                         $correctAnswerText = $question['jawaban_benar'] . '. ' . $choices[$question['jawaban_benar']];
                     @endphp
                     <li class="pertanyaan">
-                        <p class="tanya">{{ strip_tags($question['soal']) }}</p>
+                        <p class="tanya">{!! $question['soal'] !!}</p>
                         <p class="jawab">Jawaban Benar: <span class="benar">{{ $correctAnswerText }}</span></p>
                         <p class="jawab">Jawaban Anda:
                             <span class="{{ $isCorrect ? 'benar' : 'salah' }}">
