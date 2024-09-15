@@ -138,7 +138,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -170,13 +171,14 @@
                                                 Pendaftar Masuk
                                             </div>
                                             <div class="h5 mt-3 font-weight-bold">
-                                                0 Orang
+                                                {{ $totalPendaftar }} Orang
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 100%" aria-valuenow="50" aria-valuemin="0"
+                                                            style="width: {{ $progressPendaftar }}%"
+                                                            aria-valuenow="{{ $progressPendaftar }}" aria-valuemin="0"
                                                             aria-valuemax="100">
                                                         </div>
                                                     </div>
@@ -200,13 +202,17 @@
                                             <div class="h3 font-weight-bold text-success text-uppercase mb-1">
                                                 Lolos Seleksi
                                             </div>
-                                            <div class="h5 mt-3 font-weight-bold">0 Orang</div>
+                                            <div class="h5 mt-3 font-weight-bold">
+                                                {{ $pendaftarLolos }} Orang
+                                            </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: 100%" aria-valuenow="0" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
+                                                            style="width: {{ $progressLolos }}%"
+                                                            aria-valuenow="{{ $progressLolos }}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,22 +231,39 @@
                     <h2 class="text-gray-800">Data Pendaftar Baru</h2>
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-bordered table-hover mt-3">
-                                <tr>
-                                    <td>No</td>
-                                    <td>Nama</td>
-                                    <td>Alamat</td>
-                                    <td>Keahlian</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Abdul</td>
-                                    <td>Kota Malang</td>
-                                    <td>Web Programming</td>
-                                </tr>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover mt-3">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="text-align: center; vertical-align: middle;">No</th>
+                                            <th style="text-align: center; vertical-align: middle;">Nama</th>
+                                            <th style="text-align: center; vertical-align: middle;">Alamat</th>
+                                            <th style="text-align: center; vertical-align: middle;">Keahlian</th>
+                                            <th style="text-align: center; vertical-align: middle;">Waktu Mendaftar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($listPendaftarBaru as $item)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>{{ $item->alamat }}</td>
+                                                <td>{{ $item->keahlian_nama }}</td>
+                                                <td style="text-align: center; vertical-align: middle;">{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center">Tidak ada pendaftar baru dalam 24
+                                                    jam terakhir</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+
 
                     <!-- Content Row -->
 

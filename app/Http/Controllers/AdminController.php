@@ -15,6 +15,30 @@ use App\Models\SkillTestSession;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        // Hitung total pendaftar
+        $totalPendaftar = Registration::count();
+
+        // Hitung jumlah pendaftar yang lolos seleksi (misalnya yang nilai rata-rata >= 70)
+        $pendaftarLolos = Registration::whereRaw('(nilai_keahlian + nilai_wawancara) / 2 >= 70')->count();
+
+        // Hitung progres untuk pendaftar masuk (jika lebih dari 0 maka 100%)
+        $progressPendaftar = $totalPendaftar > 0 ? 100 : 0;
+
+        // Hitung progres untuk pendaftar lolos
+        $progressLolos = $totalPendaftar > 0 ? ($pendaftarLolos / $totalPendaftar) * 100 : 0;
+
+        // Dapatkan pendaftar baru dalam 24 jam terakhir
+        $listPendaftarBaru = Registration::latest()
+        ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+        ->where('registrations.created_at', '>=', now()->subDay()) // Tentukan tabel 'registrations'
+        ->select('registrations.*', 'skills.nama as keahlian_nama')
+        ->get();    
+
+        return view('admin.dashboard', compact('totalPendaftar', 'pendaftarLolos', 'progressPendaftar', 'progressLolos', 'listPendaftarBaru'));
+    }
+
     public function kelolaData()
     {
         // Mengambil data pendaftar dengan keahlian

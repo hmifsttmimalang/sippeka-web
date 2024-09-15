@@ -32,12 +32,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // halaman admin
 Route::group(['middleware' => 'admin'], function () {
 
-    // fitur belum diupdate
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-
-
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/kelola_data', [AdminController::class, 'kelolaData'])->name('admin.kelola_data');
     Route::get('/admin/peserta', [AdminController::class, 'peserta'])->name('admin.peserta');
     Route::get('/admin/info_user', [AdminController::class, 'infoUser'])->name('info.user');
