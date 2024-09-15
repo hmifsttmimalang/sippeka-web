@@ -7,7 +7,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
-        @vite('resources/css/seleksi.css')
+    @vite('resources/css/seleksi.css')
 </head>
 <body>
     @yield('content')
@@ -18,6 +18,7 @@
         window.questionIds = @json($questions->pluck('id')->toArray());
         window.username = '{{ auth()->user()->username }}'; // Mengambil username dari Laravel
         window.csrfToken = '{{ csrf_token() }}'; // Token CSRF untuk keamanan
+        window.remainingTime = {{ $remainingSeconds }};
     </script>
     @vite('resources/js/seleksi.js')
 </body>

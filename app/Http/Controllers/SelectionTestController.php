@@ -2,15 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Registration;
+use Illuminate\Support\Facades\Log;
 use App\Models\Question;
+use App\Models\Registration;
+use App\Models\SkillTestSession;
+use App\Models\User;
 
 class SelectionTestController extends Controller
 {
     public function index($username)
     {
+        // Set waktu saat ini dalam zona waktu yang sama
+        $currentDateTime = Carbon::now('Asia/Jakarta');
+
+        // Ambil sesi seleksi
+        $sesiSeleksi = SkillTestSession::where('jenis_sesi', 'Seleksi')
+            ->where('waktu_mulai', '<=', $currentDateTime)
+            ->where('waktu_selesai', '>=', $currentDateTime)
+            ->first();
+
+        if ($sesiSeleksi) {
+            // Tidak ada tindakan yang perlu dilakukan jika sesi seleksi aktif
+            Log::info('Sesi seleksi aktif.');
+        } else {
+            // Jika tidak ada sesi seleksi yang aktif, kembalikan respon kesalahan
+            return redirect()->back()->with('error', 'Tidak ada sesi seleksi yang aktif saat ini.');
+        }
+
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
@@ -20,6 +40,12 @@ class SelectionTestController extends Controller
         // Cek apakah user memiliki keahlian atau tidak
         if (!$keahlianPeserta || !$keahlianPeserta->keahlian) {
             return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan untuk pengguna ini.');
+        }
+
+        // Cek apakah nilai keahlian sudah terisi
+        if ($keahlianPeserta->nilai_keahlian !== null) {
+            // Arahkan ke halaman tertentu jika nilai keahlian sudah ada
+            return redirect()->route('seleksi_selesai', ['username' => $username]);
         }
 
         $tes_keahlian_id = $keahlianPeserta->keahlian;
@@ -32,7 +58,22 @@ class SelectionTestController extends Controller
             return redirect()->back()->with('error', 'Soal tidak tersedia untuk tes ini.');
         }
 
-        return view('tes-seleksi.tes-seleksi-peserta', compact('questions'));
+        // Ambil waktu mulai dan selesai sesi dari database
+        $waktuMulai = Carbon::parse($sesiSeleksi->waktu_mulai)->setTimezone('Asia/Jakarta');
+        $waktuSelesai = Carbon::parse($sesiSeleksi->waktu_selesai)->setTimezone('Asia/Jakarta');
+
+        // Ambil waktu sekarang di timezone yang diinginkan
+        $now = Carbon::now('Asia/Jakarta');
+
+        // Hitung sisa waktu dalam detik dari sekarang hingga waktu selesai
+        $remainingSeconds = $now->diffInSeconds($waktuSelesai, false);
+
+        // Jika sesi sudah berakhir
+        if ($remainingSeconds <= 0) {
+            return redirect()->route('waktu_seleksi_habis', ['username' => $username]);
+        }
+
+        return view('tes-seleksi.tes-seleksi-peserta', compact('questions', 'remainingSeconds'));
     }
 
     public function kirimJawabanSeleksi(Request $request)

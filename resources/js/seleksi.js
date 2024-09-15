@@ -115,20 +115,11 @@ $(document).ready(function() {
         });
     });
 
-    let timerValue = 5400;
+    // Hitung selisih waktu
+    let remainingTime = window.remainingTime;
     let timerInterval;
 
-    $('#timer-text').text(formatTime(timerValue));
-
-    timerInterval = setInterval(function() {
-        timerValue -= 1;
-        $('#timer-text').text(formatTime(timerValue));
-        if (timerValue <= 0) {
-            clearInterval(timerInterval);
-            window.location.href = `/${username}/waktu_habis`;
-        }
-    }, 1000);
-
+    // Format waktu untuk tampilan
     function formatTime(totalSeconds) {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -139,4 +130,21 @@ $(document).ready(function() {
     function padZero(number) {
         return (number < 10 ? '0' : '') + number;
     }
+
+    $(document).ready(function() {
+        // Inisialisasi tampilan timer
+        $('#timer-text').text(formatTime(remainingTime));
+
+        // Mulai countdown
+        timerInterval = setInterval(function() {
+            remainingTime -= 1;
+            $('#timer-text').text(formatTime(remainingTime));
+
+            // Ketika waktu habis, redirect ke halaman 'waktu habis'
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                window.location.href = `/${username}/waktu_habis`;
+            }
+        }, 1000);
+    });
 });

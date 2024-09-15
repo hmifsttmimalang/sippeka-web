@@ -92,7 +92,8 @@
             <!-- End Nilai Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed"
+                    href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-person-fill-gear"></i>
                     <span>Edit Profil</span>
                 </a>
@@ -125,7 +126,11 @@
         <!-- End Page Title -->
 
         <!-- Content -->
-
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-md-6">
                 <!-- Illustrations -->
@@ -138,7 +143,8 @@
                             masuk ke sesi tes Keahlian!
                         </p>
 
-                        <form class="user" action="{{ route('login_seleksi', ['username' => auth()->user()->username]) }}" method="post">
+                        <form class="user"
+                            action="{{ route('login_seleksi', ['username' => auth()->user()->username]) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label for="nilai_tes">Username atau Email</label>
