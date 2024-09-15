@@ -95,4 +95,9 @@ class SimulationTestController extends Controller
         // Kirim data ke view
         return view('tes-seleksi.hasil-simulasi', compact('questions', 'userAnswers', 'score', 'scorePercentage'));
     }
+
+    public function waktuSimulasiHabis()
+    {
+        return view('tes-seleksi.waktu-simulasi-habis');
+    }
 }
