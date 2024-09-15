@@ -40,7 +40,8 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                                 <i class="bi bi-person"></i>
                                 <span>Edit Profil</span>
                             </a>
@@ -80,7 +81,8 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed"
+                    href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -88,7 +90,8 @@
             <!-- End Nilai Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed"
+                    href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-person-fill-gear"></i>
                     <span>Edit Profil</span>
                 </a>
@@ -122,9 +125,9 @@
 
         <!-- Content -->
         @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
         @endif
         <div class="row">
             <div class="col-md-6">
@@ -138,7 +141,8 @@
                         <p class="text-danger mt-3">* Masukkan Username atau Email dan Password
                             untuk mencoba proses simulasi tes keahlian
                         </p>
-                        <form class="user" method="post" action="{{ route('login_simulasi', ['username' => auth()->user()->username]) }}">
+                        <form class="user" method="post"
+                            action="{{ route('login_simulasi', ['username' => auth()->user()->username]) }}">
                             @csrf
                             <div class="form-group">
                                 <label for="identifier">Username atau Email </label>
@@ -172,7 +176,8 @@
                                     style="width: 200px" alt="menunggu">
                             </div>
                             <div class="text-right" style="text-align: end;">
-                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}" class="btn btn-warning btn-sm">Edit Profil</a>
+                                <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}"
+                                    class="btn btn-warning btn-sm">Edit Profil</a>
                             </div>
                             <h5 class="text-center card-title"><b><?= strtoupper($pendaftar->nama) ?></b></h5>
                             <ul class="list-group">
@@ -204,7 +209,7 @@
                                 <li class="list-group-item">
                                     <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Email
                                     </h6>
-                                    <h6 class="mb-0" style="color: black; text-align: left;"><?= $user->email?></h6>
+                                    <h6 class="mb-0" style="color: black; text-align: left;"><?= $user->email ?></h6>
                                 </li>
                                 <li class="list-group-item">
                                     <h6 class="mb-1" style="color: black; font-weight: bold; text-align: left;">Telepon
@@ -219,7 +224,7 @@
             </div>
 
             <!-- Hasil Penilaian -->
-            @if (is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara))
+            @if ($status === 'Sedang Diproses')
                 <div class="col-md-6">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -246,65 +251,60 @@
                         </div>
                     </div>
                 </div>
-            @else
-                @if ($status === 'lolos')
-                    <!-- Success -->
-                    <div class="col-md-6">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><b>ANDA LOLOS</b></h6>
-                            </div>
-                            <div class="card-body mt-4">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Proses Penilaian</h5>
-                                        <div class="col-auto">
-                                            <i class="fa-regular fa-circle-check text-success"
-                                                style="font-size: 90px;"></i>
-                                            <p class="card-text mt-3">
-                                                Selamat anda lolos seleksi pelatihan pekerja SIPPEKA BALAI UPT SINGASARI.
-                                                Silahkan
-                                                lakukan daftar ulang.
-                                            </p>
-                                            <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
-                                        </div>
+            @elseif ($status === 'Lulus')
+                <div class="col-md-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"><b>ANDA LOLOS</b></h6>
+                        </div>
+                        <div class="card-body mt-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Proses Penilaian</h5>
+                                    <div class="col-auto">
+                                        <i class="fa-regular fa-circle-check text-success" style="font-size: 90px;"></i>
+                                        <p class="card-text mt-3">
+                                            Selamat anda lolos seleksi pelatihan pekerja SIPPEKA BALAI UPT SINGASARI.
+                                            Silahkan
+                                            lakukan daftar ulang.
+                                        </p>
+                                        <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
                                     </div>
-                                    <div class="card-footer">
-                                        <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
-                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @elseif ($status === 'tidak_lolos')
-                    <!-- Failed -->
-                    <div class="col-md-6">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"><b>ANDA TIDAK LOLOS</b></h6>
-                            </div>
-                            <div class="card-body mt-4">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title mb-3">Proses Penilaian</h5>
-                                        <div class="col-auto">
-                                            <i class="fa-solid fa-xmark text-danger" style="font-size: 90px;"></i>
-                                            <p class="card-text mt-3">
-                                                Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan
-                                                coba lagi
-                                                di kesempatan berikutnya.
-                                            </p>
-                                            <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
-                                        </div>
+                </div>
+            @elseif ($status === 'Tidak Lulus')
+                <div class="col-md-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"><b>ANDA TIDAK LOLOS</b></h6>
+                        </div>
+                        <div class="card-body mt-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3">Proses Penilaian</h5>
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-xmark text-danger" style="font-size: 90px;"></i>
+                                        <p class="card-text mt-3">
+                                            Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan
+                                            coba lagi
+                                            di kesempatan berikutnya.
+                                        </p>
+                                        <span class="badge bg-danger" style="font-size: 18px;">15 Agustus 2024</span>
                                     </div>
-                                    <div class="card-footer">
-                                        <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
-                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGASARI</marquee>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endif
+                </div>
             @endif
         </div>
         <!-- End Content -->

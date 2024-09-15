@@ -49,8 +49,24 @@ class UserController extends Controller
         // Gabungkan format tanggal
         $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
 
+        // Default values
+        $nilai_keahlian = null;
+        $nilai_wawancara = null;
+        $rata_rata = null;
+        $status = 'Sedang Diproses'; // Default status
+
+        // Check if both values are not null
+        if (!is_null($pendaftar->nilai_keahlian) && !is_null($pendaftar->nilai_wawancara)) {
+            $nilai_keahlian = $pendaftar->nilai_keahlian;
+            $nilai_wawancara = $pendaftar->nilai_wawancara;
+            $rata_rata = ($nilai_keahlian + $nilai_wawancara) / 2;
+
+            // Determine status based on average
+            $status = ($rata_rata >= 70) ? 'Lulus' : 'Tidak Lulus';
+        }
+
         // Mengirim data user ke view dashboard
-        return view('user.dashboard-user', compact('user', 'pendaftar', 'formatted_date'));
+        return view('user.dashboard-user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata'));
     }
 
     public function formTesSeleksi($username)
