@@ -2,15 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Registration;
 use App\Models\Question;
+use App\Models\SkillTestSession;
 
 class SimulationTestController extends Controller
 {
     public function index($username)
     {
+        $currentDateTime = Carbon::now();
+
+        // Cek apakah ada sesi simulasi yang sedang berlangsung
+        $sesiSimulasi = SkillTestSession::where('jenis_sesi', 'Simulasi')
+            ->where('waktu_mulai', '<=', $currentDateTime)
+            ->where('waktu_selesai', '>=', $currentDateTime)
+            ->first();
+
+        $sesiSeleksi = SkillTestSession::where('jenis_sesi', 'Seleksi')
+            ->where('waktu_mulai', '<=', $currentDateTime)
+            ->where('waktu_selesai', '>=', $currentDateTime)
+            ->first();
+
+        // Jika tidak ada sesi simulasi yang sedang berlangsung, atau jika sesi seleksi aktif, blok akses
+        if (!$sesiSimulasi || $sesiSeleksi) {
+            return redirect()->back()->with('error', 'Simulasi tidak dapat diakses karena tidak ada sesi simulasi yang aktif atau sedang berlangsung sesi seleksi.');
+        }
+
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
