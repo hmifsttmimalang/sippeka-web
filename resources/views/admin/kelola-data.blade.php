@@ -215,7 +215,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.detail_pendaftar', ['user_id', $item->user_id]) }}" class="btn btn-info btn-sm">Periksa</a>
+                                            <a href="{{ route('admin.detail_pendaftar', ['user_id' => $item->user_id]) }}" class="btn btn-info btn-sm">Periksa</a>
                                         </td>
                                     </tr>
                                     @endforeach
