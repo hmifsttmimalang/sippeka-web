@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('skill_test_sessions', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_sesi');
+            $table->foreignId('skill_test_id')->constrained('skill_tests');
+            $table->dateTime('waktu_mulai');
+            $table->dateTime('waktu_selesai');
+            $table->enum('jenis_sesi', ['Seleksi', 'Simulasi']);
             $table->timestamps();
         });
     }

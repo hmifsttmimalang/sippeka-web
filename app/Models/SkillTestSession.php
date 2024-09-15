@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class SkillTestSession extends Model
 {
     use HasFactory;
+
+    protected $table = 'skill_test_sessions';
+    protected $fillable = [
+        'nama_sesi',
+        'skill_test_id',
+        'waktu_mulai',
+        'waktu_selesai',
+        'jenis_sesi'
+    ];
+
+    public function skillTest() 
+    {
+        return $this->belongsTo(SkillTest::class);
+    }
 }

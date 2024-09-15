@@ -137,7 +137,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -171,23 +171,27 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <form class="user"
-                                            action="/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/{id}"
+                                            action="{{ route('admin.update_sesi_tes_keahlian', ['id' => $sesiTesKeahlian->id]) }}"
                                             method="post">
+                                            @csrf
+                                            @method('PUT')
                                             <div class="form-group row">
                                                 <div class="col-md-6">
                                                     <label for="nama_sesi">Nama Sesi</label>
                                                     <input type="text" name="nama_sesi" class="form-control"
                                                         id="nama_sesi"
-                                                        value="">
+                                                        value="{{ $sesiTesKeahlian->nama_sesi }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="tes_keahlian_id">Tes Keahlian</label>
-                                                    <select name="tes_keahlian_id" id="tes_keahlian_id"
+                                                    <label for="skill_test_id">Tes Keahlian</label>
+                                                    <select name="skill_test_id" id="tes_keahlian_id"
                                                         class="form-control">
                                                         <option value="">Pilih Tes Keahlian</option>
-                                                        <option value=""
-                                                            >
+                                                        @foreach($tesKeahlian as $item)
+                                                        <option value="{{ $item->id }}" {{ ($item->id == $sesiTesKeahlian->skill_test_id) ? 'selected' : '' }}
+                                                            >{{ $item->nama_tes }}
                                                             </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -195,13 +199,13 @@
                                                 <div class="col-md-6">
                                                     <label for="waktu_mulai">Waktu Mulai</label>
                                                     <input type="datetime-local" class="form-control"
-                                                        value=""
+                                                        value="{{ $sesiTesKeahlian->waktu_mulai }}"
                                                         name="waktu_mulai">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="waktu_selesai">Waktu Selesai</label>
                                                     <input type="datetime-local" class="form-control"
-                                                        value=""
+                                                        value="{{ $sesiTesKeahlian->waktu_selesai }}"
                                                         name="waktu_selesai">
                                                 </div>
                                             </div>
@@ -210,11 +214,9 @@
                                                     <label for="jenis_sesi">Jenis Sesi</label>
                                                     <select name="jenis_sesi" id="jenis_sesi" class="form-control">
                                                         <option value="">Pilih Jenis Sesi</option>
-                                                        <option value="Simulasi"
-                                                            >
+                                                        <option value="Simulasi" {{ ($sesiTesKeahlian->jenis_sesi == 'Simulasi') ? 'selected' : '' }}>
                                                             Simulasi</option>
-                                                        <option value="Seleksi"
-                                                            >
+                                                        <option value="Seleksi" {{ ($sesiTesKeahlian->jenis_sesi == 'Seleksi') ? 'selected' : '' }}>
                                                             Seleksi</option>
                                                     </select>
                                                 </div>

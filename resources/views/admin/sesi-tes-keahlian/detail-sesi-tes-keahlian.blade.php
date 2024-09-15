@@ -137,7 +137,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="../../../assets/admin/img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -173,27 +173,27 @@
                                         <table class="table table-bordered table-hover right-align">
                                             <tr>
                                                 <th>Nama Tes</th>
-                                                <td>Tes - </td>
+                                                <td>Tes - {{ $sesiTesKeahlian->nama_tes }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Sesi</th>
-                                                <td></td>
+                                                <td>{{ $sesiTesKeahlian->nama_sesi }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Jenis Sesi</th>
-                                                <td></td>
+                                                <td>{{ $sesiTesKeahlian->jenis_sesi }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Durasi (Menit)</th>
-                                                <td>90 Menit</td>
+                                                <td>{{ $durasi }} Menit</td>
                                             </tr>
                                             <tr>
                                                 <th>Mulai</th>
-                                                <td></td>
+                                                <td>{{ $sesiTesKeahlian->waktu_mulai }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Selesai</th>
-                                                <td></td>
+                                                <td>{{ $sesiTesKeahlian->waktu_selesai }}</td>
                                             </tr>
                                         </table>
                                     </div>

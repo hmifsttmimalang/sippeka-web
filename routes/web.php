@@ -77,21 +77,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/tes_keahlian/detail_ujian/{id}/hapus_soal_tes_keahlian/{soal_id}', [AdminController::class, 'hapusSoalTesKeahlian'])->name('hapus-soal');
 
     // sesi tes
-    Route::get('/admin/sesi_tes_keahlian', function () {
-        return view('admin.sesi-tes-keahlian.sesi-tes-keahlian');
-    })->name('admin.sesi_tes_keahlian');
-    Route::get('/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian', function () {
-        return view('admin.sesi-tes-keahlian.tambah-sesi-tes-keahlian');
-    });
-    Route::get('/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/{id}', function () {
-        return view('admin.sesi-tes-keahlian.edit-sesi-tes-keahlian');
-    });
-    Route::get('/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/{id}', function () {
-        return view('admin.sesi-tes-keahlian.detail-sesi-tes-keahlian');
-    });
-    Route::get('/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/{id}', function () {
-        return view('');
-    });
+    Route::get('/admin/sesi_tes_keahlian', [AdminController::class, 'sesiTesKeahlian'])->name('admin.sesi_tes_keahlian');
+    Route::get('/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian', [AdminController::class, 'tambahSesiTesKeahlian']);
+    Route::post('/admin/sesi_tes_keahlian/tambah_sesi_tes_keahlian', [AdminController::class, 'simpanSesiTesKeahlian'])->name('admin.simpan_tes_keahlian');
+    Route::get('/admin/sesi_tes_keahlian/detail_sesi_tes_keahlian/{id}', [AdminController::class, 'detailSesiTesKeahlian'])->name('admin.detail_sesi_tes_keahlian');
+    Route::get('/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/{id}', [AdminController::class, 'editSesiTesKeahlian'])->name('admin.edit_sesi_tes_keahlian');
+    Route::put('/admin/sesi_tes_keahlian/edit_sesi_tes_keahlian/{id}', [AdminController::class, 'updateSesiTesKeahlian'])->name('admin.update_sesi_tes_keahlian');
+    Route::get('/admin/sesi_tes_keahlian/hapus_sesi_tes_keahlian/{id}', [AdminController::class, 'hapusSesiTesKeahlian'])->name('admin.hapus_sesi_tes_keahlian');
 });
 
 // halaman user

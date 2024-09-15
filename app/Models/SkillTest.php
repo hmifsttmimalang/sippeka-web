@@ -33,4 +33,9 @@ class SkillTest extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function sesiTesKeahlian()
+    {
+        return $this->hasOne(SkillTestSession::class);
+    }
 }

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
-use App\Models\QuestionTitle;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Skill;
+use Illuminate\Support\Carbon;
 use App\Models\User;
 use App\Models\Registration;
+use App\Models\QuestionTitle;
+use App\Models\Skill;
 use App\Models\SkillTest;
+use App\Models\Question;
+use App\Models\SkillTestSession;
 
 class AdminController extends Controller
 {
@@ -385,8 +388,120 @@ class AdminController extends Controller
         $soal = Question::findOrFail($soal_id);
 
         $soal->delete();
-    
+
         // Redirect ke halaman detail ujian dengan skill_test_id
         return redirect()->route('admin.detail-ujian', ['id' => $tesKeahlian])->with('success', 'Soal berhasil dihapus');
-    }    
+    }
+
+    // sesi tes
+    public function sesiTesKeahlian()
+    {
+        $sesiTesKeahlian = DB::table('skill_test_sessions')
+            ->join('skill_tests', 'skill_test_sessions.skill_test_id', '=', 'skill_tests.id')
+            ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
+            ->get();
+
+        return view('admin.sesi-tes-keahlian.sesi-tes-keahlian', compact('sesiTesKeahlian'));
+    }
+
+    public function tambahSesiTesKeahlian()
+    {
+        $tesKeahlian = SkillTest::all();
+
+        return view('admin.sesi-tes-keahlian.tambah-sesi-tes-keahlian', compact('tesKeahlian'));
+    }
+    public function simpanSesiTesKeahlian(Request $request)
+    {
+        $request->validate([
+            'nama_sesi' => 'required|string|max:255',
+            'skill_test_id' => 'required|exists:skill_tests,id',
+            'waktu_mulai' => 'required|date',
+            'waktu_selesai' => 'required|date|after:waktu_mulai',
+            'jenis_sesi' => 'required|in:Seleksi,Simulasi',
+        ]);
+
+        SkillTestSession::create([
+            'nama_sesi' => $request->nama_sesi,
+            'skill_test_id' => $request->skill_test_id,
+            'waktu_mulai' => Carbon::parse($request->waktu_mulai),
+            'waktu_selesai' => Carbon::parse($request->waktu_selesai),
+            'jenis_sesi' => $request->jenis_sesi,
+        ]);
+
+        return redirect()->route('admin.sesi_tes_keahlian')->with('success', 'Sesi tes keahlian berhasil dibuat');
+    }
+
+    public function detailSesiTesKeahlian($id)
+    {
+        $sesiTesKeahlian = DB::table('skill_test_sessions')
+            ->join('skill_tests', 'skill_test_sessions.skill_test_id', '=', 'skill_tests.id')
+            ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
+            ->where('skill_test_sessions.id', $id) // Filter berdasarkan ID
+            ->first(); // Gunakan first() untuk mendapatkan satu record
+
+        // Periksa apakah sesi tes keahlian ditemukan
+        if (!$sesiTesKeahlian) {
+            return redirect()->route('admin.sesi_tes_keahlian')->with('error', 'Sesi tes keahlian tidak ditemukan.');
+        }
+
+        // Hitung durasi
+        $waktuMulai = Carbon::parse($sesiTesKeahlian->waktu_mulai);
+        $waktuSelesai = Carbon::parse($sesiTesKeahlian->waktu_selesai);
+        $durasi = $waktuSelesai->diffInMinutes($waktuMulai);
+
+        // Kirim data ke view
+        return view('admin.sesi-tes-keahlian.detail-sesi-tes-keahlian', compact('sesiTesKeahlian', 'durasi'));
+    }
+
+    public function editSesiTesKeahlian($id)
+    {
+        $tesKeahlian = SkillTest::all();
+        $sesiTesKeahlian = SkillTestSession::findOrFail($id);
+
+        return view('admin.sesi-tes-keahlian.edit-sesi-tes-keahlian', compact('tesKeahlian', 'sesiTesKeahlian'));
+    }
+
+    public function updateSesiTesKeahlian(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'nama_sesi' => 'required|string|max:255',
+            'skill_test_id' => 'required|exists:skill_tests,id',
+            'waktu_mulai' => 'required|date',
+            'waktu_selesai' => 'required|date|after:waktu_mulai',
+            'jenis_sesi' => 'required|in:Seleksi,Simulasi',
+        ]);
+
+        // Perbarui data sesi tes keahlian
+        $update = DB::table('skill_test_sessions')
+            ->where('id', $id)
+            ->update([
+                'nama_sesi' => $request->input('nama_sesi'),
+                'skill_test_id' => $request->input('skill_test_id'),
+                'waktu_mulai' => $request->input('waktu_mulai'),
+                'waktu_selesai' => $request->input('waktu_selesai'),
+                'jenis_sesi' => $request->input('jenis_sesi'),
+                'updated_at' => now(), // Set updated_at to current time
+            ]);
+
+        if ($update) {
+            return redirect()->route('admin.sesi_tes_keahlian')->with('success', 'Sesi tes keahlian berhasil diperbarui.');
+        } else {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui sesi tes keahlian.');
+        }
+    }
+
+    public function hapusSesiTesKeahlian($id)
+    {
+        // Hapus sesi tes keahlian berdasarkan ID
+        $delete = DB::table('skill_test_sessions')
+            ->where('id', $id)
+            ->delete();
+
+        if ($delete) {
+            return redirect()->route('admin.sesi_tes_keahlian')->with('success', 'Sesi tes keahlian berhasil dihapus.');
+        } else {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus sesi tes keahlian.');
+        }
+    }
 }
