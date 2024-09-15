@@ -164,8 +164,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
+                                <thead class="thead-dark">
+                                    <tr style="text-align: center; vertical-align: middle;">
                                         <th>No</th>
                                         <th>Username</th>
                                         <th>Email</th>
@@ -174,10 +174,10 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($users as $index => $user)
-                                    <tr>
+                                    <tr style="text-align: center; vertical-align: middle;">
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $user->username }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td style="text-align: left;">{{ $user->username }}</td>
+                                        <td style="text-align: center; vertical-align: middle;">{{ $user->email }}</td>
                                         <td>
                                             {!! ($user->status_register == 'terdaftar') ? '<span class="badge badge-success">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>' !!}
                                         </td>

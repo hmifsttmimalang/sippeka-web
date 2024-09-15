@@ -234,22 +234,22 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover mt-3">
                                     <thead class="thead-dark">
-                                        <tr>
-                                            <th style="text-align: center; vertical-align: middle;">No</th>
-                                            <th style="text-align: center; vertical-align: middle;">Nama</th>
-                                            <th style="text-align: center; vertical-align: middle;">Alamat</th>
-                                            <th style="text-align: center; vertical-align: middle;">Keahlian</th>
-                                            <th style="text-align: center; vertical-align: middle;">Waktu Mendaftar</th>
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Keahlian</th>
+                                            <th>Waktu Mendaftar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($listPendaftarBaru as $item)
-                                            <tr>
+                                            <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->nama }}</td>
-                                                <td>{{ $item->alamat }}</td>
-                                                <td>{{ $item->keahlian_nama }}</td>
-                                                <td style="text-align: center; vertical-align: middle;">{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
+                                                <td style="text-align: left;">{{ $item->nama }}</td>
+                                                <td style="text-align: left;">{{ $item->alamat }}</td>
+                                                <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
+                                                <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
                                                 </td>
                                             </tr>
                                         @empty

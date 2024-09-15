@@ -192,23 +192,21 @@
                         @endif
                         <div class="row">
                             <div class="col-md-12">
-                                <table class="table table-bordered table-hover text-center">
-                                    <thead>
-                                        <tr>
-                                            <td>No</td>
-                                            <td>Nama Tes Keahlian</td>
-                                            <td>Mata Keahlian</td>
-                                            <td>Kelas Keahlian</td>
-                                            <td>Aksi</td>
-                                        </tr>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark" style="text-align: center; vertical-align: middle;">
+                                        <th>No</th>
+                                        <th>Nama Tes Keahlian</th>
+                                        <th>Mata Keahlian</th>
+                                        <th>Kelas Keahlian</th>
+                                        <th>Aksi</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($tesKeahlian as $item)
-                                            <tr>
+                                            <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>Tes - {{ $item->nama_tes }}</td>
-                                                <td>{{ $item->mata_soal_nama }}</td>
-                                                <td>{{ $item->keahlian_nama }}</td>
+                                                <td style="text-align: left;">Tes - {{ $item->nama_tes }}</td>
+                                                <td style="text-align: left;">{{ $item->mata_soal_nama }}</td>
+                                                <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
                                                 <td>
                                                     <a href="{{ route('admin.detail-ujian', ['id' => $item->id]) }}"
                                                         class="btn btn-secondary btn-sm">Lihat</a>

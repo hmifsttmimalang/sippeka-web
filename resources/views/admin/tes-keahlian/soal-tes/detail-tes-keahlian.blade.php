@@ -220,35 +220,39 @@
                                             class="btn btn-primary mb-3">Import</a>
                                         @if ($soal->isNotEmpty())
                                             <table class="table table-bordered table-hover right-align">
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Soal Tes Keahlian</th>
-                                                    <th>Aksi</th>
-                                                </tr>
-                                                @foreach ($soal as $item)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ strip_tags($item->soal) }}
-                                                            <hr class="sidebar-divider">
-                                                            <div class="ml-3">
-                                                                <div>A. {{ strip_tags($item->pilihan_a) }}</div>
-                                                                <div>B. {{ strip_tags($item->pilihan_b) }}</div>
-                                                                <div>C. {{ strip_tags($item->pilihan_c) }}</div>
-                                                                <div>D. {{ strip_tags($item->pilihan_d) }}</div>
-                                                            </div>
-                                                            <hr class="sidebar-divider">
-                                                            <div class="ml-3">
-                                                                <p>Jawaban yang benar: {{ $item->jawaban_benar }}</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('edit-soal', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
-                                                                class="btn btn-primary btn-sm">Ubah</a>
-                                                            <a href="{{ route('hapus-soal', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
-                                                                class="btn btn-danger btn-sm">Hapus</a>
-                                                        </td>
+                                                <thead class="thead-dark">
+                                                    <tr style="text-align: center; vertical-align: middle;">
+                                                        <th>No</th>
+                                                        <th>Soal Tes Keahlian</th>
+                                                        <th>Aksi</th>
                                                     </tr>
-                                                @endforeach
+                                                </thead>
+                                                <tbody>
+                                                @foreach ($soal as $item)
+                                                        <tr style="text-align: center; vertical-align: middle;">
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td style="text-align: left;">{{ strip_tags($item->soal) }}
+                                                                <hr class="sidebar-divider">
+                                                                <div class="ml-3">
+                                                                    <div>A. {{ strip_tags($item->pilihan_a) }}</div>
+                                                                    <div>B. {{ strip_tags($item->pilihan_b) }}</div>
+                                                                    <div>C. {{ strip_tags($item->pilihan_c) }}</div>
+                                                                    <div>D. {{ strip_tags($item->pilihan_d) }}</div>
+                                                                </div>
+                                                                <hr class="sidebar-divider">
+                                                                <div class="ml-3">
+                                                                    <p>Jawaban yang benar: {{ $item->jawaban_benar }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route('edit-soal', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
+                                                                    class="btn btn-primary btn-sm">Ubah</a>
+                                                                <a href="{{ route('hapus-soal', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
+                                                                    class="btn btn-danger btn-sm">Hapus</a>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
                                             </table>
                                         @else
                                             <h4 class="text-center mt-3">Tidak ada soal yang tersedia</h4>

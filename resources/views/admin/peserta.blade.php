@@ -169,21 +169,20 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td>No</td>
-                                            <td>Nama</td>
-                                            <td>Alamat</td>
-                                            <td>Keahlian</td>
-                                            <td>Nilai Tes Keahlian</td>
-                                            <td>Nilai Tes Wawancara</td>
-                                            <td>Rata-Rata</td>
-                                            <td>Status</td>
-                                            <td>Aksi</td>
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Keahlian</th>
+                                            <th>Nilai Tes Keahlian</th>
+                                            <th>Nilai Tes Wawancara</th>
+                                            <th>Rata-Rata</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $i = 1; @endphp
                                         @foreach ($listPendaftar as $item)
                                             @php
                                                 $rataRata =
@@ -191,11 +190,11 @@
                                                         ? null
                                                         : ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
                                             @endphp
-                                            <tr>
-                                                <td>{{ $i++ }}</td>
-                                                <td>{{ $item->nama }}</td>
-                                                <td>{{ $item->alamat }}</td>
-                                                <td>{{ $item->keahlian_nama }}</td>
+                                            <tr style="text-align: center; vertical-align: middle;">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td style="text-align: left;">{{ $item->nama }}</td>
+                                                <td style="text-align: left;">{{ $item->alamat }}</td>
+                                                <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
                                                 <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
                                                 <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
                                                 <td>

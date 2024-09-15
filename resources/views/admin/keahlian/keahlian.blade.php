@@ -152,18 +152,18 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td>No</td>
-                                            <td>Nama Kelas Keahlian</td>
-                                            <td>Aksi</td>
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Nama Kelas Keahlian</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($keahlianList as $item)
-                                            <tr>
+                                            <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->nama }}</td>
+                                                <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td>
                                                     <a href="{{ route('keahlian.edit', $item->id) }}"
                                                         class="btn btn-primary btn-sm">Edit</a>

@@ -196,22 +196,22 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <td>No</td>
-                                            <td>Tes</td>
-                                            <td>Sesi</td>
-                                            <td>Mulai</td>
-                                            <td>Selesai</td>
-                                            <td>Jenis Sesi</td>
-                                            <td>Aksi</td>
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Tes</th>
+                                            <th>Sesi</th>
+                                            <th>Mulai</th>
+                                            <th>Selesai</th>
+                                            <th>Jenis Sesi</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($sesiTesKeahlian as $item)
-                                            <tr>
+                                            <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>
+                                                <td style="text-align: left; vertical-align: middle;">
                                                     Tes - {{ $item->nama_tes }}
                                                     <ul type="disc">
                                                         <li>Sesi: {{ $item->nama_sesi }}</li>
