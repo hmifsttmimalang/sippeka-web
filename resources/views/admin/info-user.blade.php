@@ -179,7 +179,7 @@
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
-                                            {!! $user->status_register ? '<span class="badge badge-success">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>' !!}
+                                            {!! ($user->status_register == 'terdaftar') ? '<span class="badge badge-success">Terdaftar</span>' : '<span class="badge badge-warning">Belum Terdaftar</span>' !!}
                                         </td>
                                     </tr>
                                     @endforeach

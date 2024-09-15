@@ -6,7 +6,7 @@ use App\Models\Registration;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class RegistrationController extends Controller
 {
@@ -106,7 +106,13 @@ class RegistrationController extends Controller
             'foto_kk' => $fotoKkPath,
         ]);
 
-        return redirect()->route('pendaftaran.terkirim')->with('success', 'Pendaftaran berhasil.');
+        // Update status user menjadi 'terdaftar'
+        $user = User::findOrFail($user_id);
+        $user->update([
+            'status_register' => 'terdaftar'
+        ]);
+
+        return redirect()->route('pendaftaran.terkirim');
     }
 
     public function registered()
