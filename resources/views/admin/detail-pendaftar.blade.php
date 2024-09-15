@@ -235,13 +235,13 @@
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary"><b>DATA NILAI PESERTA</b></h6>
 
-                                    <div class="card-body mt-3">
-                                        @if (is_null($pendaftar->nilai_wawancara))
-                                        <div class="alert alert-info">
-                                            Data peserta belum divalidasi
-                                        </div>
+                                    <div class="card-body mt-4">
+                                        @if ($status === 'Sedang diproses')
+                                            <div class="alert alert-info">
+                                                Data peserta belum divalidasi atau sedang diproses.
+                                            </div>
                                         @endif
-                                        <br>
+
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <h6 class="mb-1"
@@ -264,34 +264,35 @@
                                                     style="color: black; font-weight: bold; text-align: left;">Nilai
                                                     Rata-Rata</h6>
                                                 <h6 class="mb-0" style="color: black; text-align: left;">
-                                                    @if (is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara))
-                                                        {{ $rataRata = null }}
-                                                        Sedang diproses
-                                                    @else 
-                                                        {{ $rataRata = ($pendaftar->nilai_keahlian + $pendaftar->nilai_wawancara) / 2 }}
-                                                    @endif
+                                                    {{ $rataRata ?? 'Sedang diproses' }}
                                                 </h6>
                                             </li>
                                         </ul>
 
-                                        @if (is_null($rataRata))
-                                        <span class="badge badge-warning mt-3"
-                                            style="display:block; height:30px; line-height:25px;">Sedang
-                                            diproses</span>
-                                        @elseif ($rataRata <= 100 && $rataRata >= 70)
-                                        <span class="badge badge-success mt-3"
-                                            style="display:block; height:30px; line-height:25px;">Lulus</span>
-                                        @else
-                                        <span class="badge badge-danger mt-3"
-                                            style="display:block; height:30px; line-height:25px;">Gagal</span>
+                                        @if ($status === 'Sedang diproses')
+                                            <span class="badge badge-warning mt-3"
+                                                style="display:block; height:30px; line-height:25px;">
+                                                {{ $status }}
+                                            </span>
+                                        @elseif ($status === 'Lulus')
+                                            <span class="badge badge-success mt-3"
+                                                style="display:block; height:30px; line-height:25px;">
+                                                {{ $status }}
+                                            </span>
+                                        @elseif ($status === 'Gagal')
+                                            <span class="badge badge-danger mt-3"
+                                                style="display:block; height:30px; line-height:25px;">
+                                                {{ $status }}
+                                            </span>
                                         @endif
 
+                                        <!-- Tombol Validasi Data Peserta -->
                                         <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal"
                                             data-target="#modalvalidasi">
                                             Validasi Data Peserta
                                         </button>
 
-                                        <!-- Modal-->
+                                        <!-- Modal untuk Validasi -->
                                         <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -306,7 +307,9 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form method="post"
-                                                            action="/admin/kelola_data/detail_pendaftar/{{ $pendaftar->user_id }}">
+                                                            action="{{ route('admin.detail_pendaftar', ['user_id' => $pendaftar->user_id]) }}">
+                                                            @csrf
+                                                            @method('POST')
                                                             <div class="mb-3">
                                                                 <label for="nilai-wawancara" class="col-form-label">Nilai
                                                                     Wawancara:</label>

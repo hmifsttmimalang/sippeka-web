@@ -58,7 +58,46 @@ class AdminController extends Controller
         // Gabungkan format tanggal
         $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
 
-        return view('admin.detail-pendaftar', compact('pendaftar', 'formatted_date'));
+        // Jika nilai keahlian ada tetapi nilai wawancara null
+        if (!is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara)) {
+            $status = 'Sedang diproses'; // Status jika nilai wawancara belum ada
+            $rataRata = null; // Tidak menghitung rata-rata
+        } elseif (!is_null($pendaftar->nilai_keahlian) && !is_null($pendaftar->nilai_wawancara)) {
+            // Jika kedua nilai sudah ada, hitung rata-rata
+            $rataRata = ($pendaftar->nilai_keahlian + $pendaftar->nilai_wawancara) / 2;
+
+            // Tentukan status lulus atau gagal berdasarkan nilai rata-rata
+            if ($rataRata >= 70) {
+                $status = 'Lulus';
+            } else {
+                $status = 'Gagal';
+            }
+        } else {
+            // Jika kedua nilai belum ada
+            $rataRata = null;
+            $status = 'Sedang diproses';
+        }
+
+        return view('admin.detail-pendaftar', compact('pendaftar', 'formatted_date', 'status', 'rataRata'));
+    }
+
+    public function validasiTesWawancara(Request $request, $user_id)
+    {
+        // Validasi input dari form
+        $request->validate([
+            'nilai_wawancara' => 'required|integer|min:0|max:100', // Pastikan nilai antara 0 dan 100
+        ]);
+
+        // Temukan pendaftar berdasarkan user_id
+        $pendaftar = Registration::where('user_id', $user_id)->firstOrFail();
+
+        // Simpan nilai wawancara ke database
+        $pendaftar->update([
+            'nilai_wawancara' => $request->input('nilai_wawancara'),
+        ]);
+
+        // Redirect kembali ke halaman detail dengan pesan sukses
+        return redirect()->route('admin.detail_pendaftar', $user_id)->with('success', 'Nilai wawancara berhasil divalidasi.');
     }
 
     public function peserta()
