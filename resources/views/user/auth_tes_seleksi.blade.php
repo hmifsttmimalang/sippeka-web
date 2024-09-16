@@ -50,7 +50,8 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout') }}">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout') }}"
+                                data-bs-toggle="modal" data-bs-target="#logoutModal">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Keluar</span>
                             </a>
@@ -73,7 +74,8 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed"
+                    href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -81,8 +83,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link"
-                    href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link" href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -99,8 +100,8 @@
             <!-- End Edit Profil Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('auth.logout') }}" data-modal="modal"
-                    data-target="#logoutModal">
+                <a class="nav-link collapsed" href="{{ route('auth.logout') }}" data-bs-toggle="modal"
+                    data-bs-target="#logoutModal">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Keluar</span>
                 </a>
@@ -143,7 +144,8 @@
                         </p>
 
                         <form class="user"
-                            action="{{ route('user.seleksi_login.store', ['username' => auth()->user()->username]) }}" method="post">
+                            action="{{ route('user.seleksi_login.store', ['username' => auth()->user()->username]) }}"
+                            method="post">
                             @csrf
                             <div class="form-group">
                                 <label for="nilai_tes">Username atau Email</label>
@@ -169,24 +171,4 @@
         <!-- End Content -->
 
     </main>
-
-    <!-- Logout Modal-->
-    <div class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection

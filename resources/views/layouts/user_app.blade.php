@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -43,11 +44,36 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
 <body>
     <!-- Content -->
     @yield('content')
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Yakin untuk keluar?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Batal</button>
+                    <form action="{{ route('auth.logout') }}" method="post">
+                        @csrf
+                        @method('POST')
+                        <button class="btn btn-primary" type="submit">Keluar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets/profile/vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -65,4 +91,5 @@
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/profile/js/main.js') }}"></script>
 </body>
+
 </html>
