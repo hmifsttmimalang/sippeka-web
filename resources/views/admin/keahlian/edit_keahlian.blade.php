@@ -169,12 +169,14 @@
                                         </div>
                                         <hr class="divider-sidebar">
                                         <!-- Formulir Edit Keahlian -->
-                                        <form class="user" method="POST" action="{{ route('admin.kelas_keahlian.update', $keahlian->id) }}">
+                                        <form class="user" method="POST"
+                                            action="{{ route('admin.kelas_keahlian.update', $keahlian->id) }}">
                                             @csrf
                                             @method('PUT')
                                             <div class="form-group">
                                                 <label for="nama">Nama Kelas Keahlian</label>
-                                                <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama', $keahlian->nama) }}">
+                                                <input type="text" name="nama" class="form-control" id="nama"
+                                                    value="{{ old('nama', $keahlian->nama) }}">
                                             </div>
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                             <button type="reset" class="btn btn-primary">Reset</button>
