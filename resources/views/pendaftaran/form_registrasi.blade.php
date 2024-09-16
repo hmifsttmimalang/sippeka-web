@@ -1,4 +1,4 @@
-@extends('layouts.pendaftaran-app')
+@extends('layouts.pendaftaran_app')
 
 @section('title', 'Registrasi | Sippeka')
 
@@ -19,9 +19,10 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Registrasi Peserta Pelatihan Pekerja</h1>
                                     </div>
-                                    <form class="user" action="{{ route('pendaftaran.register') }}" method="post"
+                                    <form class="user" action="{{ route('pendaftaran.store') }}" method="post"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        @method('POST')
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
                                             <input type="text" name="nama" class="form-control" id="nama"

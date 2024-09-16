@@ -54,7 +54,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('/admin/kelas-keahlian/tambah', [AdminController::class, 'storeKeahlian'])->name('admin.kelas_keahlian.store');
     Route::get('/admin/kelas-keahlian/{id}/edit', [AdminController::class, 'editKeahlian'])->name('admin.kelas_keahlian.edit');
     Route::put('/admin/kelas-keahlian/{id}', [AdminController::class, 'updateKeahlian'])->name('admin.kelas_keahlian.update');
-    Route::delete('/admin/kelas-keahlian/{id}', [AdminController::class, 'destroyKeahlian'])->name('admin.kelas_keahlian.delete');
+    Route::delete('/admin/kelas-keahlian/{id}', [AdminController::class, 'hapusKeahlian'])->name('admin.kelas_keahlian.delete');
 
     // Tes keahlian
     Route::get('/admin/tes-keahlian', [AdminController::class, 'tesKeahlian'])->name('admin.tes_keahlian');

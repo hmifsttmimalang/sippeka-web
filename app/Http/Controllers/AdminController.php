@@ -205,7 +205,7 @@ class AdminController extends Controller
     public function createKeahlian()
     {
         // Menampilkan form tambah keahlian
-        return view('admin.keahlian.tambah-keahlian');
+        return view('admin.keahlian.tambah_keahlian');
     }
 
     public function storeKeahlian(Request $request)
@@ -220,14 +220,14 @@ class AdminController extends Controller
         $skill->nama = $validated['nama'];
         $skill->save();
 
-        return redirect()->route('kelas_keahlian.index')->with('success', 'Keahlian berhasil ditambahkan');
+        return redirect()->route('admin.kelas_keahlian')->with('success', 'Keahlian berhasil ditambahkan');
     }
 
     public function editKeahlian($id)
     {
         // Mengambil data keahlian berdasarkan id
         $keahlian = Skill::findOrFail($id);
-        return view('admin.keahlian.edit-keahlian', compact('keahlian'));
+        return view('admin.keahlian.edit_keahlian', compact('keahlian'));
     }
 
     public function updateKeahlian(Request $request, $id)
@@ -242,16 +242,16 @@ class AdminController extends Controller
         $keahlian->nama = $validated['nama'];
         $keahlian->save();
 
-        return redirect()->route('kelas_keahlian.index')->with('success', 'Keahlian berhasil diperbarui');
+        return redirect()->route('admin.kelas_keahlian')->with('success', 'Keahlian berhasil diperbarui');
     }
 
-    public function destroyKeahlian($id)
+    public function hapusKeahlian($id)
     {
         // Hapus keahlian
         $keahlian = Skill::findOrFail($id);
         $keahlian->delete();
 
-        return redirect()->route('kelas_keahlian.index')->with('success', 'Keahlian berhasil dihapus');
+        return redirect()->route('admin.kelas_keahlian')->with('success', 'Keahlian berhasil dihapus');
     }
 
     // tes keahlian
