@@ -61,7 +61,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     Masuk ke direktori proyek dan jalankan:
 
     ```bash
-    cd app_web
+    cd sippeka_web
     composer install
     npm install
     ```
