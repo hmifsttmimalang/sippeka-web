@@ -217,22 +217,27 @@
                                                     </ul>
                                                 </td>
                                                 <td>{{ $item->nama_sesi }}</td>
+
                                                 <td>{{ $item->waktu_mulai }}</td>
                                                 <td>{{ $item->waktu_selesai }}</td>
+
                                                 <td>{{ $item->jenis_sesi }}</td>
                                                 <td>
-                                                    <form action="{{ route('admin.sesi_tes_keahlian.delete', ['id' => $item->id]) }}" method="post">
+                                                    <form
+                                                        action="{{ route('admin.sesi_tes_keahlian.delete', ['id' => $item->id]) }}"
+                                                        method="post">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <a href="{{ route('admin.sesi_tes_keahlian.detail', ['id' => $item->id]) }}"
-                                                            class="btn btn-secondary btn-sm">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
+                                                            <a href="{{ route('admin.sesi_tes_keahlian.detail', ['id' => $item->id]) }}"
+                                                                class="btn btn-secondary btn-sm">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
                                                         <a href="{{ route('admin.sesi_tes_keahlian.edit', ['id' => $item->id]) }}"
                                                             class="btn btn-primary btn-sm">
                                                             <i class="bi bi-pencil"></i>
                                                         </a>
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                                class="bi bi-trash"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

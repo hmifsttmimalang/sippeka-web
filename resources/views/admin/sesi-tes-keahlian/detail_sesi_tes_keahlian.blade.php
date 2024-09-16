@@ -183,10 +183,12 @@
                                                 <th>Jenis Sesi</th>
                                                 <td>{{ $sesiTesKeahlian->jenis_sesi }}</td>
                                             </tr>
+                                            @if ($sesiTesKeahlian->jenis_sesi === 'Seleksi')
                                             <tr>
                                                 <th>Durasi (Menit)</th>
                                                 <td>{{ $durasi }} Menit</td>
                                             </tr>
+                                            @endif
                                             <tr>
                                                 <th>Mulai</th>
                                                 <td>{{ $sesiTesKeahlian->waktu_mulai }}</td>
@@ -202,67 +204,71 @@
                         </div>
                     </div>
 
-                    <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
-                            <!-- Nested Row within Card Body -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="p-5">
-                                        <div class="">
-                                            <h1 class="h4 text-gray-900 mb-4">Detail Sesi Keahlian</h1>
+                    @if ($sesiTesKeahlian->jenis_sesi === 'Seleksi')
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="p-5">
+                                            <div class="">
+                                                <h1 class="h4 text-gray-900 mb-4">Daftar Peserta</h1>
+                                            </div>
+                                            <hr class="divider-sidebar">
+                                            @if ($peserta->isNotEmpty())
+                                                <table class="table table-bordered table-hover right-align">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama</th>
+                                                            <th>Keahlian</th>
+                                                            <th>Waktu Mulai Mengerjakan</th>
+                                                            <th>Waktu Selesai Mengerjakan</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($peserta as $index => $participant)
+                                                            <tr>
+                                                                <td>{{ $index + 1 }}</td>
+                                                                <td>{{ $participant->nama }}</td>
+                                                                <td>{{ $participant->keahlian }}</td>
+                                                                <td>
+                                                                    @if ($participant->waktu_mulai)
+                                                                        {{ \Carbon\Carbon::parse($participant->waktu_mulai)->format('d/m/Y H:i:s') }}
+                                                                    @else
+                                                                        -
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if ($participant->waktu_selesai)
+                                                                        {{ \Carbon\Carbon::parse($participant->waktu_selesai)->format('d/m/Y H:i:s') }}
+                                                                    @else
+                                                                        -
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if ($participant->status == 'finished')
+                                                                        <span class="badge badge-success">Selesai</span>
+                                                                    @else
+                                                                        <span class="badge badge-warning">Sedang
+                                                                            Mengerjakan</span>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            @else
+                                                <h4 class="text-center mt-3">Tidak ada peserta yang mengerjakan soal saat
+                                                    ini</h4>
+                                            @endif
                                         </div>
-                                        <hr class="divider-sidebar">
-                                        @if ($peserta->isNotEmpty())
-                                        <table class="table table-bordered table-hover right-align">
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Nama</th>
-                                                    <th>Keahlian</th>
-                                                    <th>Waktu Mulai Mengerjakan</th>
-                                                    <th>Waktu Selesai Mengerjakan</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($peserta as $index => $participant)
-                                                    <tr>
-                                                        <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $participant->nama }}</td>
-                                                        <td>{{ $participant->keahlian }}</td>
-                                                        <td>
-                                                            @if ($participant->waktu_mulai)
-                                                                {{ \Carbon\Carbon::parse($participant->waktu_mulai)->format('d/m/Y H:i:s') }}
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($participant->waktu_selesai)
-                                                                {{ \Carbon\Carbon::parse($participant->waktu_selesai)->format('d/m/Y H:i:s') }}
-                                                            @else
-                                                                -
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($participant->status == 'finished')
-                                                                <span class="badge badge-success">Selesai</span>
-                                                            @else
-                                                                <span class="badge badge-warning">Sedang Mengerjakan</span>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                        @else
-                                        <h4 class="text-center mt-3">Tidak ada peserta yang mengerjakan soal saat ini</h4>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                 </div>
 
