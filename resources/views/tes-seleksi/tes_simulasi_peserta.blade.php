@@ -1,4 +1,4 @@
-@extends('layouts.simulasi-app')
+@extends('layouts.simulasi_app')
 
 @section('title', 'Ujian Simulasi')
 
@@ -85,7 +85,7 @@
                         </div>
                         <hr class="sidebar-divider">
                         <!-- Tombol Akhiri Ujian -->
-                        <form action="{{ route('kirim_jawaban_simulasi', ['username' => auth()->user()->username]) }}"
+                        <form action="{{ route('user.simulasi.store', ['username' => auth()->user()->username]) }}"
                             method="post">
                             @csrf
                             @method('POST')

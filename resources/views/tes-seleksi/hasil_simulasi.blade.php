@@ -1,4 +1,4 @@
-@extends('layouts.respon-tes-app')
+@extends('layouts.respon_tes_app')
 
 @section('title', 'Hasil Simulasi')
 
@@ -13,9 +13,9 @@
         <h1 class="text-center">Hasil Simulasi Ujian</h1>
         <hr>
         <center>
-            <a href="{{ route('user', ['username' => auth()->user()->username]) }}" class="btn btn-danger">Kembali ke
+            <a href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}" class="btn btn-danger">Kembali ke
                 Dashboard</a>
-            <a href="{{ route('simulasi_peserta', ['username' => auth()->user()->username]) }}"
+            <a href="{{ route('user.simulasi', ['username' => auth()->user()->username]) }}"
                 class="btn btn-primary">Kerjakan Ulang</a>
         </center>
         <hr>

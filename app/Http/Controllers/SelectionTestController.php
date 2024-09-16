@@ -73,7 +73,7 @@ class SelectionTestController extends Controller
             return redirect()->route('waktu_seleksi_habis', ['username' => $username]);
         }
 
-        return view('tes-seleksi.tes-seleksi-peserta', compact('questions', 'remainingSeconds'));
+        return view('tes-seleksi.tes_seleksi_peserta', compact('questions', 'remainingSeconds'));
     }
 
     public function kirimJawabanSeleksi(Request $request)
@@ -114,7 +114,7 @@ class SelectionTestController extends Controller
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
-        return view('tes-seleksi.tes-terkirim');
+        return view('tes-seleksi.tes_terkirim');
     }
 
     public function tesSelesai($username)
@@ -122,7 +122,7 @@ class SelectionTestController extends Controller
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
-        return view('tes-seleksi.tes-selesai');
+        return view('tes-seleksi.tes_selesai');
     }
 
     public function waktuSeleksiHabis($username)
@@ -130,6 +130,6 @@ class SelectionTestController extends Controller
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
-        return view('tes-seleksi.waktu-habis');
+        return view('tes-seleksi.waktu_habis');
     }
 }

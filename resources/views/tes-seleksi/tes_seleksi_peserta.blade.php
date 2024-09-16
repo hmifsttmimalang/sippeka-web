@@ -1,4 +1,4 @@
-@extends('layouts.seleksi-app')
+@extends('layouts.seleksi_app')
 
 @section('title', 'Ujian Seleksi')
 
@@ -85,7 +85,7 @@
                         </div>
                         <hr class="sidebar-divider">
                         <!-- Tombol Akhiri Ujian -->
-                        <form action="{{ route('kirim_jawaban_seleksi', ['username' => auth()->user()->username]) }}"
+                        <form action="{{ route('user.seleksi.store', ['username' => auth()->user()->username]) }}"
                             method="post">
                             @csrf
                             @method('POST')

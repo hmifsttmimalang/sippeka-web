@@ -52,7 +52,7 @@ class SimulationTestController extends Controller
             return redirect()->back()->with('error', 'Soal tidak tersedia untuk tes ini.');
         }
 
-        return view('tes-seleksi.tes-simulasi-peserta', compact('questions'));
+        return view('tes-seleksi.tes_simulasi_peserta', compact('questions'));
     }
 
     public function kirimJawabanSimulasi(Request $request)
@@ -113,11 +113,11 @@ class SimulationTestController extends Controller
         $scorePercentage = $totalQuestions > 0 ? ($score / $totalQuestions) * 100 : 0;
 
         // Kirim data ke view
-        return view('tes-seleksi.hasil-simulasi', compact('questions', 'userAnswers', 'score', 'scorePercentage'));
+        return view('tes-seleksi.hasil_simulasi', compact('questions', 'userAnswers', 'score', 'scorePercentage'));
     }
 
     public function waktuSimulasiHabis()
     {
-        return view('tes-seleksi.waktu-simulasi-habis');
+        return view('tes-seleksi.waktu_simulasi_habis');
     }
 }

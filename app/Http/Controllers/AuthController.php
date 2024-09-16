@@ -87,7 +87,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('simulasi_peserta', $username);
+            return redirect()->route('user.simulasi', $username);
         }
 
         return back()->withErrors([
@@ -112,7 +112,7 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->route('seleksi_peserta', $username);
+            return redirect()->route('user.seleksi', $username);
         }
 
         return back()->withErrors([
