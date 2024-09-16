@@ -1,13 +1,12 @@
-@extends('layouts.user-app')
+@extends('layouts.user_app')
 
 @section('title', 'Login Tes Seleksi | Sippeka User')
 
 @section('content')
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
-
         <div class="d-flex align-items-center justify-content-between">
-            <a href="/" class="logo d-flex align-items-center">
+            <a href="{{ route('home') }}" class="logo d-flex align-items-center">
                 <img src="{{ asset('assets/profile/img/logo_jatim.png') }}" alt="">
                 <span class="d-none d-lg-block">SIPPEKA</span>
             </a>
@@ -18,7 +17,6 @@
         <!-- Profile User -->
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
                 <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
@@ -41,7 +39,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center"
                                 href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
@@ -52,9 +49,8 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout') }}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Keluar</span>
                             </a>
@@ -62,6 +58,7 @@
 
                     </ul>
                     <!-- End Profile Dropdown Items -->
+
                 </li>
                 <!-- End Profile Nav -->
 
@@ -76,7 +73,7 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('user', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link collapsed" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -84,7 +81,8 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link"
+                    href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -101,7 +99,8 @@
             <!-- End Edit Profil Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('logout') }}" data-modal="modal" data-target="#logoutModal">
+                <a class="nav-link collapsed" href="{{ route('auth.logout') }}" data-modal="modal"
+                    data-target="#logoutModal">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Keluar</span>
                 </a>
@@ -118,7 +117,7 @@
             <h1>Tes Seleksi</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Tes Seleksi Peserta</li>
                 </ol>
             </nav>
@@ -144,7 +143,7 @@
                         </p>
 
                         <form class="user"
-                            action="{{ route('login_seleksi', ['username' => auth()->user()->username]) }}" method="post">
+                            action="{{ route('user.seleksi_login.store', ['username' => auth()->user()->username]) }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label for="nilai_tes">Username atau Email</label>

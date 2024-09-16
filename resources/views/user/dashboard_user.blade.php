@@ -1,4 +1,4 @@
-@extends('layouts.user-app')
+@extends('layouts.user_app')
 
 @section('title', auth()->user()->username . ' | Sippeka User')
 
@@ -6,7 +6,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="/" class="logo d-flex align-items-center">
+            <a href="{{ route('home') }}" class="logo d-flex align-items-center">
                 <img src="{{ asset('assets/profile/img/logo_jatim.png') }}" alt="">
                 <span class="d-none d-lg-block">SIPPEKA</span>
             </a>
@@ -50,7 +50,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout') }}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Keluar</span>
                             </a>
@@ -73,7 +73,7 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -82,7 +82,7 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed"
-                    href="{{ route('user.login_seleksi', ['username' => auth()->user()->username]) }}">
+                    href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -99,7 +99,7 @@
             <!-- End Edit Profil Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('logout') }}" data-modal="modal" data-target="#logoutModal">
+                <a class="nav-link collapsed" href="{{ route('auth.logout') }}" data-modal="modal" data-target="#logoutModal">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Keluar</span>
                 </a>
@@ -116,7 +116,7 @@
             <h1>Dashboard</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
             </nav>
@@ -142,8 +142,9 @@
                             untuk mencoba proses simulasi tes keahlian
                         </p>
                         <form class="user" method="post"
-                            action="{{ route('login_simulasi', ['username' => auth()->user()->username]) }}">
+                            action="{{ route('user.simulasi_login', ['username' => auth()->user()->username]) }}">
                             @csrf
+                            @method('POST')
                             <div class="form-group">
                                 <label for="identifier">Username atau Email </label>
                                 <input type="text" name="identifier" class="form-control" id="nilai_tes"

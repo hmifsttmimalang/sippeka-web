@@ -18,7 +18,7 @@ class UserController extends Controller
         $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
 
         if (!$pendaftar) {
-            return redirect()->route('pendaftaran.form_registrasi')->with('warning', 'Anda belum terdaftar. Silakan daftar terlebih dahulu');
+            return redirect()->route('pendaftaran.form')->with('warning', 'Anda belum terdaftar. Silakan daftar terlebih dahulu');
         }
 
         $tanggal_lahir = $pendaftar->tanggal_lahir;
@@ -66,7 +66,7 @@ class UserController extends Controller
         }
 
         // Mengirim data user ke view dashboard
-        return view('user.dashboard-user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata'));
+        return view('user.dashboard_user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata'));
     }
 
     public function formTesSeleksi($username)
@@ -76,7 +76,7 @@ class UserController extends Controller
 
         $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
 
-        return view('user.auth-tes-seleksi', compact('user', 'pendaftar'));
+        return view('user.auth_tes_seleksi', compact('user', 'pendaftar'));
     }
 
     public function editProfil($username)
@@ -86,7 +86,7 @@ class UserController extends Controller
 
         $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
 
-        return view('user.edit-profil', compact('user', 'pendaftar'));
+        return view('user.edit_profil', compact('user', 'pendaftar'));
     }
 
     public function updateProfil(Request $request, $username)
@@ -156,16 +156,16 @@ class UserController extends Controller
 
         // Update file jika ada
         if ($request->hasFile('foto_ktp')) {
-            $pendaftar->foto_ktp = updateFile($request->file('foto_ktp'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_ktp);
+            $pendaftar->foto_ktp = updateFile($request->file('foto_ktp'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_ktp);
         }
         if ($request->hasFile('foto_ijazah')) {
-            $pendaftar->foto_ijazah = updateFile($request->file('foto_ijazah'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_ijazah);
+            $pendaftar->foto_ijazah = updateFile($request->file('foto_ijazah'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_ijazah);
         }
         if ($request->hasFile('foto_bg_biru')) {
-            $pendaftar->foto_bg_biru = updateFile($request->file('foto_bg_biru'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_bg_biru);
+            $pendaftar->foto_bg_biru = updateFile($request->file('foto_bg_biru'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_bg_biru);
         }
         if ($request->hasFile('foto_kk')) {
-            $pendaftar->foto_kk = updateFile($request->file('foto_kk'), $folderPath, $nama, $tempatLahir, $pendaftar->foto_kk);
+            $pendaftar->foto_kk = updateFile($request->file('foto_kk'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_kk);
         }
 
         // Simpan perubahan
