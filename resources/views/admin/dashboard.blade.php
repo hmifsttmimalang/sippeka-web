@@ -249,7 +249,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td style="text-align: left;">{{ $item->alamat }}</td>
-                                                <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
+                                                <td>{{ $item->keahlian_nama }}</td>
                                                 <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
                                                 </td>
                                             </tr>
