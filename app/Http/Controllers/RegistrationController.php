@@ -15,7 +15,7 @@ class RegistrationController extends Controller
         // Middleware untuk memastikan user login dan memiliki role 'user'
         $this->middleware(function ($request, $next) {
             if (!Auth::check() || Auth::user()->role !== 'user') {
-                return redirect()->route('login');
+                return redirect()->route('auth.login');
             }
             return $next($request);
         });
@@ -31,7 +31,7 @@ class RegistrationController extends Controller
             return redirect()->route('pendaftaran.terdaftar');
         }
 
-        return view('pendaftaran.form-registrasi', compact('skills'));
+        return view('pendaftaran.form_registrasi', compact('skills'));
     }
 
     public function register(Request $request)
