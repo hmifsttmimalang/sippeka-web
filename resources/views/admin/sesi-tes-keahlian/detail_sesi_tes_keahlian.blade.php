@@ -212,20 +212,52 @@
                                             <h1 class="h4 text-gray-900 mb-4">Detail Sesi Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
+                                        @if ($peserta->isNotEmpty())
                                         <table class="table table-bordered table-hover right-align">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Nama</th>
-                                                <th>Keahlian</th>
-                                                <th>Status</th>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Adi Chandra</td>
-                                                <td>Web Developer</td>
-                                                <td><span class="badge badge-warning">Sedang Mengerjakan</span></td>
-                                            </tr>
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama</th>
+                                                    <th>Keahlian</th>
+                                                    <th>Waktu Mulai Mengerjakan</th>
+                                                    <th>Waktu Selesai Mengerjakan</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($peserta as $index => $participant)
+                                                    <tr>
+                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $participant->nama }}</td>
+                                                        <td>{{ $participant->keahlian }}</td>
+                                                        <td>
+                                                            @if ($participant->waktu_mulai)
+                                                                {{ \Carbon\Carbon::parse($participant->waktu_mulai)->format('d/m/Y H:i:s') }}
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($participant->waktu_selesai)
+                                                                {{ \Carbon\Carbon::parse($participant->waktu_selesai)->format('d/m/Y H:i:s') }}
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if ($participant->status == 'finished')
+                                                                <span class="badge badge-success">Selesai</span>
+                                                            @else
+                                                                <span class="badge badge-warning">Sedang Mengerjakan</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
                                         </table>
+                                        @else
+                                        <h4 class="text-center mt-3">Tidak ada peserta yang mengerjakan soal saat ini</h4>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

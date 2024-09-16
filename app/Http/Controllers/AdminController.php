@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Models\User;
 use App\Models\Registration;
 use App\Models\QuestionTitle;
@@ -31,10 +31,10 @@ class AdminController extends Controller
 
         // Dapatkan pendaftar baru dalam 24 jam terakhir
         $listPendaftarBaru = Registration::latest()
-        ->join('skills', 'registrations.keahlian', '=', 'skills.id')
-        ->where('registrations.created_at', '>=', now()->subDay()) // Tentukan tabel 'registrations'
-        ->select('registrations.*', 'skills.nama as keahlian_nama')
-        ->get();    
+            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->where('registrations.created_at', '>=', now()->subDay()) // Tentukan tabel 'registrations'
+            ->select('registrations.*', 'skills.nama as keahlian_nama')
+            ->get();
 
         return view('admin.dashboard', compact('totalPendaftar', 'pendaftarLolos', 'progressPendaftar', 'progressLolos', 'listPendaftarBaru'));
     }
@@ -496,16 +496,24 @@ class AdminController extends Controller
 
     public function detailSesiTesKeahlian($id)
     {
+        // Temukan sesi tes keahlian
         $sesiTesKeahlian = DB::table('skill_test_sessions')
             ->join('skill_tests', 'skill_test_sessions.skill_test_id', '=', 'skill_tests.id')
             ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
-            ->where('skill_test_sessions.id', $id) // Filter berdasarkan ID
-            ->first(); // Gunakan first() untuk mendapatkan satu record
+            ->where('skill_test_sessions.id', $id)
+            ->first();
 
-        // Periksa apakah sesi tes keahlian ditemukan
         if (!$sesiTesKeahlian) {
             return redirect()->route('admin.sesi_tes_keahlian')->with('error', 'Sesi tes keahlian tidak ditemukan.');
         }
+
+        // Ambil daftar peserta
+        $peserta = DB::table('test_attempts')
+            ->join('registrations', 'test_attempts.registration_id', '=', 'registrations.id')
+            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.nama', 'skills.nama as keahlian', 'test_attempts.waktu_mulai', 'test_attempts.waktu_selesai', 'test_attempts.status')
+            ->where('test_attempts.skill_test_session_id', $id)
+            ->get();
 
         // Hitung durasi
         $waktuMulai = Carbon::parse($sesiTesKeahlian->waktu_mulai);
@@ -513,7 +521,7 @@ class AdminController extends Controller
         $durasi = $waktuSelesai->diffInMinutes($waktuMulai);
 
         // Kirim data ke view
-        return view('admin.sesi-tes-keahlian.detail_sesi_tes_keahlian', compact('sesiTesKeahlian', 'durasi'));
+        return view('admin.sesi-tes-keahlian.detail_sesi_tes_keahlian', compact('sesiTesKeahlian', 'durasi', 'peserta'));
     }
 
     public function editSesiTesKeahlian($id)

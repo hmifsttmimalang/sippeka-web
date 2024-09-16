@@ -72,4 +72,9 @@ class Registration extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function testAttempts()
+    {
+        return $this->hasMany(TestAttempt::class);
+    }
 }

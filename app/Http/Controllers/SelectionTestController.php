@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Question;
 use App\Models\Registration;
 use App\Models\SkillTestSession;
+use App\Models\TestAttempt;
 use App\Models\User;
 
 class SelectionTestController extends Controller
@@ -45,7 +46,7 @@ class SelectionTestController extends Controller
         // Cek apakah nilai keahlian sudah terisi
         if ($keahlianPeserta->nilai_keahlian !== null) {
             // Arahkan ke halaman tertentu jika nilai keahlian sudah ada
-            return redirect()->route('seleksi_selesai', ['username' => $username]);
+            return redirect()->route('user.seleksi_selesai', ['username' => $username]);
         }
 
         $tes_keahlian_id = $keahlianPeserta->keahlian;
@@ -73,40 +74,76 @@ class SelectionTestController extends Controller
             return redirect()->route('waktu_seleksi_habis', ['username' => $username]);
         }
 
-        return view('tes-seleksi.tes_seleksi_peserta', compact('questions', 'remainingSeconds'));
+        return view('tes-seleksi.tes_seleksi_peserta', compact('questions', 'remainingSeconds', 'sesiSeleksi'));
     }
 
     public function kirimJawabanSeleksi(Request $request)
     {
-        // Simpan jawaban user yang dikirim
-        if ($request->has('userAnswers')) {
-            $userAnswers = json_decode($request->input('userAnswers'), true);
-            if (json_last_error() === JSON_ERROR_NONE) {
-                // Simpan jawaban ke session, atau lakukan penyimpanan ke database
-                session(['userAnswers' => $userAnswers]);
+        // Validasi input autentikasi
+        if (!auth()->check()) {
+            return response()->json(['success' => false, 'message' => 'User tidak terautentikasi'], 401);
+        }
 
-                // Hitung skor
-                $questions = Question::whereIn('id', array_keys($userAnswers))->get();
-                $score = 0;
-                foreach ($questions as $question) {
-                    if (isset($userAnswers[$question->id]) && in_array($question->jawaban_benar, $userAnswers[$question->id])) {
-                        $score++;
-                    }
-                }
-                $scorePercentage = count($questions) > 0 ? ($score / count($questions)) * 100 : 0;
+        // Validasi input
+        $request->validate([
+            'userAnswers' => 'required|json',
+            'skill_test_session_id' => 'required|integer',
+        ]);
 
-                // Simpan nilai jawaban ke database
-                Registration::where('user_id', auth()->id())->update(['nilai_keahlian' => $scorePercentage]);
+        $skillTestSessionId = $request->input('skill_test_session_id');
+        $userAnswers = json_decode($request->input('userAnswers'), true);
 
-                // Jika jawaban berhasil disimpan, kembalikan respon sukses
-                return response()->json(['success' => true, 'message' => 'Jawaban berhasil disimpan', 'score' => $score, 'scorePercentage' => $scorePercentage]);
-            } else {
-                return response()->json(['success' => false, 'message' => 'Error decoding JSON: ' . json_last_error_msg()], 400);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return response()->json(['success' => false, 'message' => 'Error decoding JSON: ' . json_last_error_msg()], 400);
+        }
+
+        // Simpan jawaban ke session
+        session(['userAnswers' => $userAnswers]);
+
+        // Hitung skor
+        $questions = Question::whereIn('id', array_keys($userAnswers))->get();
+        $score = 0;
+
+        foreach ($questions as $question) {
+            if (isset($userAnswers[$question->id]) && in_array($question->jawaban_benar, $userAnswers[$question->id])) {
+                $score++;
             }
         }
 
-        // Jika tidak ada jawaban yang dikirim
-        return response()->json(['success' => false, 'message' => 'Tidak ada jawaban yang dikirim'], 400);
+        $scorePercentage = count($questions) > 0 ? ($score / count($questions)) * 100 : 0;
+
+        // Simpan nilai jawaban ke database
+        Registration::where('user_id', auth()->id())->update(['nilai_keahlian' => $scorePercentage]);
+
+        // Temukan TestAttempt yang terkait
+        $registrationId = Registration::where('user_id', auth()->id())->first()->id;
+
+        $testAttempt = TestAttempt::where('registration_id', $registrationId)
+            ->where('skill_test_session_id', $skillTestSessionId)
+            ->first();
+
+        if ($testAttempt) {
+            // Perbarui waktu_selesai
+            $testAttempt->update([
+                'status' => 'finished',
+                'waktu_selesai' => Carbon::now(),
+            ]);
+
+            // Ambil data sesi tes keahlian yang terbaru
+            $sesiTesKeahlian = SkillTestSession::find($skillTestSessionId);
+
+            // Kirim data terbaru ke view
+            return response()->json([
+                'success' => true,
+                'message' => 'Jawaban berhasil disimpan',
+                'score' => $score,
+                'scorePercentage' => $scorePercentage,
+                'sesiTesKeahlian' => $sesiTesKeahlian,
+                'testAttempt' => $testAttempt
+            ]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Test Attempt tidak ditemukan'], 404);
+        }
     }
 
     public function tesTerkirim($username)

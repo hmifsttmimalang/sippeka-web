@@ -1,5 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
     let currentIndex = 0;
+    let skillTestSessionId = $('input[name="skill_test_session_id"]').val();
     const questionIds = window.questionIds;
     const username = window.username;
     const csrfToken = window.csrfToken;
@@ -15,7 +16,7 @@ $(document).ready(function() {
     const firstQuestionId = "<?= isset($questions[0]['id']) ? $questions[0]['id'] : '' ?>";
 
     // Navigasi soal sebelumnya
-    $('#prev-question').click(function() {
+    $('#prev-question').click(function () {
         if (currentIndex > 0) {
             currentIndex--;
             showQuestion(questionIds[currentIndex]);
@@ -23,14 +24,14 @@ $(document).ready(function() {
     });
 
     // Navigasi soal selanjutnya
-    $('#next-question').click(function() {
+    $('#next-question').click(function () {
         if (currentIndex < questionIds.length - 1) {
             currentIndex++;
             showQuestion(questionIds[currentIndex]);
         }
     });
 
-    $('.question-nav button').click(function() {
+    $('.question-nav button').click(function () {
         questionId = $(this).attr('id').replace('question-', '');
         currentQuestion = parseInt(questionId);
         showQuestion(currentQuestion);
@@ -45,7 +46,7 @@ $(document).ready(function() {
     // Inisialisasi state pertanyaan
     const questionStates = {};
 
-    $('.option-btn').on('click', function() {
+    $('.option-btn').on('click', function () {
         const questionId = $(this).closest('.question').attr('id').replace('question-', '');
         const navButton = $('#question-' + questionId + '-nav');
         const optionBtnsState = questionStates[questionId] || {
@@ -89,10 +90,10 @@ $(document).ready(function() {
         $('#completed-badge').text(`${completedCount} Dikerjakan`);
     }
 
-    $('#finish-test').click(function(e) {
+    $('#finish-test').click(function (e) {
         e.preventDefault();
         const userAnswers = {};
-        $.each(questionStates, function(questionId, state) {
+        $.each(questionStates, function (questionId, state) {
             userAnswers[questionId] = state.optionBtns;
         });
         $.ajax({
@@ -101,14 +102,15 @@ $(document).ready(function() {
             data: {
                 userAnswers: JSON.stringify(
                     userAnswers), // Mengirim jawaban sebagai JSON string
+                skill_test_session_id: skillTestSessionId,
                 _token: csrfToken // Jangan lupa menambahkan token CSRF
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 // Redirect ke halaman hasil setelah jawaban dikirim
                 window.location.href = `/${username}/seleksi-terkirim`;
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error('Error:', error);
                 alert('Error: ' + error);
             }
@@ -131,12 +133,12 @@ $(document).ready(function() {
         return (number < 10 ? '0' : '') + number;
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Inisialisasi tampilan timer
         $('#timer-text').text(formatTime(remainingTime));
 
         // Mulai countdown
-        timerInterval = setInterval(function() {
+        timerInterval = setInterval(function () {
             remainingTime -= 1;
             $('#timer-text').text(formatTime(remainingTime));
 

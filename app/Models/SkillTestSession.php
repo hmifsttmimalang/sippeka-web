@@ -18,8 +18,13 @@ class SkillTestSession extends Model
         'jenis_sesi'
     ];
 
-    public function skillTest() 
+    public function skillTest()
     {
         return $this->belongsTo(SkillTest::class);
+    }
+
+    public function testAttempts()
+    {
+        return $this->hasMany(TestAttempt::class);
     }
 }

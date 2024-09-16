@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Registration;
+use App\Models\SkillTestSession;
+use App\Models\TestAttempt;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -97,28 +101,70 @@ class AuthController extends Controller
 
     public function loginSeleksi(Request $request, $username)
     {
+        // Validasi input
         $request->validate([
             'identifier' => 'required',
             'password' => 'required',
         ]);
-
-        // Cek apakah input login adalah email atau username
+    
+        // Tentukan apakah input adalah email atau username
         $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        // Coba autentikasi berdasarkan username atau email
+    
+        // Siapkan kredensial untuk autentikasi
         $credentials = [
             $loginType => $request->identifier,
             'password' => $request->password,
         ];
-
+    
+        // Jika autentikasi berhasil
         if (Auth::attempt($credentials)) {
+            // Ambil user yang berhasil login
+            $user = Auth::user();
+    
+            // Temukan pendaftaran (registration) user
+            $registration = Registration::where('user_id', $user->id)->first();
+    
+            // Jika tidak ada data registration, tampilkan error
+            if (!$registration) {
+                Auth::logout();
+                return back()->withErrors([
+                    'login' => 'Tidak ditemukan data pendaftaran untuk pengguna ini.',
+                ]);
+            }
+    
+            // Temukan sesi tes keahlian yang aktif berdasarkan waktu saat ini
+            $sesiTesKeahlian = SkillTestSession::where('waktu_mulai', '<=', now())
+                ->where('waktu_selesai', '>=', now())
+                ->first();
+    
+            if (!$sesiTesKeahlian) {
+                Auth::logout();
+                return back()->withErrors([
+                    'login' => 'Tidak ada sesi tes keahlian yang aktif saat ini.',
+                ]);
+            }
+    
+            // Periksa apakah user sudah memulai tes attempt sebelumnya
+            $testAttempt = TestAttempt::firstOrCreate(
+                [
+                    'registration_id' => $registration->id,
+                    'skill_test_session_id' => $sesiTesKeahlian->id,
+                ],
+                [
+                    'status' => 'in_progress',
+                    'waktu_mulai' => Carbon::now(),
+                ]
+            );
+    
+            // Redirect ke halaman seleksi jika berhasil
             return redirect()->route('user.seleksi', $username);
         }
-
+    
+        // Kembalikan error jika login gagal
         return back()->withErrors([
             'login' => 'Username atau password yang Anda masukkan salah!',
         ]);
-    }
+    }    
 
     public function logout()
     {
