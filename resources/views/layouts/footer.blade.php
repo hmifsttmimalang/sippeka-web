@@ -2,7 +2,7 @@
     <div class="container footer-top">
         <div class="row">
             <div class="col-lg-6 col-md-6 footer-about">
-                <a href="/" class="logo d-flex align-items-center">
+                <a href="{{ route('home') }}" class="logo d-flex align-items-center">
                     <span class="sitename">SIPPEKA</span>
                 </a>
                 <div class="footer-contact pt-3">

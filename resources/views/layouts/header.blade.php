@@ -1,7 +1,7 @@
 <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-        <a href="/" class="logo d-flex align-items-center me-auto">
+        <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
             <img src="{{ asset('assets/user/img/silastri/logo_jatim.png') }}" alt="">
             <h1 class="sitename">SIPPEKA</h1>
         </a>
@@ -16,13 +16,17 @@
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        @if (Route::has('login'))
+        @if (Route::has('auth.login'))
         @auth
-        <a class="btn-getstarted" href="{{ route('user', ['username' => auth()->user()->username]) }}">{{ auth()->user()->username }}</a>
-        <a class="btn-getstarted" href="{{ route('logout') }}">Keluar</a>
+        <a class="btn-getstarted" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">{{ auth()->user()->username }}</a>
+        <form action="{{ route('auth.logout') }}" method="post">
+            @csrf
+            @method('POST')
+            <button class="btn btn-getstarted" tyoe="submit">Keluar</button>
+        </form>
         @else
-        <a class="btn-getstarted" href="{{ route('login') }}">Masuk</a>
-        <a class="btn-getstarted" href="{{ route('register') }}">Buat Akun</a>
+        <a class="btn-getstarted" href="{{ route('auth.login') }}">Masuk</a>
+        <a class="btn-getstarted" href="{{ route('auth.register') }}">Buat Akun</a>
         @endauth
         @endif
     </div>

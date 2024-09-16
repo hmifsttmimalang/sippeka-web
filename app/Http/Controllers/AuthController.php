@@ -66,7 +66,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'login' => 'The provided credentials do not match our records.',
+            'login' => 'Username atau password yang Anda masukkan salah atau belum terdaftar!',
         ]);
     }
 
@@ -91,7 +91,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'login' => 'The provided credentials do not match our records.',
+            'login' => 'Username atau password yang Anda masukkan salah!',
         ]);
     }
 
@@ -116,13 +116,13 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'login' => 'The provided credentials do not match our records.',
+            'login' => 'Username atau password yang Anda masukkan salah!',
         ]);
     }
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('auth.login');
     }
 }
