@@ -45,7 +45,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/ardie069/app_web.git
+    git clone https://github.com/ardie069/sippeka_web.git
     ```
 
 2. **Pindahkan Folder Proyek**
@@ -53,7 +53,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
-    mv app_web path/to/Laragon/www/app_web
+    mv sippeka_web path/to/Laragon/www/app_web
     ```
 
 3. **Instalasi Dependensi**
@@ -61,7 +61,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     Masuk ke direktori proyek dan jalankan:
 
     ```bash
-    cd app_web
+    cd sippeka_web
     composer install
     npm install
     ```
