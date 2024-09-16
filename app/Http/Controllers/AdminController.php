@@ -263,7 +263,7 @@ class AdminController extends Controller
             ->select('skill_tests.*', 'skills.nama as keahlian_nama', 'question_titles.nama as mata_soal_nama')
             ->get();
 
-        return view('admin.tes-keahlian.tes-keahlian', compact('tesKeahlian'));
+        return view('admin.tes-keahlian.tes_keahlian', compact('tesKeahlian'));
     }
 
     public function tambahTesKeahlian()
@@ -271,7 +271,7 @@ class AdminController extends Controller
         $mataSoalList = QuestionTitle::all();
         $keahlianList = Skill::all();
 
-        return view('admin.tes-keahlian.tambah-tes-keahlian', compact('keahlianList', 'mataSoalList'));
+        return view('admin.tes-keahlian.tambah_tes_keahlian', compact('keahlianList', 'mataSoalList'));
     }
 
     public function simpanTesKeahlian(Request $request)
@@ -306,7 +306,7 @@ class AdminController extends Controller
         $mataSoalList = QuestionTitle::all();
         $keahlianList = Skill::all();
 
-        return view('admin.tes-keahlian.edit-tes-keahlian', compact('tesKeahlian', 'mataSoalList', 'keahlianList'));
+        return view('admin.tes-keahlian.edit_tes_keahlian', compact('tesKeahlian', 'mataSoalList', 'keahlianList'));
     }
 
     public function updateTesKeahlian(Request $request, $id)
@@ -366,14 +366,14 @@ class AdminController extends Controller
         $jumlahSoal = Question::where('skill_test_id', $tesKeahlian->id)->count();
 
         // Mengirimkan data ke view
-        return view('admin.tes-keahlian.soal-tes.detail-tes-keahlian', compact('tesKeahlian', 'soal', 'jumlahSoal'));
+        return view('admin.tes-keahlian.soal-tes.detail_tes_keahlian', compact('tesKeahlian', 'soal', 'jumlahSoal'));
     }
 
     public function tambahSoalTesKeahlian($id)
     {
         $tesKeahlian = SkillTest::findOrFail($id);
 
-        return view('admin.tes-keahlian.soal-tes.tambah-soal-tes-keahlian', compact('tesKeahlian'));
+        return view('admin.tes-keahlian.soal-tes.tambah_soal_tes_keahlian', compact('tesKeahlian'));
     }
 
     public function simpanSoalTesKeahlian(Request $request, $id)
@@ -400,14 +400,14 @@ class AdminController extends Controller
         $soal->save();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('admin.detail-ujian', ['id' => $id])->with('success', 'Soal berhasil ditambahkan');
+        return redirect()->route('admin.ujian.detail', ['id' => $id])->with('success', 'Soal berhasil ditambahkan');
     }
 
     public function importSoalTesKeahlian($id)
     {
         $tesKeahlian = SkillTest::findOrFail($id);
 
-        return view('admin.tes-keahlian.soal-tes.import-soal-tes-keahlian', compact('tesKeahlian'));
+        return view('admin.tes-keahlian.soal-tes.import_soal_tes_keahlian', compact('tesKeahlian'));
     }
 
     public function editSoalTesKeahlian($id, $soal_id)
@@ -415,7 +415,7 @@ class AdminController extends Controller
         $tesKeahlian = SkillTest::findOrFail($id);
         $soal = Question::findOrFail($soal_id);
 
-        return view('admin.tes-keahlian.soal-tes.edit-soal-tes-keahlian', compact('tesKeahlian', 'soal'));
+        return view('admin.tes-keahlian.soal-tes.edit_soal_tes_keahlian', compact('tesKeahlian', 'soal'));
     }
 
     public function updateSoalTesKeahlian(Request $request, $id, $soal_id)
@@ -442,7 +442,7 @@ class AdminController extends Controller
         $soal->save();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('admin.detail-ujian', ['id' => $id])->with('success', 'Soal berhasil diubah');
+        return redirect()->route('admin.ujian.detail', ['id' => $id])->with('success', 'Soal berhasil diubah');
     }
 
     public function hapusSoalTesKeahlian($id, $soal_id)
@@ -453,7 +453,7 @@ class AdminController extends Controller
         $soal->delete();
 
         // Redirect ke halaman detail ujian dengan skill_test_id
-        return redirect()->route('admin.detail-ujian', ['id' => $tesKeahlian])->with('success', 'Soal berhasil dihapus');
+        return redirect()->route('admin.ujian.detail', ['id' => $tesKeahlian])->with('success', 'Soal berhasil dihapus');
     }
 
     // sesi tes

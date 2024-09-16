@@ -1,4 +1,4 @@
-@extends('layouts.admin-app')
+@extends('layouts.admin_app')
 
 @section('title', 'Tambah Soal Tes Keahlian | Admin Sippeka')
 
@@ -158,7 +158,7 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Button Kembali -->
-                    <a href="{{ route('admin.detail-ujian', ['id' => $tesKeahlian->id]) }}"
+                    <a href="{{ route('admin.ujian.detail', ['id' => $tesKeahlian->id]) }}"
                         class="btn btn-primary btn-sm">Kembali</a>
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
@@ -170,7 +170,7 @@
                                             <h1 class="h4 text-gray-900 mb-4">Tambah Soal Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form action="{{ route('simpan-soal', ['id' => $tesKeahlian->id]) }}"
+                                        <form action="{{ route('admin.soal.store', ['id' => $tesKeahlian->id]) }}"
                                             method="post">
                                             <table class="table table-bordered table-hover right-align">
                                                 @csrf
