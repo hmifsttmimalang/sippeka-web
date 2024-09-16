@@ -103,12 +103,12 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/{username}/simulasi', [SimulationTestController::class, 'index'])->middleware('cekPendaftaran')->name('user.simulasi');
     Route::post('/{username}/simulasi', [SimulationTestController::class, 'kirimJawabanSimulasi'])->middleware('cekPendaftaran')->name('user.simulasi.store');
     Route::get('/{username}/hasil-simulasi', [SimulationTestController::class, 'hasilSimulasi'])->middleware('cekPendaftaran')->name('user.hasil_simulasi');
-    Route::get('/{username}/simulasi-habis', [SimulationTestController::class, 'waktuSimulasiHabis'])->middleware('cekPendaftaran')->name('user.simulasi_habis');
+    Route::get('/{username}/waktu-simulasi-habis', [SimulationTestController::class, 'waktuSimulasiHabis'])->middleware('cekPendaftaran')->name('user.waktu_simulasi_habis');
 
     // Halaman tes seleksi
     Route::get('/{username}/seleksi', [SelectionTestController::class, 'index'])->middleware('cekPendaftaran')->name('user.seleksi');
     Route::post('/{username}/seleksi', [SelectionTestController::class, 'kirimJawabanSeleksi'])->middleware('cekPendaftaran')->name('user.seleksi.store');
     Route::get('/{username}/seleksi-terkirim', [SelectionTestController::class, 'tesTerkirim'])->middleware('cekPendaftaran')->name('user.seleksi_terkirim');
     Route::get('/{username}/seleksi-selesai', [SelectionTestController::class, 'tesSelesai'])->middleware('cekPendaftaran')->name('user.seleksi_selesai');
-    Route::get('/{username}/seleksi-habis', [SelectionTestController::class, 'waktuSeleksiHabis'])->middleware('cekPendaftaran')->name('user.seleksi_habis');
+    Route::get('/{username}/waktu-seleksi-habis', [SelectionTestController::class, 'waktuSeleksiHabis'])->middleware('cekPendaftaran')->name('user.waktu_seleksi_habis');
 });

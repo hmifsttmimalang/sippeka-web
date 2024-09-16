@@ -106,7 +106,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 // Redirect ke halaman hasil setelah jawaban dikirim
-                window.location.href = `/${username}/terkirim`;
+                window.location.href = `/${username}/seleksi-terkirim`;
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);
@@ -143,7 +143,7 @@ $(document).ready(function() {
             // Ketika waktu habis, redirect ke halaman 'waktu habis'
             if (remainingTime <= 0) {
                 clearInterval(timerInterval);
-                window.location.href = `/${username}/waktu_habis`;
+                window.location.href = `/${username}/waktu-seleksi-habis`;
             }
         }, 1000);
     });

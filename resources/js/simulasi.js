@@ -106,7 +106,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 // Redirect ke halaman hasil setelah jawaban dikirim
-                window.location.href = `/${username}/hasil_simulasi`;
+                window.location.href = `/${username}/hasil-simulasi`;
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
@@ -125,7 +125,7 @@ $(document).ready(function () {
         $('#timer-text').text(formatTime(timerValue));
         if (timerValue <= 0) {
             clearInterval(timerInterval);
-            window.location.href = `/${username}/waktu_simulasi_habis`;
+            window.location.href = `/${username}/waktu-simulasi-habis`;
         }
     }, 1000);
 
