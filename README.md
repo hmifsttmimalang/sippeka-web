@@ -7,9 +7,7 @@
 
 ## Deskripsi
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
-untuk melakukan pendaftaran pelatihan kerja bagi peserta yang ingin mengikuti
-pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan menggunakan database MySQL. Otentikasi pengguna dilakukan dengan sistem kustom sendiri dan tidak menggunakan npm JavaScript, mengikuti dokumentasi lama.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan database MySQL, menggunakan sistem otentikasi kustom, dan mengelola aset menggunakan Vite.js dengan file vanilla CSS dan JS.
 
 ## Daftar Isi
 
@@ -23,12 +21,11 @@ pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan menggunakan d
 
 ## Pendahuluan
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan
-untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun dengan Laravel 10 dan menggunakan database MySQL. Otentikasi pengguna dilakukan dengan sistem kustom dan tidak menggunakan npm JavaScript.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk pendaftaran pelatihan kerja bagi mahasiswa. Aplikasi ini kini menggunakan Laravel 10 dengan database MySQL dan mengelola aset melalui Vite.js dengan file vanilla JS.
 
 ## Fitur
 
-- Autentikasi pengguna (Admin dan User) dengan sistem kustom
+- Otentikasi pengguna (Admin dan User) menggunakan sistem otentikasi kustom
 - Pendaftaran peserta pelatihan
 - Laporan pendaftaran
 - Manajemen data peserta
@@ -37,17 +34,18 @@ untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun 
 
 ### Prasyarat
 
-- [Laravel 10](https://laravel.com/docs/10.x)
-- MySQL 5.7 atau lebih baru
-- PHP 8.0 atau lebih baru
-- Composer (untuk mengelola dependensi Laravel)
+- [Laragon](https://laragon.org/download/)
+- PHP 8.1 atau lebih baru
+- MySQL 8.0 atau lebih baru
+- Composer
+- Node.js dan NPM
 
 ### Langkah-langkah Instalasi
 
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/ardie069/sippeka_web.git
+    git clone https://github.com/ardie069/app_web.git
     ```
 
 2. **Pindahkan Folder Proyek**
@@ -55,21 +53,22 @@ untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun 
     Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
-    mv sippeka_web path/to/Laragon/www/sippeka_web
+    mv app_web path/to/Laragon/www/app_web
     ```
 
 3. **Instalasi Dependensi**
 
-    Masuk ke direktori proyek dan instal dependensi menggunakan Composer.
+    Masuk ke direktori proyek dan jalankan:
 
     ```bash
-    cd path/to/Laragon/www/sippeka_web
+    cd app_web
     composer install
+    npm install
     ```
 
 4. **Buat Database**
 
-    Buat database baru di phpMyAdmin dengan nama `data_sippeka` (untuk nama database bebas).
+    Buat database baru di phpMyAdmin dengan nama `data_sippeka` (atau nama yang sesuai).
 
 5. **Import Database**
 
@@ -77,15 +76,9 @@ untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun 
 
 6. **Konfigurasi Environment**
 
-    Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database Anda.
+    Salin file `.env.example` menjadi `.env` dan sesuaikan konfigurasi database:
 
-    ```bash
-    cp .env.example .env
-    ```
-
-    Edit file `.env` dan ubah konfigurasi database:
-
-    ```env
+    ```plaintext
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
@@ -94,25 +87,24 @@ untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun 
     DB_PASSWORD=
     ```
 
-7. **Generate Kunci Aplikasi**
+7. **Generate Key**
 
-    Jalankan perintah untuk menghasilkan kunci aplikasi:
+    Jalankan perintah berikut untuk menghasilkan kunci aplikasi:
 
     ```bash
     php artisan key:generate
     ```
 
-8. **Jalankan Migrasi**
+8. **Jalankan Proyek**
 
-    Jalankan migrasi untuk membuat tabel-tabel yang diperlukan di database:
+    Jalankan server Laravel dan Vite.js:
 
     ```bash
-    php artisan migrate
+    php artisan serve
+    npm run dev
     ```
 
-9. **Jalankan Proyek**
-
-    Buka browser dan akses `http://localhost/sippeka_web/`.
+    Buka browser dan akses `http://localhost:8000/`.
 
 ## Struktur Direktori
 
@@ -122,23 +114,27 @@ untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun 
     │   ├── Console/
     │   ├── Exceptions/
     │   ├── Http/
+    │   │   ├── Controllers/
+    │   │   └── Middleware/
     │   ├── Models/
     │   ├── Providers/
-    │   └── Services/
+    │   └── Rules/
     ├── bootstrap/
     ├── config/
     ├── database/
-    │   ├── factories/
     │   ├── migrations/
-    │   └── seeders/
+    │   └── seeds/
     ├── public/
     │   ├── assets/
+    │   │   ├── admin/
+    │   │   ├── css/
+    │   │   ├── js/
+    │   │   ├── profile/
+    │   │   ├── uploads/
+    │   │   └── user/
+    ├── resources/
     │   ├── css/
     │   ├── js/
-    │   ├── uploads/
-    │   └── index.php
-    ├── resources/
-    │   ├── lang/
     │   └── views/
     ├── routes/
     ├── storage/
@@ -147,8 +143,9 @@ untuk melakukan pendaftaran pelatihan kerja bagi peserta. Aplikasi ini dibangun 
     ├── .gitignore
     ├── artisan
     ├── composer.json
-    ├── composer.lock
-    └── phpunit.xml
+    ├── package.json
+    ├── phpunit.xml
+    └── vite.config.js
 ```
 
 ## Penggunaan
