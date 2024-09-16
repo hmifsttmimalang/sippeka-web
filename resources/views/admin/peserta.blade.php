@@ -1,4 +1,4 @@
-@extends('layouts.admin-app')
+@extends('layouts.admin_app')
 
 @section('title', 'Peserta | Admin Sippeka')
 
@@ -10,7 +10,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -21,7 +21,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/admin">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -30,21 +30,21 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="/admin/kelola_data">
+                <a class="nav-link" href="{{ route('admin.kelola_data') }}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="/admin/peserta">
+                <a class="nav-link" href="{{ route('admin.peserta') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/admin/info_user">
+                <a class="nav-link" href="{{ route('admin.info_user') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Info User</span>
                 </a>
@@ -54,17 +54,17 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
-                    <span>Keahlian</span>
+                    <span>Kelola Keahlian</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
-                        <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
-                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -73,7 +73,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="{{ route('auth.logout') }}" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Keluar</span>
                 </a>
@@ -113,6 +113,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
+
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
@@ -143,17 +144,14 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <a class="dropdown-item" href="/logout" data-toggle="modal"
-                                        data-target="#logoutModal">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Keluar
-                                    </a>
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}" data-toggle="modal"
+                                    data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Keluar
+                                </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->
 

@@ -47,7 +47,7 @@ class AdminController extends Controller
             ->select('registrations.*', 'skills.nama as keahlian_nama')
             ->get();
 
-        return view('admin.kelola-data', compact('listPendaftar'));
+        return view('admin.kelola_data', compact('listPendaftar'));
     }
 
     public function detailPendaftar($user_id)
@@ -139,7 +139,7 @@ class AdminController extends Controller
     {
         // Mengambil semua user dengan role user
         $users = User::where('role', 'user')->get();
-        return view('admin.info-user', compact('users'));
+        return view('admin.info_user', compact('users'));
     }
 
     // mata soal

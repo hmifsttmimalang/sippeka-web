@@ -1,4 +1,4 @@
-@extends('layouts.admin-app')
+@extends('layouts.admin_app')
 
 @section('title', 'Kelola Data | Admin Sippeka')
 
@@ -10,7 +10,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -21,7 +21,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/admin">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -30,21 +30,21 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item active">
-                <a class="nav-link" href="/admin/kelola_data">
+                <a class="nav-link" href="{{ route('admin.kelola_data') }}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="/admin/peserta">
+                <a class="nav-link" href="{{ route('admin.peserta') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="/admin/info_user">
+                <a class="nav-link" href="{{ route('admin.info_user') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Info User</span>
                 </a>
@@ -54,17 +54,17 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="/admin/kelola_data" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
-                    <span>Keahlian</span>
+                    <span>Kelola Keahlian</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/admin/mata_soal_keahlian">Mata Soal Keahlian</a>
-                        <a class="collapse-item" href="/admin/kelas_keahlian">Kelas Keahlian</a>
-                        <a class="collapse-item" href="/admin/tes_keahlian">Tes Keahlian</a>
-                        <a class="collapse-item" href="/admin/sesi_tes_keahlian">Sesi Tes Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
+                        <a class="collapse-item" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -73,7 +73,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                <a class="nav-link" href="{{ route('auth.logout') }}" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Keluar</span>
                 </a>
@@ -113,6 +113,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
+
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
@@ -137,20 +138,20 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Keluar
                                 </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->
 
@@ -162,104 +163,109 @@
 
                     <!-- Search Bar -->
                     @if ($listPendaftar->isNotEmpty())
-                    <div class="d-flex justify-content-between">
-                        <div></div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
-                                aria-label="Search">
-                        </form>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-hover">
-                                <thead class="thead-dark">
-                                    <tr style="text-align: center; vertical-align: middle;">
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>Keahlian</th>
-                                        <th>Nilai Tes Keahlian</th>
-                                        <th>Nilai Tes Wawancara</th>
-                                        <th>Rata-Rata</th>
-                                        <th>Status</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($listPendaftar as $item)
-                                    <tr style="text-align: center; vertical-align: middle;">
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td style="text-align: left;">{{ $item->nama }}</td>
-                                        <td style="text-align: left;">{{ $item->alamat }}</td>
-                                        <td style="text-align: left;">{{ $item->keahlian_nama }}</td> 
-                                        <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
-                                        <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
-                                        <td>
-                                            @php
-                                            if (is_null($item->nilai_keahlian) || is_null($item->nilai_wawancara)) {
-                                                $rataRata = null;
-                                            } else {
-                                                $rataRata = ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
-                                            }
-                                            @endphp
-                                            {{ $rataRata ?? 'Sedang diproses' }}
-                                        </td>
-                                        <td>
-                                            @if (is_null($rataRata))
-                                                <span class="badge badge-warning">Sedang diproses</span>
-                                            @elseif ($rataRata >= 70)
-                                                <span class="badge badge-success">Lulus</span>
-                                            @else
-                                                <span class="badge badge-danger">Gagal</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('admin.detail_pendaftar', ['user_id' => $item->user_id]) }}" class="btn btn-info btn-sm">Periksa</a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            
-                            <nav aria-label="..." class="mr-3">
-                                <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link">Previous</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                                @else
-                                <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
-                                @endif
-                            </nav>
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
+                                    aria-label="Search">
+                            </form>
                         </div>
 
-                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Alamat</th>
+                                            <th>Keahlian</th>
+                                            <th>Nilai Tes Keahlian</th>
+                                            <th>Nilai Tes Wawancara</th>
+                                            <th>Rata-Rata</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($listPendaftar as $item)
+                                            <tr style="text-align: center; vertical-align: middle;">
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td style="text-align: left;">{{ $item->nama }}</td>
+                                                <td style="text-align: left;">{{ $item->alamat }}</td>
+                                                <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
+                                                <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
+                                                <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
+                                                <td>
+                                                    @php
+                                                        if (
+                                                            is_null($item->nilai_keahlian) ||
+                                                            is_null($item->nilai_wawancara)
+                                                        ) {
+                                                            $rataRata = null;
+                                                        } else {
+                                                            $rataRata =
+                                                                ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
+                                                        }
+                                                    @endphp
+                                                    {{ $rataRata ?? 'Sedang diproses' }}
+                                                </td>
+                                                <td>
+                                                    @if (is_null($rataRata))
+                                                        <span class="badge badge-warning">Sedang diproses</span>
+                                                    @elseif ($rataRata >= 70)
+                                                        <span class="badge badge-success">Lulus</span>
+                                                    @else
+                                                        <span class="badge badge-danger">Gagal</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('admin.detail_pendaftar', ['user_id' => $item->user_id]) }}"
+                                                        class="btn btn-info btn-sm">Periksa</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
 
-                    <!-- Content Row -->
-
-
-                    <!-- /.container-fluid -->
-
+                                <nav aria-label="..." class="mr-3">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link">Previous</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">2</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">3</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                @else
+                                    <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
+                    @endif
+                    </nav>
                 </div>
-                <!-- End of Main Content -->
 
             </div>
-            <!-- End of Content Wrapper -->
+
+            <!-- Content Row -->
+
+
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Page Wrapper -->
+        <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
     </div>
 @endsection

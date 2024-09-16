@@ -49,7 +49,11 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <a class="btn btn-primary" href="{{ route('auth.logout') }}">Keluar</a>
+                    <form action="{{ route('auth.logout') }}" method="post">
+                        @csrf
+                        @method('POST')
+                        <button class="btn btn-primary" type="submit">Keluar</a>
+                    </form>
                 </div>
             </div>
         </div>
