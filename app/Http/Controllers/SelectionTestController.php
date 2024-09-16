@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Question;
 use App\Models\Registration;
+use App\Models\SkillTest;
 use App\Models\SkillTestSession;
 use App\Models\TestAttempt;
 use App\Models\User;
@@ -50,6 +51,7 @@ class SelectionTestController extends Controller
         }
 
         $tes_keahlian_id = $keahlianPeserta->keahlian;
+        $tesKeahlian = SkillTest::find($tes_keahlian_id);
 
         // Ambil soal berdasarkan tes_keahlian_id
         $questions = Question::where('skill_test_id', $tes_keahlian_id)->get();
@@ -57,6 +59,35 @@ class SelectionTestController extends Controller
         // Cek apakah soal tersedia
         if ($questions->isEmpty()) {
             return redirect()->back()->with('error', 'Soal tidak tersedia untuk tes ini.');
+        }
+
+        // Acak soal jika diperlukan
+        if ($tesKeahlian->acak_soal == 'y') {
+            $questions = $questions->shuffle();
+        }
+
+        // Mengacak jawaban
+        foreach ($questions as $question) {
+            $answers = [
+                'A' => $question->pilihan_a,
+                'B' => $question->pilihan_b,
+                'C' => $question->pilihan_c,
+                'D' => $question->pilihan_d
+            ];
+
+            // Menghapus jawaban kosong
+            $answers = array_filter($answers);
+
+            // Mengacak jawaban
+            $keys = array_keys($answers);
+            shuffle($keys);
+
+            $shuffledAnswers = [];
+            foreach ($keys as $key) {
+                $shuffledAnswers[$key] = $answers[$key];
+            }
+
+            $question->shuffled_answers = $shuffledAnswers;
         }
 
         // Ambil waktu mulai dan selesai sesi dari database

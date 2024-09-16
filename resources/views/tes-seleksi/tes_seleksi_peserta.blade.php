@@ -24,33 +24,19 @@
                             <?php $currentQuestion = 1; ?>
                             @foreach ($questions as $question)
                                 <div id="question-{{ $question->id }}" class="question"
-                                    style="display: {{ $currentQuestion == $question['id'] ? 'block' : 'none' }}">
+                                    style="display: {{ $currentQuestion == $question->id ? 'block' : 'none' }}">
                                     <p><strong>{!! $question->soal !!}</strong></p>
                                     <div class="mb-3">
-                                        <div class="question-option-container d-flex align-items-center">
-                                            <button class="btn btn-outline-primary option-btn">A</button>
-                                            <span class="mx-2">{!! $question->pilihan_a !!}</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="question-option-container d-flex align-items-center">
-                                            <button class="btn btn-outline-primary option-btn">B</button>
-                                            <span class="mx-2">{!! $question->pilihan_b !!}</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="question-option-container d-flex align-items-center">
-                                            <button class="btn btn-outline-primary option-btn">C</button>
-                                            <span class="mx-2">{!! $question->pilihan_c !!}</span>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <div class="question-option-container d-flex align-items-center">
-                                            <button class="btn btn-outline-primary option-btn">D</button>
-                                            <span class="mx-2">{!! $question->pilihan_d !!}</span>
-                                        </div>
+                                        @foreach ($question->shuffled_answers as $key => $answer)
+                                            <div class="question-option-container d-flex align-items-center">
+                                                <button class="btn btn-outline-primary option-btn"
+                                                    data-answer="{{ $key }}">{{ strtoupper($key) }}</button>
+                                                <span class="mx-2">{!! $answer !!}</span>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
+                                <?php $currentQuestion++; ?>
                             @endforeach
 
                             <hr class="sidebar-divider">
