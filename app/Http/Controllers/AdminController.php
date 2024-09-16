@@ -102,7 +102,7 @@ class AdminController extends Controller
             $status = 'Sedang diproses';
         }
 
-        return view('admin.detail-pendaftar', compact('pendaftar', 'formatted_date', 'status', 'rataRata'));
+        return view('admin.detail_pendaftar', compact('pendaftar', 'formatted_date', 'status', 'rataRata'));
     }
 
     public function validasiTesWawancara(Request $request, $user_id)
