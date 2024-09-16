@@ -12,7 +12,7 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
-                                <a href="/" class="logo d-flex align-items-center w-auto">
+                                <a href="{{ route('home') }}" class="logo d-flex align-items-center w-auto">
                                     <img src="{{ asset('assets/user/img/logo.png') }}" alt="Logo Sippeka">
                                     <span class="d-none d-lg-block">SIPPEKA</span>
                                 </a>
@@ -27,7 +27,7 @@
                                         <p class="text-center small">Masukkan username atau email & password untuk login</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="post" action="{{ url('login') }}">
+                                    <form class="row g-3 needs-validation" method="post" action="{{ route('auth.login.store') }}">
                                         @csrf
                                         <div class="col-12">
                                             <label for="identifier" class="form-label">Username atau Email</label>
@@ -56,7 +56,7 @@
                                             <button class="btn btn-primary w-100" type="submit">Masuk</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Belum punya akun? <a href="{{ url('register') }}">Buat akun</a></p>
+                                            <p class="small mb-0">Belum punya akun? <a href="{{ route('auth.register') }}">Buat akun</a></p>
                                         </div>
                                     </form>
                                     
@@ -64,7 +64,7 @@
                             </div>
 
                             <div class="credits">
-                                Designed by <a href="/">SIPPEKA</a>
+                                Designed by <a href="{{ route('home') }}">SIPPEKA</a>
                             </div>
 
                         </div>

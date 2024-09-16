@@ -10,7 +10,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4">
-                                <a href="/" class="logo d-flex align-items-center w-auto">
+                                <a href="{{ route('home') }}" class="logo d-flex align-items-center w-auto">
                                     <img src="{{ asset('assets/user/img/logo.png') }}" alt="Logo Sippeka">
                                     <span class="d-none d-lg-block">SIPPEKA</span>
                                 </a>
@@ -24,8 +24,9 @@
                                         <p class="text-center small">Masukkan informasi Anda untuk membuat akun!</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="post" action="{{ url('register') }}">
+                                    <form class="row g-3 needs-validation" method="post" action="{{ route('auth.register.store') }}">
                                         @csrf
+                                        @method('POST')
                                         <div class="col-12">
                                             <label for="username" class="form-label">Username</label>
                                             <div class="input-group has-validation">
@@ -71,7 +72,7 @@
                                                 Akun</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Sudah mempunyai akun? <a href="{{ url('login') }}">Masuk</a></p>
+                                            <p class="small mb-0">Sudah mempunyai akun? <a href="{{ route('auth.login') }}">Masuk</a></p>
                                         </div>
                                     </form>
                                 </div>
