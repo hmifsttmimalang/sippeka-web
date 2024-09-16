@@ -464,14 +464,14 @@ class AdminController extends Controller
             ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
             ->get();
 
-        return view('admin.sesi-tes-keahlian.sesi-tes-keahlian', compact('sesiTesKeahlian'));
+        return view('admin.sesi-tes-keahlian.sesi_tes_keahlian', compact('sesiTesKeahlian'));
     }
 
     public function tambahSesiTesKeahlian()
     {
         $tesKeahlian = SkillTest::all();
 
-        return view('admin.sesi-tes-keahlian.tambah-sesi-tes-keahlian', compact('tesKeahlian'));
+        return view('admin.sesi-tes-keahlian.tambah_sesi_tes_keahlian', compact('tesKeahlian'));
     }
     public function simpanSesiTesKeahlian(Request $request)
     {
@@ -513,7 +513,7 @@ class AdminController extends Controller
         $durasi = $waktuSelesai->diffInMinutes($waktuMulai);
 
         // Kirim data ke view
-        return view('admin.sesi-tes-keahlian.detail-sesi-tes-keahlian', compact('sesiTesKeahlian', 'durasi'));
+        return view('admin.sesi-tes-keahlian.detail_sesi_tes_keahlian', compact('sesiTesKeahlian', 'durasi'));
     }
 
     public function editSesiTesKeahlian($id)
@@ -521,7 +521,7 @@ class AdminController extends Controller
         $tesKeahlian = SkillTest::all();
         $sesiTesKeahlian = SkillTestSession::findOrFail($id);
 
-        return view('admin.sesi-tes-keahlian.edit-sesi-tes-keahlian', compact('tesKeahlian', 'sesiTesKeahlian'));
+        return view('admin.sesi-tes-keahlian.edit_sesi_tes_keahlian', compact('tesKeahlian', 'sesiTesKeahlian'));
     }
 
     public function updateSesiTesKeahlian(Request $request, $id)
