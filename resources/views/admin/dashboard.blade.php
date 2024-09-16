@@ -231,6 +231,7 @@
                     <h2 class="text-gray-800">Data Pendaftar Baru</h2>
                     <div class="row">
                         <div class="col-md-12">
+                            @if ($listPendaftarBaru->isNotEmpty())
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover mt-3">
                                     <thead class="thead-dark">
@@ -243,7 +244,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($listPendaftarBaru as $item)
+                                        @foreach ($listPendaftarBaru as $item)
                                             <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
@@ -252,14 +253,12 @@
                                                 <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="4" class="text-center">Tidak ada pendaftar baru dalam 24
-                                                    jam terakhir</td>
-                                            </tr>
-                                        @endforelse
+                                            @endforeach
                                     </tbody>
                                 </table>
+                                @else
+                                <h4 class="text-center mt-4">Tidak ada pendaftar baru dalam 24 jam terakhir</h4>
+                                @endif
                             </div>
                         </div>
                     </div>
