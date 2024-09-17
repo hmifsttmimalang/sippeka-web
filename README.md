@@ -117,8 +117,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     │   │   ├── Controllers/
     │   │   └── Middleware/
     │   ├── Models/
-    │   ├── Providers/
-    │   └── Rules/
+    │   └── Providers/
     ├── bootstrap/
     ├── config/
     ├── database/
@@ -130,8 +129,8 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     │   │   ├── css/
     │   │   ├── js/
     │   │   ├── profile/
-    │   │   ├── uploads/
     │   │   └── user/
+    │   └── uploads/
     ├── resources/
     │   ├── css/
     │   ├── js/
