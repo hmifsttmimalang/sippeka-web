@@ -21,7 +21,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
 
 ## Pendahuluan
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk pendaftaran pelatihan kerja bagi mahasiswa. Aplikasi ini kini menggunakan Laravel 10 dengan database MySQL dan mengelola aset melalui Vite.js dengan file vanilla JS.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk pendaftaran pelatihan kerja bagi mahasiswa. Aplikasi ini kini menggunakan Laravel 10 dengan database MySQL dan mengelola aset melalui Vite.js dengan file vanilla CSS dan JS.
 
 ## Fitur
 
