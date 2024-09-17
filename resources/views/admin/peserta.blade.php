@@ -162,7 +162,7 @@
                     <h1 class="h3 mb-3 text-gray-800 ">Data Peserta</h1>
 
                     @if ($listPendaftar->isNotEmpty())
-                        <a href="" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
+                        <a href="{{ route('admin.peserta.cetak') }}" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -208,7 +208,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="" class="btn btn-warning btn-sm">Cetak</a>
+                                                    <a href="{{ route('admin.detail_peserta.cetak', ['user_id' => $item->user_id]) }}" class="btn btn-warning btn-sm">Cetak</a>
                                                 </td>
                                             </tr>
                                         @endforeach
