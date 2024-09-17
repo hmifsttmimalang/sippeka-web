@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Log;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Registration;
@@ -408,6 +411,52 @@ class AdminController extends Controller
         $tesKeahlian = SkillTest::findOrFail($id);
 
         return view('admin.tes-keahlian.soal-tes.import_soal_tes_keahlian', compact('tesKeahlian'));
+    }
+
+    public function importSoal(Request $request, $id)
+    {
+        $request->validate([
+            'file_excel' => 'required|file|mimes:xlsx,xls'
+        ]);
+
+        $tesKeahlian = SkillTest::findOrFail($id);
+
+        $file = $request->file('file_excel');
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $highestRow = $worksheet->getHighestRow();
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            $soal = $worksheet->getCell('A' . $row)->getValue();
+            $pilihanA = $worksheet->getCell('B' . $row)->getValue();
+            $pilihanB = $worksheet->getCell('C' . $row)->getValue();
+            $pilihanC = $worksheet->getCell('D' . $row)->getValue();
+            $pilihanD = $worksheet->getCell('E' . $row)->getValue();
+            $jawabanBenar = $worksheet->getCell('F' . $row)->getValue();
+
+            if (empty($soal) || empty($pilihanA) || empty($pilihanB) || empty($pilihanC) || empty($pilihanD) || empty($jawabanBenar)) {
+                Log::error("Data tidak lengkap di baris $row");
+                continue; // Abaikan baris jika ada data yang kosong
+            }
+
+            try {
+                Question::create([
+                    'skill_test_id' => $tesKeahlian->id,
+                    'soal' => $soal,
+                    'pilihan_a' => $pilihanA,
+                    'pilihan_b' => $pilihanB,
+                    'pilihan_c' => $pilihanC,
+                    'pilihan_d' => $pilihanD,
+                    'jawaban_benar' => $jawabanBenar
+                ]);
+                Log::info("Soal berhasil disimpan untuk row: $row");
+            } catch (\Exception $e) {
+                Log::error("Gagal menyimpan soal untuk row: $row. Error: " . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Soal berhasil diimpor.');
     }
 
     public function editSoalTesKeahlian($id, $soal_id)

@@ -69,6 +69,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/tes-keahlian/{id}/soal/tambah', [AdminController::class, 'tambahSoalTesKeahlian'])->name('admin.soal.create');
     Route::post('/admin/tes-keahlian/{id}/soal/tambah', [AdminController::class, 'simpanSoalTesKeahlian'])->name('admin.soal.store');
     Route::get('/admin/tes-keahlian/{id}/soal/import', [AdminController::class, 'importSoalTesKeahlian'])->name('admin.soal.import');
+    Route::post('/admin/tes-keahlian/{id}/soal/import', [AdminController::class, 'importSoal'])->name('admin.soal.import.store');
     Route::get('/admin/tes-keahlian/{id}/soal/{soal_id}/edit', [AdminController::class, 'editSoalTesKeahlian'])->name('admin.soal.edit');
     Route::put('/admin/tes-keahlian/{id}/soal/{soal_id}', [AdminController::class, 'updateSoalTesKeahlian'])->name('admin.soal.update');
     Route::delete('/admin/tes-keahlian/{id}/soal/{soal_id}', [AdminController::class, 'hapusSoalTesKeahlian'])->name('admin.soal.delete');
