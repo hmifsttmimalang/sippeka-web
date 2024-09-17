@@ -53,7 +53,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
-    mv sippeka_web path/to/Laragon/www/app_web
+    mv sippeka_web path/to/Laragon/www/sippeka_web
     ```
 
 3. **Instalasi Dependensi**
@@ -130,7 +130,8 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     │   │   ├── js/
     │   │   ├── profile/
     │   │   └── user/
-    │   └── uploads/
+    │   └── storage/
+    │       └── uploads/
     ├── resources/
     │   ├── css/
     │   ├── js/
