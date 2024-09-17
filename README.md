@@ -7,7 +7,7 @@
 
 ## Deskripsi
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan database MySQL, menggunakan sistem otentikasi kustom, dan mengelola aset menggunakan Vite.js dengan file vanilla CSS dan JS.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan menggunakan database MySQL dan menggunakan Vite JS dengan file vanilla JS dan CSS. Selain itu, aplikasi ini menyimpan file upload foto di direktori `/uploads`.
 
 ## Daftar Isi
 
@@ -21,24 +21,25 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
 
 ## Pendahuluan
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk pendaftaran pelatihan kerja bagi mahasiswa. Aplikasi ini kini menggunakan Laravel 10 dengan database MySQL dan mengelola aset melalui Vite.js dengan file vanilla CSS dan JS.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran pelatihan kerja bagi mahasiswa. Proyek ini menggunakan Laravel 10, MySQL, dan Vite JS. Otentikasi pengguna diimplementasikan secara kustom, bukan menggunakan library Breeze.
 
 ## Fitur
 
-- Otentikasi pengguna (Admin dan User) menggunakan sistem otentikasi kustom
+- Otentikasi pengguna (Admin dan User) dengan sistem kustom
 - Pendaftaran peserta pelatihan
 - Laporan pendaftaran
 - Manajemen data peserta
+- Upload foto dengan direktori `/uploads` berisi foto-foto penting
 
 ## Instalasi
 
 ### Prasyarat
 
 - [Laragon](https://laragon.org/download/)
-- PHP 8.1 atau lebih baru
-- MySQL 8.0 atau lebih baru
-- Composer
-- Node.js dan NPM
+- PHP 8.2.12 atau lebih baru
+- MySQL 5.7 atau lebih baru
+- Laravel 10
+- Vite JS
 
 ### Langkah-langkah Instalasi
 
@@ -132,6 +133,10 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunak
     │   │   └── user/
     │   └── storage/
     │       └── uploads/
+    │           ├── foto_ktp.jpg
+    │           ├── foto_ijazah.jpg
+    │           ├── foto_background_biru.jpg
+    │           └── foto_kk.jpg
     ├── resources/
     │   ├── css/
     │   ├── js/
