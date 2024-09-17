@@ -30,7 +30,10 @@
                                         @foreach ($question->shuffled_answers as $key => $answer)
                                             <div class="question-option-container d-flex align-items-center">
                                                 <button class="btn btn-outline-primary option-btn"
-                                                    data-answer="{{ $key }}" style="width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-size: 18px; padding: 0; border-radius: 5px;"></button>
+                                                    data-answer="{{ $key }}"
+                                                    style="width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-size: 18px; padding: 0; border-radius: 5px;">
+                                                    <div hidden>{{ strtoupper($key) }}</div>
+                                                </button>
                                                 <span class="mx-2">{!! $answer !!}</span>
                                             </div>
                                         @endforeach

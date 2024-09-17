@@ -1,9 +1,12 @@
 $(document).ready(function () {
     let currentIndex = 0;
-    let skillTestSessionId = $('input[name="skill_test_session_id"]').val();
+    const skillTestSessionId = $('input[name="skill_test_session_id"]').val();
     const questionIds = window.questionIds;
     const username = window.username;
     const csrfToken = window.csrfToken;
+
+    // Ambil status jawaban dari localStorage saat halaman dimuat
+    let questionStates = JSON.parse(localStorage.getItem('questionStates')) || {};
 
     // Pastikan semua pertanyaan disembunyikan terlebih dahulu
     $('.question').hide();
@@ -11,9 +14,6 @@ $(document).ready(function () {
     if (questionIds.length > 0) {
         showQuestion(questionIds[currentIndex]);
     }
-
-    // Temukan soal pertama yang sesuai dengan `tes_keahlian_id`
-    const firstQuestionId = "<?= isset($questions[0]['id']) ? $questions[0]['id'] : '' ?>";
 
     // Navigasi soal sebelumnya
     $('#prev-question').click(function () {
@@ -32,33 +32,57 @@ $(document).ready(function () {
     });
 
     $('.question-nav button').click(function () {
-        questionId = $(this).attr('id').replace('question-', '');
-        currentQuestion = parseInt(questionId);
-        showQuestion(currentQuestion);
+        const buttonId = $(this).attr('id');
+        const questionId = buttonId.replace('question-', '').replace('-nav', '');
+        showQuestion(parseInt(questionId));
     });
 
     function showQuestion(questionId) {
         $('.question').hide();
         $(`#question-${questionId}`).show();
-        $('#current-question-number').text(questionIds.indexOf(questionId) + 1);
-    }
 
-    // Inisialisasi state pertanyaan
-    const questionStates = {};
+        // Perbarui nomor soal saat ini jika diperlukan
+        $('#current-question-number').text(questionId);
+
+        // Terapkan status jawaban yang disimpan
+        const state = questionStates[questionId] || {};
+        const optionBtns = state.optionBtns || [];
+
+        // Set status tombol navigasi
+        const navButton = $(`#question-${questionId}-nav`);
+        if (state.navButtonClass === 'btn-primary') {
+            navButton.removeClass('btn-outline-primary').addClass('btn-primary');
+        } else {
+            navButton.removeClass('btn-primary').addClass('btn-outline-primary');
+        }
+
+        // Set status tombol jawaban
+        $(`#question-${questionId} .option-btn`).each(function () {
+            const btnText = $(this).text();
+            if (optionBtns.includes(btnText)) {
+                $(this).addClass('btn-primary').removeClass('btn-outline-primary');
+            } else {
+                $(this).removeClass('btn-primary').addClass('btn-outline-primary');
+            }
+        });
+    }
 
     $('.option-btn').on('click', function () {
         const questionId = $(this).closest('.question').attr('id').replace('question-', '');
-        const navButton = $('#question-' + questionId + '-nav');
+        const navButton = $(`#question-${questionId}-nav`);
         const optionBtnsState = questionStates[questionId] || {
             optionBtns: [],
             navButtonClass: 'btn-outline-primary'
         };
 
-        $('.option-btn').removeClass('btn-primary').addClass('btn-outline-primary');
+        // Nonaktifkan semua tombol untuk pertanyaan ini
+        $(`#question-${questionId} .option-btn`).removeClass('btn-primary').addClass('btn-outline-primary');
+
+        // Aktifkan tombol yang diklik
         $(this).toggleClass('btn-primary btn-outline-primary');
 
+        // Perbarui status pilihan jawaban
         optionBtnsState.optionBtns = [];
-
         if ($(this).hasClass('btn-primary')) {
             optionBtnsState.optionBtns.push($(this).text());
             navButton.removeClass('btn-outline-primary').addClass('btn-primary');
@@ -68,17 +92,16 @@ $(document).ready(function () {
             optionBtnsState.navButtonClass = 'btn-outline-primary';
         }
 
+        // Simpan status pertanyaan
         questionStates[questionId] = optionBtnsState;
 
+        // Simpan ke localStorage
         localStorage.setItem('questionStates', JSON.stringify(questionStates));
         updateBadgeCount();
     });
 
-    let completedCount = 0;
-    updateBadgeCount();
-
     function updateBadgeCount() {
-        completedCount = 0;
+        let completedCount = 0;
         for (const questionId in questionStates) {
             if (questionStates.hasOwnProperty(questionId)) {
                 const state = questionStates[questionId];
@@ -93,26 +116,38 @@ $(document).ready(function () {
     $('#finish-test').click(function (e) {
         e.preventDefault();
         const userAnswers = {};
+
+        // Mengumpulkan jawaban dari questionStates
         $.each(questionStates, function (questionId, state) {
-            userAnswers[questionId] = state.optionBtns;
+            // Hapus spasi dan newline dari jawaban
+            userAnswers[questionId] = (state.optionBtns || []).map(answer => answer.trim());
         });
+
+        // Validasi jika userAnswers tidak kosong
+        if (Object.keys(userAnswers).length === 0) {
+            alert('Tidak ada jawaban yang dipilih.');
+            return;
+        }
+
         $.ajax({
             url: `/${username}/seleksi`,
             method: 'POST',
             data: {
-                userAnswers: JSON.stringify(
-                    userAnswers), // Mengirim jawaban sebagai JSON string
+                userAnswers: JSON.stringify(userAnswers), // Mengirim jawaban sebagai JSON string
                 skill_test_session_id: skillTestSessionId,
-                _token: csrfToken // Jangan lupa menambahkan token CSRF
+                _token: csrfToken // Token CSRF
             },
             dataType: 'json',
             success: function (response) {
+                // Hapus localStorage setelah jawaban dikirim
+                localStorage.removeItem('questionStates');
+
                 // Redirect ke halaman hasil setelah jawaban dikirim
                 window.location.href = `/${username}/seleksi-terkirim`;
             },
             error: function (xhr, status, error) {
                 console.error('Error:', error);
-                alert('Error: ' + error);
+                alert('Terjadi kesalahan saat mengirimkan jawaban. Silakan coba lagi.');
             }
         });
     });

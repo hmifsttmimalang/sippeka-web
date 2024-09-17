@@ -21,7 +21,8 @@
                             <hr class="sidebar-divider">
 
                             <!-- Looping Soal -->
-                            <?php $currentQuestion = 1; ?>
+                            @php $currentQuestion = 1
+                            @endphp
                             @foreach ($questions as $question)
                                 <div id="question-{{ $question->id }}" class="question"
                                     style="display: {{ $currentQuestion == $question->id ? 'block' : 'none' }}">
@@ -30,7 +31,9 @@
                                         @foreach ($question->shuffled_answers as $key => $answer)
                                             <div class="question-option-container d-flex align-items-center">
                                                 <button class="btn btn-outline-primary option-btn"
-                                                    data-answer="{{ $key }}" style="width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-size: 18px; padding: 0; border-radius: 5px;"></button>
+                                                    data-answer="{{ $key }}" style="width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; font-size: 18px; padding: 0; border-radius: 5px;">
+                                                <div hidden>{{ strtoupper($key) }}</div>
+                                                </button>
                                                 <span class="mx-2">{!! $answer !!}</span>
                                             </div>
                                         @endforeach
