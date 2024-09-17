@@ -35,8 +35,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/kelola-data', [AdminController::class, 'kelolaData'])->name('admin.kelola_data');
     Route::get('/admin/peserta', [AdminController::class, 'peserta'])->name('admin.peserta');
-    Route::get('/admin/info-user', [AdminController::class, 'infoUser'])->name('admin.info_user');
-
+    Route::get('/admin/peserta/cetak', [AdminController::class, 'cetakPeserta'])->name('admin.peserta.cetak');
+    Route::get('/admin/info-user', [AdminController::class, 'infoUser'])->name('admin.info_user');    
+    Route::get('/admin/peserta/{user_id}/cetak', [AdminController::class, 'cetakDetailPendaftar'])->name('admin.detail_peserta.cetak');
     Route::get('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'detailPendaftar'])->name('admin.detail_pendaftar');
     Route::post('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'validasiTesWawancara'])->name('admin.validasi_wawancara');
 
@@ -69,6 +70,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/tes-keahlian/{id}/soal/tambah', [AdminController::class, 'tambahSoalTesKeahlian'])->name('admin.soal.create');
     Route::post('/admin/tes-keahlian/{id}/soal/tambah', [AdminController::class, 'simpanSoalTesKeahlian'])->name('admin.soal.store');
     Route::get('/admin/tes-keahlian/{id}/soal/import', [AdminController::class, 'importSoalTesKeahlian'])->name('admin.soal.import');
+    Route::post('/admin/tes-keahlian/{id}/soal/import', [AdminController::class, 'importSoal'])->name('admin.soal.import.store');
     Route::get('/admin/tes-keahlian/{id}/soal/{soal_id}/edit', [AdminController::class, 'editSoalTesKeahlian'])->name('admin.soal.edit');
     Route::put('/admin/tes-keahlian/{id}/soal/{soal_id}', [AdminController::class, 'updateSoalTesKeahlian'])->name('admin.soal.update');
     Route::delete('/admin/tes-keahlian/{id}/soal/{soal_id}', [AdminController::class, 'hapusSoalTesKeahlian'])->name('admin.soal.delete');

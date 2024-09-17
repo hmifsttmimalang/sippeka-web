@@ -92,7 +92,12 @@ class SimulationTestController extends Controller
         if ($request->has('userAnswers')) {
             $userAnswers = json_decode($request->input('userAnswers'), true);
             if (json_last_error() === JSON_ERROR_NONE) {
-                // Simpan jawaban ke session, atau lakukan penyimpanan ke database
+                // Membersihkan data dari karakter ekstra
+                $userAnswers = array_map(function ($answers) {
+                    return array_map('trim', $answers);
+                }, $userAnswers);
+
+                // Simpan jawaban ke session
                 session(['userAnswers' => $userAnswers]);
 
                 // Jika jawaban berhasil disimpan, kembalikan respon sukses
@@ -130,12 +135,11 @@ class SimulationTestController extends Controller
         $score = 0;
         foreach ($questions as $question) {
             // Cek apakah jawaban user ada untuk soal ini
-            if (isset($userAnswers[$question->id])) {
-                $userAnswer = is_array($userAnswers[$question->id]) ? $userAnswers[$question->id] : explode(',', $userAnswers[$question->id]);
-                // Cek apakah jawaban user benar
-                if (in_array($question->jawaban_benar, $userAnswer)) {
-                    $score++;
-                }
+            $userAnswer = isset($userAnswers[$question->id]) ? array_map('trim', $userAnswers[$question->id]) : [];
+
+            // Cek apakah jawaban user benar
+            if (in_array($question->jawaban_benar, $userAnswer)) {
+                $score++;
             }
         }
 

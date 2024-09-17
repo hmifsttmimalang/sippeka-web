@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Log;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Registration;
@@ -15,6 +19,13 @@ use App\Models\SkillTestSession;
 
 class AdminController extends Controller
 {
+    protected $pdf;
+
+    public function __construct(PDF $pdf)
+    {
+        $this->pdf = $pdf;
+    }
+
     public function index()
     {
         // Hitung total pendaftar
@@ -48,6 +59,68 @@ class AdminController extends Controller
             ->get();
 
         return view('admin.kelola_data', compact('listPendaftar'));
+    }
+
+    public function cetakDetailPendaftar($user_id)
+    {
+        $pendaftar = DB::table('registrations')
+        ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+        ->select('registrations.*', 'skills.nama as keahlian_nama')
+        ->where('registrations.user_id', $user_id) // Ganti dengan kondisi pencarian yang benar
+        ->first();    
+
+        $tanggal_lahir = $pendaftar->tanggal_lahir;
+
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+
+        // Ekstrak bagian tanggal
+        $hari = date('d', strtotime($tanggal_lahir));
+        $bulan_num = date('m', strtotime($tanggal_lahir));
+        $tahun = date('Y', strtotime($tanggal_lahir));
+
+        // Ambil nama bulan dari array
+        $nama_bulan = $bulan[(int)$bulan_num];
+
+        // Gabungkan format tanggal
+        $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
+
+        // Jika nilai keahlian ada tetapi nilai wawancara null
+        if (!is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara)) {
+            $status = 'Sedang diproses'; // Status jika nilai wawancara belum ada
+            $rataRata = null; // Tidak menghitung rata-rata
+        } elseif (!is_null($pendaftar->nilai_keahlian) && !is_null($pendaftar->nilai_wawancara)) {
+            // Jika kedua nilai sudah ada, hitung rata-rata
+            $rataRata = ($pendaftar->nilai_keahlian + $pendaftar->nilai_wawancara) / 2;
+
+            // Tentukan status lulus atau gagal berdasarkan nilai rata-rata
+            if ($rataRata >= 70) {
+                $status = 'Lulus';
+            } else {
+                $status = 'Gagal';
+            }
+        } else {
+            // Jika kedua nilai belum ada
+            $rataRata = null;
+            $status = 'Sedang diproses';
+        }
+
+        $pdf = $this->pdf->loadView('admin.cetak.detail_pendaftar_pdf', compact('pendaftar', 'formatted_date', 'status', 'rataRata'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('detail_pendaftar_' . $user_id . '.pdf');
     }
 
     public function detailPendaftar($user_id)
@@ -133,6 +206,19 @@ class AdminController extends Controller
             ->get();
 
         return view('admin.peserta', compact('listPendaftar'));
+    }
+
+    public function cetakPeserta()
+    {
+        $listPendaftar = Registration::latest()
+            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama')
+            ->get();
+
+        $pdf = $this->pdf->loadView('admin.cetak.data_peserta_pdf', compact('listPendaftar'))
+            ->setPaper('a4', 'potrait');
+
+        return $pdf->download('data_peserta.pdf');
     }
 
     public function infoUser()
@@ -408,6 +494,52 @@ class AdminController extends Controller
         $tesKeahlian = SkillTest::findOrFail($id);
 
         return view('admin.tes-keahlian.soal-tes.import_soal_tes_keahlian', compact('tesKeahlian'));
+    }
+
+    public function importSoal(Request $request, $id)
+    {
+        $request->validate([
+            'file_excel' => 'required|file|mimes:xlsx,xls'
+        ]);
+
+        $tesKeahlian = SkillTest::findOrFail($id);
+
+        $file = $request->file('file_excel');
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $worksheet = $spreadsheet->getActiveSheet();
+
+        $highestRow = $worksheet->getHighestRow();
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            $soal = $worksheet->getCell('A' . $row)->getValue();
+            $pilihanA = $worksheet->getCell('B' . $row)->getValue();
+            $pilihanB = $worksheet->getCell('C' . $row)->getValue();
+            $pilihanC = $worksheet->getCell('D' . $row)->getValue();
+            $pilihanD = $worksheet->getCell('E' . $row)->getValue();
+            $jawabanBenar = $worksheet->getCell('F' . $row)->getValue();
+
+            if (empty($soal) || empty($pilihanA) || empty($pilihanB) || empty($pilihanC) || empty($pilihanD) || empty($jawabanBenar)) {
+                Log::error("Data tidak lengkap di baris $row");
+                continue; // Abaikan baris jika ada data yang kosong
+            }
+
+            try {
+                Question::create([
+                    'skill_test_id' => $tesKeahlian->id,
+                    'soal' => $soal,
+                    'pilihan_a' => $pilihanA,
+                    'pilihan_b' => $pilihanB,
+                    'pilihan_c' => $pilihanC,
+                    'pilihan_d' => $pilihanD,
+                    'jawaban_benar' => $jawabanBenar
+                ]);
+                Log::info("Soal berhasil disimpan untuk row: $row");
+            } catch (\Exception $e) {
+                Log::error("Gagal menyimpan soal untuk row: $row. Error: " . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Soal berhasil diimpor.');
     }
 
     public function editSoalTesKeahlian($id, $soal_id)

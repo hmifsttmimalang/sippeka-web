@@ -27,7 +27,7 @@ class SelectionTestController extends Controller
 
         if ($sesiSeleksi) {
             // Tidak ada tindakan yang perlu dilakukan jika sesi seleksi aktif
-            Log::info('Sesi seleksi aktif.');
+            // Log::info('Sesi seleksi aktif.');
         } else {
             // Jika tidak ada sesi seleksi yang aktif, kembalikan respon kesalahan
             return redirect()->back()->with('error', 'Tidak ada sesi seleksi yang aktif saat ini.');
@@ -124,8 +124,21 @@ class SelectionTestController extends Controller
         $skillTestSessionId = $request->input('skill_test_session_id');
         $userAnswers = json_decode($request->input('userAnswers'), true);
 
+        // Debugging: Log data yang diterima
+        // Log::info('User Answers:', $userAnswers);
+
         if (json_last_error() !== JSON_ERROR_NONE) {
             return response()->json(['success' => false, 'message' => 'Error decoding JSON: ' . json_last_error_msg()], 400);
+        }
+
+        // Pastikan $userAnswers adalah array yang benar
+        if (!is_array($userAnswers)) {
+            return response()->json(['success' => false, 'message' => 'User Answers tidak valid'], 400);
+        }
+
+        // Membersihkan data jawaban
+        foreach ($userAnswers as $questionId => &$answers) {
+            $answers = array_map('trim', $answers);
         }
 
         // Simpan jawaban ke session
@@ -136,6 +149,12 @@ class SelectionTestController extends Controller
         $score = 0;
 
         foreach ($questions as $question) {
+            // Debugging: Log jawaban dan jawaban benar
+            // Log::info('Question ID: ' . $question->id);
+            // Log::info('User Answer: ', $userAnswers[$question->id] ?? []);
+            // Log::info('Correct Answer: ' . $question->jawaban_benar);
+
+            // Pastikan jawaban benar dibandingkan dengan jawaban yang diberikan
             if (isset($userAnswers[$question->id]) && in_array($question->jawaban_benar, $userAnswers[$question->id])) {
                 $score++;
             }

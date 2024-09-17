@@ -158,7 +158,8 @@
                 <div class="container-fluid">
 
                     <!-- Button Kembali -->
-                    <a href="{{ route('admin.ujian.detail', ['id' => $tesKeahlian->id]) }}" class="btn btn-primary btn-sm">Kembali</a>
+                    <a href="{{ route('admin.ujian.detail', ['id' => $tesKeahlian->id]) }}"
+                        class="btn btn-primary btn-sm">Kembali</a>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
@@ -166,22 +167,31 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="p-5">
+                                        @if (session('success'))
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
                                         <div class="">
                                             <h1 class="h4 text-gray-900 mb-4">Import Soal Tes Keahlian</h1>
                                         </div>
                                         <hr class="divider-sidebar">
-                                        <form class="user">
+                                        <form class="user" method="post"
+                                            action="{{ route('admin.soal.import.store', ['id' => $tesKeahlian->id]) }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            @method('POST')
                                             <div class="col-md-12">
-                                                <label for="">File Excel</label>
+                                                <label for="file_excel">File Excel</label>
                                                 <input style="padding:3px" type="file" name="file_excel"
                                                     class="form-control">
                                             </div>
-                                            <a href="" class="btn btn-primary mt-3">
+                                            <button type="submit" class="btn btn-primary mt-3">
                                                 Simpan
-                                            </a>
-                                            <a href="" class="btn btn-primary mt-3">
+                                            </button>
+                                            <button type="reset" class="btn btn-primary mt-3">
                                                 Reset
-                                            </a>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

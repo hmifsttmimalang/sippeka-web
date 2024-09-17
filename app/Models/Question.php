@@ -11,7 +11,7 @@ class Question extends Model
 
     protected $table = 'questions';
     protected $fillable = [
-        'skill_tests_id',
+        'skill_test_id',
         'soal',
         'pilihan_a',
         'pilihan_b',
@@ -22,6 +22,6 @@ class Question extends Model
 
     public function skillTests() 
     {
-        return $this->belongsTo(SkillTest::class);
+        return $this->belongsTo(SkillTest::class, 'skill_test_id');
     }
 }
