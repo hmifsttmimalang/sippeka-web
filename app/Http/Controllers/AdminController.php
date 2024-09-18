@@ -45,7 +45,7 @@ class AdminController extends Controller
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->where('registrations.created_at', '>=', now()->subDay()) // Tentukan tabel 'registrations'
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.dashboard', compact('totalPendaftar', 'pendaftarLolos', 'progressPendaftar', 'progressLolos', 'listPendaftarBaru'));
     }
@@ -56,7 +56,7 @@ class AdminController extends Controller
         $listPendaftar = Registration::latest()
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.kelola_data', compact('listPendaftar'));
     }
@@ -203,7 +203,7 @@ class AdminController extends Controller
         $listPendaftar = Registration::latest()
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.peserta', compact('listPendaftar'));
     }
@@ -224,14 +224,14 @@ class AdminController extends Controller
     public function infoUser()
     {
         // Mengambil semua user dengan role user
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')->paginate(10);
         return view('admin.info_user', compact('users'));
     }
 
     // mata soal
     public function indexMataSoal()
     {
-        $mataSoal = QuestionTitle::all();
+        $mataSoal = QuestionTitle::paginate(10);
         return view('admin.mata-soal.mata_soal', compact('mataSoal'));
     }
 
@@ -284,7 +284,7 @@ class AdminController extends Controller
     public function indexKeahlian()
     {
         // Mengambil semua keahlian
-        $keahlianList = Skill::all();
+        $keahlianList = Skill::paginate(10);
         return view('admin.keahlian.keahlian', compact('keahlianList'));
     }
 
@@ -347,7 +347,7 @@ class AdminController extends Controller
             ->leftJoin('skills', 'skill_tests.keahlian', '=', 'skills.id')
             ->leftJoin('question_titles', 'skill_tests.mata_soal', '=', 'question_titles.id')
             ->select('skill_tests.*', 'skills.nama as keahlian_nama', 'question_titles.nama as mata_soal_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.tes-keahlian.tes_keahlian', compact('tesKeahlian'));
     }
@@ -446,7 +446,7 @@ class AdminController extends Controller
         }
 
         // Mengambil soal berdasarkan skill_test_id dari $tesKeahlian
-        $soal = Question::where('skill_test_id', $tesKeahlian->id)->get();
+        $soal = Question::where('skill_test_id', $tesKeahlian->id)->paginate(5);
 
         // Menghitung jumlah soal berdasarkan skill_test_id dari $tesKeahlian
         $jumlahSoal = Question::where('skill_test_id', $tesKeahlian->id)->count();
@@ -594,7 +594,7 @@ class AdminController extends Controller
         $sesiTesKeahlian = DB::table('skill_test_sessions')
             ->join('skill_tests', 'skill_test_sessions.skill_test_id', '=', 'skill_tests.id')
             ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
-            ->get();
+            ->paginate(10);
 
         return view('admin.sesi-tes-keahlian.sesi_tes_keahlian', compact('sesiTesKeahlian'));
     }

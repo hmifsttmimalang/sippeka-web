@@ -183,9 +183,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($keahlianList as $item)
+                                        @foreach ($keahlianList as $index => $item)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 + ($keahlianList->currentPage() - 1) * $keahlianList->perPage() }}</td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td>
                                                     <form action="{{ route('admin.kelas_keahlian.delete', ['id' => $item->id]) }}" method="post">
@@ -200,19 +200,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $keahlianList->links('vendor.pagination.pagination_custom') }}
                             </div>
                         </div>
                     @else

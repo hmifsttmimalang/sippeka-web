@@ -188,24 +188,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($listPendaftar as $item)
+                                        @foreach ($listPendaftar as $index => $pendaftar)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td style="text-align: left;">{{ $item->nama }}</td>
-                                                <td style="text-align: left;">{{ $item->alamat }}</td>
-                                                <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
-                                                <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
-                                                <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
+                                                <td>{{ $index + 1 + ($listPendaftar->currentPage() - 1) * $listPendaftar->perPage() }}</td>
+                                                <td style="text-align: left;">{{ $pendaftar->nama }}</td>
+                                                <td style="text-align: left;">{{ $pendaftar->alamat }}</td>
+                                                <td style="text-align: left;">{{ $pendaftar->keahlian_nama }}</td>
+                                                <td>{{ $pendaftar->nilai_keahlian ?? 'Sedang diproses' }}</td>
+                                                <td>{{ $pendaftar->nilai_wawancara ?? 'Sedang diproses' }}</td>
                                                 <td>
                                                     @php
                                                         if (
-                                                            is_null($item->nilai_keahlian) ||
-                                                            is_null($item->nilai_wawancara)
+                                                            is_null($pendaftar->nilai_keahlian) ||
+                                                            is_null($pendaftar->nilai_wawancara)
                                                         ) {
                                                             $rataRata = null;
                                                         } else {
                                                             $rataRata =
-                                                                ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
+                                                                ($pendaftar->nilai_keahlian +
+                                                                    $pendaftar->nilai_wawancara) /
+                                                                2;
                                                         }
                                                     @endphp
                                                     {{ $rataRata ?? 'Sedang diproses' }}
@@ -220,7 +222,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.detail_pendaftar', ['user_id' => $item->user_id]) }}"
+                                                    <a href="{{ route('admin.detail_pendaftar', ['user_id' => $pendaftar->user_id]) }}"
                                                         class="btn btn-info btn-sm">Periksa</a>
                                                 </td>
                                             </tr>
@@ -228,28 +230,12 @@
                                     </tbody>
                                 </table>
 
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                @else
-                                    <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
+                                <br>
+                                <!-- Pagination -->
+                                {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
+                            @else
+                                <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
                     @endif
-                    </nav>
                 </div>
 
             </div>

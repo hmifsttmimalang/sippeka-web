@@ -244,9 +244,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($listPendaftarBaru as $item)
+                                        @foreach ($listPendaftarBaru as $index => $item)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 + ($listPendaftarBaru->currentPage() - 1) * $listPendaftarBaru->perPage() }}</td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td style="text-align: left;">{{ $item->alamat }}</td>
                                                 <td>{{ $item->keahlian_nama }}</td>
@@ -256,6 +256,10 @@
                                             @endforeach
                                     </tbody>
                                 </table>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $listPendaftarBaru->links('vendor.pagination.pagination_custom') }}
                                 @else
                                 <h4 class="text-center mt-4">Tidak ada pendaftar baru dalam 24 jam terakhir</h4>
                                 @endif
