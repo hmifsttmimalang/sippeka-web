@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         // Membuat beberapa user menggunakan factory
-        User::factory(30)->create();
+        User::factory(50)->create();
 
         // Membuat satu user tertentu jika diperlukan
         User::create([

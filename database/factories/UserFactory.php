@@ -30,7 +30,8 @@ class UserFactory extends Factory
             'password' => Hash::make('password'), // password default "password"
             // 'role' => $this->faker->randomElement(['user', 'admin']), // ini untuk membuat semua user yang sebagiannya dapat menjadi admin
             'role' => 'user',
-            'status_register' => $this->faker->randomElement(['tidak terdaftar', 'terdaftar']),
+            // 'status_register' => $this->faker->randomElement(['tidak terdaftar', 'terdaftar']),
+            'status_register' => 'terdaftar',
             'remember_token' => Str::random(10),
         ];
     }    
