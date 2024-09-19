@@ -50,6 +50,8 @@
 
         .p-3 img {
             width: 100px; /* Ukuran logo */
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
         }
 
         .tr-1, .tr-2, .tr-3, .tr-4 {
