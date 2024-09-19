@@ -106,44 +106,34 @@ class AuthController extends Controller
             'identifier' => 'required',
             'password' => 'required',
         ]);
-    
+
         // Tentukan apakah input adalah email atau username
         $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-    
+
         // Siapkan kredensial untuk autentikasi
         $credentials = [
             $loginType => $request->identifier,
             'password' => $request->password,
         ];
-    
+
         // Jika autentikasi berhasil
         if (Auth::attempt($credentials)) {
             // Ambil user yang berhasil login
             $user = Auth::user();
-    
+
             // Temukan pendaftaran (registration) user
             $registration = Registration::where('user_id', $user->id)->first();
-    
-            // Jika tidak ada data registration, tampilkan error
-            if (!$registration) {
-                Auth::logout();
-                return back()->withErrors([
-                    'login' => 'Tidak ditemukan data pendaftaran untuk pengguna ini.',
-                ]);
-            }
-    
+
             // Temukan sesi tes keahlian yang aktif berdasarkan waktu saat ini
             $sesiTesKeahlian = SkillTestSession::where('waktu_mulai', '<=', now())
                 ->where('waktu_selesai', '>=', now())
                 ->first();
-    
+
             if (!$sesiTesKeahlian) {
-                Auth::logout();
-                return back()->withErrors([
-                    'login' => 'Tidak ada sesi tes keahlian yang aktif saat ini.',
-                ]);
+                // Jika tidak ada sesi aktif, tampilkan error tanpa redirect
+                return redirect()->route('user.seleksi_login', ['username' => $username])->with('error', 'Tidak ada sesi yang aktif saat ini');
             }
-    
+
             // Periksa apakah user sudah memulai tes attempt sebelumnya
             $testAttempt = TestAttempt::firstOrCreate(
                 [
@@ -155,16 +145,16 @@ class AuthController extends Controller
                     'waktu_mulai' => Carbon::now(),
                 ]
             );
-    
+
             // Redirect ke halaman seleksi jika berhasil
             return redirect()->route('user.seleksi', $username);
         }
-    
+
         // Kembalikan error jika login gagal
         return back()->withErrors([
             'login' => 'Username atau password yang Anda masukkan salah!',
         ]);
-    }    
+    }
 
     public function logout()
     {
