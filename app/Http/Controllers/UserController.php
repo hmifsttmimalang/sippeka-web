@@ -172,6 +172,6 @@ class UserController extends Controller
         $pendaftar->save();
 
         // Redirect ke halaman profil dengan pesan sukses
-        return redirect()->route('user', ['username' => $username])->with('success', 'Profil berhasil diperbarui!');
+        return redirect()->route('user.dashboard', ['username' => $username])->with('success', 'Profil berhasil diperbarui!');
     }
 }
