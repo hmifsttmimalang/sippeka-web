@@ -3,6 +3,18 @@
 @section('title', 'Tes Keahlian | Admin Sippeka')
 
 @section('content')
+    <style>
+        .swal2-button-space .swal2-confirm {
+            margin-left: 10px;
+            /* Tambahkan jarak antara tombol cancel dan confirm */
+        }
+
+        .swal2-button-space .swal2-cancel {
+            margin-right: 10px;
+            /* Tambahkan jarak antara confirm dan cancel */
+        }
+    </style>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -202,7 +214,8 @@
                                     <tbody>
                                         @foreach ($tesKeahlian as $index => $item)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $index + 1 + ($tesKeahlian->currentPage() - 1) * $tesKeahlian->perPage() }}</td>
+                                                <td>{{ $index + 1 + ($tesKeahlian->currentPage() - 1) * $tesKeahlian->perPage() }}
+                                                </td>
                                                 <td style="text-align: left;">Tes - {{ $item->nama_tes }}</td>
                                                 <td style="text-align: left;">{{ $item->mata_soal_nama }}</td>
                                                 <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
@@ -216,8 +229,9 @@
                                                             class="btn btn-secondary btn-sm">Lihat</a>
                                                         <a href="{{ route('admin.tes_keahlian.edit', ['id' => $item->id]) }}"
                                                             class="btn btn-primary btn-sm">Ubah</a>
-                                                        <button type=""
-                                                            class="btn btn-danger btn-sm">Hapus</button>
+                                                        <button type="button"
+                                                            class="btn btn-danger btn-sm" id="btn-hapus" data-id="{{ $item->id }}"
+                                                            data-nama="{{ $item->nama_tes }}">Hapus</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -243,4 +257,53 @@
 
     </div>
     <!-- End of Content Wrapper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.querySelectorAll("#btn-hapus").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-primary",
+                        confirmButton: "btn btn-danger",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menghapus data ini?",
+                        text: `ID: ${id} - Nama Tes: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil dihapus!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak jadi dihapus!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+    </script>
 @endsection

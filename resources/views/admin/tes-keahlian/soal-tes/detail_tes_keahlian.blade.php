@@ -3,6 +3,18 @@
 @section('title', 'Detail Tes Keahlian | Admin Sippeka')
 
 @section('content')
+    <style>
+        .swal2-button-space .swal2-confirm {
+            margin-left: 10px;
+            /* Tambahkan jarak antara tombol cancel dan confirm */
+        }
+
+        .swal2-button-space .swal2-cancel {
+            margin-right: 10px;
+            /* Tambahkan jarak antara confirm dan cancel */
+        }
+    </style>
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -229,7 +241,8 @@
                                                 <tbody>
                                                     @foreach ($soal as $index => $item)
                                                         <tr style="text-align: center; vertical-align: middle;">
-                                                            <td>{{ $index + 1 + ($soal->currentPage() - 1) * $soal->perPage() }}</td>
+                                                            <td>{{ $index + 1 + ($soal->currentPage() - 1) * $soal->perPage() }}
+                                                            </td>
                                                             <td style="text-align: left;">{{ strip_tags($item->soal) }}
                                                                 <hr class="sidebar-divider">
                                                                 <div class="ml-3">
@@ -244,12 +257,16 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <form action="{{ route('admin.soal.delete', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}" method="post">
+                                                                <form
+                                                                    action="{{ route('admin.soal.delete', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
+                                                                    method="post">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <a href="{{ route('admin.soal.edit', ['id' => $tesKeahlian->id, 'soal_id' => $item->id]) }}"
                                                                         class="btn btn-primary btn-sm">Ubah</a>
-                                                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                                                    <button type="button"
+                                                                        class="btn btn-danger btn-sm" id="btn-hapus" data-id="{{ $item->id }}"
+                                                                        data-nama="{{ $item->soal }}">Hapus</button>
                                                                 </form>
                                                             </td>
                                                         </tr>
@@ -279,4 +296,53 @@
 
     </div>
     <!-- End of Content Wrapper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.querySelectorAll("#btn-hapus").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-primary",
+                        confirmButton: "btn btn-danger",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menghapus data ini?",
+                        text: `ID: ${id} - Soal: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil dihapus!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak jadi dihapus!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+    </script>
 @endsection
