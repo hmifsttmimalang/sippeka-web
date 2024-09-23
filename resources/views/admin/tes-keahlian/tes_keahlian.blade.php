@@ -200,9 +200,9 @@
                                         <th>Aksi</th>
                                     </thead>
                                     <tbody>
-                                        @foreach ($tesKeahlian as $item)
+                                        @foreach ($tesKeahlian as $index => $item)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 + ($tesKeahlian->currentPage() - 1) * $tesKeahlian->perPage() }}</td>
                                                 <td style="text-align: left;">Tes - {{ $item->nama_tes }}</td>
                                                 <td style="text-align: left;">{{ $item->mata_soal_nama }}</td>
                                                 <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
@@ -224,19 +224,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $tesKeahlian->links('vendor.pagination.pagination_custom') }}
                             </div>
                         </div>
                     @else

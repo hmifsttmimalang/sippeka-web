@@ -212,26 +212,26 @@
                                     <div class="col-md-12">
                                         <div class="p-5">
                                             <div class="">
-                                                <h1 class="h4 text-gray-900 mb-4">Daftar Peserta</h1>
+                                                <h1 class="h4 text-gray-900 mb-4">Daftar peserta yang mengerjakan soal</h1>
                                             </div>
                                             <hr class="divider-sidebar">
                                             @if ($peserta->isNotEmpty())
                                                 <table class="table table-bordered table-hover right-align">
-                                                    <thead>
-                                                        <tr>
+                                                    <thead class="thead-dark">
+                                                        <tr style="text-align: center; vertical-align: middle;">
                                                             <th>No</th>
                                                             <th>Nama</th>
                                                             <th>Keahlian</th>
-                                                            <th>Waktu Mulai Mengerjakan</th>
-                                                            <th>Waktu Selesai Mengerjakan</th>
+                                                            <th>Waktu Mulai</th>
+                                                            <th>Waktu Selesai</th>
                                                             <th>Status</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         @foreach ($peserta as $index => $participant)
-                                                            <tr>
+                                                            <tr style="text-align: center; vertical-align: middle;">
                                                                 <td>{{ $index + 1 }}</td>
-                                                                <td>{{ $participant->nama }}</td>
+                                                                <td style="text-align: left;">{{ $participant->nama }}</td>
                                                                 <td>{{ $participant->keahlian }}</td>
                                                                 <td>
                                                                     @if ($participant->waktu_mulai)

@@ -176,7 +176,7 @@
                                     <tbody>
                                         @foreach ($users as $index => $user)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $index + 1 + ($users->currentPage() - 1) * $users->perPage() }}</td>
                                                 <td style="text-align: left;">{{ $user->username }}</td>
                                                 <td style="text-align: center; vertical-align: middle;">
                                                     {{ $user->email }}</td>
@@ -189,6 +189,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $users->links('vendor.pagination.pagination_custom') }}
                             </div>
                         </div>
                     @else

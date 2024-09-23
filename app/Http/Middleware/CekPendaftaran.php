@@ -19,7 +19,7 @@ class CekPendaftaran
         $user = auth()->user();
 
         if (!Registration::where('user_id', $user->id)->exists()) {
-            return redirect()->route('pendaftaran.form_registrasi')->with('warning', 'Anda belum terdaftar. Silakan daftar terlebih dahulu.');
+            return redirect()->route('pendaftaran.form')->with('warning', 'Anda belum terdaftar. Silakan daftar terlebih dahulu.');
         }
         
         return $next($request);

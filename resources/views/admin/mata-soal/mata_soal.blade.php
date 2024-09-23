@@ -183,18 +183,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($mataSoal as $item)
+                                        @foreach ($mataSoal as $index => $item)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 + ($mataSoal->currentPage() - 1) * $mataSoal->perPage() }}</td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td>
                                                     <form
-                                                    action="{{ route('admin.mata_soal.delete', ['id' => $item->id]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="{{ route('admin.mata_soal.edit', ['id' => $item->id]) }}"
-                                                        class="btn btn-primary btn-sm">Ubah</a>
+                                                        action="{{ route('admin.mata_soal.delete', ['id' => $item->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('admin.mata_soal.edit', ['id' => $item->id]) }}"
+                                                            class="btn btn-primary btn-sm">Ubah</a>
                                                         <button type="submit"
                                                             class="btn btn-danger btn-sm">Hapus</button>
                                                     </form>
@@ -203,19 +203,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $mataSoal->links('vendor.pagination.pagination_custom') }}
                             @else
                                 <h3 class="text-center mt-2">Tidak ada mata soal yang tersedia</h3>
                     @endif

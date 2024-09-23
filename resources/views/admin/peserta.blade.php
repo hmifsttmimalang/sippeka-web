@@ -181,7 +181,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($listPendaftar as $item)
+                                        @foreach ($listPendaftar as $index => $item)
                                             @php
                                                 $rataRata =
                                                     is_null($item->nilai_keahlian) || is_null($item->nilai_wawancara)
@@ -189,7 +189,7 @@
                                                         : ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
                                             @endphp
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 + ($listPendaftar->currentPage() - 1) * $listPendaftar->perPage() }}</td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td style="text-align: left;">{{ $item->alamat }}</td>
                                                 <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
@@ -214,25 +214,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
                             </div>
                         </div>
                     @else

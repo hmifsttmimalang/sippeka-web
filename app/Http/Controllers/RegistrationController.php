@@ -107,10 +107,7 @@ class RegistrationController extends Controller
         ]);
 
         // Update status user menjadi 'terdaftar'
-        $user = User::findOrFail($user_id);
-        $user->update([
-            'status_register' => 'terdaftar'
-        ]);
+        User::where('id', $user_id)->update(['status_register' => 'terdaftar']);
 
         return redirect()->route('pendaftaran.terkirim');
     }

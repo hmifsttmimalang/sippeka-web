@@ -207,9 +207,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($sesiTesKeahlian as $item)
+                                        @foreach ($sesiTesKeahlian as $index => $item)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $index + 1 + ($sesiTesKeahlian->currentPage() - 1) * $sesiTesKeahlian->perPage() }}</td>
                                                 <td style="text-align: left; vertical-align: middle;">
                                                     Tes - {{ $item->nama_tes }}
                                                     <ul type="disc">
@@ -244,19 +244,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <nav aria-label="..." class="mr-3">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link">Previous</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $sesiTesKeahlian->links('vendor.pagination.pagination_custom') }}
                             </div>
                         </div>
                     @else

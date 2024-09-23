@@ -227,9 +227,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($soal as $item)
+                                                    @foreach ($soal as $index => $item)
                                                         <tr style="text-align: center; vertical-align: middle;">
-                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $index + 1 + ($soal->currentPage() - 1) * $soal->perPage() }}</td>
                                                             <td style="text-align: left;">{{ strip_tags($item->soal) }}
                                                                 <hr class="sidebar-divider">
                                                                 <div class="ml-3">
@@ -256,6 +256,10 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+
+                                            <br>
+                                            <!-- Pagination -->
+                                            {{ $soal->links('vendor.pagination.pagination_custom') }}
                                         @else
                                             <h4 class="text-center mt-3">Tidak ada soal yang tersedia</h4>
                                         @endif

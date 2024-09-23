@@ -45,7 +45,7 @@ class AdminController extends Controller
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->where('registrations.created_at', '>=', now()->subDay()) // Tentukan tabel 'registrations'
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.dashboard', compact('totalPendaftar', 'pendaftarLolos', 'progressPendaftar', 'progressLolos', 'listPendaftarBaru'));
     }
@@ -56,71 +56,9 @@ class AdminController extends Controller
         $listPendaftar = Registration::latest()
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.kelola_data', compact('listPendaftar'));
-    }
-
-    public function cetakDetailPendaftar($user_id)
-    {
-        $pendaftar = DB::table('registrations')
-        ->join('skills', 'registrations.keahlian', '=', 'skills.id')
-        ->select('registrations.*', 'skills.nama as keahlian_nama')
-        ->where('registrations.user_id', $user_id) // Ganti dengan kondisi pencarian yang benar
-        ->first();    
-
-        $tanggal_lahir = $pendaftar->tanggal_lahir;
-
-        $bulan = [
-            1 => 'Januari',
-            2 => 'Februari',
-            3 => 'Maret',
-            4 => 'April',
-            5 => 'Mei',
-            6 => 'Juni',
-            7 => 'Juli',
-            8 => 'Agustus',
-            9 => 'September',
-            10 => 'Oktober',
-            11 => 'November',
-            12 => 'Desember',
-        ];
-
-        // Ekstrak bagian tanggal
-        $hari = date('d', strtotime($tanggal_lahir));
-        $bulan_num = date('m', strtotime($tanggal_lahir));
-        $tahun = date('Y', strtotime($tanggal_lahir));
-
-        // Ambil nama bulan dari array
-        $nama_bulan = $bulan[(int)$bulan_num];
-
-        // Gabungkan format tanggal
-        $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
-
-        // Jika nilai keahlian ada tetapi nilai wawancara null
-        if (!is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara)) {
-            $status = 'Sedang diproses'; // Status jika nilai wawancara belum ada
-            $rataRata = null; // Tidak menghitung rata-rata
-        } elseif (!is_null($pendaftar->nilai_keahlian) && !is_null($pendaftar->nilai_wawancara)) {
-            // Jika kedua nilai sudah ada, hitung rata-rata
-            $rataRata = ($pendaftar->nilai_keahlian + $pendaftar->nilai_wawancara) / 2;
-
-            // Tentukan status lulus atau gagal berdasarkan nilai rata-rata
-            if ($rataRata >= 70) {
-                $status = 'Lulus';
-            } else {
-                $status = 'Gagal';
-            }
-        } else {
-            // Jika kedua nilai belum ada
-            $rataRata = null;
-            $status = 'Sedang diproses';
-        }
-
-        $pdf = $this->pdf->loadView('admin.cetak.detail_pendaftar_pdf', compact('pendaftar', 'formatted_date', 'status', 'rataRata'))
-            ->setPaper('a4', 'portrait');
-
-        return $pdf->download('detail_pendaftar_' . $user_id . '.pdf');
     }
 
     public function detailPendaftar($user_id)
@@ -203,7 +141,7 @@ class AdminController extends Controller
         $listPendaftar = Registration::latest()
             ->join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.peserta', compact('listPendaftar'));
     }
@@ -221,17 +159,79 @@ class AdminController extends Controller
         return $pdf->download('data_peserta.pdf');
     }
 
+    public function cetakDetailPendaftar($user_id)
+    {
+        $pendaftar = DB::table('registrations')
+            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama')
+            ->where('registrations.user_id', $user_id) // Ganti dengan kondisi pencarian yang benar
+            ->first();
+
+        $tanggal_lahir = $pendaftar->tanggal_lahir;
+
+        $bulan = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+
+        // Ekstrak bagian tanggal
+        $hari = date('d', strtotime($tanggal_lahir));
+        $bulan_num = date('m', strtotime($tanggal_lahir));
+        $tahun = date('Y', strtotime($tanggal_lahir));
+
+        // Ambil nama bulan dari array
+        $nama_bulan = $bulan[(int)$bulan_num];
+
+        // Gabungkan format tanggal
+        $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
+
+        // Jika nilai keahlian ada tetapi nilai wawancara null
+        if (!is_null($pendaftar->nilai_keahlian) && is_null($pendaftar->nilai_wawancara)) {
+            $status = 'Sedang diproses'; // Status jika nilai wawancara belum ada
+            $rataRata = null; // Tidak menghitung rata-rata
+        } elseif (!is_null($pendaftar->nilai_keahlian) && !is_null($pendaftar->nilai_wawancara)) {
+            // Jika kedua nilai sudah ada, hitung rata-rata
+            $rataRata = ($pendaftar->nilai_keahlian + $pendaftar->nilai_wawancara) / 2;
+
+            // Tentukan status lulus atau gagal berdasarkan nilai rata-rata
+            if ($rataRata >= 70) {
+                $status = 'Lulus';
+            } else {
+                $status = 'Gagal';
+            }
+        } else {
+            // Jika kedua nilai belum ada
+            $rataRata = null;
+            $status = 'Sedang diproses';
+        }
+
+        $pdf = $this->pdf->loadView('admin.cetak.detail_pendaftar_pdf', compact('pendaftar', 'formatted_date', 'status', 'rataRata'))
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->download('detail_pendaftar_' . $user_id . '.pdf');
+    }
+
     public function infoUser()
     {
         // Mengambil semua user dengan role user
-        $users = User::where('role', 'user')->get();
+        $users = User::where('role', 'user')->paginate(10);
         return view('admin.info_user', compact('users'));
     }
 
     // mata soal
     public function indexMataSoal()
     {
-        $mataSoal = QuestionTitle::all();
+        $mataSoal = QuestionTitle::paginate(10);
         return view('admin.mata-soal.mata_soal', compact('mataSoal'));
     }
 
@@ -284,7 +284,7 @@ class AdminController extends Controller
     public function indexKeahlian()
     {
         // Mengambil semua keahlian
-        $keahlianList = Skill::all();
+        $keahlianList = Skill::paginate(10);
         return view('admin.keahlian.keahlian', compact('keahlianList'));
     }
 
@@ -347,7 +347,7 @@ class AdminController extends Controller
             ->leftJoin('skills', 'skill_tests.keahlian', '=', 'skills.id')
             ->leftJoin('question_titles', 'skill_tests.mata_soal', '=', 'question_titles.id')
             ->select('skill_tests.*', 'skills.nama as keahlian_nama', 'question_titles.nama as mata_soal_nama')
-            ->get();
+            ->paginate(10);
 
         return view('admin.tes-keahlian.tes_keahlian', compact('tesKeahlian'));
     }
@@ -446,7 +446,7 @@ class AdminController extends Controller
         }
 
         // Mengambil soal berdasarkan skill_test_id dari $tesKeahlian
-        $soal = Question::where('skill_test_id', $tesKeahlian->id)->get();
+        $soal = Question::where('skill_test_id', $tesKeahlian->id)->paginate(5);
 
         // Menghitung jumlah soal berdasarkan skill_test_id dari $tesKeahlian
         $jumlahSoal = Question::where('skill_test_id', $tesKeahlian->id)->count();
@@ -594,7 +594,7 @@ class AdminController extends Controller
         $sesiTesKeahlian = DB::table('skill_test_sessions')
             ->join('skill_tests', 'skill_test_sessions.skill_test_id', '=', 'skill_tests.id')
             ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
-            ->get();
+            ->paginate(10);
 
         return view('admin.sesi-tes-keahlian.sesi_tes_keahlian', compact('sesiTesKeahlian'));
     }
