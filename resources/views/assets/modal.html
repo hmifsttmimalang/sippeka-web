@@ -1,81 +1,306 @@
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+  <style>
+    .swal2-button-space .swal2-confirm {
+      margin-left: 10px;
+      /* Tambahkan jarak antara tombol cancel dan confirm */
+    }
+
+    .swal2-button-space .swal2-cancel {
+      margin-right: 10px;
+      /* Tambahkan jarak antara confirm dan cancel */
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container mt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+          <th scope="col">Hapus</th>
+          <th scope="col">Simpan</th>
+          <th scope="col">Ubah</th>
+          <th scope="col">Umur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+          <td>
+            <button type="button" id="btn-hapus" class="btn btn-danger btn-sm">
+              Hapus
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-simpan" class="btn btn-danger btn-sm">
+              Simpan
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-ubah" class="btn btn-danger btn-sm">
+              Ubah
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-cek" class="btn btn-danger btn-sm">
+              Cek
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+          <td>
+            <button type="button" id="btn-hapus" class="btn btn-danger btn-sm">
+              Hapus
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-simpan" class="btn btn-danger btn-sm">
+              Simpan
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-ubah" class="btn btn-danger btn-sm">
+              Ubah
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-cek" class="btn btn-danger btn-sm">
+              Cek
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td colspan="">Larry the Bird</td>
+          <td>bryan</td>
+          <td>@twitter</td>
+          <td>
+            <button type="button" id="btn-hapus" class="btn btn-danger btn-sm">
+              Hapus
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-simpan" class="btn btn-danger btn-sm">
+              Simpan
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-ubah" class="btn btn-danger btn-sm">
+              Ubah
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-cek" class="btn btn-danger btn-sm">
+              Cek
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">4</th>
+          <td colspan="">Larry the Bird</td>
+          <td>Adi</td>
+          <td>@twitter</td>
+          <td>
+            <button type="button" id="btn-hapus" class="btn btn-danger btn-sm">
+              Hapus
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-simpan" class="btn btn-danger btn-sm">
+              Simpan
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-ubah" class="btn btn-danger btn-sm">
+              Ubah
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-cek" class="btn btn-danger btn-sm">
+              Cek
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">5</th>
+          <td colspan="">Larry the Growth</td>
+          <td>El Gasing</td>
+          <td>@twitter</td>
+          <td>
+            <button type="button" id="btn-hapus" class="btn btn-danger btn-sm">
+              Hapus
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-simpan" class="btn btn-danger btn-sm">
+              Simpan
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-ubah" class="btn btn-danger btn-sm">
+              Ubah
+            </button>
+          </td>
+          <td>
+            <button type="button" id="btn-cek" class="btn btn-danger btn-sm">
+              Cek
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <div class="container mt-5">
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td><button type="button" id="btn-hapus" class="btn btn-danger btn-sm">Hapus</button></td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-                <td><button type="button" id="btn-hapus" class="btn btn-danger btn-sm">Hapus</button></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="">Larry the Bird</td>
-                <td>bryan</td>
-                <td>@twitter</td>
-                <td><button type="button" id="btn-hapus" class="btn btn-danger btn-sm">Hapus</button></td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td colspan="">Larry the Bird</td>
-                <td>Adi</td>
-                <td>@twitter</td>
-                <td><button type="button" id="btn-hapus" class="btn btn-danger btn-sm">Hapus</button></td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
 
+  <script>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    document.querySelector("#btn-hapus").addEventListener("click", () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            cancelButton: "btn btn-primary", // Kelas untuk tombol cancel
+            confirmButton: "btn btn-danger", // Kelas untuk tombol confirm
+            actions: "swal2-button-space", // Kelas untuk mengatur jarak antar tombol
+          },
+          buttonsStyling: false,
+        });
 
-    <script>
-        document.querySelector("#btn-hapus").addEventListener("click",()=>{
-            Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+        swalWithBootstrapButtons
+          .fire({
+            title: "Apakah kamu ingin menghapus data ini?",
+            text: "id - nama peserta ()!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
+            confirmButtonText: "Iya",
+            cancelButtonText: "Tidak",
+            reverseButtons: true,
+          })
+          .then((result) => {
             if (result.isConfirmed) {
-                Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-                });
+              swalWithBootstrapButtons.fire({
+                title: "Berhasil!",
+                text: "Data berhasil dihapus!",
+                icon: "success",
+              });
+            } else if (
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire({
+                title: "Dibatalkan",
+                text: "Data berhasil dibatalkan!",
+                icon: "error",
+              });
             }
+          });
+      });
+
+    document.querySelector("#btn-simpan").addEventListener("click", () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success", // Kelas untuk tombol confirm
+            cancelButton: "btn btn-danger", // Kelas untuk tombol cancel
+            actions: "swal2-button-space", // Kelas untuk mengatur jarak antar tombol
+          },
+          buttonsStyling: false,
         });
-    })
-        
-    </script>
+
+        swalWithBootstrapButtons
+          .fire({
+            title: "Apakah kamu yakin ingin menyimpan data ini?",
+            text: "id - nama peserta ()!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Iya",
+            cancelButtonText: "Tidak",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons.fire({
+                title: "Berhasil!",
+                text: "Data berhasil disimpan!",
+                icon: "success",
+              });
+            } else if (
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire({
+                title: "Batalkan",
+                text: "Data berhasil dibatalkan!",
+                icon: "error",
+              });
+            }
+          });
+      });
+
+      document.querySelector("#btn-ubah").addEventListener("click", () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success", // Kelas untuk tombol confirm
+            cancelButton: "btn btn-danger", // Kelas untuk tombol cancel
+            actions: "swal2-button-space", // Kelas untuk mengatur jarak antar tombol
+          },
+          buttonsStyling: false,
+        });
+
+        swalWithBootstrapButtons
+          .fire({
+            title: "Apakah kamu yakin ingin mengubah data ini?",
+            text: "id - nama peserta ()!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Iya",
+            cancelButtonText: "Tidak",
+            reverseButtons: true,
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              swalWithBootstrapButtons.fire({
+                title: "Berhasil!",
+                text: "Data berhasil diubah!",
+                icon: "success",
+              });
+            } else if (
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire({
+                title: "Batalkan",
+                text: "Data berhasil dibatalkan!",
+                icon: "error",
+              });
+            }
+          });
+      });
+
+    document.querySelector("#btn-cek").addEventListener("click", () => {
+      Swal.fire({
+        title: "Tidak dapat mengisi form pendaftaran!",
+        text: "Silahkan mendaftar ketika anda berusia 17 Tahun!",
+        icon: "warning",
+      });
+    });
+  </script>
 </body>
+
 </html>

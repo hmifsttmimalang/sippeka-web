@@ -37,5 +37,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
