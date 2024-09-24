@@ -16,7 +16,7 @@
                     <p data-aos="fade-up" data-aos-delay="100">Sistem Informasi Pendaftaran Pelatihan Pekerja<br></p>
                     <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
                         <a href="#about" class="btn-get-started">Selengkapnya</a>
-                        <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ"
+                        <a href="https://youtu.be/fXYErrQAdVg?si=Fz8_QiY4QM5HdHYF"
                             class="glightbox btn-watch-video d-flex align-items-center"><i
                                 class="bi bi-play-circle"></i><span>Watch Video</span></a>
                     </div>
@@ -78,7 +78,7 @@
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
-                        <p class="who-we-are">Who We Are</p>
+                        <p class="who-we-are">Tentang Kami</p>
                         <h3>SILASTRI UPT BLK SINGOSARI</h3>
                         <p class="fst-italic">
                             Balai Latihan Kerja milik pemerintah di bawah naungan Direktorat Jenderal Pembinaan Pelatihan
@@ -157,7 +157,7 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Features</h2>
+                <h2>Layanan</h2>
                 <p>Apa yang didapat selama mengikuti pelatihan?</p>
             </div>
             <!-- End Section Title -->
@@ -284,7 +284,7 @@
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Services</h2>
+                <h2>Pengumuman</h2>
                 <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
             </div>
             <!-- End Section Title -->
