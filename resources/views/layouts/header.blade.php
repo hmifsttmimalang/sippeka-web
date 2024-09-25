@@ -8,10 +8,10 @@
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a href="#hero" class="active">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#services">Services</a></li>
+                <li><a href="#hero" class="active">Beranda</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#features">Layanan</a></li>
+                <li><a href="#services">Pengumuman</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
