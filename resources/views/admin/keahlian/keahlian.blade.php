@@ -23,7 +23,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" id="loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -34,7 +34,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" id="loadPage" href="{{ route('admin.dashboard') }}">
+                <a class="nav-link loadPage" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -42,22 +42,22 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item ">
-                <a class="nav-link" id="loadPage" href="{{ route('admin.kelola_data') }}">
+            <li class="nav-item">
+                <a class="nav-link loadPage" href="{{ route('admin.kelola_data') }}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
             </li>
 
-            <li class="nav-item ">
-                <a class="nav-link" id="loadPage" href="{{ route('admin.peserta') }}">
+            <li class="nav-item">
+                <a class="nav-link loadPage" href="{{ route('admin.peserta') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" id="loadPage" href="{{ route('admin.info_user') }}">
+                <a class="nav-link loadPage" href="{{ route('admin.info_user') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Info User</span>
                 </a>
@@ -74,10 +74,10 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" id="loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
-                        <a class="collapse-item active" id="loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
-                        <a class="collapse-item" id="loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item" id="loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
+                        <a class="collapse-item active loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -173,7 +173,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Kelas Keahlian</h1>
 
-                    <a href="{{ route('admin.kelas_keahlian.create') }}" class="btn btn-primary btn-sm">Tambah</a>
+                    <a href="{{ route('admin.kelas_keahlian.create') }}" class="btn btn-primary btn-sm loadPage">Tambah</a>
 
                     @if ($keahlianList->isNotEmpty())
                         <!-- Search Bar -->
@@ -208,7 +208,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <a href="{{ route('admin.kelas_keahlian.edit', $item->id) }}"
-                                                            class="btn btn-primary btn-sm">Edit</a>
+                                                            class="btn btn-primary btn-sm loadPage">Edit</a>
                                                         <button type="button" class="btn btn-danger btn-sm"
                                                             id="btn-hapus" data-id="{{ $item->id }}"
                                                             data-nama="{{ $item->nama }}">Hapus</button>

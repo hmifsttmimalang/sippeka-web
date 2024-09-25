@@ -95,7 +95,7 @@
 
     <script>
         $(document).ready(function() {
-            $('[id="loadPage"]').click(function(e) {
+            $('.loadPage').click(function(e) {
                 e.preventDefault();
                 $('#loader').show();
 
