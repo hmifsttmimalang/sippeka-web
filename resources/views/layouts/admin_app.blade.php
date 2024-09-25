@@ -24,8 +24,30 @@
 
     <!-- Flatpickr Date Time Picker -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <style>
+        #loader {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            text-align: center;
+            padding-top: 20%;
+        }
+    </style>
 </head>
 <body id="page-top">
+    <div id="loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p>Loading...</p>
+    </div>
+
     <!-- Content -->
     @yield('content')
 
@@ -68,4 +90,18 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#loadPage').click(function(e) {
+                e.preventDefault(); // Mencegah default link behavior
+                $('#loader').show(); // Tampilkan loader
+
+                // Simulasi loading sebelum pindah halaman
+                setTimeout(() => {
+                    window.location.href = $(this).attr('href'); // Pindah halaman setelah delay
+                }, 1000); // Delay 1 detik
+            });
+        });
+    </script>
 </html>

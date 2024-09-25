@@ -10,7 +10,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" id="loadPage" href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -21,7 +21,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                <a class="nav-link" id="loadPage" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -29,22 +29,22 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.kelola_data') }}">
+            <li class="nav-item ">
+                <a class="nav-link" id="loadPage" href="{{ route('admin.kelola_data') }}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.peserta') }}">
+            <li class="nav-item ">
+                <a class="nav-link" id="loadPage" href="{{ route('admin.peserta') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Peserta</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.info_user') }}">
+                <a class="nav-link" id="loadPage" href="{{ route('admin.info_user') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Info User</span>
                 </a>
@@ -54,17 +54,17 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-                    aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
-                        <a class="collapse-item" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
-                        <a class="collapse-item active" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item" id="loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
+                        <a class="collapse-item" id="loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                        <a class="collapse-item active" id="loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
+                        <a class="collapse-item" id="loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
                     </div>
                 </div>
             </li>
