@@ -46,10 +46,10 @@ class RegistrationController extends Controller
             'alamat' => 'required|string',
             'telepon' => 'required|string|max:15',
             'keahlian' => 'required|exists:skills,id', // Validasi bahwa keahlian harus ada di tabel skills
-            'foto_ktp' => 'required|mimes:jpg,jpeg,png',
-            'foto_ijazah' => 'required|mimes:jpg,jpeg,png',
+            'foto_ktp' => 'required|mimes:pdf,jpg,jpeg,png',
+            'foto_ijazah' => 'required|mimes:pdf,jpg,jpeg,png',
             'foto_bg_biru' => 'required|mimes:jpg,jpeg,png',
-            'foto_kk' => 'required|mimes:jpg,jpeg,png',
+            'foto_kk' => 'required|mimes:pdf,jpg,jpeg,png',
         ]);
 
         // Ambil username dari user yang sedang login (misalnya melalui auth)
