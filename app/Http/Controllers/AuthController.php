@@ -60,7 +60,10 @@ class AuthController extends Controller
             'password' => $request->password,
         ];
 
-        if (Auth::attempt($credentials)) {
+        // Cek jika pengguna ingin diingat
+        $remember = $request->has('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
             // Cek role setelah berhasil login
             if (Auth::user()->role === 'admin') {
                 return redirect()->route('admin.dashboard'); // Arahkan ke halaman admin

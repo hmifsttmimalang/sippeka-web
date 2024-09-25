@@ -16,7 +16,16 @@
                                     <img src="{{ asset('assets/user/img/logo.png') }}" alt="Logo Sippeka">
                                     <span class="d-none d-lg-block">SIPPEKA</span>
                                 </a>
-                            </div><!-- End Logo -->
+                            </div>
+                            <!-- End Logo -->
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    @foreach ($errors->all() as $error)
+                                        <span>{{ $error }}</span><br>
+                                    @endforeach
+                                </div>
+                            @endif
 
                             <div class="card mb-3">
 
@@ -27,7 +36,8 @@
                                         <p class="text-center small">Masukkan username atau email & password untuk login</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="post" action="{{ route('auth.login.store') }}">
+                                    <form class="row g-3 needs-validation" method="post"
+                                        action="{{ route('auth.login.store') }}">
                                         @csrf
                                         <div class="col-12">
                                             <label for="identifier" class="form-label">Username atau Email</label>
@@ -56,10 +66,11 @@
                                             <button class="btn btn-primary w-100" type="submit">Masuk</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Belum punya akun? <a href="{{ route('auth.register') }}">Buat akun</a></p>
+                                            <p class="small mb-0">Belum punya akun? <a
+                                                    href="{{ route('auth.register') }}">Buat akun</a></p>
                                         </div>
                                     </form>
-                                    
+
                                 </div>
                             </div>
 
@@ -75,4 +86,21 @@
 
         </div>
     </main>
+
+    <script>
+        // Menambahkan event listener untuk form
+        (function() {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
 @endsection
