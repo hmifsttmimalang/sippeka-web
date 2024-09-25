@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -43,9 +42,30 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-</head>
 
+    <style>
+        #loader {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            z-index: 9999;
+            text-align: center;
+            padding-top: 20%;
+        }
+    </style>
+</head>
 <body>
+    <div id="loader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p>Loading...</p>
+    </div>
+
     <!-- Content -->
     @yield('content')
 
@@ -76,6 +96,7 @@
     </div>
 
     <!-- Vendor JS Files -->
+    <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/profile/vendor/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/profile/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/profile/vendor/chart.js/chart.umd.js') }}"></script>
@@ -90,6 +111,19 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/profile/js/main.js') }}"></script>
-</body>
 
+    <script>
+        $(document).ready(function() {
+            $('#loadPage').click(function(e) {
+                e.preventDefault(); // Mencegah default link behavior
+                $('#loader').show(); // Tampilkan loader
+
+                // Simulasi loading sebelum pindah halaman
+                setTimeout(() => {
+                    window.location.href = $(this).attr('href'); // Pindah halaman setelah delay
+                }, 1000); // Delay 1 detik
+            });
+        });
+    </script>
+</body>
 </html>

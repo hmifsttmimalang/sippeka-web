@@ -40,7 +40,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center"
+                            <a class="dropdown-item d-flex align-items-center" id="loadPage"
                                 href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                                 <i class="bi bi-person"></i>
                                 <span>Edit Profil</span>
@@ -74,7 +74,7 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link collapsed"
+                <a class="nav-link collapsed" id="loadPage"
                     href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
@@ -83,7 +83,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link" id="loadPage" href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -91,7 +91,7 @@
             <!-- End Nilai Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed"
+                <a class="nav-link collapsed" id="loadPage"
                     href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-person-fill-gear"></i>
                     <span>Edit Profil</span>
