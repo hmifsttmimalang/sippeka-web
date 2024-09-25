@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +41,7 @@
         }
     </style>
 </head>
+
 <body id="page-top">
     <div id="loader">
         <div class="spinner-border" role="status">
@@ -93,15 +95,15 @@
 
     <script>
         $(document).ready(function() {
-            $('#loadPage').click(function(e) {
-                e.preventDefault(); // Mencegah default link behavior
-                $('#loader').show(); // Tampilkan loader
+            $('[id="loadPage"]').click(function(e) {
+                e.preventDefault();
+                $('#loader').show();
 
-                // Simulasi loading sebelum pindah halaman
                 setTimeout(() => {
-                    window.location.href = $(this).attr('href'); // Pindah halaman setelah delay
-                }, 1000); // Delay 1 detik
+                    window.location.href = $(this).attr('href');
+                }, 1000);
             });
         });
     </script>
+
 </html>

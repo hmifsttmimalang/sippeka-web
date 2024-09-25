@@ -40,7 +40,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" id="loadPage"
+                            <a class="dropdown-item d-flex align-items-center loadPage"
                                 href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                                 <i class="bi bi-person"></i>
                                 <span>Edit Profil</span>
@@ -74,7 +74,7 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item">
-                <a class="nav-link" id="loadPage" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link loadPage" href="{{ route('user.dashboard', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -82,7 +82,7 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" id="loadPage"
+                <a class="nav-link collapsed loadPage"
                     href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
@@ -91,7 +91,7 @@
             <!-- End Nilai Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" id="loadPage"
+                <a class="nav-link collapsed loadPage"
                     href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-person-fill-gear"></i>
                     <span>Edit Profil</span>
@@ -100,7 +100,7 @@
             <!-- End Edit Profil Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" id="loadPage" href="{{ route('auth.logout') }}" data-bs-toggle="modal"
+                <a class="nav-link collapsed" href="{{ route('auth.logout') }}" data-bs-toggle="modal"
                     data-bs-target="#logoutModal">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Keluar</span>
@@ -180,7 +180,7 @@
                             </div>
                             <div class="text-right" style="text-align: end;">
                                 <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}"
-                                    class="btn btn-warning btn-sm">Edit Profil</a>
+                                    class="btn btn-warning btn-sm loadPage">Edit Profil</a>
                             </div>
                             <h5 class="text-center card-title"><b><?= strtoupper($pendaftar->nama) ?></b></h5>
                             <ul class="list-group">

@@ -114,7 +114,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#loadPage').click(function(e) {
+            $('.loadPage').click(function(e) {
                 e.preventDefault(); // Mencegah default link behavior
                 $('#loader').show(); // Tampilkan loader
 
