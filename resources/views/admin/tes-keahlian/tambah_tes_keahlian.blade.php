@@ -225,7 +225,7 @@
                                                         id="durasi_menit" placeholder="Masukkan Durasi Tes (Menit)">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mt-2">Simpan</button>
+                                            <button type="button" class="btn btn-primary mt-2 btn-tambah">Simpan</button>
                                             <a href="" class="btn btn-primary mt-2">Reset</a>
                                         </form>
                                     </div>

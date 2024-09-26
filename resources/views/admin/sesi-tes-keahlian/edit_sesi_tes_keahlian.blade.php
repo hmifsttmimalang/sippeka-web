@@ -222,7 +222,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-ubah" data-id="{{ $sesiTesKeahlian->id }}" data-nama="{{ $sesiTesKeahlian->nama_sesi }}">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-primary">

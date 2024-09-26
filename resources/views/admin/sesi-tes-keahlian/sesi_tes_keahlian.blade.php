@@ -3,18 +3,6 @@
 @section('title', 'Sesi Tes Keahlian | Admin Sippeka')
 
 @section('content')
-    <style>
-        .swal2-button-space .swal2-confirm {
-            margin-left: 10px;
-            /* Tambahkan jarak antara tombol cancel dan confirm */
-        }
-
-        .swal2-button-space .swal2-cancel {
-            margin-right: 10px;
-            /* Tambahkan jarak antara confirm dan cancel */
-        }
-    </style>
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -22,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -66,8 +55,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
@@ -76,7 +65,8 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item active loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item active loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -249,8 +239,8 @@
                                                             class="btn btn-primary btn-sm loadPage">
                                                             <i class="bi bi-pencil"></i>
                                                         </a>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            id="btn-hapus" data-id="{{ $item->id }}"
+                                                        <button type="button" class="btn btn-danger btn-sm btn-hapus"
+                                                            data-id="{{ $item->id }}"
                                                             data-nama="{{ $item->nama_sesi }}"><i
                                                                 class="bi bi-trash"></i></button>
                                                     </form>
@@ -278,53 +268,4 @@
 
     </div>
     <!-- End of Content Wrapper -->
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.querySelectorAll("#btn-hapus").forEach((button) => {
-            button.addEventListener("click", function() {
-                const id = this.getAttribute("data-id");
-                const nama = this.getAttribute("data-nama");
-                const form = this.closest("form");
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        cancelButton: "btn btn-primary",
-                        confirmButton: "btn btn-danger",
-                        actions: "swal2-button-space",
-                    },
-                    buttonsStyling: false,
-                });
-
-                swalWithBootstrapButtons
-                    .fire({
-                        title: "Apakah kamu ingin menghapus data ini?",
-                        text: `ID: ${id} - Nama Sesi: ${nama}`,
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Iya",
-                        cancelButtonText: "Tidak",
-                        reverseButtons: true,
-                    })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            swalWithBootstrapButtons.fire({
-                                    title: "Berhasil!",
-                                    text: "Data berhasil dihapus!",
-                                    icon: "success",
-                                })
-                                .then(() => {
-                                    form.submit();
-                                });
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            swalWithBootstrapButtons.fire({
-                                title: "Dibatalkan",
-                                text: "Data tidak jadi dihapus!",
-                                icon: "error",
-                            });
-                        }
-                    });
-            });
-        });
-    </script>
 @endsection

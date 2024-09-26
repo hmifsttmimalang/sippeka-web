@@ -3,19 +3,6 @@
 @section('title', 'Keahlian | Admin Sippeka')
 
 @section('content')
-
-    <style>
-        .swal2-button-space .swal2-confirm {
-            margin-left: 10px;
-            /* Tambahkan jarak antara tombol cancel dan confirm */
-        }
-
-        .swal2-button-space .swal2-cancel {
-            margin-right: 10px;
-            /* Tambahkan jarak antara confirm dan cancel */
-        }
-    </style>
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -23,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -67,17 +55,19 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
-                        <a class="collapse-item active loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                        <a class="collapse-item active loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas
+                            Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -173,7 +163,8 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-3 text-gray-800 ">Kelas Keahlian</h1>
 
-                    <a href="{{ route('admin.kelas_keahlian.create') }}" class="btn btn-primary btn-sm loadPage">Tambah</a>
+                    <a href="{{ route('admin.kelas_keahlian.create') }}"
+                        class="btn btn-primary btn-sm loadPage">Tambah</a>
 
                     @if ($keahlianList->isNotEmpty())
                         <!-- Search Bar -->
@@ -209,8 +200,8 @@
                                                         @method('DELETE')
                                                         <a href="{{ route('admin.kelas_keahlian.edit', $item->id) }}"
                                                             class="btn btn-primary btn-sm loadPage">Edit</a>
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            id="btn-hapus" data-id="{{ $item->id }}"
+                                                        <button type="button" class="btn btn-danger btn-sm btn-hapus"
+                                                            data-id="{{ $item->id }}"
                                                             data-nama="{{ $item->nama }}">Hapus</button>
                                                     </form>
                                                 </td>
@@ -268,13 +259,13 @@
                     .then((result) => {
                         if (result.isConfirmed) {
                             swalWithBootstrapButtons.fire({
-                                title: "Berhasil!",
-                                text: "Data berhasil dihapus!",
-                                icon: "success",
-                            })
-                            .then(() => {
-                                form.submit();
-                            });
+                                    title: "Berhasil!",
+                                    text: "Data berhasil dihapus!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
                             swalWithBootstrapButtons.fire({
                                 title: "Dibatalkan",

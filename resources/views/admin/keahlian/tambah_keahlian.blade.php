@@ -178,7 +178,7 @@
                                                 <input type="text" name="nama" class="form-control" id="nama"
                                                     placeholder="Masukkan Nama Kelas Keahlian" required>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-tambah">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-primary">

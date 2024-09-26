@@ -3,18 +3,6 @@
 @section('title', 'Tes Keahlian | Admin Sippeka')
 
 @section('content')
-    <style>
-        .swal2-button-space .swal2-confirm {
-            margin-left: 10px;
-            /* Tambahkan jarak antara tombol cancel dan confirm */
-        }
-
-        .swal2-button-space .swal2-cancel {
-            margin-right: 10px;
-            /* Tambahkan jarak antara confirm dan cancel */
-        }
-    </style>
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -230,7 +218,7 @@
                                                         <a href="{{ route('admin.tes_keahlian.edit', ['id' => $item->id]) }}"
                                                             class="btn btn-primary btn-sm loadPage">Ubah</a>
                                                         <button type="button"
-                                                            class="btn btn-danger btn-sm" id="btn-hapus" data-id="{{ $item->id }}"
+                                                            class="btn btn-danger btn-sm btn-hapus" data-id="{{ $item->id }}"
                                                             data-nama="{{ $item->nama_tes }}">Hapus</button>
                                                     </form>
                                                 </td>
@@ -257,53 +245,4 @@
 
     </div>
     <!-- End of Content Wrapper -->
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.querySelectorAll("#btn-hapus").forEach((button) => {
-            button.addEventListener("click", function() {
-                const id = this.getAttribute("data-id");
-                const nama = this.getAttribute("data-nama");
-                const form = this.closest("form");
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        cancelButton: "btn btn-primary",
-                        confirmButton: "btn btn-danger",
-                        actions: "swal2-button-space",
-                    },
-                    buttonsStyling: false,
-                });
-
-                swalWithBootstrapButtons
-                    .fire({
-                        title: "Apakah kamu ingin menghapus data ini?",
-                        text: `ID: ${id} - Nama Tes: ${nama}`,
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Iya",
-                        cancelButtonText: "Tidak",
-                        reverseButtons: true,
-                    })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            swalWithBootstrapButtons.fire({
-                                    title: "Berhasil!",
-                                    text: "Data berhasil dihapus!",
-                                    icon: "success",
-                                })
-                                .then(() => {
-                                    form.submit();
-                                });
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            swalWithBootstrapButtons.fire({
-                                title: "Dibatalkan",
-                                text: "Data tidak jadi dihapus!",
-                                icon: "error",
-                            });
-                        }
-                    });
-            });
-        });
-    </script>
 @endsection

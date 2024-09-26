@@ -179,7 +179,7 @@
                                                 <input type="text" name="nama" class="form-control" id="nama"
                                                     placeholder="Masukkan Nama Mata Soal Keahlian">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-tambah">
                                                 Simpan
                                             </button>
                                             <a href="" class="btn btn-primary">

@@ -179,7 +179,8 @@
                                                 <input type="text" name="nama" class="form-control" id="nama"
                                                     value="{{ $mataSoal->nama }}">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-ubah" data-id="{{ $mataSoal->id }}"
+                                                data-nama="{{ $mataSoal->nama }}">
                                                 Simpan
                                             </button>
                                             <a href="" class="btn btn-primary">

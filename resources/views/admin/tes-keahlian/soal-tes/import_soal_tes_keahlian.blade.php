@@ -186,7 +186,7 @@
                                                 <input style="padding:3px" type="file" name="file_excel"
                                                     class="form-control">
                                             </div>
-                                            <button type="submit" class="btn btn-primary mt-3">
+                                            <button type="button" class="btn btn-primary mt-3 btn-import-soal">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-primary mt-3">

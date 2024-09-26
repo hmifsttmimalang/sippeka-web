@@ -244,7 +244,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-tambah-soal">
                                                 Simpan
                                             </button>
                                             <a href="" class="btn btn-primary">

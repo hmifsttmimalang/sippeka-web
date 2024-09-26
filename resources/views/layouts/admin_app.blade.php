@@ -39,6 +39,16 @@
             text-align: center;
             padding-top: 20%;
         }
+
+        .swal2-button-space .swal2-confirm {
+            margin-left: 10px;
+            /* Tambahkan jarak antara tombol cancel dan confirm */
+        }
+
+        .swal2-button-space .swal2-cancel {
+            margin-right: 10px;
+            /* Tambahkan jarak antara confirm dan cancel */
+        }
     </style>
 </head>
 
@@ -92,6 +102,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $(document).ready(function() {
@@ -102,6 +113,331 @@
                 setTimeout(() => {
                     window.location.href = $(this).attr('href');
                 }, 1000);
+            });
+        });
+
+        // tambah
+        document.querySelectorAll(".btn-tambah").forEach((button) => {
+            button.addEventListener("click", function() {
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-danger",
+                        confirmButton: "btn btn-primary",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menambahkan data ini?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil ditambahkan",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak ditambahkan!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+        // ubah
+        document.querySelectorAll(".btn-ubah").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-danger",
+                        confirmButton: "btn btn-primary",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin mengubah data ini?",
+                        text: `ID: ${id} - Nama: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil diubah",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak diubah!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+        // hapus
+        document.querySelectorAll(".btn-hapus").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-primary",
+                        confirmButton: "btn btn-danger",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menghapus data ini?",
+                        text: `ID: ${id} - Nama: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil dihapus!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak dihapus",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+        /*
+         * tombol soal
+         */
+
+        // tambah soal
+        document.querySelectorAll(".btn-tambah-soal").forEach((button) => {
+            button.addEventListener("click", function() {
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-danger",
+                        confirmButton: "btn btn-primary",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menambahkan soal ini?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Soal berhasil ditambahkan",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Soal tidak ditambahkan!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+        // import soal
+        document.querySelectorAll(".btn-import-soal").forEach((button) => {
+            button.addEventListener("click", function() {
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-danger",
+                        confirmButton: "btn btn-primary",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin mengimpor soal ini?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Soal berhasil diimpor",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Soal tidak diimpor!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+        // ubah soal
+        document.querySelectorAll(".btn-ubah-soal").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-danger",
+                        confirmButton: "btn btn-primary",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin mengubah soal ini?",
+                        text: `ID: ${id} - Soal: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Soal berhasil diubah!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Soal tidak diubah!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+
+        // hapus soal
+        document.querySelectorAll(".btn-hapus-soal").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-primary",
+                        confirmButton: "btn btn-danger",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menghapus soal ini?",
+                        text: `ID: ${id} - Soal: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Soal berhasil dihapus!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Soal tidak dihapus!",
+                                icon: "error",
+                            });
+                        }
+                    });
             });
         });
     </script>

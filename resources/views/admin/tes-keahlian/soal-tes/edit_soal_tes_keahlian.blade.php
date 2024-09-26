@@ -252,7 +252,7 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-ubah-soal" data-id="{{ $soal->id }}" data-nama="{{ $soal->soal }}">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-secondary">

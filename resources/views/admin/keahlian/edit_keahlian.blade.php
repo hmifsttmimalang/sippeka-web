@@ -178,7 +178,8 @@
                                                 <input type="text" name="nama" class="form-control" id="nama"
                                                     value="{{ old('nama', $keahlian->nama) }}">
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                            <button type="button" class="btn btn-primary btn-ubah" data-id="{{ $keahlian->id }}"
+                                                data-nama="{{ $keahlian->nama }}">Simpan</button>
                                             <button type="reset" class="btn btn-primary">Reset</button>
                                         </form>
                                     </div>

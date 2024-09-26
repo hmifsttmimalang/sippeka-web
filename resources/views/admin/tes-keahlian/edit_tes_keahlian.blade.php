@@ -237,7 +237,7 @@
                                                         id="durasi_menit" value="{{ $tesKeahlian->durasi_menit }}">
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary mt-2">
+                                            <button type="button" class="btn btn-primary mt-2 btn-ubah" data-id="{{ $tesKeahlian->id }}" data-nama="{{ $tesKeahlian->nama_tes }}">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-primary mt-2">

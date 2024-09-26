@@ -215,7 +215,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="button" class="btn btn-primary btn-tambah">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-primary">
