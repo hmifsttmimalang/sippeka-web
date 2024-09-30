@@ -54,7 +54,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
     Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
-    mv sippeka_web path/to/Laragon/www/sippeka-web
+    mv sippeka-web path/to/Laragon/www/sippeka-web
     ```
 
 3. **Instalasi Dependensi**
