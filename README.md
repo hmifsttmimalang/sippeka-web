@@ -46,7 +46,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/ardie069/sippeka_web.git
+    git clone https://github.com/hmifsttmimalang/sippeka-web.git
     ```
 
 2. **Pindahkan Folder Proyek**
@@ -54,7 +54,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
     Pindahkan folder proyek ke direktori `www` di Laragon.
 
     ```bash
-    mv sippeka_web path/to/Laragon/www/sippeka_web
+    mv sippeka_web path/to/Laragon/www/sippeka-web
     ```
 
 3. **Instalasi Dependensi**
@@ -62,7 +62,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
     Masuk ke direktori proyek dan jalankan:
 
     ```bash
-    cd sippeka_web
+    cd sippeka-web
     composer install
     npm install
     ```
