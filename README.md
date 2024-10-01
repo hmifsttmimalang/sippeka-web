@@ -205,15 +205,3 @@ Silakan ikuti panduan kontribusi berikut jika Anda ingin berkontribusi pada proy
 ## Lisensi
 
 Proyek ini dilisensikan di bawah Lisensi MIT. Untuk informasi lebih lanjut, lihat file [LICENSE](LICENSE).
-
----
-
-MIT License
-
-Hak Cipta (c) 2024 Ardiansyah, Adi Chandra Isro' Salsabila
-
-Dengan ini diberikan izin, tanpa biaya, kepada siapa saja yang memperoleh salinan perangkat lunak ini dan file dokumentasi terkait (\"Perangkat Lunak\"), untuk berurusan dalam Perangkat Lunak tanpa batasan, termasuk tanpa batasan hak untuk menggunakan, menyalin, mengubah, menggabungkan, menerbitkan, mendistribusikan, memberikan lisensi, dan/atau menjual salinan Perangkat Lunak, serta untuk mengizinkan orang yang kepadanya Perangkat Lunak disediakan melakukannya, dengan syarat berikut:
-
-Pernyataan hak cipta di atas dan pemberitahuan izin ini harus disertakan dalam semua salinan atau bagian penting dari Perangkat Lunak.
-
-PERANGKAT LUNAK INI DISEDIAKAN "SEBAGAIMANA ADANYA", TANPA JAMINAN APA PUN, TERSURAT MAUPUN TERSIRAT, TERMASUK NAMUN TIDAK TERBATAS PADA JAMINAN DIPERDAGANGKAN, KESESUAIAN UNTUK TUJUAN TERTENTU DAN BEBAS DARI PELANGGARAN. DALAM HAL APA PUN PEMEGANG HAK CIPTA ATAU PEMEGANG LISENSI TIDAK BERTANGGUNG JAWAB ATAS KLAIM, KERUSAKAN ATAU KEWAJIBAN LAINNYA, BAIK DALAM TINDAKAN KONTRAK, KERUGIAN ATAU LAINNYA, YANG TIMBUL DARI, KELUAR DARI ATAU BERHUBUNGAN DENGAN PERANGKAT LUNAK ATAU PENGGUNAAN ATAU TRANSAKSI LAIN DALAM PERANGKAT LUNAK.
