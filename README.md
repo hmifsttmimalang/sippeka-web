@@ -204,4 +204,4 @@ Silakan ikuti panduan kontribusi berikut jika Anda ingin berkontribusi pada proy
 
 ## Lisensi
 
-Proyek ini dilisensikan di bawah Lisensi MIT. Untuk informasi lebih lanjut, lihat file [LICENSE](LICENSE).
+Proyek ini dilisensikan di bawah Lisensi Apache-2.0. Untuk informasi lebih lanjut, lihat file [LICENSE](LICENSE).
