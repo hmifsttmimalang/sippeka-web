@@ -8,7 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
-        @vite('resources/css/simulasi.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/simulasi.css') }}">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         window.username = '{{ auth()->user()->username }}'; // Mengambil username dari Laravel
         window.csrfToken = '{{ csrf_token() }}'; // Token CSRF untuk keamanan
     </script>
-    @vite('resources/js/simulasi.js')
+    <script src="{{ asset('assets/js/simulasi.js') }}"></script>
 </body>
 
 </html>

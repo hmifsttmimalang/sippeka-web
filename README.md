@@ -9,7 +9,7 @@
 
 ## Deskripsi
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah sebuah aplikasi yang digunakan untuk melakukan pendaftaran pelatihan kerja bagi mahasiswa yang ingin mengikuti pelatihan kerja. Aplikasi ini telah dimigrasi ke Laravel 10 dengan menggunakan database MySQL dan menggunakan Vite JS dengan file vanilla JS dan CSS. Selain itu, aplikasi ini menyimpan file upload foto di direktori `/uploads`.
+Sistem Informasi Pendaftaran Pelatihan Kerja (Sippeka) adalah aplikasi yang digunakan untuk memfasilitasi proses pendaftaran pelatihan kerja bagi mahasiswa. Aplikasi ini dibangun menggunakan **Laravel 10** dengan **MySQL** sebagai basis datanya. Proyek ini **tidak menggunakan Vite JS** melainkan mengandalkan pengelolaan file statis seperti JS dan CSS secara manual yang disimpan di direktori `/public`. Aplikasi ini juga mendukung unggahan file seperti foto, yang disimpan di direktori `/uploads`.
 
 ## Daftar Isi
 
@@ -29,9 +29,9 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 
 - Otentikasi pengguna (Admin dan User) dengan sistem kustom
 - Pendaftaran peserta pelatihan
-- Laporan pendaftaran
-- Manajemen data peserta
-- Upload foto dengan direktori `/uploads` berisi foto-foto penting
+- Laporan pendaftaran dalam format PDF
+- Manajemen data peserta pelatihan
+- Unggah file foto yang disimpan pada direktori `/uploads`
 
 ## Instalasi
 
@@ -41,7 +41,6 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 - PHP 8.2.12 atau lebih baru
 - MySQL 5.7 atau lebih baru
 - Laravel 10
-- Vite JS
 
 ### Langkah-langkah Instalasi
 
@@ -66,7 +65,6 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
     ```bash
     cd sippeka-web
     composer install
-    npm install
     ```
 
 4. **Buat Database**
@@ -100,11 +98,10 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 
 8. **Jalankan Proyek**
 
-    Jalankan server Laravel dan Vite.js:
+    Jalankan server Laravel:
 
     ```bash
     php artisan serve
-    npm run dev
     ```
 
     Buka browser dan akses `http://localhost:8000/`.
@@ -112,7 +109,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 ## Struktur Direktori
 
 ```plaintext
-    sippeka_web/
+    sippeka-web/
     ├── app/
     │   ├── Console/
     │   ├── Exceptions/
@@ -160,12 +157,13 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 ### Admin
 
 1. **Login**: Masuk sebagai admin menggunakan kredensial yang telah dibuat di database.
-2. **Menu**: Menu yang tersedia di halaman admin.
-3. **Data Peserta**: Menampilkan data peserta yang telah terdaftar.
-4. **Kelola Data**: Menampilkan tampilan dan mengelola data seperti akun dan peserta.
-5. **Kategori keahlian**: Membuat Kategori keahlian agar user yang mendaftar dapat memilih sesuai minat pada formulir pendaftaran.
-6. **Soal**: Membuat soal tes keahlian untuk ditampilkan pada halaman ujian seleksi pada user.
-7. **Laporan**: Membuat laporan pendaftaran dalam format PDF atau Excel.
+2. **Menu Admin**: Menavigasi berbagai menu utama yang menyediakan akses untuk pengelolaan data peserta, laporan, dan soal tes.
+3. **Data Peserta**: Menampilkan tabel data peserta yang telah mendaftar melalui formulir pendaftaran. Data ini termasuk nilai peserta dan dapat dicetak atau diunduh dalam format PDF untuk keperluan administrasi.
+4. **Kelola Data**: Memvalidasi pendaftaran peserta dan mengelola data peserta, termasuk mengisi nilai wawancara selama proses seleksi wawancara.
+5. **Kelola Kategori keahlian**: Menambahkan dan memperbarui kategori keahlian yang tersedia, agar peserta dapat memilih bidang yang sesuai dengan minat mereka saat pendaftaran.
+6. **Membuat Soal Tes**: Menyusun soal-soal ujian seleksi pelatihan sesuai dengan kategori keahlian yang telah ditentukan.
+7. **Impor Soal Tes**: Mengimpor soal-soal tes dari file Excel yang telah disiapkan sebelumnya, untuk mempermudah dan mempercepat pengisian bank soal.
+8. **Laporan**: Membuat laporan pendaftaran dan hasil seleksi peserta pelatihan dalam format PDF untuk dokumentasi dan evaluasi.
 
 ### User
 

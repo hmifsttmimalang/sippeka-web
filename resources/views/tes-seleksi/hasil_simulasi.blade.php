@@ -5,7 +5,7 @@
 @section('hasil_simulasi')
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
-    @vite('resources/css/hasil_simulasi.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/hasil_simulasi.css') }}">
 @endsection
 
 @section('content')

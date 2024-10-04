@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    @vite('resources/css/waktu_habis.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/waktu_habis.css') }}">
 </head>
 <body>
     @yield('content')

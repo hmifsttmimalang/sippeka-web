@@ -3,10 +3,7 @@
 @section('title', 'Ujian Selesai')
 
 @section('sudah_dikerjakan')
-@vite('resources/css/selesai.css')
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="{{ asset('assets/css/selesai.css') }}">
 @endsection
 
 @section('content')

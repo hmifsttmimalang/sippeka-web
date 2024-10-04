@@ -3,7 +3,7 @@
 @section('title', 'Ujian Selesai')
 
 @section('terkirim')
-    @vite('resources/css/terkirim.css')
+    <link rel="stylesheet" href="{{ asset('assets/css/terkirim.css') }}">
 @endsection
 
 @section('content')
