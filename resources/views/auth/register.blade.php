@@ -24,27 +24,29 @@
                                         <p class="text-center small">Masukkan informasi Anda untuk membuat akun!</p>
                                     </div>
 
-                                    <form class="row g-3 needs-validation" method="post" action="{{ route('auth.register.store') }}">
+                                    <form class="row g-3 needs-validation" method="post"
+                                        action="{{ route('auth.register.store') }}">
                                         @csrf
                                         @method('POST')
                                         <div class="col-12">
                                             <label for="username" class="form-label">Username</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="username" class="form-control" id="yourUsername" required>
+                                                <input type="text" name="username" class="form-control" id="username"
+                                                    autocomplete="username" required>
                                                 <div class="invalid-feedback">Silakan pilih nama pengguna!</div>
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="email" class="form-label">Email Kamu</label>
-                                            <input type="email" name="email" class="form-control" id="yourEmail"
-                                                required>
+                                            <input type="email" name="email" class="form-control" id="email"
+                                                autocomplete="email" required>
                                             <div class="invalid-feedback">Silakan masukkan email yang benar!</div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword"
+                                            <input type="password" name="password" class="form-control" id="password"
                                                 required>
                                             <div class="invalid-feedback">Silakan masukkan password kamu!</div>
                                         </div>
@@ -52,7 +54,7 @@
                                         <div class="col-12">
                                             <label for="password_confirmation" class="form-label">Ulangi Password</label>
                                             <input type="password" name="password_confirmation" class="form-control"
-                                                id="yourRepeatPassword" required>
+                                                id="password_confirmation" required>
                                             <div class="invalid-feedback">Silakan masukkan password ulang!</div>
                                         </div>
 
@@ -72,7 +74,8 @@
                                                 Akun</button>
                                         </div>
                                         <div class="col-12">
-                                            <p class="small mb-0">Sudah mempunyai akun? <a href="{{ route('auth.login') }}">Masuk</a></p>
+                                            <p class="small mb-0">Sudah mempunyai akun? <a
+                                                    href="{{ route('auth.login') }}">Masuk</a></p>
                                         </div>
                                     </form>
                                 </div>

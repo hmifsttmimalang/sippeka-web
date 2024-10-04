@@ -43,14 +43,14 @@
                                             <label for="identifier" class="form-label">Username atau Email</label>
                                             <div class="input-group has-validation">
                                                 <input type="text" name="identifier" class="form-control"
-                                                    id="yourUsername" required>
+                                                    id="identifier" required>
                                                 <div class="invalid-feedback">Harap masukkan username atau email.</div>
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="yourPassword"
+                                            <input type="password" name="password" class="form-control" id="password"
                                                 required>
                                             <div class="invalid-feedback">Harap masukkan password!</div>
                                         </div>
