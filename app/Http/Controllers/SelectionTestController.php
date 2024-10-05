@@ -49,11 +49,19 @@ class SelectionTestController extends Controller
             return redirect()->route('user.seleksi_selesai', ['username' => $username]);
         }
 
-        $tes_keahlian_id = $keahlianPeserta->keahlian;
-        $tesKeahlian = SkillTest::find($tes_keahlian_id);
+        // $tes_keahlian_id = $keahlianPeserta->keahlian;
+        // $tesKeahlian = SkillTest::find($tes_keahlian_id);
+
+        // Ambil ID keahlian
+        $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
+
+        // Ambil tes keahlian berdasarkan ID keahlian
+        $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
 
         // Ambil soal berdasarkan tes_keahlian_id
-        $questions = Question::where('skill_test_id', $tes_keahlian_id)->get();
+        $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
+        // Log::info('Tes Keahlian ID: ' . $tesKeahlian);
+        // Log::info('Soal yang ditemukan: ' . $questions->count());
 
         // Cek apakah soal tersedia
         if ($questions->isEmpty()) {

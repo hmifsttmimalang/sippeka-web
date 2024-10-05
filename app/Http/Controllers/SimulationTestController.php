@@ -43,11 +43,17 @@ class SimulationTestController extends Controller
             return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan untuk pengguna ini.');
         }
 
-        $tes_keahlian_id = $keahlianPeserta->keahlian;
-        $tesKeahlian = SkillTest::find($tes_keahlian_id);
+        // Ambil ID keahlian
+        $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
+
+        // Ambil tes keahlian berdasarkan ID keahlian
+        $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
+
+        // $tes_keahlian_id = $keahlianPeserta->keahlian;
+        // $tesKeahlian = SkillTest::find($tes_keahlian_id);
 
         // Ambil soal berdasarkan tes_keahlian_id
-        $questions = Question::where('skill_test_id', $tes_keahlian_id)->get();
+        $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
 
         // Cek apakah soal tersedia
         if ($questions->isEmpty()) {
@@ -123,10 +129,16 @@ class SimulationTestController extends Controller
         if (!$keahlianPeserta || !$keahlianPeserta->keahlian) {
             return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan untuk pengguna ini.');
         }
+    
+        // Ambil ID keahlian
+        $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
 
-        // Ambil soal berdasarkan tes_keahlian_id
-        $tes_keahlian_id = $keahlianPeserta->keahlian;
-        $questions = Question::where('skill_test_id', $tes_keahlian_id)->get();
+        // Ambil tes keahlian berdasarkan ID keahlian
+        $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
+
+        // // Ambil soal berdasarkan tes_keahlian_id
+        // $tes_keahlian_id = $keahlianPeserta->keahlian;
+        $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
 
         // Ambil jawaban user dari sesi
         $userAnswers = session('userAnswers', []);
