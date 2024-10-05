@@ -7,6 +7,7 @@ use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class RegistrationController extends Controller
 {
@@ -45,72 +46,68 @@ class RegistrationController extends Controller
             'agama' => 'required',
             'alamat' => 'required|string',
             'telepon' => 'required|string|max:15',
-            'keahlian' => 'required|exists:skills,id', // Validasi bahwa keahlian harus ada di tabel skills
+            'keahlian' => 'required|exists:skills,id',
             'foto_ktp' => 'required|mimes:pdf,jpg,jpeg,png',
             'foto_ijazah' => 'required|mimes:pdf,jpg,jpeg,png',
             'foto_bg_biru' => 'required|mimes:jpg,jpeg,png',
             'foto_kk' => 'required|mimes:pdf,jpg,jpeg,png',
         ]);
-
-        // Ambil username dari user yang sedang login (misalnya melalui auth)
+    
+        // Ambil username dari user yang sedang login
         $username = auth()->user()->username;
-
+    
         // Buat folder dengan nama username di dalam folder uploads
         $folderPath = 'uploads/' . $username;
-
+    
+        // Pastikan folder sudah ada
+        if (!Storage::exists($folderPath)) {
+            Storage::makeDirectory($folderPath);
+        }
+    
+        // Mengolah data untuk nama file
         $nama = str_replace(' ', '_', $request->nama);
         $tempatLahir = str_replace(' ', '_', $request->tempat_lahir);
         $tanggalLahir = date('d-m-Y', strtotime($request->tanggal_lahir));
-
-        // Simpan file yang diunggah ke folder tersebut
+    
+        // Menyimpan file yang diunggah
+        $filePaths = []; // Menyimpan path file untuk digunakan di database
+    
+        // Simpan file KTP
         if ($request->hasFile('foto_ktp')) {
             $fotoKtpName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_ktp." . $request->file('foto_ktp')->getClientOriginalExtension();
-            $fotoKtpPath = $request->file('foto_ktp')->storeAs($folderPath, $fotoKtpName, 'public');
+            $filePaths['foto_ktp'] = $request->file('foto_ktp')->storeAs($folderPath, $fotoKtpName, 'public');
         }
-
+    
         // Simpan file Ijazah
         if ($request->hasFile('foto_ijazah')) {
             $fotoIjazahName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_ijazah." . $request->file('foto_ijazah')->getClientOriginalExtension();
-            $fotoIjazahPath = $request->file('foto_ijazah')->storeAs($folderPath, $fotoIjazahName, 'public');
+            $filePaths['foto_ijazah'] = $request->file('foto_ijazah')->storeAs($folderPath, $fotoIjazahName, 'public');
         }
-
+    
         // Simpan file Foto Background Biru
         if ($request->hasFile('foto_bg_biru')) {
             $fotoBgBiruName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_bg_biru." . $request->file('foto_bg_biru')->getClientOriginalExtension();
-            $fotoBgBiruPath = $request->file('foto_bg_biru')->storeAs($folderPath, $fotoBgBiruName, 'public');
+            $filePaths['foto_bg_biru'] = $request->file('foto_bg_biru')->storeAs($folderPath, $fotoBgBiruName, 'public');
         }
-
+    
         // Simpan file Kartu Keluarga
         if ($request->hasFile('foto_kk')) {
             $fotoKkName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_kk." . $request->file('foto_kk')->getClientOriginalExtension();
-            $fotoKkPath = $request->file('foto_kk')->storeAs($folderPath, $fotoKkName, 'public');
+            $filePaths['foto_kk'] = $request->file('foto_kk')->storeAs($folderPath, $fotoKkName, 'public');
         }
-
+    
         // Ambil user_id dari session atau authentication
-        $user_id = auth()->id(); // Mengambil ID pengguna yang sedang login
-
-        // Simpan data pendaftaran ke database (contoh)
-        Registration::create([
-            'user_id' => $user_id,
-            'nama' => $request->nama,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'agama' => $request->agama,
-            'alamat' => $request->alamat,
-            'telepon' => $request->telepon,
-            'keahlian' => $request->keahlian,
-            'foto_ktp' => $fotoKtpPath,
-            'foto_ijazah' => $fotoIjazahPath,
-            'foto_bg_biru' => $fotoBgBiruPath,
-            'foto_kk' => $fotoKkPath,
-        ]);
-
+        $user_id = auth()->id();
+    
+        // Simpan data pendaftaran ke database
+        Registration::create(array_merge($request->only(['nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'agama', 'alamat', 'telepon', 'keahlian']), $filePaths, ['user_id' => $user_id]));
+    
         // Update status user menjadi 'terdaftar'
         User::where('id', $user_id)->update(['status_register' => 'terdaftar']);
-
+    
         return redirect()->route('pendaftaran.terkirim');
     }
+    
 
     public function registered()
     {
