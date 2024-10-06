@@ -13,6 +13,6 @@ class QuestionTitleSeeder extends Seeder
      */
     public function run(): void
     {
-        QuestionTitle::factory()->count(10)->create(); // Adjust the count as needed
+        QuestionTitle::factory()->count(6)->create(); // Adjust the count as needed
     }
 }

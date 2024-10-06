@@ -19,8 +19,18 @@ class QuestionTitleFactory extends Factory
 
     public function definition(): array
     {
+        // Dapatkan keahlian secara acak
+        $keahlian = $this->faker->randomElement([
+            'Web Developer',
+            'Mobile Developer',
+            'Data Scientist',
+            'UI/UX Designer',
+            'DevOps Engineer',
+            'Network Engineer'
+        ]);
+
         return [
-            'nama' => $this->faker->sentence(3), // Generates a random title with 3 words
+            'nama' => $keahlian, // Samakan nama mata soal dengan keahlian
         ];
     }
 }

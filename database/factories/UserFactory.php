@@ -24,13 +24,14 @@ class UserFactory extends Factory
     {
         $domains = ['sigma.com', 'skibidi.com', 'mewing.com', 'sus.com'];
     
+        // Buat username terlebih dahulu
+        $username = $this->faker->unique()->userName;
+    
         return [
-            'username' => $this->faker->unique()->userName,
-            'email' => $this->faker->unique()->userName . '@' . $this->faker->randomElement($domains), // Domain acak
+            'username' => $username, // Setel username
+            'email' => $username . '@' . $this->faker->randomElement($domains), // Gunakan username yang sama untuk email
             'password' => Hash::make('password'), // password default "password"
-            // 'role' => $this->faker->randomElement(['user', 'admin']), // ini untuk membuat semua user yang sebagiannya dapat menjadi admin
             'role' => 'user',
-            // 'status_register' => $this->faker->randomElement(['tidak terdaftar', 'terdaftar']),
             'status_register' => 'terdaftar',
             'remember_token' => Str::random(10),
         ];
