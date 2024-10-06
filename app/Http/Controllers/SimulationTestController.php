@@ -49,9 +49,6 @@ class SimulationTestController extends Controller
         // Ambil tes keahlian berdasarkan ID keahlian
         $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
 
-        // $tes_keahlian_id = $keahlianPeserta->keahlian;
-        // $tesKeahlian = SkillTest::find($tes_keahlian_id);
-
         // Ambil soal berdasarkan tes_keahlian_id
         $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
 
@@ -136,8 +133,7 @@ class SimulationTestController extends Controller
         // Ambil tes keahlian berdasarkan ID keahlian
         $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
 
-        // // Ambil soal berdasarkan tes_keahlian_id
-        // $tes_keahlian_id = $keahlianPeserta->keahlian;
+        // Ambil soal berdasarkan tes_keahlian_id
         $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
 
         // Ambil jawaban user dari sesi
