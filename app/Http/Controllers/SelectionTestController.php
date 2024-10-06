@@ -25,9 +25,7 @@ class SelectionTestController extends Controller
             ->where('waktu_selesai', '>=', $currentDateTime)
             ->first();
 
-        if ($sesiSeleksi) {
-            // Log::info('Sesi seleksi aktif.');
-        } else {
+        if (!$sesiSeleksi) {
             // Jika tidak ada sesi seleksi yang aktif, kembalikan respon kesalahan
             return redirect()->back()->with('error', 'Tidak ada sesi seleksi yang aktif saat ini.');
         }
@@ -45,12 +43,11 @@ class SelectionTestController extends Controller
 
         // Cek apakah nilai keahlian sudah terisi
         if ($keahlianPeserta->nilai_keahlian !== null) {
-            // Arahkan ke halaman tertentu jika nilai keahlian sudah ada
             return redirect()->route('user.seleksi_selesai', ['username' => $username]);
         }
 
         // Ambil ID keahlian
-        $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
+        $keahlianId = $keahlianPeserta->keahlian;
 
         // Ambil tes keahlian berdasarkan ID keahlian
         $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
@@ -96,17 +93,15 @@ class SelectionTestController extends Controller
         $waktuMulai = Carbon::parse($sesiSeleksi->waktu_mulai)->setTimezone('Asia/Jakarta');
         $waktuSelesai = Carbon::parse($sesiSeleksi->waktu_selesai)->setTimezone('Asia/Jakarta');
 
-        // Ambil waktu sekarang di timezone yang diinginkan
-        $now = Carbon::now('Asia/Jakarta');
-
         // Hitung sisa waktu dalam detik dari sekarang hingga waktu selesai
-        $remainingSeconds = $now->diffInSeconds($waktuSelesai, false);
+        $remainingSeconds = $currentDateTime->diffInSeconds($waktuSelesai, false);
 
         // Jika sesi sudah berakhir
         if ($remainingSeconds <= 0) {
-            return redirect()->route('waktu_seleksi_habis', ['username' => $username]);
+            return redirect()->route('user.waktu_seleksi_habis', ['username' => $username]);
         }
 
+        // Tampilkan view
         return view('tes-seleksi.tes_seleksi_peserta', compact('questions', 'remainingSeconds', 'sesiSeleksi'));
     }
 
