@@ -227,7 +227,7 @@
             </div>
 
             <!-- Hasil Penilaian -->
-            @if ($status === 'Sedang Diproses')
+            @if ($status === 'Sedang Diproses' && !is_null($pendaftar->nilai_keahlian))
                 <div class="col-md-6">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
