@@ -131,6 +131,10 @@
                         <td>{{ $formatted_date }}</td>
                     </tr>
                     <tr>
+                        <th>Agama</th>
+                        <td>{{ $pendaftar->agama }}</td>
+                    </tr>
+                    <tr>
                         <th>Keahlian</th>
                         <td>{{ $pendaftar->keahlian_nama }}</td>
                     </tr>
