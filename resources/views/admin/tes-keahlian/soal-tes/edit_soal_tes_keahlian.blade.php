@@ -182,7 +182,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor">{{!! $soal->soal !!}}</div>
+                                                        <div id="editor">{!! $soal->soal !!}</div>
                                                         <input type="hidden" name="soal" id="soal_hidden" />
                                                     </td>
                                                 </tr>
@@ -193,7 +193,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor1">{{!! $soal->pilihan_a !!}}</div>
+                                                        <div id="editor1">{!! $soal->pilihan_a !!}</div>
                                                         <input type="hidden" name="pilihan_a" id="pilihan_a_hidden" />
                                                     </td>
                                                 </tr>
@@ -204,7 +204,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor2">{{!! $soal->pilihan_b !!}}</div>
+                                                        <div id="editor2">{!! $soal->pilihan_b !!}</div>
                                                         <input type="hidden" name="pilihan_b" id="pilihan_b_hidden" />
                                                     </td>
                                                 </tr>
@@ -215,7 +215,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor3">{{!! $soal->pilihan_c !!}}</div>
+                                                        <div id="editor3">{!! $soal->pilihan_c !!}</div>
                                                         <input type="hidden" name="pilihan_c" id="pilihan_c_hidden" />
                                                     </td>
                                                 </tr>
@@ -226,7 +226,7 @@
                                                         </label>
                                                     </td>
                                                     <td>
-                                                        <div id="editor4">{{!! $soal->pilihan_d !!}}</div>
+                                                        <div id="editor4">{!! $soal->pilihan_d !!}</div>
                                                         <input type="hidden" name="pilihan_d" id="pilihan_d_hidden" />
                                                     </td>
                                                 </tr>
