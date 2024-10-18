@@ -14,6 +14,6 @@ class RegistrationSeeder extends Seeder
     public function run(): void
     {
         // Membuat beberapa data pendaftar menggunakan factory
-        Registration::factory(50)->create();
+        Registration::factory(100)->create();
     }
 }
