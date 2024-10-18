@@ -52,11 +52,11 @@ class AdminController extends Controller
 
     public function kelolaData()
     {
-        // Mengambil data pendaftar dengan keahlian
-        $listPendaftar = Registration::latest()
-            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
-            ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->paginate(10);
+        // Mengambil data pendaftar dengan keahlian dan menghitung rata-rata nilai
+        $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+            ->orderByDesc('rata_rata') // Mengurutkan berdasarkan rata-rata tertinggi
+            ->paginate(10); // Paginasi
 
         return view('admin.kelola_data', compact('listPendaftar'));
     }
@@ -137,24 +137,57 @@ class AdminController extends Controller
 
     public function peserta()
     {
-        // Mengambil data pendaftar
-        $listPendaftar = Registration::latest()
-            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
-            ->select('registrations.*', 'skills.nama as keahlian_nama')
-            ->paginate(10);
+        // Mengambil data pendaftar dengan paginasi
+        $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+            ->orderByDesc('rata_rata')
+            ->paginate(10); // Paginasi dilakukan di sini
 
         return view('admin.peserta', compact('listPendaftar'));
     }
 
+    /**
+     * mengambil 50 peserta dan selebihnya akan dianggap gagal meski di atas rata-rata
+     * 
+     * public function peserta()
+     * {
+     *       // Mengambil semua data pendaftar dengan keahlian dan menghitung rata-rata, diurutkan dari nilai tertinggi
+     *       $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+     *           ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+     *           ->orderByDesc('rata_rata')
+     *           ->get();
+
+     *       // Memisahkan 50 peserta teratas
+     *       $top50 = $listPendaftar->take(50);
+
+     *       // Mengambil peserta di luar 50 besar
+     *       $outside50 = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+     *           ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+     *           ->orderByDesc('rata_rata')
+     *           ->skip(50) // Melewatkan 50 peserta pertama
+     *           ->paginate(10); // Paginasi untuk peserta di luar 50 besar
+
+     *       // Tandai peserta di luar 50 besar sebagai gagal
+     *       foreach ($outside50 as $item) {
+     *           $item->status = 'Gagal';
+     *       }
+
+     *       return view('admin.peserta', compact('top50', 'outside50'));
+     * }
+     */
+    
+
     public function cetakPeserta()
     {
-        $listPendaftar = Registration::latest()
-            ->join('skills', 'registrations.keahlian', '=', 'skills.id')
-            ->select('registrations.*', 'skills.nama as keahlian_nama')
+        // Mengambil dan mengurutkan data pendaftar berdasarkan rata-rata nilai tes
+        $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+            ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+            ->orderByDesc('rata_rata') // Mengurutkan berdasarkan rata-rata tertinggi
             ->get();
 
+        // Membuat PDF menggunakan view 'data_peserta_pdf'
         $pdf = $this->pdf->loadView('admin.cetak.data_peserta_pdf', compact('listPendaftar'))
-            ->setPaper('a4', 'potrait');
+            ->setPaper('a4', 'portrait');
 
         return $pdf->download('data_peserta.pdf');
     }
