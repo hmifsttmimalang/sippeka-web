@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Halaman Utama | Sippeka')
+@section('title', 'Halaman Informasi Pelatihan | Sippeka')
 
 @section('content')
 <main class="main">
