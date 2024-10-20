@@ -11,7 +11,7 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4">
                                 <a href="{{ route('home') }}" class="logo d-flex align-items-center w-auto">
-                                    <img src="{{ asset('assets/user/img/logo.png') }}" alt="Logo Sippeka">
+                                    <img src="{{ asset('assets/user/img/logo_jatim.png') }}" alt="Logo Sippeka">
                                     <span class="d-none d-lg-block">SIPPEKA</span>
                                 </a>
                             </div>

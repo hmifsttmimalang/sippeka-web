@@ -262,7 +262,7 @@
                         <div class="content">
                             <h3>Informasi Pelatihan</h3>
                             <p>
-                                Informasi pelatihan kerja berbasis kompetensi di UPT BLK Singosari Malang.
+                                Informasi seputar jurusan yang tersedia, tata cara pendaftaran dan jadwal tes di UPT BLK Singosari Malang.
                             </p>
                             <p></p>
                             <a href="#" class="btn more-btn">Cek Disini!</a>
@@ -367,10 +367,21 @@
 
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
                         <div class="service-item item-pink position-relative">
-                            <i class="bi bi-chat-square-text icon"></i>
+                            <i class="bi bi-clipboard-check icon"></i>
                             <div>
                                 <h3>Realisasi Kinerja Tahun 2024</h3>
                                 <p>Realisasi Kinerja Tahun 2024.</p>
+                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+                        <div class="service-item item-pink position-relative">
+                            <i class="bi bi-person-check-fill icon"></i>
+                            <div>
+                                <h3>Pengumuman Hasil Tes Tahun 2024</h3>
+                                <p>Pengumuman Hasil Tes Tahun 2024.</p>
                                 <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>

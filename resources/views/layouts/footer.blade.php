@@ -20,16 +20,16 @@
                     <a href=""><i class="bi bi-linkedin"></i></a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 footer-newsletter">
-                <h4>Our Newsletter</h4>
-                <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+            <div class="col-lg-6 col-md-6 footer-newsletter">
+                <h4>Informasi Terkini</h4>
+                <p>Daftarkan email anda untuk mendapatkan informasi terkini di UPT BLK Singosari.</p>
                 <form action="" method="post" class="php-email-form">
                     <div class="newsletter-form">
                         <input type="email" name="email" placeholder="Email Kamu" class="form-control me-2" autocomplete="email">
-                        <input type="submit" value="Subscribe">
+                        <input type="submit" value="Kirim">
                         <div class="loading">Loading</div>
                         <div class="error-message"></div>
-                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                        <div class="sent-message">Permintaan Anda telah dikirim. Terima kasih!</div>
                     </div>
                 </form>
             </div>
