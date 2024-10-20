@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -54,8 +55,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
@@ -64,7 +65,8 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -162,7 +164,8 @@
                     <h1 class="h3 mb-3 text-gray-800 ">Data Peserta</h1>
 
                     @if ($listPendaftar->isNotEmpty())
-                        <a href="{{ route('admin.peserta.cetak') }}" class="btn btn-warning btn-sm mb-3">Cetak Data Peserta</a>
+                        <a href="{{ route('admin.peserta.cetak') }}" class="btn btn-warning btn-sm mb-3">Cetak Data
+                            Peserta</a>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -189,7 +192,8 @@
                                                         : ($item->nilai_keahlian + $item->nilai_wawancara) / 2;
                                             @endphp
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $index + 1 + ($listPendaftar->currentPage() - 1) * $listPendaftar->perPage() }}</td>
+                                                <td>{{ $index + 1 + ($listPendaftar->currentPage() - 1) * $listPendaftar->perPage() }}
+                                                </td>
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td style="text-align: left;">{{ $item->alamat }}</td>
                                                 <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
@@ -208,7 +212,8 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.detail_peserta.cetak', ['user_id' => $item->user_id]) }}" class="btn btn-warning btn-sm">Cetak</a>
+                                                    <a href="{{ route('admin.detail_peserta.cetak', ['user_id' => $item->user_id]) }}"
+                                                        class="btn btn-warning btn-sm">Cetak</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -218,11 +223,118 @@
                                 <br>
                                 <!-- Pagination -->
                                 {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
-                            </div>
-                        </div>
-                    @else
-                        <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
                     @endif
+
+                    {{-- Peserta Top 50 --}}
+                    {{-- @if ($top50->isNotEmpty())
+                        <a href="{{ route('admin.peserta.cetak') }}" class="btn btn-warning btn-sm mb-3">Cetak Data
+                            Peserta</a>
+                        <h3 class="text-center">Top 50 Peserta</h3>
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr style="text-align: center; vertical-align: middle;">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th>Keahlian</th>
+                                    <th>Nilai Tes Keahlian</th>
+                                    <th>Nilai Tes Wawancara</th>
+                                    <th>Rata-Rata</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($top50 as $index => $item)
+                                    @php
+                                        $rataRata =
+                                            $item->nilai_keahlian && $item->nilai_wawancara
+                                                ? ($item->nilai_keahlian + $item->nilai_wawancara) / 2
+                                                : null;
+                                    @endphp
+                                    <tr style="text-align: center; vertical-align: middle;">
+                                        <td>{{ $index + 1 }}</td>
+                                        <td style="text-align: left;">{{ $item->nama }}</td>
+                                        <td style="text-align: left;">{{ $item->alamat }}</td>
+                                        <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
+                                        <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
+                                        <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
+                                        <td>{{ $rataRata ?? 'Sedang diproses' }}</td>
+                                        <td>
+                                            @if (is_null($rataRata))
+                                                <span class="badge badge-warning">Sedang diproses</span>
+                                            @elseif ($rataRata >= 70)
+                                                <span class="badge badge-success">Lulus</span>
+                                            @else
+                                                <span class="badge badge-danger">Gagal</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.detail_peserta.cetak', ['user_id' => $item->user_id]) }}"
+                                                class="btn btn-warning btn-sm">Cetak</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <h3 class="text-center mt-5">Tidak ada peserta</h3>
+                    @endif --}}
+
+                    {{-- Peserta di luar 50 besar --}}
+                    {{-- @if ($outside50->isNotEmpty())
+                        <h3 class="text-center mt-5">Peserta di Luar 50 Besar</h3>
+                        <table class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr style="text-align: center; vertical-align: middle;">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Alamat</th>
+                                    <th>Keahlian</th>
+                                    <th>Nilai Tes Keahlian</th>
+                                    <th>Nilai Tes Wawancara</th>
+                                    <th>Rata-Rata</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($outside50 as $index => $item)
+                                    @php
+                                        $rataRata =
+                                            $item->nilai_keahlian && $item->nilai_wawancara
+                                                ? ($item->nilai_keahlian + $item->nilai_wawancara) / 2
+                                                : null;
+                                    @endphp
+                                    <tr style="text-align: center; vertical-align: middle;">
+                                        <td>{{ $index + 1 + ($outside50->currentPage() - 1) * $outside50->perPage() }}</td>
+                                        <td style="text-align: left;">{{ $item->nama }}</td>
+                                        <td style="text-align: left;">{{ $item->alamat }}</td>
+                                        <td style="text-align: left;">{{ $item->keahlian_nama }}</td>
+                                        <td>{{ $item->nilai_keahlian ?? 'Sedang diproses' }}</td>
+                                        <td>{{ $item->nilai_wawancara ?? 'Sedang diproses' }}</td>
+                                        <td>{{ $rataRata ?? 'Sedang diproses' }}</td>
+                                        <td>
+                                            @if (is_null($rataRata))
+                                                <span class="badge badge-warning">Sedang diproses</span>
+                                            @else
+                                                <span class="badge badge-danger">Gagal</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.detail_peserta.cetak', ['user_id' => $item->user_id]) }}"
+                                                class="btn btn-warning btn-sm">Cetak</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination -->
+                        {{ $outside50->links('vendor.pagination.pagination_custom') }}
+                    @else
+                        <h3 class="text-center mt-5">Tidak ada peserta di luar 50 besar</h3>
+                    @endif --}}
                 </div>
             </div>
 
