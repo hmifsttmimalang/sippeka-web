@@ -1,6 +1,6 @@
 @extends('layouts.admin_app')
 
-@section('title', 'Dashboard Admin | Admin Sippeka')
+@section('title', 'Dashboard Instruktur | Instruktur Sippeka')
 
 @section('content')
     <!-- Page Wrapper -->
@@ -11,12 +11,12 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
-                <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
+                <div class="sidebar-brand-text mx-3">Instruktur SIPPEKA</div>
             </a>
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Admin
+                Instruktur
             </div>
 
             <!-- Nav Item - Dashboard -->
@@ -34,54 +34,6 @@
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link loadPage" href="{{ route('admin.peserta') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Peserta</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link loadPage" href="{{ route('admin.info_user') }}">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Info User</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-list"></i>
-                    <span>Kelola Keahlian</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-folder-plus"></i>
-                    <span>Kelola Informasi</span>
-                </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item loadPage">Jurusan</a>
-                        <a class="collapse-item loadPage">Tata Cara Pendafataran</a>
-                        <a class="collapse-item loadPage">Jadwal Tes</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->
