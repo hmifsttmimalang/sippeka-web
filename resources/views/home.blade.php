@@ -280,117 +280,35 @@
         <!-- /Features Details Section -->
 
         <!-- Services Section -->
-        <section id="services" class="services section light-background">
+        <section id="services" class="features-details section">
 
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Pengumuman</h2>
-                <p>Informasi penting</p>
+              <h2>Pengumuman</h2>
+              <p>Hasil seleksi pengumuman peserta pelatihan pada tahun 2024!</p>
             </div>
             <!-- End Section Title -->
-
+      
             <div class="container">
-                <div class="row g-5">
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="service-item item-cyan position-relative">
-                            <i class="bi bi-activity icon"></i>
-                            <div>
-                                <h3>Realisasi Anggaran Tahun 2024</h3>
-                                <p>Realisasi Anggaran Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="service-item item-orange position-relative">
-                            <i class="bi bi-broadcast icon"></i>
-                            <div>
-                                <h3>Realisasi PAD Tahun 2024</h3>
-                                <p>Realisasi PAD Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="service-item item-teal position-relative">
-                            <i class="bi bi-easel icon"></i>
-                            <div>
-                                <h3>Data Pelatihan Tahun 2024</h3>
-                                <p>Data Pelatihan Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
-                        <div class="service-item item-red position-relative">
-                            <i class="bi bi-bounding-box-circles icon"></i>
-                            <div>
-                                <h3>Data Penempatan Tahun 2024</h3>
-                                <p>Data Penempatan Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
-                        <div class="service-item item-indigo position-relative">
-                            <i class="bi bi-calendar4-week icon"></i>
-                            <div>
-                                <h3>Layanan Pengaduan</h3>
-                                <p>Layanan Pengaduan Internal dan Eksternal (SP4N Lapor) Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
-                        <div class="service-item item-pink position-relative">
-                            <i class="bi bi-chat-square-text icon"></i>
-                            <div>
-                                <h3>Survei Kepuasan</h3>
-                                <p>Mencakup Survei Kepuasan Masyarakat, Survei Persepsi Kualitas Pelayanan (SPKP) dan Survei
-                                    Persepsi Anti Korupsi (SPAK),
-                                    Survei Kualitas Penyelenggaraan Pelatihan serta Survei Penempatan Alumni Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
-                        <div class="service-item item-pink position-relative">
-                            <i class="bi bi-clipboard-check icon"></i>
-                            <div>
-                                <h3>Realisasi Kinerja Tahun 2024</h3>
-                                <p>Realisasi Kinerja Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
-                        <div class="service-item item-pink position-relative">
-                            <i class="bi bi-person-check-fill icon"></i>
-                            <div>
-                                <h3>Pengumuman Hasil Tes Tahun 2024</h3>
-                                <p>Pengumuman Hasil Tes Tahun 2024.</p>
-                                <a href="#" class="read-more stretched-link">Cek Disini<i class="bi bi-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Service Item -->
-
+              <div class="row gy-4 justify-content-between features-item">
+      
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                  <img src="{{ asset('assets/user/img/features-1.jpg') }}" class="img-fluid" alt="">
                 </div>
-            </div>
-        </section>
+      
+                <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+                  <div class="content">
+                    <h3>Pengumuman Seleksi Peserta</h3>
+                    <p>
+                      Hasil seleksi peserta adalah informasi yang akurat! Informasi ini memuat data dari hasil tes
+                      ujian dan tes wawancara dengan menampilkan nilai yang diperoleh selama mengikuti seleksi pendaftaran.
+                    </p>
+                    <a href="pengumuman_hasil_seleksi.php" class="btn more-btn">Lihat</a>
+                  </div>
+                </div>
+              </div>
+      
+          </section>
         <!-- /Services Section -->
 
     </main>

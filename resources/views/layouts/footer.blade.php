@@ -24,13 +24,11 @@
                 <h4>Informasi Terkini</h4>
                 <p>Daftarkan email anda untuk mendapatkan informasi terkini di UPT BLK Singosari.</p>
                 <form action="" method="post" class="php-email-form">
-                    <div class="newsletter-form">
-                        <input type="email" name="email" placeholder="Email Kamu" class="form-control me-2" autocomplete="email">
-                        <input type="submit" value="Kirim">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Permintaan Anda telah dikirim. Terima kasih!</div>
-                    </div>
+                    <div class="d-flex w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Alamat email</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Alamat email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                      </div>
                 </form>
             </div>
         </div>
