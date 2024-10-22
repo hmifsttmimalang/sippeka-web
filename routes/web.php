@@ -21,6 +21,9 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/info-pelatihan', [HomeController::class, 'infoPelatihan'])->name('info-pelatihan');
+Route::get('/hasil-pengumuman', [HomeController::class, 'hasil'])->name('hasil-pengumuman');
+Route::get('/info-pendaftaran', [HomeController::class, 'infoPendaftaran'])->name('info-pendaftaran');
 
 // Otentikasi login dan register akun
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('auth.register');

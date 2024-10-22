@@ -265,7 +265,7 @@
                                 Informasi seputar jurusan yang tersedia, tata cara pendaftaran dan jadwal tes di UPT BLK Singosari Malang.
                             </p>
                             <p></p>
-                            <a href="#" class="btn more-btn">Cek Disini!</a>
+                            <a href="{{ route('info-pelatihan') }}" class="btn more-btn">Cek Disini!</a>
                         </div>
                     </div>
 
@@ -303,7 +303,7 @@
                       Hasil seleksi peserta adalah informasi yang akurat! Informasi ini memuat data dari hasil tes
                       ujian dan tes wawancara dengan menampilkan nilai yang diperoleh selama mengikuti seleksi pendaftaran.
                     </p>
-                    <a href="pengumuman_hasil_seleksi.php" class="btn more-btn">Lihat</a>
+                    <a href="{{ route('hasil-pengumuman') }}" class="btn more-btn">Lihat</a>
                   </div>
                 </div>
               </div>

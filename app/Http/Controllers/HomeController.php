@@ -13,4 +13,19 @@ class HomeController extends Controller
 
         return view('home', compact('user'));
     }
+
+    public function infoPelatihan()
+    {
+        return view('informasi_pelatihan');
+    }
+
+    public function hasil()
+    {
+        return view('pengumuman_hasil_seleksi');
+    }
+
+    public function infoPendaftaran()
+    {
+        return view('tata_cara_pendaftaran');
+    }
 }
