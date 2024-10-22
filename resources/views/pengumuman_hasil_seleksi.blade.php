@@ -23,7 +23,6 @@
 
     <!-- Pengumuman Section -->
     <section id="hero" class="hero section">
-
         <div class="hero-bg">
             <img src="{{ asset('assets/user/img/hero-bg-light.webp') }}" alt="">
         </div>
@@ -36,7 +35,6 @@
                 <img src="{{ asset('assets/user/img/jurusan_terbuka.png') }}" class="img-fluid hero-img" style="border-radius: 10px;">
             </div>
         </div>
-
     </section>
     <!-- /Pengumuman Section -->
 
