@@ -1,6 +1,6 @@
 @extends('layouts.admin_app')
 
-@section('title', 'Informasi Jadwal Tes | Admin Sippeka')
+@section('title', 'Ubah Informasi Jadwal Tes | Admin Sippeka')
 
 @section('content')
     <!-- Page Wrapper -->
@@ -63,7 +63,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas
+                            Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
                             Keahlian</a>
@@ -129,20 +130,30 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
                             </a>
-
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
+                                <form action="{{ route('admin.info_jurusan.store') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="nama_jurusan">Nama Jurusan</label>
+                                        <input type="text" class="form-control" name="nama_jurusan" placeholder="Masukkan Nama Jurusan" required>
                                     </div>
+                                
+                                    <div class="form-group">
+                                        <label for="kuota">Kuota</label>
+                                        <input type="number" class="form-control" name="kuota" placeholder="Masukkan Kuota" required>
+                                    </div>
+                                
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="form-control" name="status">
+                                            <option value="dibuka">Dibuka</option>
+                                            <option value="ditutup">Ditutup</option>
+                                        </select>
+                                    </div>
+                                
+                                    <button type="submit" class="btn btn-primary">Tambah Jurusan</button>
                                 </form>
                             </div>
                         </li>
@@ -174,114 +185,55 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-3 text-gray-800 ">Informasi Jadwal Tes</h1>
+                    <!-- Button Kembali -->
+                    <a href="{{ route('admin.jadwal_tes') }}"
+                        class="btn btn-primary btn-sm mb-6 loadPage">Kembali</a>
 
-                    <a href="{{ route('admin.jadwal_tes.create') }}"
-                        class="btn btn-primary btn-sm loadPage mb-3">Tambah</a>
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-5">
+                                        <div class="">
+                                            <h1 class="h4 text-gray-900 mb-4">Ubah Informasi Jadwal Tes</h1>
+                                        </div>
+                                        <hr class="divider-sidebar">
+                                        <form action="{{ route('admin.jadwal_tes.update', $jadwalTes->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group">
+                                                <label for="jurusan_id">Jurusan</label>
+                                                <select name="jurusan_id" class="form-control" required>
+                                                    @foreach($jurusans as $jurusan)
+                                                        <option value="{{ $jurusan->id }}" {{ $jurusan->id == $jadwalTes->jurusan_id ? 'selected' : '' }}>{{ $jurusan->nama_jurusan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tanggal_pelaksanaan">Tanggal Pelaksanaan</label>
+                                                <input type="date" name="tanggal_pelaksanaan" class="form-control" value="{{ $jadwalTes->tanggal_pelaksanaan }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="waktu_pelaksanaan">Waktu Pelaksanaan</label>
+                                                <input type="time" name="waktu_pelaksanaan" class="form-control" value="{{ $jadwalTes->waktu_pelaksanaan }}" required>
+                                            </div>
+                                            <button type="button" data-id="{{ $jadwalTes->id }}" data-nama="{{ $jadwalTes->jurusan->nama_jurusan }}" class="btn btn-primary btn-ubah">Simpan</button>
+                                        </form>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    @if ($jadwalTes->isNotEmpty())
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered table-hover">
-                                    <thead class="thead-dark">
-                                        <tr style="text-align: center; vertical-align: middle;">
-                                            <th>No</th>
-                                            <th>Nama Jurusan</th>
-                                            <th>Tanggal Pelaksanaan</th>
-                                            <th>Waktu Pelaksanaan</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($jadwalTes as $index => $jadwal)
-                                            <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $index + 1 }}</td>
-                                                <td>{{ $jadwal->jurusan->nama_jurusan }}</td>
-                                                <td>{{ $jadwal->tanggal_pelaksanaan }}</td>
-                                                <td>{{ $jadwal->waktu_pelaksanaan }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.jadwal_tes.edit', $jadwal) }}"
-                                                        class="btn btn-warning btn-sm">Edit</a>
-                                                    <form action="{{ route('admin.jadwal_tes.delete', $jadwal) }}"
-                                                        method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" data-id="{{ $jadwal->id }}" data-nama="{{ $jadwal->jurusan->nama_jurusan }}" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                                <br>
-                                <!-- Pagination -->
-                                {{ $jadwalTes->links('vendor.pagination.pagination_custom') }}
-                    @else
-                        <h3 class="text-center mt-5">Tidak ada jadwal tes yang tersedia</h3>
-                    @endif
                 </div>
+
             </div>
+            <!-- /.container-fluid -->
 
         </div>
-
-    </div>
-    <!-- /.container-fluid -->
-
-    </div>
-    <!-- End of Main Content -->
+        <!-- End of Main Content -->
 
     </div>
     <!-- End of Content Wrapper -->
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        document.querySelectorAll("#btn-hapus").forEach((button) => {
-            button.addEventListener("click", function() {
-                const id = this.getAttribute("data-id");
-                const nama = this.getAttribute("data-nama");
-                const form = this.closest("form");
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        cancelButton: "btn btn-primary",
-                        confirmButton: "btn btn-danger",
-                        actions: "swal2-button-space",
-                    },
-                    buttonsStyling: false,
-                });
-
-                swalWithBootstrapButtons
-                    .fire({
-                        title: "Apakah kamu ingin menghapus data ini?",
-                        text: `ID: ${id} - Nama: ${nama}`,
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonText: "Iya",
-                        cancelButtonText: "Tidak",
-                        reverseButtons: true,
-                    })
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            swalWithBootstrapButtons.fire({
-                                    title: "Berhasil!",
-                                    text: "Data berhasil dihapus!",
-                                    icon: "success",
-                                })
-                                .then(() => {
-                                    form.submit();
-                                });
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            swalWithBootstrapButtons.fire({
-                                title: "Dibatalkan",
-                                text: "Data tidak jadi dihapus!",
-                                icon: "error",
-                            });
-                        }
-                    });
-            });
-        });
-    </script>
-
 @endsection

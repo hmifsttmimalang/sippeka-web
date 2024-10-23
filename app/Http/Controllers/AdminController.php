@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalTes;
 use App\Models\Jurusan;
 use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
@@ -773,7 +774,7 @@ class AdminController extends Controller
         return redirect()->route('admin.info_jurusan')->with('success', 'Data jurusan berhasil diubah.');
     }
 
-    public function destroy($id)
+    public function hapusInfoJurusan($id)
     {
         $jurusan = Jurusan::findOrFail($id);
         $jurusan->delete();
@@ -784,6 +785,49 @@ class AdminController extends Controller
     // kelola jadwal tes
     public function jadwalTes()
     {
-        return view('admin.info-jadwal.jadwal_tes');
+        $jadwalTes = JadwalTes::with('jurusan')->paginate(10);
+        return view('admin.info-jadwal.jadwal_tes', compact('jadwalTes'));
+    }
+
+    public function tambahJadwalTes()
+    {
+        $jurusans = Jurusan::all();
+        return view('admin.info-jadwal.tambah_jadwal_tes', compact('jurusans'));
+    }
+
+    public function simpanJadwalTes(Request $request)
+    {
+        $request->validate([
+            'tanggal_pelaksanaan' => 'required|date',
+            'waktu_pelaksanaan' => 'required|date_format:H:i',
+            'jurusan_id' => 'required|exists:jurusans,id',
+        ]);
+
+        JadwalTes::create($request->all());
+        return redirect()->route('admin.jadwal_tes')->with('success', 'Jadwal tes berhasil ditambahkan.');
+    }
+
+    public function editJadwalTes(JadwalTes $jadwalTes)
+    {
+        $jurusans = Jurusan::all();
+        return view('admin.info-jadwal.edit_jadwal_tes', compact('jadwalTes', 'jurusans'));
+    }
+
+    public function updateJadwalTes(Request $request, JadwalTes $jadwalTes)
+    {
+        $request->validate([
+            'tanggal_pelaksanaan' => 'required|date',
+            'waktu_pelaksanaan' => 'required|date_format:H:i',
+            'jurusan_id' => 'required|exists:jurusans,id',
+        ]);
+    
+        $jadwalTes->update($request->all());
+        return redirect()->route('admin.jadwal_tes')->with('success', 'Jadwal tes berhasil diperbarui.');
+    }    
+
+    public function hapusJadwalTes(JadwalTes $jadwalTes)
+    {
+        $jadwalTes->delete();
+        return redirect()->route('admin.jadwal_tes')->with('success', 'Jadwal tes berhasil dihapus.');
     }
 }

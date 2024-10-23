@@ -92,11 +92,16 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/info-jurusan/tambah', [AdminController::class, 'tambahInfoJurusan'])->name('admin.info_jurusan.create');
     Route::post('/admin/info-jurusan/tambah', [AdminController::class, 'simpanInfoJurusan'])->name('admin.info_jurusan.store');
     Route::get('/admin/info-jurusan/{id}/edit', [AdminController::class, 'editInfoJurusan'])->name('admin.info_jurusan.edit');
-    Route::put('/admin/info_jurusan/{id}', [AdminController::class, 'updateInfoJurusan'])->name('admin.info_jurusan.update');
-    Route::delete('/admin/info_jurusan/{id}/delete', [AdminController::class, 'destroy'])->name('admin.info_jurusan.delete');
+    Route::put('/admin/info-jurusan/{id}', [AdminController::class, 'updateInfoJurusan'])->name('admin.info_jurusan.update');
+    Route::delete('/admin/info-jurusan/{id}/delete', [AdminController::class, 'hapusInfoJurusan'])->name('admin.info_jurusan.delete');
 
     // informasi jadwal tes
     Route::get('/admin/info-jadwal-tes', [AdminController::class, 'jadwalTes'])->name('admin.jadwal_tes');
+    Route::get('/admin/info-jadwal-tes/tambah', [AdminController::class, 'tambahJadwalTes'])->name('admin.jadwal_tes.create');
+    Route::post('/admin/info-jadwal-tes/tambah', [AdminController::class, 'simpanJadwalTes'])->name('admin.jadwal_tes.store');
+    Route::get('/admin/info-jadwal-tes/{jadwalTes}/edit', [AdminController::class, 'editJadwalTes'])->name('admin.jadwal_tes.edit');
+    Route::put('/admin/info-jadwal-tes/{jadwalTes}', [AdminController::class, 'updateJadwalTes'])->name('admin.jadwal_tes.update');
+    Route::delete('/admin/info-jadwal-tes/{jadwalTes}/delete', [AdminController::class, 'hapusJadwalTes'])->name('admin.jadwal_tes.delete');
 });
 
 // Halaman instruktur

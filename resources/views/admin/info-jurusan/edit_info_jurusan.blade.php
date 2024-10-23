@@ -196,7 +196,7 @@
                                 <div class="col-md-12">
                                     <div class="p-5">
                                         <div class="">
-                                            <h1 class="h4 text-gray-900 mb-4">Tambah Kelas Keahlian</h1>
+                                            <h1 class="h4 text-gray-900 mb-4">Ubah Informasi Jurusan</h1>
                                         </div>
                                         <hr class="divider-sidebar">
                                         <form action="{{ route('admin.info_jurusan.update', ['id' => $jurusan->id]) }}" method="POST">

@@ -16,4 +16,9 @@ class Jurusan extends Model
         'kuota', 
         'status'
     ];
+
+    public function jadwalTes()
+    {
+        return $this->hasMany(JadwalTes::class);
+    }
 }
