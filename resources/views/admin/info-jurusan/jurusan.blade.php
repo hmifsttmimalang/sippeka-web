@@ -1,6 +1,6 @@
 @extends('layouts.admin_app')
 
-@section('title', 'Dashboard Admin | Admin Sippeka')
+@section('title', 'Informasi Jurusan | Admin Sippeka')
 
 @section('content')
     <!-- Page Wrapper -->
@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -20,7 +21,7 @@
             </div>
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link loadPage" href="{{ route('admin.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -54,8 +55,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
@@ -64,20 +65,21 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item loadPage" href="{{ route('admin.info_jurusan') }}">Jurusan</a>
+                        <a class="collapse-item loadPage active" href="{{ route('admin.info_jurusan') }}">Jurusan</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.jadwal_tes') }}">Jadwal Tes</a>
                     </div>
                 </div>
@@ -158,7 +160,8 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('auth.logout') }}" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Keluar
                                 </a>
@@ -172,128 +175,115 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-                    <div class="row">
+                    <h1 class="h3 mb-3 text-gray-800 ">Informasi Jurusan</h1>
 
-                        <!-- Card Pendaftar Masuk -->
-                        <div class="col-md-6">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="h3 font-weight-bold text-info text-uppercase mb-1">
-                                                Pendaftar Masuk
-                                            </div>
-                                            <div class="h5 mt-3 font-weight-bold">
-                                                {{ $totalPendaftar }} Orang
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: {{ $progressPendaftar }}%"
-                                                            aria-valuenow="{{ $progressPendaftar }}" aria-valuemin="0"
-                                                            aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300" style="font-size: 90px;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <a href="{{ route('admin.info_jurusan.create') }}"
+                        class="btn btn-primary btn-sm loadPage mb-3">Tambah</a>
 
-                        <!-- Card Pendaftar Lolos Seleksi -->
-                        <div class="col-md-6">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="h3 font-weight-bold text-success text-uppercase mb-1">
-                                                Lolos Seleksi
-                                            </div>
-                                            <div class="h5 mt-3 font-weight-bold">
-                                                {{ $pendaftarLolos }} Orang
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: {{ $progressLolos }}%"
-                                                            aria-valuenow="{{ $progressLolos }}" aria-valuemin="0"
-                                                            aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-user fa-2x text-gray-300" style="font-size: 90px;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="mt-3">
-
-                    <h2 class="text-gray-800">Data Pendaftar Baru</h2>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @if ($listPendaftarBaru->isNotEmpty())
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover mt-3">
+                    @if ($jurusan->isNotEmpty())
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr style="text-align: center; vertical-align: middle;">
                                             <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Alamat</th>
-                                            <th>Keahlian</th>
-                                            <th>Waktu Mendaftar</th>
+                                            <th>Nama Jurusan</th>
+                                            <th>Kuota</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($listPendaftarBaru as $index => $item)
+                                        @foreach ($jurusan as $key => $data)
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $index + 1 + ($listPendaftarBaru->currentPage() - 1) * $listPendaftarBaru->perPage() }}</td>
-                                                <td style="text-align: left;">{{ $item->nama }}</td>
-                                                <td style="text-align: left;">{{ $item->alamat }}</td>
-                                                <td>{{ $item->keahlian_nama }}</td>
-                                                <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $data->nama_jurusan }}</td>
+                                                <td>{{ $data->kuota }}</td>
+                                                <td>{{ $statusList[$data->status] ?? 'Status Tidak Diketahui' }}</td>
+                                                <td>
+                                                    <form
+                                                        action="{{ route('admin.info_jurusan.delete', ['id' => $data->id]) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('admin.info_jurusan.edit', ['id' => $data->id]) }}"
+                                                            class="btn btn-sm btn-warning">Edit</a>
+                                                        <button type="button" data-id="{{ $data->id }}"
+                                                            data-nama="{{ $data->nama_jurusan }}"
+                                                            class="btn btn-sm btn-danger" id="btn-hapus">Hapus</button>
+                                                    </form>
                                                 </td>
                                             </tr>
-                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
 
                                 <br>
                                 <!-- Pagination -->
-                                {{ $listPendaftarBaru->links('vendor.pagination.pagination_custom') }}
-                                @else
-                                <h4 class="text-center mt-4">Tidak ada pendaftar baru dalam 24 jam terakhir</h4>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Content Row -->
-
-
-                    <!-- /.container-fluid -->
-
+                                {{ $jurusan->links('vendor.pagination.pagination_custom') }}
+                            @else
+                                <h3 class="text-center mt-5">Tidak ada jurusan yang tersedia</h3>
+                    @endif
                 </div>
-                <!-- End of Main Content -->
-
             </div>
-            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Page Wrapper -->
+
     </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.querySelectorAll("#btn-hapus").forEach((button) => {
+            button.addEventListener("click", function() {
+                const id = this.getAttribute("data-id");
+                const nama = this.getAttribute("data-nama");
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-primary",
+                        confirmButton: "btn btn-danger",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menghapus data ini?",
+                        text: `ID: ${id} - Nama: ${nama}`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Data berhasil dihapus!",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak jadi dihapus!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+    </script>
 @endsection

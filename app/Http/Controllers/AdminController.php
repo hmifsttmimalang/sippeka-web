@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurusan;
 use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -156,7 +157,7 @@ class AdminController extends Controller
      *       return view('admin.peserta', compact('top50', 'outside50'));
      * }
      */
-    
+
 
     public function cetakPeserta()
     {
@@ -720,5 +721,69 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus sesi tes keahlian.');
         }
+    }
+
+    // kelola informasi jurusan
+    public function infoJurusan()
+    {
+        $jurusan = Jurusan::paginate(10);
+
+        $statusList = [
+            'dibuka' => 'Dibuka',
+            'ditutup' => 'Ditutup',
+        ];
+
+        return view('admin.info-jurusan.jurusan', compact('jurusan', 'statusList'));
+    }
+
+    public function tambahInfoJurusan()
+    {
+        return view('admin.info-jurusan.tambah_info_jurusan');
+    }
+
+    public function simpanInfoJurusan(Request $request)
+    {
+        $request->validate([
+            'nama_jurusan' => 'required',
+            'kuota' => 'required|integer',
+            'status' => 'required'
+        ]);
+
+        Jurusan::create($request->all());
+
+        return redirect()->route('admin.info_jurusan')->with('success', 'Jurusan berhasil ditambahkan');
+    }
+
+    public function editInfoJurusan($id)
+    {
+        $jurusan = Jurusan::findOrFail($id);
+
+        return view('admin.info-jurusan.edit_info_jurusan', compact('jurusan'));
+    }
+
+    public function updateInfoJurusan(Request $request, $id)
+    {
+        $jurusan = Jurusan::findOrFail($id);
+        $jurusan->update([
+            'nama_jurusan' => $request->nama_jurusan,
+            'kuota' => $request->kuota,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.info_jurusan')->with('success', 'Data jurusan berhasil diubah.');
+    }
+
+    public function destroy($id)
+    {
+        $jurusan = Jurusan::findOrFail($id);
+        $jurusan->delete();
+
+        return redirect()->route('admin.info_jurusan')->with('success', 'Data jurusan berhasil dihapus.');
+    }
+
+    // kelola jadwal tes
+    public function jadwalTes()
+    {
+        return view('admin.info-jadwal.jadwal_tes');
     }
 }
