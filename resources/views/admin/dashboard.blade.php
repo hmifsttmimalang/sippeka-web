@@ -77,9 +77,9 @@
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item loadPage">Jurusan</a>
-                        <a class="collapse-item loadPage">Tata Cara Pendafataran</a>
-                        <a class="collapse-item loadPage">Jadwal Tes</a>
+                        <a class="collapse-item loadPage" href="">Jurusan</a>
+                        <a class="collapse-item loadPage" href="">Tata Cara Pendafataran</a>
+                        <a class="collapse-item loadPage" href="">Jadwal Tes</a>
                     </div>
                 </div>
             </li>
