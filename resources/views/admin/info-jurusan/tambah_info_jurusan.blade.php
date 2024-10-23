@@ -80,8 +80,8 @@
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item loadPage" href="{{ route('admin.info_jurusan') }}">Jurusan</a>
-                        <a class="collapse-item loadPage active" href="{{ route('admin.jadwal_tes') }}">Jadwal Tes</a>
+                        <a class="collapse-item loadPage active" href="{{ route('admin.info_jurusan') }}">Jurusan</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.jadwal_tes') }}">Jadwal Tes</a>
                     </div>
                 </div>
             </li>
