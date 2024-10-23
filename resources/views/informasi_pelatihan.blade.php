@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.info_app')
 
 @section('title', 'Halaman Informasi Pelatihan | Sippeka')
 
