@@ -41,9 +41,4 @@ class HomeController extends Controller
 
         return view('pengumuman_hasil_seleksi', compact('listPendaftar'));
     }
-
-    public function infoPendaftaran()
-    {
-        return view('tata_cara_pendaftaran');
-    }
 }
