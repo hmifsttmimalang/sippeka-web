@@ -43,7 +43,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/info-user', [AdminController::class, 'infoUser'])->name('admin.info_user');    
     Route::get('/admin/peserta/{user_id}/cetak', [AdminController::class, 'cetakDetailPendaftar'])->name('admin.detail_peserta.cetak');
     Route::get('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'detailPendaftar'])->name('admin.detail_pendaftar');
-    // Route::post('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'validasiTesWawancara'])->name('admin.validasi_wawancara');
 
     // Mata soal
     Route::get('/admin/mata-soal', [AdminController::class, 'indexMataSoal'])->name('admin.mata_soal');
