@@ -72,16 +72,15 @@
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
-                    aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item loadPage" href="">Jurusan</a>
-                        <a class="collapse-item loadPage" href="">Tata Cara Pendafataran</a>
-                        <a class="collapse-item loadPage" href="">Jadwal Tes</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.info_jurusan') }}">Jurusan</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.jadwal_tes') }}">Jadwal Tes</a>
                     </div>
                 </div>
             </li>
