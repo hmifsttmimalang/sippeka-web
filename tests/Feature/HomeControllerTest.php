@@ -2,9 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\JadwalTes;
+use App\Models\Jurusan;
+use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class HomeControllerTest extends TestCase
@@ -52,5 +56,39 @@ class HomeControllerTest extends TestCase
         $view = $this->view('home', ['user' => $user]);
 
         $view->assertSee($user->name);
+    }
+
+    /** @test */
+    public function test_info_pelatihan_displays_jadwal_and_jurusan()
+    {
+        // Buat data dummy untuk jurusan dan jadwal tes
+        Jurusan::factory()->count(5)->create();
+        JadwalTes::factory()->count(10)->create();
+
+        // Login sebagai pengguna
+        $user = User::factory()->create();
+        Auth::login($user);
+
+        // Akses halaman informasi pelatihan
+        $response = $this->get('/info-pelatihan');
+
+        // Memastikan status 200 dan halaman informasi pelatihan ditampilkan
+        $response->assertStatus(200);
+        $response->assertViewIs('informasi_pelatihan');
+
+        // Memastikan variabel 'jurusan', 'jadwalTes', dan 'statusList' dikirim ke view
+        $response->assertViewHas('jurusan', function ($value) {
+            return $value instanceof \Illuminate\Pagination\LengthAwarePaginator;
+        });
+
+        $response->assertViewHas('jadwalTes', function ($value) {
+            return $value instanceof \Illuminate\Pagination\LengthAwarePaginator;
+        });
+
+        // Memastikan status list tersedia di view
+        $response->assertViewHas('statusList', [
+            'dibuka' => 'Dibuka',
+            'ditutup' => 'Ditutup',
+        ]);
     }
 }
