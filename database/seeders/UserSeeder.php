@@ -22,8 +22,16 @@ class UserSeeder extends Seeder
         User::create([
             'username' => 'admin',
             'email' => 'admin@sippeka.org',
-            'password' => Hash::make('admin123'), // Hash password untuk keamanan
+            'password' => Hash::make('admin123'),
             'role' => 'admin',
+            'status_register' => 'tidak terdaftar',
+        ]);
+
+        User::create([
+            'username' => 'pelatih',
+            'email' => 'pelatih@sippeka.org',
+            'password' => Hash::make('pelatih123'),
+            'role' => 'instruktur',
             'status_register' => 'tidak terdaftar',
         ]);
     }

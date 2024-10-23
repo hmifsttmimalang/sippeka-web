@@ -1,4 +1,4 @@
-@extends('layouts.admin_app')
+@extends('layouts.instruktur_app')
 
 @section('title', 'Dashboard Instruktur | Instruktur Sippeka')
 
@@ -10,7 +10,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('instruktur.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Instruktur SIPPEKA</div>
             </a>
 
@@ -21,7 +21,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link loadPage" href="{{ route('admin.dashboard') }}">
+                <a class="nav-link loadPage" href="{{ route('instruktur.dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -30,7 +30,7 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link loadPage" href="{{ route('admin.kelola_data') }}">
+                <a class="nav-link loadPage" href="{{ route('instruktur.kelola_data') }}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Data Peserta</span>
                 </a>
@@ -104,7 +104,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrator</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Instruktur</span>
                                 <img class="img-profile rounded-circle"
                                     src="{{ asset('assets/admin/img/undraw_profile.svg') }}">
                             </a>

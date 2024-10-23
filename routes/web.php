@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InstrukturController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SelectionTestController;
 use App\Http\Controllers\SimulationTestController;
@@ -42,7 +43,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/info-user', [AdminController::class, 'infoUser'])->name('admin.info_user');    
     Route::get('/admin/peserta/{user_id}/cetak', [AdminController::class, 'cetakDetailPendaftar'])->name('admin.detail_peserta.cetak');
     Route::get('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'detailPendaftar'])->name('admin.detail_pendaftar');
-    Route::post('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'validasiTesWawancara'])->name('admin.validasi_wawancara');
+    // Route::post('/admin/kelola-data/pendaftar/{user_id}', [AdminController::class, 'validasiTesWawancara'])->name('admin.validasi_wawancara');
 
     // Mata soal
     Route::get('/admin/mata-soal', [AdminController::class, 'indexMataSoal'])->name('admin.mata_soal');
@@ -86,6 +87,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/sesi-tes-keahlian/{id}/edit', [AdminController::class, 'editSesiTesKeahlian'])->name('admin.sesi_tes_keahlian.edit');
     Route::put('/admin/sesi-tes-keahlian/{id}', [AdminController::class, 'updateSesiTesKeahlian'])->name('admin.sesi_tes_keahlian.update');
     Route::delete('/admin/sesi-tes-keahlian/{id}', [AdminController::class, 'hapusSesiTesKeahlian'])->name('admin.sesi_tes_keahlian.delete');
+});
+
+// Halaman instruktur
+Route::group(['middleware' => 'instruktur'], function () {
+    Route::get('/instruktur', [InstrukturController::class, 'index'])->name('instruktur.dashboard');
+    Route::get('/instruktur/kelola-data', [InstrukturController::class, 'kelolaData'])->name('instruktur.kelola_data');
+    Route::get('/instruktur/kelola-data/pendaftar/{user_id}', [InstrukturController::class, 'detailPendaftar'])->name('instruktur.detail_pendaftar');
+    Route::post('/instruktur/kelola-data/pendaftar/{user_id}', [InstrukturController::class, 'validasiTesWawancara'])->name('instruktur.validasi_wawancara');
 });
 
 // Halaman user

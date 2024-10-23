@@ -286,48 +286,6 @@
                                                 {{ $status }}
                                             </span>
                                         @endif
-
-                                        <!-- Tombol Validasi Data Peserta -->
-                                        <button type="button" class="btn btn-primary mt-3 btn-block" data-toggle="modal"
-                                            data-target="#modalvalidasi">
-                                            Validasi Data Peserta
-                                        </button>
-
-                                        <!-- Modal untuk Validasi -->
-                                        <div class="modal fade" id="modalvalidasi" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Penilaian Wawancara
-                                                            Peserta</h5>
-                                                        <button class="close" type="button" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form method="post"
-                                                            action="{{ route('admin.detail_pendaftar', ['user_id' => $pendaftar->user_id]) }}">
-                                                            @csrf
-                                                            @method('POST')
-                                                            <div class="mb-3">
-                                                                <label for="nilai-wawancara" class="col-form-label">Nilai
-                                                                    Wawancara:</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="nilai_wawancara" name="nilai_wawancara"
-                                                                    value="">
-                                                            </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" type="submit">Validasi</button>
-                                                        <button class="btn btn-secondary" type="button"
-                                                            data-dismiss="modal">Batal</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

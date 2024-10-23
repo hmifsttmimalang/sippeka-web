@@ -64,11 +64,12 @@ class AuthController extends Controller
         $remember = $request->has('remember');
 
         if (Auth::attempt($credentials, $remember)) {
-            // Cek role setelah berhasil login
             if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.dashboard'); // Arahkan ke halaman admin
+                return redirect()->route('admin.dashboard');
+            } else if (Auth::user()->role === 'instruktur') {
+                return redirect()->route('instruktur.dashboard');
             } else {
-                return redirect()->route('home'); // Arahkan ke halaman user
+                return redirect()->route('home');
             }
         }
 

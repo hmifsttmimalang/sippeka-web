@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('role', ['user', 'admin', 'instruktur'])->default('user');
             $table->enum('status_register', ['tidak terdaftar', 'terdaftar'])->default('tidak terdaftar');
             $table->rememberToken();
             $table->timestamps();

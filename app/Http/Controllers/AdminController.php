@@ -116,25 +116,6 @@ class AdminController extends Controller
         return view('admin.detail_pendaftar', compact('pendaftar', 'formatted_date', 'status', 'rataRata'));
     }
 
-    public function validasiTesWawancara(Request $request, $user_id)
-    {
-        // Validasi input dari form
-        $request->validate([
-            'nilai_wawancara' => 'required|integer|min:0|max:100', // Pastikan nilai antara 0 dan 100
-        ]);
-
-        // Temukan pendaftar berdasarkan user_id
-        $pendaftar = Registration::where('user_id', $user_id)->firstOrFail();
-
-        // Simpan nilai wawancara ke database
-        $pendaftar->update([
-            'nilai_wawancara' => $request->input('nilai_wawancara'),
-        ]);
-
-        // Redirect kembali ke halaman detail dengan pesan sukses
-        return redirect()->route('admin.detail_pendaftar', $user_id)->with('success', 'Nilai wawancara berhasil divalidasi.');
-    }
-
     public function peserta()
     {
         // Mengambil data pendaftar dengan paginasi
