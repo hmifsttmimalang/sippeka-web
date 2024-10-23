@@ -132,8 +132,38 @@
                         saat ini!<br></p>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <img src="{{ asset('assets/user/img/jurusan_terbuka.png') }}" class="img-fluid hero-img"
-                        style="border-radius: 10px;">
+                    {{-- <img src="{{ asset('assets/user/img/jurusan_terbuka.png') }}" class="img-fluid hero-img"
+                        style="border-radius: 10px;"> --}}
+                    @if ($jurusan->isNotEmpty())
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Nama Jurusan</th>
+                                            <th>Kuota</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($jurusan as $key => $data)
+                                            <tr style="text-align: center; vertical-align: middle;">
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $data->nama_jurusan }}</td>
+                                                <td>{{ $data->kuota }}</td>
+                                                <td>{{ $statusList[$data->status] ?? 'Status Tidak Diketahui' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $jurusan->links('vendor.pagination.pagination_custom') }}
+                            @else
+                                <h3 class="text-center mt-5">Tidak ada jurusan yang tersedia</h3>
+                    @endif
                 </div>
             </div>
 
@@ -153,8 +183,38 @@
                         akan dilaksanakan mendatang!<br></p>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <img src="{{ asset('assets/user/img/jadwal.png') }}" class="img-fluid hero-img"
-                        style="border-radius: 10px;">
+                    {{-- <img src="{{ asset('assets/user/img/jadwal.png') }}" class="img-fluid hero-img"
+                        style="border-radius: 10px;"> --}}
+                        @if ($jadwalTes->isNotEmpty())
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr style="text-align: center; vertical-align: middle;">
+                                            <th>No</th>
+                                            <th>Nama Jurusan</th>
+                                            <th>Tanggal Pelaksanaan</th>
+                                            <th>Waktu Pelaksanaan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($jadwalTes as $index => $jadwal)
+                                            <tr style="text-align: center; vertical-align: middle;">
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $jadwal->jurusan->nama_jurusan }}</td>
+                                                <td>{{ $jadwal->tanggal_pelaksanaan }}</td>
+                                                <td>{{ $jadwal->waktu_pelaksanaan }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <br>
+                                <!-- Pagination -->
+                                {{ $jadwalTes->links('vendor.pagination.pagination_custom') }}
+                    @else
+                        <h3 class="text-center mt-5">Tidak ada jadwal tes yang tersedia</h3>
+                    @endif
                 </div>
             </div>
         </section>

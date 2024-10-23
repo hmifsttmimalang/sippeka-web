@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JadwalTes;
+use App\Models\Jurusan;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,15 @@ class HomeController extends Controller
 
     public function infoPelatihan()
     {
-        return view('informasi_pelatihan');
+        $jurusan = Jurusan::paginate(10);
+
+        $statusList = [
+            'dibuka' => 'Dibuka',
+            'ditutup' => 'Ditutup',
+        ];
+
+        $jadwalTes = JadwalTes::with('jurusan')->paginate(10);
+        return view('informasi_pelatihan', compact('jadwalTes', 'jurusan', 'statusList'));
     }
 
     public function hasil()
