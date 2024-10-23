@@ -72,8 +72,8 @@
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
@@ -137,7 +137,8 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -238,6 +239,8 @@
                                 <br>
                                 <!-- Pagination -->
                                 {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
+                    @else
+                        <h3 class="text-center mt-5">Tidak ada peserta yang terdaftar</h3>
                     @endif
 
                     {{-- Peserta Top 50 --}}
