@@ -12,7 +12,14 @@ class JurusanFactory extends Factory
     public function definition()
     {
         return [
-            'nama_jurusan' => $this->faker->word(),
+            'nama_jurusan' => $this->faker->randomElement([
+                'Web Developer',
+                'Mobile Developer',
+                'Data Scientist',
+                'UI/UX Designer',
+                'DevOps Engineer',
+                'Network Engineer'
+            ]),
             'kuota' => $this->faker->numberBetween(20, 100),
             'status' => $this->faker->randomElement(['dibuka', 'ditutup']),
         ];

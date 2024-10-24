@@ -9,6 +9,6 @@ class JadwalTesSeeder extends Seeder
 {
     public function run()
     {
-        JadwalTes::factory()->count(20)->create(); // Membuat 20 jadwal tes
+        JadwalTes::factory()->count(6)->create(); // Membuat 6 jadwal tes
     }
 }

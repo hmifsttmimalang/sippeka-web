@@ -9,6 +9,6 @@ class JurusanSeeder extends Seeder
 {
     public function run()
     {
-        Jurusan::factory()->count(10)->create(); // Membuat 10 jurusan
+        Jurusan::factory()->count(6)->create(); // Membuat 6 jurusan
     }
 }
