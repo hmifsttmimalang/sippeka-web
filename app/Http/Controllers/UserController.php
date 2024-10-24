@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Registration;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 
 class UserController extends Controller
 {
@@ -15,14 +18,73 @@ class UserController extends Controller
         // Cari user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
+        // Ambil pendaftar berdasarkan user_id
         $pendaftar = Registration::with('user')->where('user_id', $user->id)->first();
 
         if (!$pendaftar) {
             return redirect()->route('pendaftaran.form')->with('warning', 'Anda belum terdaftar. Silakan daftar terlebih dahulu');
         }
 
+        // Ambil pengumuman terbaru dari model Pengumuman
+        $pengumuman = Pengumuman::latest()->first(); // Ambil pengumuman terbaru
+
+        $formattedAnnouncementDate = null; // Format tanggal pengumuman
+        $showAnnouncement = false; // Default untuk menyembunyikan card
+        $announcementMessage = null; // Pesan pengumuman
+
+        // Cek apakah ada pengumuman
+        if ($pengumuman) {
+            $pengumumanDate = new DateTime($pengumuman->tanggal_waktu);
+            $formattedAnnouncementDate = $pengumumanDate->format('d F Y H:i:s');
+
+            // Ganti nama bulan ke bahasa Indonesia
+            $bulanInggris = [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ];
+
+            $bulanIndonesia = [
+                'Januari',
+                'Februari',
+                'Maret',
+                'April',
+                'Mei',
+                'Juni',
+                'Juli',
+                'Agustus',
+                'September',
+                'Oktober',
+                'November',
+                'Desember'
+            ];
+
+            // Replace nama bulan Inggris dengan nama bulan Indonesia
+            $formattedAnnouncementDate = str_replace($bulanInggris, $bulanIndonesia, $formattedAnnouncementDate);
+
+            // Cek apakah tanggal saat ini sudah lewat dari tanggal pengumuman
+            $currentDate = new DateTime();
+            if ($currentDate >= $pengumumanDate) {
+                $showAnnouncement = true; // Tampilkan card jika sudah lewat
+            } else {
+                // Jika belum lewat, buat pesan
+                $announcementMessage = "Pengumuman akan ditampilkan pada " . $formattedAnnouncementDate;
+            }
+        }
+
+        // Tanggal lahir dan format lainnya
         $tanggal_lahir = $pendaftar->tanggal_lahir;
 
+        // Daftar bulan
         $bulan = [
             1 => 'Januari',
             2 => 'Februari',
@@ -50,23 +112,21 @@ class UserController extends Controller
         $formatted_date = $hari . ' ' . $nama_bulan . ' ' . $tahun;
 
         // Default values
-        $nilai_keahlian = null;
-        $nilai_wawancara = null;
+        $nilai_keahlian = $pendaftar->nilai_keahlian ?? null;
+        $nilai_wawancara = $pendaftar->nilai_wawancara ?? null;
         $rata_rata = null;
         $status = 'Sedang Diproses'; // Default status
 
-        // Check if both values are not null
-        if (!is_null($pendaftar->nilai_keahlian) && !is_null($pendaftar->nilai_wawancara)) {
-            $nilai_keahlian = $pendaftar->nilai_keahlian;
-            $nilai_wawancara = $pendaftar->nilai_wawancara;
+        // Cek jika nilai keahlian dan wawancara tidak null
+        if (!is_null($nilai_keahlian) && !is_null($nilai_wawancara)) {
             $rata_rata = ($nilai_keahlian + $nilai_wawancara) / 2;
 
-            // Determine status based on average
+            // Tentukan status berdasarkan rata-rata
             $status = ($rata_rata >= 70) ? 'Lulus' : 'Tidak Lulus';
         }
 
-        // Mengirim data user ke view dashboard
-        return view('user.dashboard_user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata'));
+        // Kirim data user ke view dashboard
+        return view('user.dashboard_user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata', 'pengumuman', 'formattedAnnouncementDate', 'showAnnouncement', 'announcementMessage'));
     }
 
     public function formTesSeleksi($username)

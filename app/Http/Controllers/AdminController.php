@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\JadwalTes;
 use App\Models\Jurusan;
+use App\Models\Pengumuman;
 use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -820,14 +821,34 @@ class AdminController extends Controller
             'waktu_pelaksanaan' => 'required|date_format:H:i',
             'jurusan_id' => 'required|exists:jurusans,id',
         ]);
-    
+
         $jadwalTes->update($request->all());
         return redirect()->route('admin.jadwal_tes')->with('success', 'Jadwal tes berhasil diperbarui.');
-    }    
+    }
 
     public function hapusJadwalTes(JadwalTes $jadwalTes)
     {
         $jadwalTes->delete();
         return redirect()->route('admin.jadwal_tes')->with('success', 'Jadwal tes berhasil dihapus.');
+    }
+
+    public function aturPengumuman()
+    {
+        return view('admin.pengumuman.atur_pengumuman');
+    }
+
+    public function simpanPengumuman(Request $request)
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'waktu' => 'required|date_format:H:i',
+        ]);
+
+        $tanggal_waktu_pengumuman = $request->tanggal . ' ' . $request->waktu;
+
+        // Simpan pengumuman ke database
+        Pengumuman::create(['tanggal_waktu' => $tanggal_waktu_pengumuman]);
+
+        return redirect()->route('admin.pengumuman')->with('success', 'Waktu pengumuman berhasil diatur');
     }
 }

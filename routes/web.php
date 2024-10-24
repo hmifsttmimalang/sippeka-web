@@ -102,6 +102,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/admin/info-jadwal-tes/{jadwalTes}/edit', [AdminController::class, 'editJadwalTes'])->name('admin.jadwal_tes.edit');
     Route::put('/admin/info-jadwal-tes/{jadwalTes}', [AdminController::class, 'updateJadwalTes'])->name('admin.jadwal_tes.update');
     Route::delete('/admin/info-jadwal-tes/{jadwalTes}/delete', [AdminController::class, 'hapusJadwalTes'])->name('admin.jadwal_tes.delete');
+
+    // kelola waktu pengumuman
+    Route::get('/admin/pengumuman', [AdminController::class, 'aturPengumuman'])->name('admin.pengumuman');
+    Route::post('/admin/pengumuman', [AdminController::class, 'simpanPengumuman'])->name('admin.simpan_pengumuman');
 });
 
 // Halaman instruktur

@@ -117,6 +117,50 @@
         });
 
         // tambah
+        document.querySelectorAll(".btn-set").forEach((button) => {
+            button.addEventListener("click", function() {
+                const form = this.closest("form");
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        cancelButton: "btn btn-danger",
+                        confirmButton: "btn btn-primary",
+                        actions: "swal2-button-space",
+                    },
+                    buttonsStyling: false,
+                });
+
+                swalWithBootstrapButtons
+                    .fire({
+                        title: "Apakah kamu ingin menyimpan pengaturan ini?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Iya",
+                        cancelButtonText: "Tidak",
+                        reverseButtons: true,
+                    })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            swalWithBootstrapButtons.fire({
+                                    title: "Berhasil!",
+                                    text: "Waktu berhasil diatur",
+                                    icon: "success",
+                                })
+                                .then(() => {
+                                    form.submit();
+                                });
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            swalWithBootstrapButtons.fire({
+                                title: "Dibatalkan",
+                                text: "Data tidak ditambahkan!",
+                                icon: "error",
+                            });
+                        }
+                    });
+            });
+        });
+
+        // tambah
         document.querySelectorAll(".btn-tambah").forEach((button) => {
             button.addEventListener("click", function() {
                 const form = this.closest("form");
