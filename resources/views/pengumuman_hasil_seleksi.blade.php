@@ -35,7 +35,7 @@
             </div>
             <div class="container text-center">
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <h1 data-aos="fade-up">Hasil peserta</h1>
+                    <h1 data-aos="fade-up">Hasil Peserta</h1>
                     <p data-aos="fade-up" data-aos-delay="100">Hasil pengumuman peserta<br></p>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
