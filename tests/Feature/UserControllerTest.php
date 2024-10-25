@@ -96,6 +96,8 @@ class UserControllerTest extends TestCase
     /** @test */
     public function update_profil_successfully()
     {
+        $this->withoutMiddleware(); // Nonaktifkan CSRF middleware
+
         // Ensure skills exist
         $skill = Skill::first();
         if (!$skill) {

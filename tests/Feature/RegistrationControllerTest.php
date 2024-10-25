@@ -30,8 +30,7 @@ class RegistrationControllerTest extends TestCase
     /** @test */
     public function registration_requires_valid_data()
     {
-        $user = User::factory()->create(['role' => 'user']);
-        $this->actingAs($user);
+        $this->withoutMiddleware(); // Nonaktifkan CSRF jika diperlukan
 
         $response = $this->post('/pendaftaran', [
             'nama' => '',
@@ -73,6 +72,7 @@ class RegistrationControllerTest extends TestCase
         $skill = Skill::factory()->create(); // Pastikan ada data skill
 
         $this->actingAs($user);
+        $this->withoutMiddleware(); // Nonaktifkan CSRF middleware
 
         $response = $this->post('/pendaftaran', [
             'nama' => 'John Doe',

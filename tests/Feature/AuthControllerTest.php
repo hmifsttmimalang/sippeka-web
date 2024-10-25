@@ -28,12 +28,13 @@ class AuthControllerTest extends TestCase
     /** @test */
     public function registration_requires_valid_data()
     {
-        $response = $this->post(route('auth.register.store'), [
+        // Menonaktifkan middleware CSRF
+        $response = $this->withoutMiddleware()->post(route('auth.register.store'), [
             'username' => 'valid_username',
             'email' => 'valid_email@example.com',
             'password' => 'valid_password',
             'password_confirmation' => 'valid_password',
-            'terms' => true, // Pastikan terms dicentang
+            'terms' => true,
         ]);
 
         // Pastikan redirect terjadi setelah registrasi sukses
@@ -44,6 +45,9 @@ class AuthControllerTest extends TestCase
     /** @test */
     public function an_user_can_login()
     {
+        // Menonaktifkan middleware CSRF
+        $this->withoutMiddleware();
+
         // Membuat user dummy
         $user = User::factory()->create([
             'password' => bcrypt('password123'),
@@ -61,6 +65,8 @@ class AuthControllerTest extends TestCase
     /** @test */
     public function login_requires_valid_credentials()
     {
+        $this->withoutMiddleware(); // Menonaktifkan middleware CSRF
+
         $response = $this->post('/login', [
             'identifier' => 'nonexistent@example.com',
             'password' => 'wrongpassword',
@@ -79,6 +85,8 @@ class AuthControllerTest extends TestCase
         ]);
 
         $this->actingAs($user);
+
+        $this->withoutMiddleware(); // Nonaktifkan CSRF
 
         $response = $this->post('/logout');
 

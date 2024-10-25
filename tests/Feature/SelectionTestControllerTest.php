@@ -69,15 +69,8 @@ class SelectionTestControllerTest extends TestCase
     public function test_kirim_jawaban_seleksi_success()
     {
         // Ensure there is at least one skill in the database
-        $skill = Skill::first();
-        if (!$skill) {
-            $skill = Skill::create(['nama' => 'Web Developer']);
-        }
-
-        $mataSoal = QuestionTitle::first();
-        if (!$mataSoal) {
-            $mataSoal = QuestionTitle::create(['nama' => 'Mata Soal']);
-        }
+        $skill = Skill::first() ?: Skill::create(['nama' => 'Web Developer']);
+        $mataSoal = QuestionTitle::first() ?: QuestionTitle::create(['nama' => 'Mata Soal']);
 
         // Create necessary data
         $user = User::factory()->create(['username' => 'john_doe']);
@@ -102,6 +95,7 @@ class SelectionTestControllerTest extends TestCase
 
         // Acting as the user
         $this->actingAs($user);
+        $this->withoutMiddleware(); // Nonaktifkan CSRF middleware
 
         // Prepare answers data
         $answers = json_encode([
@@ -129,6 +123,7 @@ class SelectionTestControllerTest extends TestCase
         // Acting as the user
         $user = User::factory()->create(['username' => 'john_doe']);
         $this->actingAs($user);
+        $this->withoutMiddleware(); // Nonaktifkan CSRF middleware
 
         // Hit the route with invalid data
         $response = $this->postJson(route('user.seleksi.store', ['username' => 'john_doe']), [
@@ -137,7 +132,7 @@ class SelectionTestControllerTest extends TestCase
         ]);
 
         // Assert validation error
-        $response->assertStatus(422); // Ganti 400 dengan 422
+        $response->assertStatus(422);
         $response->assertJsonStructure([
             'message',
             'errors' => [
