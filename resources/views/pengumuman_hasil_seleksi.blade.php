@@ -40,8 +40,11 @@
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     @if ($pengumumanWaktu)
+                    <div class="mt-3">
+                        <div id="gambar" class="mb-3"></div>
                         <div id="countdown"></div>
                         <div id="announcementMessage"></div>
+                    </div>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -120,12 +123,13 @@
                 hour12: false, // Menggunakan format 24 jam
             });
 
-            document.getElementById('announcementMessage').innerHTML = 'Pengumuman akan ditampilkan pada tanggal ' +
-                announcementDate;
+            document.getElementById('announcementMessage').innerHTML = `<h4>Pengumuman akan ditampilkan pada tanggal ${announcementDate}</h4>`;
 
             let countdownFunction = setInterval(function() {
                 let now = new Date().getTime();
                 let distance = countdownDate - now;
+
+                document.getElementById('gambar').innerHTML = '<img src="{{ asset('assets/user/img/waiting.gif') }}" />';
 
                 // Hitung waktu yang tersisa
                 let days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -133,8 +137,7 @@
                 let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                document.getElementById('countdown').innerHTML = days + ' hari ' + hours + ' jam ' +
-                    minutes + ' menit ' + seconds + ' detik';
+                document.getElementById('countdown').innerHTML = `<h4>${days} hari ${hours} jam ${minutes} menit ${seconds} detik</h4>`;
 
                 // Jika waktu telah habis
                 if (distance < 0) {
@@ -149,6 +152,7 @@
 
                     // Menghapus tulisan di announcementMessage
                     document.getElementById('announcementMessage').innerHTML = '';
+                    document.getElementById('gambar').innerHTML = '';
                 }
             }, 1000);
         }
