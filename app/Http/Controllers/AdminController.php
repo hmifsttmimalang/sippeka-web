@@ -130,36 +130,32 @@ class AdminController extends Controller
         return view('admin.peserta', compact('listPendaftar'));
     }
 
-    /**
-     * mengambil 50 peserta dan selebihnya akan dianggap gagal meski di atas rata-rata
-     * 
-     * public function peserta()
-     * {
-     *       // Mengambil semua data pendaftar dengan keahlian dan menghitung rata-rata, diurutkan dari nilai tertinggi
-     *       $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
-     *           ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
-     *           ->orderByDesc('rata_rata')
-     *           ->get();
+    // mengambil 50 peserta dan selebihnya akan dianggap gagal meski di atas rata-rata
+    // public function peserta()
+    // {
+    //     // Mengambil semua data pendaftar dengan keahlian dan menghitung rata-rata, diurutkan dari nilai tertinggi
+    //     $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+    //         ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+    //         ->orderByDesc('rata_rata')
+    //         ->get();
 
-     *       // Memisahkan 50 peserta teratas
-     *       $top50 = $listPendaftar->take(50);
+    //     // Memisahkan 50 peserta teratas
+    //     $top50 = $listPendaftar->take(50);
 
-     *       // Mengambil peserta di luar 50 besar
-     *       $outside50 = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
-     *           ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
-     *           ->orderByDesc('rata_rata')
-     *           ->skip(50) // Melewatkan 50 peserta pertama
-     *           ->paginate(10); // Paginasi untuk peserta di luar 50 besar
+    //     // Mengambil peserta di luar 50 besar
+    //     $outside50 = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
+    //         ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+    //         ->orderByDesc('rata_rata')
+    //         ->skip(50) // Melewatkan 50 peserta pertama
+    //         ->paginate(10); // Paginasi untuk peserta di luar 50 besar
 
-     *       // Tandai peserta di luar 50 besar sebagai gagal
-     *       foreach ($outside50 as $item) {
-     *           $item->status = 'Gagal';
-     *       }
+    //     // Tandai peserta di luar 50 besar sebagai gagal
+    //     foreach ($outside50 as $item) {
+    //         $item->status = 'Gagal';
+    //     }
 
-     *       return view('admin.peserta', compact('top50', 'outside50'));
-     * }
-     */
-
+    //     return view('admin.peserta', compact('top50', 'outside50'));
+    // }
 
     public function cetakPeserta()
     {

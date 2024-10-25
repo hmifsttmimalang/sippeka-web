@@ -183,8 +183,6 @@
                         akan dilaksanakan mendatang!<br></p>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    {{-- <img src="{{ asset('assets/user/img/jadwal.png') }}" class="img-fluid hero-img"
-                        style="border-radius: 10px;"> --}}
                         @if ($jadwalTes->isNotEmpty())
                         <div class="row">
                             <div class="col-md-12">
@@ -202,8 +200,9 @@
                                             <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $jadwal->jurusan->nama_jurusan }}</td>
-                                                <td>{{ $jadwal->tanggal_pelaksanaan }}</td>
-                                                <td>{{ $jadwal->waktu_pelaksanaan }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->translatedFormat('d F Y') }}
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($jadwal->waktu_pelaksanaan)->translatedFormat('H.i') }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

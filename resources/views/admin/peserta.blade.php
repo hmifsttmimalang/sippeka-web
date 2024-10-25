@@ -72,8 +72,8 @@
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
@@ -239,8 +239,8 @@
                                 <br>
                                 <!-- Pagination -->
                                 {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
-                    @else
-                        <h3 class="text-center mt-5">Tidak ada peserta yang terdaftar</h3>
+                            @else
+                                <h3 class="text-center mt-5">Tidak ada peserta yang terdaftar</h3>
                     @endif
 
                     {{-- Peserta Top 50 --}}

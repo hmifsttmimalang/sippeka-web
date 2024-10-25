@@ -137,7 +137,8 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -199,8 +200,9 @@
                                             <tr style="text-align: center; vertical-align: middle;">
                                                 <td>{{ $index + 1 }}</td>
                                                 <td>{{ $jadwal->jurusan->nama_jurusan }}</td>
-                                                <td>{{ $jadwal->tanggal_pelaksanaan }}</td>
-                                                <td>{{ $jadwal->waktu_pelaksanaan }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->translatedFormat('d F Y') }}
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($jadwal->waktu_pelaksanaan)->translatedFormat('H.i') }}</td>
                                                 <td>
                                                     <a href="{{ route('admin.jadwal_tes.edit', $jadwal) }}"
                                                         class="btn btn-warning btn-sm">Edit</a>
@@ -208,7 +210,9 @@
                                                         method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="button" data-id="{{ $jadwal->id }}" data-nama="{{ $jadwal->jurusan->nama_jurusan }}" class="btn btn-danger btn-sm btn-hapus">Hapus</button>
+                                                        <button type="button" data-id="{{ $jadwal->id }}"
+                                                            data-nama="{{ $jadwal->jurusan->nama_jurusan }}"
+                                                            class="btn btn-danger btn-sm btn-hapus">Hapus</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -219,8 +223,8 @@
                                 <br>
                                 <!-- Pagination -->
                                 {{ $jadwalTes->links('vendor.pagination.pagination_custom') }}
-                    @else
-                        <h3 class="text-center mt-5">Tidak ada jadwal tes yang tersedia</h3>
+                            @else
+                                <h3 class="text-center mt-5">Tidak ada jadwal tes yang tersedia</h3>
                     @endif
                 </div>
             </div>
