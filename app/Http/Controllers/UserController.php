@@ -30,12 +30,11 @@ class UserController extends Controller
 
         $formattedAnnouncementDate = null; // Format tanggal pengumuman
         $showAnnouncement = false; // Default untuk menyembunyikan card
-        $announcementMessage = null; // Pesan pengumuman
 
         // Cek apakah ada pengumuman
         if ($pengumuman) {
             $pengumumanDate = new DateTime($pengumuman->tanggal_waktu);
-            $formattedAnnouncementDate = $pengumumanDate->format('d F Y H:i:s');
+            $formattedAnnouncementDate = $pengumumanDate->format('d F Y H.i');
 
             // Ganti nama bulan ke bahasa Indonesia
             $bulanInggris = [
@@ -75,9 +74,6 @@ class UserController extends Controller
             $currentDate = new DateTime();
             if ($currentDate >= $pengumumanDate) {
                 $showAnnouncement = true; // Tampilkan card jika sudah lewat
-            } else {
-                // Jika belum lewat, buat pesan
-                $announcementMessage = "Pengumuman akan ditampilkan pada " . $formattedAnnouncementDate;
             }
         }
 
@@ -126,7 +122,7 @@ class UserController extends Controller
         }
 
         // Kirim data user ke view dashboard
-        return view('user.dashboard_user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata', 'pengumuman', 'formattedAnnouncementDate', 'showAnnouncement', 'announcementMessage'));
+        return view('user.dashboard_user', compact('user', 'pendaftar', 'formatted_date', 'status', 'nilai_keahlian', 'nilai_wawancara', 'rata_rata', 'pengumuman', 'formattedAnnouncementDate', 'showAnnouncement'));
     }
 
     public function formTesSeleksi($username)

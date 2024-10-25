@@ -190,6 +190,17 @@
                                 <div class="col-md-12">
                                     <div class="p-5">
                                         <div class="">
+                                            <h1 class="h4 text-gray-900 mb-4">Waktu Pengumuman</h1>
+                                        </div>
+                                        <hr class="divider-sidebar">
+                                        <h5>{{ $formattedDate }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="p-5">
+                                        <div class="">
                                             <h1 class="h4 text-gray-900 mb-4">Atur Waktu Pengumuman</h1>
                                         </div>
                                         <hr class="divider-sidebar">
@@ -204,7 +215,6 @@
                                                 <input type="time" name="waktu" class="form-control" required><br>
                                                 <button type="button" class="btn btn-primary btn-set">Atur pengumuman</button>
                                             </div>
-
                                         </form>
                                     </div>
                                 </div>

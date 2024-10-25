@@ -233,7 +233,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
                                 @if ($status === 'Sedang Diproses')
-                                    <b>PENGUMUMAN HASIL SELEKSI</b>
+                                    <b>SEDANG DIPROSES</b>
                                 @elseif ($status === 'Lulus')
                                     <b>ANDA LOLOS</b>
                                 @elseif ($status === 'Tidak Lulus')
@@ -247,22 +247,43 @@
                                 @if ($status === 'Sedang Diproses')
                                     <i class="fa-solid fa-spinner text-warning" style="font-size: 90px;"></i>
                                     <p class="card-text mt-3">
-                                        Terima Kasih telah melaksanakan tes keahlian di SIPPEKA Singasari. Pengumuman pada
-                                        tanggal:
+                                        Terima Kasih telah melaksanakan seleksi tes di SIPPEKA Singosari. Nilai Anda sedang dalam proses
                                     </p>
                                 @elseif ($status === 'Lulus')
                                     <i class="fa-regular fa-circle-check text-success" style="font-size: 90px;"></i>
                                     <p class="card-text mt-3">
-                                        Selamat anda lolos seleksi pelatihan pekerja SIPPEKA BALAI UPT SINGASARI. Silahkan
+                                        Selamat Anda lolos seleksi pelatihan pekerja SIPPEKA BALAI UPT SINGOSARI. Silahkan
                                         lakukan daftar ulang.
                                     </p>
                                 @elseif ($status === 'Tidak Lulus')
                                     <i class="fa-solid fa-xmark text-danger" style="font-size: 90px;"></i>
                                     <p class="card-text mt-3">
-                                        Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan coba lagi
+                                        Maaf Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan coba lagi
                                         di kesempatan berikutnya.
                                     </p>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <marquee style="font-weight:bold;">SIPPEKA BALAI UPT SINGOSARI</marquee>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="col-md-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"><strong>SEDANG DIPROSES</strong></h6>
+                        </div>
+                        <div class="card-body mt-4 text-center">
+                            <h5 class="card-title mb-3">Proses Penilaian</h5>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-spinner text-warning" style="font-size: 90px;"></i>
+                                <p class="card-text mt-3">
+                                    Terima Kasih telah melaksanakan tes keahlian di SIPPEKA BALAI UPT Singosari. Pengumuman
+                                    pada
+                                    tanggal:
+                                </p>
                                 <span class="badge bg-danger" style="font-size: 18px;">
                                     {{ $formattedAnnouncementDate }}
                                 </span>
@@ -273,12 +294,6 @@
                         </div>
                     </div>
                 </div>
-            @else
-                @if ($announcementMessage)
-                    <div class="alert alert-info" role="alert">
-                        {{ $announcementMessage }}
-                    </div>
-                @endif
             @endif
         </div>
         <!-- End Content -->

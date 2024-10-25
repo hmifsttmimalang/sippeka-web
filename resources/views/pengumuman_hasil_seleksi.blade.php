@@ -40,11 +40,6 @@
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     @if ($pengumumanWaktu)
-                        @php
-                            $waktuSekarang = now();
-                            $pengumumanWaktuFormatted = \Carbon\Carbon::parse($pengumumanWaktu)->format('d F Y H:i:s'); // Format tanggal dan waktu
-                        @endphp
-
                         <div id="countdown"></div>
                         <div id="announcementMessage"></div>
 
@@ -103,8 +98,6 @@
                     @endif
                 </div>
             </div>
-            </div>
-            </div>
         </section>
         <!-- /Pengumuman Section -->
 
@@ -124,11 +117,10 @@
                 year: 'numeric',
                 hour: 'numeric',
                 minute: 'numeric',
-                second: 'numeric',
                 hour12: false, // Menggunakan format 24 jam
             });
 
-            document.getElementById('announcementMessage').innerHTML = 'Pengumuman akan ditampilkan pada: ' +
+            document.getElementById('announcementMessage').innerHTML = 'Pengumuman akan ditampilkan pada tanggal ' +
                 announcementDate;
 
             let countdownFunction = setInterval(function() {
@@ -141,8 +133,8 @@
                 let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                document.getElementById('countdown').innerHTML = days + 'd ' + hours + 'h ' +
-                    minutes + 'm ' + seconds + 's ';
+                document.getElementById('countdown').innerHTML = days + ' hari ' + hours + ' jam ' +
+                    minutes + ' menit ' + seconds + ' detik';
 
                 // Jika waktu telah habis
                 if (distance < 0) {

@@ -834,21 +834,42 @@ class AdminController extends Controller
 
     public function aturPengumuman()
     {
-        return view('admin.pengumuman.atur_pengumuman');
+        $jadwalPengumuman = Pengumuman::first();
+
+        if ($jadwalPengumuman) {
+            $formattedDate = Carbon::parse($jadwalPengumuman->tanggal_waktu)->translatedFormat('d F Y H.i');
+        } else {
+            $formattedDate = 'Waktu belum ditentukan';
+        }
+
+        return view('admin.pengumuman.atur_pengumuman', compact('jadwalPengumuman', 'formattedDate'));
     }
 
     public function simpanPengumuman(Request $request)
     {
+        // Validasi data yang masuk
         $request->validate([
             'tanggal' => 'required|date',
             'waktu' => 'required|date_format:H:i',
         ]);
 
+        // Gabungkan tanggal dan waktu
         $tanggal_waktu_pengumuman = $request->tanggal . ' ' . $request->waktu;
 
-        // Simpan pengumuman ke database
-        Pengumuman::create(['tanggal_waktu' => $tanggal_waktu_pengumuman]);
+        // Cek apakah pengumuman sudah ada
+        $pengumuman = Pengumuman::first(); // Ambil data pengumuman pertama, sesuaikan dengan kondisi jika ada
 
-        return redirect()->route('admin.pengumuman')->with('success', 'Waktu pengumuman berhasil diatur');
+        if ($pengumuman) {
+            // Jika pengumuman sudah ada, lakukan update
+            $pengumuman->tanggal_waktu = $tanggal_waktu_pengumuman;
+            $pengumuman->save();
+
+            return redirect()->route('admin.pengumuman')->with('success', 'Waktu pengumuman berhasil diatur');
+        } else {
+            // Jika pengumuman belum ada, simpan sebagai data baru
+            Pengumuman::create(['tanggal_waktu' => $tanggal_waktu_pengumuman]);
+
+            return redirect()->route('admin.pengumuman')->with('success', 'Waktu pengumuman berhasil diatur');
+        }
     }
 }
