@@ -132,8 +132,6 @@
                         saat ini!<br></p>
                 </div>
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    {{-- <img src="{{ asset('assets/user/img/jurusan_terbuka.png') }}" class="img-fluid hero-img"
-                        style="border-radius: 10px;"> --}}
                     @if ($jurusan->isNotEmpty())
                         <div class="row">
                             <div class="col-md-12">
