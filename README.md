@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-Apache%202.0-red.svg" alt="License: Apache 2.0">
-  <img src="https://img.shields.io/badge/version-2.3.0-green.svg" alt="Version: 2.3.0">
+  <img src="https://img.shields.io/badge/version-2.4.0-green.svg" alt="Version: 2.4.0">
 </p>
 
 ## Deskripsi
@@ -27,8 +27,9 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 
 ## Fitur
 
-- Otentikasi pengguna (Admin dan User) dengan sistem kustom
+- Otentikasi pengguna (Admin, User dan Instruktur) dengan sistem kustom
 - Pendaftaran peserta pelatihan
+- Tampilan hasil pengumuman peserta yang ditampilkan sesuai waktu yang ditentukan
 - Laporan pendaftaran dalam format PDF
 - Manajemen data peserta pelatihan
 - Unggah file foto yang disimpan pada direktori `/uploads`
@@ -37,7 +38,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 
 ### Prasyarat
 
-- [Laragon](https://laragon.org/download/)
+- [Laragon](https://laragon.org/download/) atau [XAMPP](https://www.apachefriends.org/download.html)
 - PHP 8.2.12 atau lebih baru
 - MySQL 5.7 atau lebih baru
 - Laravel 10
@@ -164,6 +165,9 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 6. **Membuat Soal Tes**: Menyusun soal-soal ujian seleksi pelatihan sesuai dengan kategori keahlian yang telah ditentukan.
 7. **Impor Soal Tes**: Mengimpor soal-soal tes dari file Excel yang telah disiapkan sebelumnya, untuk mempermudah dan mempercepat pengisian bank soal.
 8. **Laporan**: Membuat laporan pendaftaran dan hasil seleksi peserta pelatihan dalam format PDF untuk dokumentasi dan evaluasi.
+9. **Informasi Pelatihan**: Menampilkan dan mengirim informasi jurusan sesuai kuota yang disediakan dan ditampilkan pada halaman utama.
+10. **Informasi Jadwal Tes**: Menampilkan dan memberikan informasi jadwal pelaksanaan tes yang ditampilkan pada halaman utama.
+11. **Pengaturan Waktu Pengumuman**: Mengatur waktu untuk menampilkan hasil penilaian akhir peserta berdasarkan tanggal dan waktu yang ditentukan.
 
 ### User
 
@@ -174,6 +178,12 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 5. **Dashboard User**: Tampilan akun user.
 6. **Tes Simulasi**: Tampilan ujian simulasi.
 7. **Tes Seleksi**: Tampilan ujian seleksi peserta.
+8. **Melihat Jadwal**: Meninjau jadwal tes yang telah diatur oleh Admin.
+
+### Instruktur
+
+1. **Login**: Masuk sebagai instruktur menggunakan kredensial yang telah dibuat di database.
+2. **Validasi Wawancara**: Mengelola dan memvalidasi hasil wawancara peserta pelatihan.
 
 ## Kontribusi
 
