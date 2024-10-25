@@ -59,6 +59,12 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
     mv sippeka-web path/to/Laragon/www/sippeka-web
     ```
 
+    Jika menggunakan XAMPP, maka pindahkan folder proyek ke direktori `htdocs` di XAMPP.
+
+    ```bash
+    mv sippeka-web path/to/XAMPP/htdocs/sippeka-web
+    ```
+
 3. **Instalasi Dependensi**
 
     Masuk ke direktori proyek dan jalankan:
