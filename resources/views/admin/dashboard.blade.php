@@ -265,7 +265,7 @@
                                                 <td style="text-align: left;">{{ $item->nama }}</td>
                                                 <td style="text-align: left;">{{ $item->alamat }}</td>
                                                 <td>{{ $item->keahlian_nama }}</td>
-                                                <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->format('d M Y H:i') }}
+                                                <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->translatedFormat('d F Y H.i') }}
                                                 </td>
                                             </tr>
                                             @endforeach
