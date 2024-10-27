@@ -812,12 +812,6 @@ class AdminController extends Controller
 
     public function updateJadwalTes(Request $request, JadwalTes $jadwalTes)
     {
-        $request->validate([
-            'tanggal_pelaksanaan' => 'required|date',
-            'waktu_pelaksanaan' => 'required|date_format:H:i',
-            'jurusan_id' => 'required|exists:jurusans,id',
-        ]);
-
         $jadwalTes->update($request->all());
         return redirect()->route('admin.jadwal_tes')->with('success', 'Jadwal tes berhasil diperbarui.');
     }
