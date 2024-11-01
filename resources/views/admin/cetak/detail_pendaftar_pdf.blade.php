@@ -72,9 +72,14 @@
         .table-responsive {
             overflow-x: auto;
         }
+
+        .page-break {
+            page-break-after: always;
+        }
     </style>
 </head>
 <body>
+    {{-- halaman 1 --}}
     <div class="container">
         <!-- Header -->
         <div class="header-container">
@@ -157,6 +162,52 @@
                 </thead>
             </table>
         </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    {{-- halaman 2 --}}
+    <div class="container">
+        <!-- Header -->
+        <div class="header-container">
+            <div class="img-container">
+                <img src="{{ public_path('assets/admin/img/logo_jatim.png') }}" alt="Logo Jawa Timur" style="width: 70px; height: auto;">
+            </div>
+            <div class="text-container p-3 p-style">
+                <p class="ph-1">
+                    PEMERINTAH PROVINSI JAWA TIMUR<br>
+                    DINAS TENAGA KERJA DAN TRANSMIGRASI
+                </p>
+                <p class="ph-2">
+                    UPT BALAI LATIHAN KERJA SINGOSARI
+                </p>
+                <p class="ph-3">
+                    Jl. Raya Singosari Telp. (0341) 458055 – Fax. 458512<br>
+                    website: www.silastri.org, e-mail: blki_sgs@yahoo.co.id<br>
+                    SINGOSARI – 65153
+                </p>
+            </div>
+        </div>
+
+        <div style="border-top: 3px solid black; margin: 10px 0;"></div>
+
+        <center>
+            <h5 class="mb-1 fw-bold">
+                LAMPIRAN
+            </h5>
+            <br><br>
+        </center>
+
+        <!-- Tabel Detail Pendaftar -->
+        <p>Foto Identitas</p>
+        <center>
+            <img src="{{ public_path('storage/' . $pendaftar->foto_identitas) }}" alt="Foto Identitas {{ $pendaftar->nama }}" style="width: 200px; height: auto;">
+        </center>
+        <p>Foto Ijazah</p>
+        <center>
+            <img src="{{ public_path('storage/' . $pendaftar->foto_ijazah) }}" alt="Foto Ijazah {{ $pendaftar->nama }}" style="width: 200px; height: auto;">
+        </center>
+        <br><br>
     </div>
 
     <!-- Bootstrap JS -->

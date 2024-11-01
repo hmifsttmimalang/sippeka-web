@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -54,8 +55,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
@@ -64,14 +65,15 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
@@ -135,7 +137,8 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -304,19 +307,39 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"><b>LAMPIRAN PESERTA</b></h6>
+                                    <div class="card-body mt-4">
+                                        <div class="card-body mt-3">
+                                            <h5 class="text-center card-title">Foto Identitas</h5>
+                                            <div class="col-auto text-center">
+                                                <img src="{{ asset('storage/' . $pendaftar->foto_identitas) }}"
+                                                    alt="Foto KTP atau KK" class="img-fluid"
+                                                    style="width: 200px" alt="menunggu">
+                                            </div>
+                                            <h5 class="mt-5 text-center card-title">Foto Ijazah</h5>
+                                            <div class="col-auto text-center">
+                                                <img src="{{ asset('storage/' . $pendaftar->foto_ijazah) }}"
+                                                    alt="Foto Ijazah" class="img-fluid"
+                                                    style="width: 200px" alt="menunggu">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- /.container-fluid -->
+                        <!-- /.container-fluid -->
+
+                    </div>
+                    <!-- End of Main Content -->
 
                 </div>
-                <!-- End of Main Content -->
+                <!-- End of Content Wrapper -->
 
             </div>
-            <!-- End of Content Wrapper -->
+            <!-- End of Page Wrapper -->
 
         </div>
-        <!-- End of Page Wrapper -->
-
-    </div>
-@endsection
+    @endsection
