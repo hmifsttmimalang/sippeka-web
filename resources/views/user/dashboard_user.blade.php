@@ -26,7 +26,7 @@
 
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle" width="35" height="35">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $pendaftar->nama }}</span>
                     </a>
                     <!-- End Profile Image Icon -->
@@ -175,7 +175,7 @@
                         <div class="card-body mt-3">
                             <div class="col-auto text-center">
                                 <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}"
-                                    alt="Foto Profil Background Biru" class="img-fluid rounded-circle"
+                                    alt="Foto Profil Background Biru" class="img-fluid"
                                     style="width: 200px" alt="menunggu">
                             </div>
                             <div class="text-right" style="text-align: end;">

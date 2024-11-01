@@ -136,7 +136,7 @@
                                     <div class="card-body mt-3">
                                         <div class="col-auto text-center">
                                             <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}"
-                                                alt="Foto Profil Background Biru" class="img-fluid rounded-circle"
+                                                alt="Foto Profil Background Biru" class="img-fluid"
                                                 style="width: 200px" alt="menunggu">
                                         </div>
                                         <br>

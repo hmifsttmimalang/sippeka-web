@@ -65,8 +65,7 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
-                            Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
                     </div>
                 </div>
             </li>
@@ -188,7 +187,7 @@
                                     <div class="card-body mt-3">
                                         <div class="col-auto text-center">
                                             <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}"
-                                                alt="Foto Profil Background Biru" class="img-fluid rounded-circle"
+                                                alt="Foto Profil Background Biru" class="img-fluid"
                                                 style="width: 200px" alt="menunggu">
                                         </div>
                                         <br>

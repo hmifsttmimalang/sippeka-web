@@ -26,7 +26,7 @@
 
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle" width="35" height="35">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $pendaftar->nama }}</span>
                     </a>
                     <!-- End Profile Image Icon -->
