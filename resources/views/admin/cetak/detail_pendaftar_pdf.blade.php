@@ -198,7 +198,7 @@
             <br><br>
         </center>
 
-        <!-- Tabel Detail Pendaftar -->
+        <!-- Lampiran -->
         <p>Foto Identitas</p>
         <center>
             <img src="{{ public_path('storage/' . $pendaftar->foto_identitas) }}" alt="Foto Identitas {{ $pendaftar->nama }}" style="width: 200px; height: auto;">
