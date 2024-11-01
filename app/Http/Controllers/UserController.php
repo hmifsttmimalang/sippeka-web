@@ -211,17 +211,14 @@ class UserController extends Controller
         }
 
         // Update file jika ada
-        if ($request->hasFile('foto_ktp')) {
-            $pendaftar->foto_ktp = updateFile($request->file('foto_ktp'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_ktp);
+        if ($request->hasFile('foto_identitas')) {
+            $pendaftar->foto_identitas = updateFile($request->file('foto_identitas'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_identitas);
         }
         if ($request->hasFile('foto_ijazah')) {
             $pendaftar->foto_ijazah = updateFile($request->file('foto_ijazah'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_ijazah);
         }
         if ($request->hasFile('foto_bg_biru')) {
             $pendaftar->foto_bg_biru = updateFile($request->file('foto_bg_biru'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_bg_biru);
-        }
-        if ($request->hasFile('foto_kk')) {
-            $pendaftar->foto_kk = updateFile($request->file('foto_kk'), $folderPath, $nama, $tempatLahir, $tanggalLahir, $pendaftar->foto_kk);
         }
 
         // Simpan perubahan

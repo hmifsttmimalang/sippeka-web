@@ -22,10 +22,9 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('telepon');
             $table->foreignId('keahlian')->constrained('skills');
-            $table->string('foto_ktp');
+            $table->string('foto_identitas');
             $table->string('foto_ijazah');
             $table->string('foto_bg_biru');
-            $table->string('foto_kk');
             $table->integer('nilai_keahlian')->nullable();
             $table->integer('nilai_wawancara')->nullable();
             $table->timestamps();

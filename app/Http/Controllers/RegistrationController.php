@@ -47,10 +47,9 @@ class RegistrationController extends Controller
             'alamat' => 'required|string',
             'telepon' => 'required|string|max:15',
             'keahlian' => 'required|exists:skills,id',
-            'foto_ktp' => 'required|mimes:pdf,jpg,jpeg,png',
+            'foto_identitas' => 'required|mimes:pdf,jpg,jpeg,png',
             'foto_ijazah' => 'required|mimes:pdf,jpg,jpeg,png',
             'foto_bg_biru' => 'required|mimes:jpg,jpeg,png',
-            'foto_kk' => 'required|mimes:pdf,jpg,jpeg,png',
         ]);
     
         // Ambil username dari user yang sedang login
@@ -71,11 +70,11 @@ class RegistrationController extends Controller
     
         // Menyimpan file yang diunggah
         $filePaths = []; // Menyimpan path file untuk digunakan di database
-    
-        // Simpan file KTP
-        if ($request->hasFile('foto_ktp')) {
-            $fotoKtpName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_ktp." . $request->file('foto_ktp')->getClientOriginalExtension();
-            $filePaths['foto_ktp'] = $request->file('foto_ktp')->storeAs($folderPath, $fotoKtpName, 'public');
+
+        // Simpan file Kartu Keluarga atau KTP
+        if ($request->hasFile('foto_identitas')) {
+            $fotoIdentitasName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_identitas." . $request->file('foto_identitas')->getClientOriginalExtension();
+            $filePaths['foto_identitas'] = $request->file('foto_identitas')->storeAs($folderPath, $fotoIdentitasName, 'public');
         }
     
         // Simpan file Ijazah
@@ -90,12 +89,6 @@ class RegistrationController extends Controller
             $filePaths['foto_bg_biru'] = $request->file('foto_bg_biru')->storeAs($folderPath, $fotoBgBiruName, 'public');
         }
     
-        // Simpan file Kartu Keluarga
-        if ($request->hasFile('foto_kk')) {
-            $fotoKkName = "{$nama}_{$tempatLahir}_{$tanggalLahir}_foto_kk." . $request->file('foto_kk')->getClientOriginalExtension();
-            $filePaths['foto_kk'] = $request->file('foto_kk')->storeAs($folderPath, $fotoKkName, 'public');
-        }
-    
         // Ambil user_id dari session atau authentication
         $user_id = auth()->id();
     
@@ -108,7 +101,6 @@ class RegistrationController extends Controller
         return redirect()->route('pendaftaran.terkirim');
     }
     
-
     public function registered()
     {
         return view('pendaftaran.terkirim');

@@ -22,10 +22,9 @@ class Registration extends Model
         'alamat',
         'telepon',
         'keahlian',
-        'foto_ktp',
+        'foto_identitas',
         'foto_ijazah',
         'foto_bg_biru',
-        'foto_kk',
         'nilai_keahlian',
         'nilai_wawancara'
     ];
@@ -41,8 +40,8 @@ class Registration extends Model
         $today = new \DateTime();
         $age = $today->diff($dateOfBirth)->y;
 
-        if ($age < 17 || $age >= 40) {
-            throw new Exception('Anda harus berusia minimal 17 tahun dan maksimal 40 tahun untuk mendaftar!');
+        if ($age < 15 || $age >= 40) {
+            throw new Exception('Anda harus berusia minimal 15 tahun dan maksimal 40 tahun untuk mendaftar!');
         }
 
         return true;

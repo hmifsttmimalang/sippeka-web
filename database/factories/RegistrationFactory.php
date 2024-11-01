@@ -52,10 +52,9 @@ class RegistrationFactory extends Factory
             'alamat' => $this->faker->address,
             'telepon' => $this->faker->phoneNumber,
             'keahlian' => Skill::inRandomOrder()->first()->id,
-            'foto_ktp' => 'uploads/' . $sanitizedUsername . '/foto_ktp.jpg',
+            'foto_identitas' => 'uploads/' . $sanitizedUsername . '/foto_identitas.jpg',
             'foto_ijazah' => 'uploads/' . $sanitizedUsername . '/foto_ijazah.jpg',
             'foto_bg_biru' => 'uploads/' . $sanitizedUsername . '/foto_bg_biru.jpg',
-            'foto_kk' => 'uploads/' . $sanitizedUsername . '/foto_kk.jpg',
             'nilai_keahlian' => $this->faker->numberBetween(50, 100),
             'nilai_wawancara' => $this->faker->numberBetween(50, 100),
         ];

@@ -7,9 +7,7 @@
 
     <!-- Outer Row -->
     <div class="row justify-content-center">
-
         <div class="col-md-7">
-
             <div class="card o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
@@ -41,7 +39,6 @@
                                                 class="form-control" min="" required>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -69,18 +66,15 @@
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="alamat">Alamat</label>
                                         <textarea name="alamat" id="alamat" class="form-control" required></textarea>
                                     </div>
-
                                     <div class="form-group">
                                         <label for="telepon">Telepon</label>
                                         <input type="text" name="telepon" class="form-control" id="telepon"
                                             placeholder="No Telepon Anda...">
                                     </div>
-
                                     <div class="form-group">
                                         <label for="keahlian">Keahlian</label>
                                         <select name="keahlian" class="form-control" id="keahlian">
@@ -93,8 +87,8 @@
 
                                     <div class="form-group row">
                                         <div class="col-md-6">
-                                            <label for="">Foto KTP</label>
-                                            <input style="padding:3px" type="file" name="foto_ktp"
+                                            <label for="">Foto KK atau KTP (*apabila ada)</label>
+                                            <input style="padding:3px" type="file" name="foto_identitas"
                                                 class="form-control">
                                         </div>
                                         <div class="col-md-6">
@@ -103,20 +97,13 @@
                                                 class="form-control" required>
                                         </div>
                                     </div>
-
                                     <div class="form-group row">
                                         <div class="col-md-6">
                                             <label for="">Foto Background Biru (3x4)</label>
                                             <input style="padding:3px" type="file" name="foto_bg_biru"
                                                 class="form-control" required>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="">Foto Kartu Keluarga</label>
-                                            <input style="padding:3px" type="file" name="foto_kk"
-                                                class="form-control" required>
-                                        </div>
                                     </div>
-
                                     <button type="submit"
                                         class="btn btn-primary btn-user btn-block mt-5">Daftar</button>
                                 </form>
@@ -125,11 +112,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 <script>
@@ -145,13 +129,13 @@
             tanggalLahirInput.value = '';
         } else {
             const age = currentDate.getFullYear() - inputDate.getFullYear();
-            const isWithinRange = age >= 17 && age <= 40;
+            const isWithinRange = age >= 15 && age <= 40;
 
             if (!isWithinRange) {
-                if (age < 17) {
+                if (age < 15) {
                     Swal.fire({
                         title: "Tidak dapat memilih tanggal lahir!",
-                        text: "Anda harus berusia minimal 17 tahun untuk mendaftar.",
+                        text: "Anda harus berusia minimal 15 tahun untuk mendaftar.",
                         icon: "warning"
                     });
                 } else if (age >= 40) {
