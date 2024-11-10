@@ -36,6 +36,14 @@
             position: absolute;
             left: 0;
             margin-left: 20px;
+            top: 25px;
+        }
+
+        .img2-container {
+            position: absolute;
+            right: 0;
+            margin-right: 20px;
+            top: 25px;
         }
 
         .text-container {
@@ -135,6 +143,9 @@
                     website: www.silastri.org, e-mail: blki_sgs@yahoo.co.id<br>
                     SINGOSARI – 65153
                 </p>
+            </div>
+            <div class="img2-container">
+                <img src="{{ public_path('assets/admin/img/logo_iso.png') }}" alt="Logo ISO" style="width: 100px;">
             </div>
         </div>
 
