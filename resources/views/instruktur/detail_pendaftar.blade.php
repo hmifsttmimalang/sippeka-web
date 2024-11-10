@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('instruktur.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('instruktur.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Instruktur SIPPEKA</div>
             </a>
 
@@ -111,7 +112,8 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('auth.logout') }}" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ route('auth.logout') }}" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Keluar
                                 </a>
@@ -136,8 +138,8 @@
                                     <div class="card-body mt-3">
                                         <div class="col-auto text-center">
                                             <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}"
-                                                alt="Foto Profil Background Biru" class="img-fluid"
-                                                style="width: 200px" alt="menunggu">
+                                                alt="Foto Profil Background Biru" class="img-fluid" style="width: 200px"
+                                                alt="menunggu">
                                         </div>
                                         <br>
                                         <h5 class="text-center card-title"><b>
@@ -292,6 +294,26 @@
                                                         </form>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"><b>LAMPIRAN PESERTA</b></h6>
+                                    <div class="card-body mt-4">
+                                        <div class="card-body mt-3">
+                                            <h5 class="text-center card-title">Foto Identitas</h5>
+                                            <div class="col-auto text-center">
+                                                <img src="{{ asset('storage/' . $pendaftar->foto_identitas) }}"
+                                                    alt="Foto KTP atau KK" class="img-fluid" style="width: 200px"
+                                                    alt="menunggu">
+                                            </div>
+                                            <h5 class="mt-5 text-center card-title">Foto Ijazah</h5>
+                                            <div class="col-auto text-center">
+                                                <img src="{{ asset('storage/' . $pendaftar->foto_ijazah) }}"
+                                                    alt="Foto Ijazah" class="img-fluid" style="width: 200px" alt="menunggu">
                                             </div>
                                         </div>
                                     </div>
