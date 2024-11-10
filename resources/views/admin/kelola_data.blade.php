@@ -182,6 +182,7 @@
                     <!-- Search Bar -->
                     @if ($listPendaftar->isNotEmpty())
                         <div class="d-flex justify-content-between mb-4">
+                            <div></div>
                             <form class="form-inline" method="GET" action="{{ route('admin.kelola_data') }}">
                                 <input class="form-control mr-2" type="search" name="search"
                                     placeholder="Cari Nama Pendaftar" value="{{ request('search') }}"
