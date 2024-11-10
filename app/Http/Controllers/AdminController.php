@@ -259,10 +259,17 @@ class AdminController extends Controller
     }
 
     // mata soal
-    public function indexMataSoal()
+    public function indexMataSoal(Request $request)
     {
-        $mataSoal = QuestionTitle::paginate(10);
-        return view('admin.mata-soal.mata_soal', compact('mataSoal'));
+        $search = $request->input('search');
+
+        // Cek apakah ada input pencarian
+        $mataSoal = QuestionTitle::when($search, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%');
+        })
+            ->paginate(10);
+
+        return view('admin.mata-soal.mata_soal', compact('mataSoal', 'search'));
     }
 
     public function createMataSoal()
@@ -311,11 +318,17 @@ class AdminController extends Controller
     }
 
     // kelas keahlian
-    public function indexKeahlian()
+    public function indexKeahlian(Request $request)
     {
-        // Mengambil semua keahlian
-        $keahlianList = Skill::paginate(10);
-        return view('admin.keahlian.keahlian', compact('keahlianList'));
+        $search = $request->input('search');
+
+        // Cek apakah ada input pencarian
+        $keahlianList = Skill::when($search, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%');
+        })
+            ->paginate(10);
+
+        return view('admin.keahlian.keahlian', compact('keahlianList', 'search'));
     }
 
     public function createKeahlian()
@@ -371,15 +384,21 @@ class AdminController extends Controller
     }
 
     // tes keahlian
-    public function tesKeahlian()
+    public function tesKeahlian(Request $request)
     {
+        $search = $request->input('search');
+
         $tesKeahlian = SkillTest::latest()
             ->leftJoin('skills', 'skill_tests.keahlian', '=', 'skills.id')
             ->leftJoin('question_titles', 'skill_tests.mata_soal', '=', 'question_titles.id')
             ->select('skill_tests.*', 'skills.nama as keahlian_nama', 'question_titles.nama as mata_soal_nama')
+            ->when($search, function ($query, $search) {
+                return $query->where('skills.nama', 'like', '%' . $search . '%')
+                    ->orWhere('question_titles.nama', 'like', '%' . $search . '%');
+            })
             ->paginate(10);
 
-        return view('admin.tes-keahlian.tes_keahlian', compact('tesKeahlian'));
+        return view('admin.tes-keahlian.tes_keahlian', compact('tesKeahlian', 'search'));
     }
 
     public function tambahTesKeahlian()
@@ -619,14 +638,20 @@ class AdminController extends Controller
     }
 
     // sesi tes
-    public function sesiTesKeahlian()
+    public function sesiTesKeahlian(Request $request)
     {
+        $search = $request->input('search');
+
         $sesiTesKeahlian = DB::table('skill_test_sessions')
             ->join('skill_tests', 'skill_test_sessions.skill_test_id', '=', 'skill_tests.id')
             ->select('skill_test_sessions.*', 'skill_tests.nama_tes')
+            ->when($search, function ($query, $search) {
+                return $query->where('skill_tests.nama_tes', 'like', '%' . $search . '%')
+                    ->orWhere('skill_test_sessions.jenis_sesi', 'like', '%' . $search . '%');
+            })
             ->paginate(10);
 
-        return view('admin.sesi-tes-keahlian.sesi_tes_keahlian', compact('sesiTesKeahlian'));
+        return view('admin.sesi-tes-keahlian.sesi_tes_keahlian', compact('sesiTesKeahlian', 'search'));
     }
 
     public function tambahSesiTesKeahlian()

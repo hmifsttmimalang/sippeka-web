@@ -73,8 +73,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
@@ -137,7 +137,8 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -183,13 +184,18 @@
 
                     @if ($keahlianList->isNotEmpty())
                         <!-- Search Bar -->
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between mb-4">
                             <div></div>
                             <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
-                                    aria-label="Search">
+                                <input class="form-control mr-2" type="search" name="search"
+                                    placeholder="Cari Keahlian" value="{{ request('search') }}" aria-label="Search">
+                                <button class="btn btn-primary" type="submit">Cari</button>
                             </form>
                         </div>
+
+                        @if ($search)
+                            <p>Menampilkan hasil untuk: <strong>{{ $search }}</strong></p>
+                        @endif
 
                         <div class="row">
                             <div class="col-md-12">
@@ -231,7 +237,20 @@
                             </div>
                         </div>
                     @else
-                        <h3 class="text-center mt-2">Tidak ada keahlian yang tersedia</h3>
+                        @if ($search)
+                            <div class="d-flex justify-content-between mb-4">
+                                <div></div>
+                                <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control mr-2" type="search" name="search"
+                                        placeholder="Cari Keahlian" value="{{ request('search') }}" aria-label="Search">
+                                    <button class="btn btn-primary" type="submit">Cari</button>
+                                </form>
+                            </div>
+
+                            <h3 class="text-center mt-2">Tidak ada keahlian yang sesuai dengan pencarian.</h3>
+                        @else
+                            <h3 class="text-center mt-2">Tidak ada keahlian yang tersedia</h3>
+                        @endif
                     @endif
                 </div>
 
