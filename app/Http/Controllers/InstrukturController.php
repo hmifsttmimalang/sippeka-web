@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Registration;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,15 +32,25 @@ class InstrukturController extends Controller
         return view('instruktur.dashboard', compact('totalPendaftar', 'pendaftarLolos', 'progressPendaftar', 'progressLolos', 'listPendaftarBaru'));
     }
 
-    public function kelolaData()
+    public function kelolaData(Request $request)
     {
-        // Mengambil data pendaftar dengan keahlian dan menghitung rata-rata nilai
+        $search = $request->input('search');
+        $filterKeahlian = $request->input('keahlian');
+
         $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
-            ->orderByDesc('rata_rata') // Mengurutkan berdasarkan rata-rata tertinggi
-            ->paginate(10); // Paginasi
+            ->when($search, function ($query, $search) {
+                return $query->where('registrations.nama', 'like', '%' . $search . '%');
+            })
+            ->when($filterKeahlian, function ($query, $filterKeahlian) {
+                return $query->where('skills.id', $filterKeahlian);
+            })
+            ->orderByDesc('rata_rata')
+            ->paginate(10);
 
-        return view('instruktur.kelola_data', compact('listPendaftar'));
+        $listKeahlian = Skill::all(); // untuk pilihan filter keahlian
+
+        return view('instruktur.kelola_data', compact('listPendaftar', 'search', 'filterKeahlian', 'listKeahlian'));
     }
 
     public function detailPendaftar($user_id)
