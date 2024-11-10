@@ -116,6 +116,8 @@ class SimulationTestController extends Controller
 
     public function hasilSimulasi($username)
     {
+        $currentDateTime = Carbon::now();
+
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();
 
@@ -126,7 +128,23 @@ class SimulationTestController extends Controller
         if (!$keahlianPeserta || !$keahlianPeserta->keahlian) {
             return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan untuk pengguna ini.');
         }
-    
+
+        // Cek apakah ada sesi simulasi yang sedang berlangsung
+        $sesiSimulasi = SkillTestSession::where('jenis_sesi', 'Simulasi')
+            ->where('waktu_mulai', '<=', $currentDateTime)
+            ->where('waktu_selesai', '>=', $currentDateTime)
+            ->first();
+
+        $sesiSeleksi = SkillTestSession::where('jenis_sesi', 'Seleksi')
+            ->where('waktu_mulai', '<=', $currentDateTime)
+            ->where('waktu_selesai', '>=', $currentDateTime)
+            ->first();
+
+        // Jika tidak ada sesi simulasi yang sedang berlangsung, atau jika sesi seleksi aktif, blok akses
+        if (!$sesiSimulasi || $sesiSeleksi) {
+            return redirect()->back()->with('error', 'Simulasi tidak dapat diakses karena tidak ada sesi simulasi yang aktif atau sedang berlangsung sesi seleksi.');
+        }
+
         // Ambil ID keahlian
         $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
 
