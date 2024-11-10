@@ -80,7 +80,7 @@
                             @method('POST')
                             <input type="hidden" name="skill_test_session_id" value="{{ $sesiSeleksi->id }}">
                             <input type="hidden" name="userAnswers" value='<?= json_encode([]) ?>'>
-                            <button class="btn btn-danger btn-block" id="finish-test">Akhiri Ujian</button>
+                            <button class="btn btn-danger btn-block finish-test" type="button">Akhiri Ujian</button>
                         </form>
                     </div>
                 </div>

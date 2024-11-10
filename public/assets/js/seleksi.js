@@ -113,42 +113,69 @@ $(document).ready(function () {
         $('#completed-badge').text(`${completedCount} Dikerjakan`);
     }
 
-    $('#finish-test').click(function (e) {
-        e.preventDefault();
-        const userAnswers = {};
+    document.querySelectorAll(".finish-test").forEach((button) => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
 
-        // Mengumpulkan jawaban dari questionStates
-        $.each(questionStates, function (questionId, state) {
-            // Hapus spasi dan newline dari jawaban
-            userAnswers[questionId] = (state.optionBtns || []).map(answer => answer.trim());
-        });
+            const form = this.closest("form");
 
-        // Validasi jika userAnswers tidak kosong
-        if (Object.keys(userAnswers).length === 0) {
-            alert('Tidak ada jawaban yang dipilih.');
-            return;
-        }
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: "btn btn-danger",
+                    confirmButton: "btn btn-primary",
+                    actions: "swal2-button-space",
+                },
+                buttonsStyling: false,
+            });
 
-        $.ajax({
-            url: `/${username}/seleksi`,
-            method: 'POST',
-            data: {
-                userAnswers: JSON.stringify(userAnswers), // Mengirim jawaban sebagai JSON string
-                skill_test_session_id: skillTestSessionId,
-                _token: csrfToken // Token CSRF
-            },
-            dataType: 'json',
-            success: function (response) {
-                // Hapus localStorage setelah jawaban dikirim
-                localStorage.removeItem('questionStates');
+            swalWithBootstrapButtons
+                .fire({
+                    title: "Apakah kamu ingin mengakhiri ujian?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Tidak",
+                    reverseButtons: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        const userAnswers = {};
 
-                // Redirect ke halaman hasil setelah jawaban dikirim
-                window.location.href = `/${username}/seleksi-terkirim`;
-            },
-            error: function (xhr, status, error) {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan saat mengirimkan jawaban. Silakan coba lagi.');
-            }
+                        // Mengumpulkan jawaban dari questionStates
+                        $.each(questionStates, function (questionId, state) {
+                            // Hapus spasi dan newline dari jawaban
+                            userAnswers[questionId] = (state.optionBtns || []).map(answer => answer.trim());
+                        });
+
+                        // Validasi jika userAnswers tidak kosong
+                        if (Object.keys(userAnswers).length === 0) {
+                            alert('Tidak ada jawaban yang dipilih.');
+                            return;
+                        }
+                        
+                        $.ajax({
+                            url: `/${username}/seleksi`,
+                            method: 'POST',
+                            data: {
+                                userAnswers: JSON.stringify(userAnswers), // Mengirim jawaban sebagai JSON string
+                                skill_test_session_id: skillTestSessionId,
+                                _token: csrfToken // Token CSRF
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                // Hapus localStorage setelah jawaban dikirim
+                                localStorage.removeItem('questionStates');
+
+                                // Redirect ke halaman hasil setelah jawaban dikirim
+                                window.location.href = `/${username}/seleksi-terkirim`;
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                                alert('Terjadi kesalahan saat mengirimkan jawaban. Silakan coba lagi.');
+                            }
+                        });
+                    }
+                });
         });
     });
 
