@@ -53,15 +53,25 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('totalPendaftar', 'pendaftarLolos', 'progressPendaftar', 'progressLolos', 'listPendaftarBaru'));
     }
 
-    public function kelolaData()
+    public function kelolaData(Request $request)
     {
-        // Mengambil data pendaftar dengan keahlian dan menghitung rata-rata nilai
+        $search = $request->input('search');
+        $filterKeahlian = $request->input('keahlian');
+
         $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
-            ->orderByDesc('rata_rata') // Mengurutkan berdasarkan rata-rata tertinggi
-            ->paginate(10); // Paginasi
+            ->when($search, function ($query, $search) {
+                return $query->where('registrations.nama', 'like', '%' . $search . '%');
+            })
+            ->when($filterKeahlian, function ($query, $filterKeahlian) {
+                return $query->where('skills.id', $filterKeahlian);
+            })
+            ->orderByDesc('rata_rata')
+            ->paginate(10);
 
-        return view('admin.kelola_data', compact('listPendaftar'));
+        $listKeahlian = Skill::all(); // untuk pilihan filter keahlian
+
+        return view('admin.kelola_data', compact('listPendaftar', 'search', 'filterKeahlian', 'listKeahlian'));
     }
 
     public function detailPendaftar($user_id)
@@ -119,15 +129,22 @@ class AdminController extends Controller
         return view('admin.detail_pendaftar', compact('pendaftar', 'formatted_date', 'status', 'rataRata'));
     }
 
-    public function peserta()
+    public function peserta(Request $request)
     {
-        // Mengambil data pendaftar dengan paginasi
+        // Ambil parameter pencarian dari request
+        $search = $request->input('search');
+
+        // Modifikasi query untuk menambahkan kondisi pencarian
         $listPendaftar = Registration::join('skills', 'registrations.keahlian', '=', 'skills.id')
             ->select('registrations.*', 'skills.nama as keahlian_nama', DB::raw('((registrations.nilai_keahlian + registrations.nilai_wawancara) / 2) as rata_rata'))
+            ->when($search, function ($query, $search) {
+                return $query->where('registrations.nama', 'like', '%' . $search . '%')
+                    ->orWhere('skills.nama', 'like', '%' . $search . '%');
+            })
             ->orderByDesc('rata_rata')
-            ->paginate(10); // Paginasi dilakukan di sini
+            ->paginate(10);
 
-        return view('admin.peserta', compact('listPendaftar'));
+        return view('admin.peserta', compact('listPendaftar', 'search'));
     }
 
     // mengambil 50 peserta dan selebihnya akan dianggap gagal meski di atas rata-rata

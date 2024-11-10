@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -54,8 +55,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
@@ -64,14 +65,15 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
@@ -135,7 +137,8 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -178,13 +181,34 @@
 
                     <!-- Search Bar -->
                     @if ($listPendaftar->isNotEmpty())
-                        <div class="d-flex justify-content-between">
-                            <div></div>
-                            <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2 mb-4" type="search" placeholder="Search"
+                        <div class="d-flex justify-content-between mb-4">
+                            <form class="form-inline" method="GET" action="{{ route('admin.kelola_data') }}">
+                                <input class="form-control mr-2" type="search" name="search"
+                                    placeholder="Cari Nama Pendaftar" value="{{ request('search') }}"
                                     aria-label="Search">
+                                <select class="form-control mr-2" name="keahlian">
+                                    <option value="">Semua Keahlian</option>
+                                    @foreach ($listKeahlian as $keahlian)
+                                        <option value="{{ $keahlian->id }}"
+                                            {{ request('keahlian') == $keahlian->id ? 'selected' : '' }}>
+                                            {{ $keahlian->nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-primary" type="submit">Filter</button>
                             </form>
                         </div>
+
+                        @if ($search || $filterKeahlian)
+                            <p>Menampilkan hasil untuk
+                                @if ($search)
+                                    Nama: <strong>{{ $search }}</strong>
+                                @endif
+                                @if ($filterKeahlian)
+                                    Keahlian: <strong>{{ $listKeahlian->find($filterKeahlian)->nama }}</strong>
+                                @endif
+                            </p>
+                        @endif
 
                         <div class="row">
                             <div class="col-md-12">
@@ -250,7 +274,30 @@
                                 <!-- Pagination -->
                                 {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
                             @else
-                                <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk</h3>
+                                @if ($search || $filterKeahlian)
+                                    <div class="d-flex justify-content-between mb-4">
+                                        <form class="form-inline" method="GET"
+                                            action="{{ route('admin.kelola_data') }}">
+                                            <input class="form-control mr-2" type="search" name="search"
+                                                placeholder="Cari Nama Pendaftar" value="{{ request('search') }}"
+                                                aria-label="Search">
+                                            <select class="form-control mr-2" name="keahlian">
+                                                <option value="">Semua Keahlian</option>
+                                                @foreach ($listKeahlian as $keahlian)
+                                                    <option value="{{ $keahlian->id }}"
+                                                        {{ request('keahlian') == $keahlian->id ? 'selected' : '' }}>
+                                                        {{ $keahlian->nama }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <button class="btn btn-primary" type="submit">Filter</button>
+                                        </form>
+                                    </div>
+
+                                    <h3 class="text-center mt-5">Tidak ada pendaftar yang sesuai dengan pencarian.</h3>
+                                @else
+                                    <h3 class="text-center mt-5">Tidak ada pendaftar yang masuk.</h3>
+                                @endif
                     @endif
                 </div>
 

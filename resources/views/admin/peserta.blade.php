@@ -183,6 +183,19 @@
                         <a href="{{ route('admin.peserta.cetak') }}" class="btn btn-warning btn-sm mb-3">Cetak Data
                             Peserta</a>
 
+                        <div class="d-flex justify-content-between">
+                            <div></div>
+                            <form class="form-inline my-2 my-lg-0" method="GET" action="{{ route('admin.peserta') }}">
+                                <input class="form-control mr-sm-2 mb-4" type="search" name="search"
+                                    placeholder="Cari Nama Peserta" aria-label="Search" value="{{ request('search') }}">
+                                <button class="btn btn-primary mb-4" type="submit">Cari</button>
+                            </form>
+                        </div>
+
+                        @if ($search)
+                            <p>Menampilkan hasil pencarian untuk: <strong>{{ $search }}</strong></p>
+                        @endif
+
                         <div class="row">
                             <div class="col-md-12">
                                 <table class="table table-bordered table-hover">
@@ -240,7 +253,22 @@
                                 <!-- Pagination -->
                                 {{ $listPendaftar->links('vendor.pagination.pagination_custom') }}
                             @else
-                                <h3 class="text-center mt-5">Tidak ada peserta yang terdaftar</h3>
+                                @if ($search)
+                                    <div class="d-flex justify-content-between">
+                                        <div></div>
+                                        <form class="form-inline my-2 my-lg-0" method="GET"
+                                            action="{{ route('admin.peserta') }}">
+                                            <input class="form-control mr-sm-2 mb-4" type="search" name="search"
+                                                placeholder="Cari Nama Peserta" aria-label="Search"
+                                                value="{{ request('search') }}">
+                                            <button class="btn btn-primary mb-4" type="submit">Cari</button>
+                                        </form>
+                                    </div>
+
+                                    <h3 class="text-center mt-5">Tidak ada nama peserta yang sesuai dengan pencarian.</h3>
+                                @else
+                                    <h3 class="text-center mt-5">Tidak ada peserta yang terdaftar</h3>
+                                @endif
                     @endif
 
                     {{-- Peserta Top 50 --}}
