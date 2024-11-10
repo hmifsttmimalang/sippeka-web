@@ -213,11 +213,12 @@
         </center>
 
         <!-- Lampiran -->
-        <p>Foto Identitas</p>
+        <p class="fw-bold">Foto Identitas</p>
         <center>
             <img src="{{ public_path('storage/' . $pendaftar->foto_identitas) }}" alt="Foto Identitas {{ $pendaftar->nama }}" style="width: 200px; height: auto;">
         </center>
-        <p>Foto Ijazah</p>
+        <br>
+        <p class="fw-bold">Foto Ijazah</p>
         <center>
             <img src="{{ public_path('storage/' . $pendaftar->foto_ijazah) }}" alt="Foto Ijazah {{ $pendaftar->nama }}" style="width: 200px; height: auto;">
         </center>
