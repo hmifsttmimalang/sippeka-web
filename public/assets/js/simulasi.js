@@ -112,36 +112,57 @@ $(document).ready(function () {
         $('#completed-badge').text(`${completedCount} Dikerjakan`);
     }
 
-    $('#finish-test').click(function (e) {
-        e.preventDefault();
-        const userAnswers = {};
-        $.each(questionStates, function (questionId, state) {
-            userAnswers[questionId] = state.optionBtns;
-        });
-        $('#finish-test').click(function (e) {
-            e.preventDefault();
-            const userAnswers = {};
-            $.each(questionStates, function (questionId, state) {
-                userAnswers[questionId] = state.optionBtns.map(answer => answer.trim()); // Membersihkan spasi
-            });
-            $.ajax({
-                url: `/${username}/simulasi`,
-                method: 'POST',
-                data: {
-                    userAnswers: JSON.stringify(userAnswers), // Mengirim jawaban sebagai JSON string
-                    _token: csrfToken // Jangan lupa menambahkan token CSRF
+    document.querySelectorAll(".finish-test").forEach((button) => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Mencegah pengiriman form langsung
+
+            const form = this.closest("form");
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    cancelButton: "btn btn-danger",
+                    confirmButton: "btn btn-primary",
+                    actions: "swal2-button-space",
                 },
-                dataType: 'json',
-                success: function (response) {
-                    localStorage.removeItem('questionStates');
-                    // Redirect ke halaman hasil setelah jawaban dikirim
-                    window.location.href = `/${username}/hasil-simulasi`;
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                    alert('Error: ' + error);
-                }
+                buttonsStyling: false,
             });
+
+            swalWithBootstrapButtons
+                .fire({
+                    title: "Apakah kamu ingin mengakhiri ujian?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Tidak",
+                    reverseButtons: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        const userAnswers = {};
+                        $.each(questionStates, function (questionId, state) {
+                            userAnswers[questionId] = state.optionBtns.map(answer => answer.trim());
+                        });
+
+                        $.ajax({
+                            url: `/${username}/simulasi`,
+                            method: 'POST',
+                            data: {
+                                userAnswers: JSON.stringify(userAnswers), // Mengirim jawaban sebagai JSON string
+                                _token: csrfToken // Token CSRF
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                localStorage.removeItem('questionStates');
+                                // Redirect ke halaman hasil setelah jawaban dikirim
+                                window.location.href = `/${username}/hasil-simulasi`;
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error:', error);
+                                alert('Error: ' + error);
+                            }
+                        });
+                    }
+                });
         });
     });
 

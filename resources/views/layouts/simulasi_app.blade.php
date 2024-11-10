@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +8,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/simulasi.css') }}">
-</head>
 
+    <style>
+        .swal2-button-space .swal2-confirm {
+            margin-left: 10px;
+            /* Tambahkan jarak antara tombol cancel dan confirm */
+        }
+
+        .swal2-button-space .swal2-cancel {
+            margin-right: 10px;
+            /* Tambahkan jarak antara confirm dan cancel */
+        }
+    </style>
+</head>
 <body>
     @yield('content')
 
@@ -22,6 +32,6 @@
         window.csrfToken = '{{ csrf_token() }}'; // Token CSRF untuk keamanan
     </script>
     <script src="{{ asset('assets/js/simulasi.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
-
 </html>
