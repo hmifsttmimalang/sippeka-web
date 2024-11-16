@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-Apache%202.0-red.svg" alt="License: Apache 2.0">
-  <img src="https://img.shields.io/badge/version-2.4.0-green.svg" alt="Version: 2.4.0">
+  <img src="https://img.shields.io/badge/version-2.5.0-green.svg" alt="Version: 2.5.0">
 </p>
 
 ## Deskripsi
@@ -23,7 +23,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja (Sippeka) adalah aplikasi yang digu
 
 ## Pendahuluan
 
-Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran pelatihan kerja bagi siswa jenjang SMA/SMK/sederajat. Proyek ini menggunakan Laravel 10, MySQL, dan Vite JS. Otentikasi pengguna diimplementasikan secara kustom, bukan menggunakan library Breeze.
+Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran pelatihan kerja bagi siswa jenjang SMA/SMK/sederajat. Proyek ini menggunakan Laravel 10, MySQL, dan Vite JS. Otentikasi pengguna diimplementasikan secara kustom, tidak menggunakan library Breeze.
 
 ## Fitur
 
