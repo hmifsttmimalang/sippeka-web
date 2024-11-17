@@ -3,6 +3,33 @@
 @section('title', 'Masuk')
 
 @section('content')
+    <style>
+        .position-relative .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            /* Jarak dari sisi kanan */
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .position-relative .toggle-password:hover {
+            color: #495057;
+        }
+
+        .position-relative .form-control {
+            padding-right: 40px;
+            /* Ruang untuk ikon */
+        }
+
+        .toggle-password {
+            margin-top: 16px;
+            /* Geser lebih jauh ke bawah */
+        }
+    </style>
+
     <main>
         <div class="container">
 
@@ -42,16 +69,18 @@
                                         <div class="col-12">
                                             <label for="identifier" class="form-label">Username atau Email</label>
                                             <div class="input-group has-validation">
-                                                <input type="text" name="identifier" class="form-control"
-                                                    id="identifier" required>
+                                                <input type="text" name="identifier" class="form-control" id="identifier"
+                                                    required>
                                                 <div class="invalid-feedback">Harap masukkan username atau email.</div>
                                             </div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 position-relative">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="password"
+                                            <input type="password" name="password" class="form-control pr-5" id="password"
                                                 required>
+                                            <i class="bi bi-eye-slash toggle-password position-absolute"
+                                                id="togglePassword"></i>
                                             <div class="invalid-feedback">Harap masukkan password!</div>
                                         </div>
 
@@ -102,5 +131,21 @@
                 }, false);
             });
         })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const password = document.querySelector('#password');
+            const togglePassword = document.querySelector('#togglePassword');
+
+            if (togglePassword && password) {
+                togglePassword.addEventListener('click', () => {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    // Change icon
+                    togglePassword.classList.toggle('bi-eye');
+                    togglePassword.classList.toggle('bi-eye-slash');
+                });
+            }
+        });
     </script>
 @endsection

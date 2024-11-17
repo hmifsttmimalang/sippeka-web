@@ -3,6 +3,33 @@
 @section('title', 'Daftar Akun')
 
 @section('content')
+    <style>
+        .position-relative .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            /* Jarak dari sisi kanan */
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .position-relative .toggle-password:hover {
+            color: #495057;
+        }
+
+        .position-relative .form-control {
+            padding-right: 40px;
+            /* Ruang untuk ikon */
+        }
+
+        .toggle-password {
+            margin-top: 16px;
+            /* Geser lebih jauh ke bawah */
+        }
+    </style>
+
     <main>
         <div class="container">
             <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -44,17 +71,21 @@
                                             <div class="invalid-feedback">Silakan masukkan email yang benar!</div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 position-relative">
                                             <label for="password" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control" id="password"
+                                            <input type="password" name="password" class="form-control pr-5" id="password"
                                                 required>
+                                            <i class="bi bi-eye-slash toggle-password position-absolute"
+                                                id="togglePassword"></i>
                                             <div class="invalid-feedback">Silakan masukkan password kamu!</div>
                                         </div>
 
-                                        <div class="col-12">
+                                        <div class="col-12 position-relative">
                                             <label for="password_confirmation" class="form-label">Ulangi Password</label>
-                                            <input type="password" name="password_confirmation" class="form-control"
+                                            <input type="password" name="password_confirmation" class="form-control pr-5"
                                                 id="password_confirmation" required>
+                                            <i class="bi bi-eye-slash toggle-password position-absolute"
+                                                id="togglePasswordConfirmation"></i>
                                             <div class="invalid-feedback">Silakan masukkan password ulang!</div>
                                         </div>
 
@@ -92,4 +123,39 @@
             <p class="text-center">All rights reserved. &copy; 2024.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePassword = document.querySelector('#togglePassword');
+            const togglePasswordConfirmation = document.querySelector('#togglePasswordConfirmation');
+
+            const password = document.querySelector('#password');
+            const passwordConfirmation = document.querySelector('#password_confirmation');
+
+            // Toggle password visibility for the first input
+            if (togglePassword && password) {
+                togglePassword.addEventListener('click', () => {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    // Change icon
+                    togglePassword.classList.toggle('bi-eye');
+                    togglePassword.classList.toggle('bi-eye-slash');
+                });
+            }
+
+            // Toggle password visibility for the confirmation input
+            if (togglePasswordConfirmation && passwordConfirmation) {
+                togglePasswordConfirmation.addEventListener('click', () => {
+                    const type = passwordConfirmation.getAttribute('type') === 'password' ? 'text' :
+                        'password';
+                    passwordConfirmation.setAttribute('type', type);
+
+                    // Change icon
+                    togglePasswordConfirmation.classList.toggle('bi-eye');
+                    togglePasswordConfirmation.classList.toggle('bi-eye-slash');
+                });
+            }
+        });
+    </script>
 @endsection
