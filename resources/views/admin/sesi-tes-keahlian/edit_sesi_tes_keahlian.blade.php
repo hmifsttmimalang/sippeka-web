@@ -10,7 +10,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage" href="{{ route('admin.dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center loadPage"
+                href="{{ route('admin.dashboard') }}">
                 <div class="sidebar-brand-text mx-3">Admin SIPPEKA</div>
             </a>
 
@@ -54,8 +55,8 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item ">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Kelola Keahlian</span>
                 </a>
@@ -64,14 +65,15 @@
                         <a class="collapse-item loadPage" href="{{ route('admin.mata_soal') }}">Mata Soal Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
                         <a class="collapse-item loadPage" href="{{ route('admin.tes_keahlian') }}">Tes Keahlian</a>
-                        <a class="collapse-item active loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                        <a class="collapse-item active loadPage" href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes
+                            Keahlian</a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link" href="" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+                    aria-controls="collapseThree">
                     <i class="fas fa-folder-plus"></i>
                     <span>Kelola Informasi</span>
                 </a>
@@ -134,7 +136,8 @@
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
                                         <div class="input-group-append">
                                             <button class="btn btn-primary" type="button">
                                                 <i class="fas fa-search fa-sm"></i>
@@ -173,7 +176,8 @@
                 <div class="container-fluid">
 
                     <!-- Button Kembali -->
-                    <a href="{{ route('admin.sesi_tes_keahlian') }}" class="btn btn-primary btn-sm mb-6 loadPage">Kembali</a>
+                    <a href="{{ route('admin.sesi_tes_keahlian') }}"
+                        class="btn btn-primary btn-sm mb-6 loadPage">Kembali</a>
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
@@ -194,33 +198,42 @@
                                                 <div class="col-md-6">
                                                     <label for="nama_sesi">Nama Sesi</label>
                                                     <input type="text" name="nama_sesi" class="form-control"
-                                                        id="nama_sesi" value="{{ $sesiTesKeahlian->nama_sesi }}">
+                                                        id="nama_sesi"
+                                                        value="{{ old('nama_sesi', $sesiTesKeahlian->nama_sesi) }}"
+                                                        required>
+                                                    <small class="text-danger">{{ $errors->first('nama_sesi') }}</small>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="skill_test_id">Tes Keahlian</label>
-                                                    <select name="skill_test_id" id="tes_keahlian_id"
-                                                        class="form-control">
+                                                    <select name="skill_test_id" id="skill_test_id" class="form-control">
                                                         <option value="">Pilih Tes Keahlian</option>
                                                         @foreach ($tesKeahlian as $item)
                                                             <option value="{{ $item->id }}"
                                                                 {{ $item->id == $sesiTesKeahlian->skill_test_id ? 'selected' : '' }}>
-                                                                {{ $item->nama_tes }}
+                                                                {{ e($item->nama_tes) }}
                                                             </option>
                                                         @endforeach
                                                     </select>
+                                                    <small
+                                                        class="text-danger">{{ $errors->first('skill_test_id') }}</small>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <div class="col-md-6">
+                                                <div class="col-lg-6 col-md-12">
                                                     <label for="waktu_mulai">Waktu Mulai</label>
-                                                    <input type="datetime-local" class="form-control"
-                                                        value="{{ $sesiTesKeahlian->waktu_mulai }}" name="waktu_mulai">
+                                                    <input type="datetime-local" class="form-control" name="waktu_mulai"
+                                                        value="{{ $sesiTesKeahlian->waktu_mulai }}"
+                                                        placeholder="Pilih waktu mulai" required>
+                                                    <small class="text-danger">{{ $errors->first('waktu_mulai') }}</small>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-lg-6 col-md-12">
                                                     <label for="waktu_selesai">Waktu Selesai</label>
                                                     <input type="datetime-local" class="form-control"
+                                                        name="waktu_selesai"
                                                         value="{{ $sesiTesKeahlian->waktu_selesai }}"
-                                                        name="waktu_selesai">
+                                                        placeholder="Pilih waktu selesai" required>
+                                                    <small
+                                                        class="text-danger">{{ $errors->first('waktu_selesai') }}</small>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -235,9 +248,12 @@
                                                             {{ $sesiTesKeahlian->jenis_sesi == 'Seleksi' ? 'selected' : '' }}>
                                                             Seleksi</option>
                                                     </select>
+                                                    <small class="text-danger">{{ $errors->first('jenis_sesi') }}</small>
                                                 </div>
                                             </div>
-                                            <button type="button" class="btn btn-primary btn-ubah" data-id="{{ $sesiTesKeahlian->id }}" data-nama="{{ $sesiTesKeahlian->nama_sesi }}">
+                                            <button type="button" class="btn btn-primary btn-ubah"
+                                                data-id="{{ $sesiTesKeahlian->id }}"
+                                                data-nama="{{ $sesiTesKeahlian->nama_sesi }}">
                                                 Simpan
                                             </button>
                                             <button type="reset" class="btn btn-primary">
