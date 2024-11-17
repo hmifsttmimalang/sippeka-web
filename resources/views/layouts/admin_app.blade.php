@@ -8,7 +8,7 @@
 
     <!-- Favicons -->
     <link href="{{ asset('assets/user/img/silastri/logo_jatim.png') }}" rel="icon">
-    <link href="{{ asset('assets/user/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/user/img/silastri/logo_jatim.png') }}" rel="apple-touch-icon">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
