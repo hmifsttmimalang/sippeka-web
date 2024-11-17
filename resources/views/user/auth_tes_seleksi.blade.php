@@ -3,6 +3,33 @@
 @section('title', 'Login Tes Seleksi | Sippeka User')
 
 @section('content')
+    <style>
+        .position-relative .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            /* Jarak dari sisi kanan */
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .position-relative .toggle-password:hover {
+            color: #495057;
+        }
+
+        .position-relative .form-control {
+            padding-right: 40px;
+            /* Ruang untuk ikon */
+        }
+
+        .toggle-password {
+            margin-top: 16px;
+            /* Geser lebih jauh ke bawah */
+        }
+    </style>
+
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
@@ -26,7 +53,8 @@
 
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle" width="35" height="35">
+                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle"
+                            width="35" height="35">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $pendaftar->nama }}</span>
                     </a>
                     <!-- End Profile Image Icon -->
@@ -83,7 +111,8 @@
             <!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link loadPage" href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
+                <a class="nav-link loadPage"
+                    href="{{ route('user.seleksi_login', ['username' => auth()->user()->username]) }}">
                     <i class="bi bi-clipboard2-check"></i>
                     <span>Tes Seleksi</span>
                 </a>
@@ -148,16 +177,18 @@
                             method="post">
                             @csrf
                             <div class="form-group">
-                                <label for="nilai_tes">Username atau Email</label>
+                                <label for="nilai_tes" class="form-label">Username atau Email</label>
                                 <input type="text" name="identifier" class="form-control" id="nilai_tes"
                                     placeholder="Masukkan username atau email">
                             </div>
 
                             <br>
-                            <div class="form-group">
-                                <label for="nilai_interview">Password</label>
-                                <input type="password" name="password" class="form-control" id="nilai_interview"
-                                    placeholder="Masukkan password">
+                            <div class="col-12 position-relative">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control pr-5" id="password"
+                                    placeholder="Masukkan password" required>
+                                <i class="bi bi-eye-slash toggle-password position-absolute" id="togglePassword"></i>
+                                <div class="invalid-feedback">Harap masukkan password!</div>
                             </div>
 
                             <br>
@@ -171,4 +202,22 @@
         <!-- End Content -->
 
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const password = document.querySelector('#password');
+            const togglePassword = document.querySelector('#togglePassword');
+
+            if (togglePassword && password) {
+                togglePassword.addEventListener('click', () => {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    // Change icon
+                    togglePassword.classList.toggle('bi-eye');
+                    togglePassword.classList.toggle('bi-eye-slash');
+                });
+            }
+        });
+    </script>
 @endsection

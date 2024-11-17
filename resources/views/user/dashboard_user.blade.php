@@ -3,6 +3,33 @@
 @section('title', auth()->user()->username . ' | Sippeka User')
 
 @section('content')
+    <style>
+        .position-relative .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            /* Jarak dari sisi kanan */
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .position-relative .toggle-password:hover {
+            color: #495057;
+        }
+
+        .position-relative .form-control {
+            padding-right: 40px;
+            /* Ruang untuk ikon */
+        }
+
+        .toggle-password {
+            margin-top: 16px;
+            /* Geser lebih jauh ke bawah */
+        }
+    </style>
+
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
@@ -26,7 +53,8 @@
 
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle" width="35" height="35">
+                        <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}" alt="Profile" class="rounded-circle"
+                            width="35" height="35">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ $pendaftar->nama }}</span>
                     </a>
                     <!-- End Profile Image Icon -->
@@ -148,15 +176,17 @@
                             @csrf
                             @method('POST')
                             <div class="form-group">
-                                <label for="identifier">Username atau Email </label>
+                                <label for="identifier" class="form-label">Username atau Email </label>
                                 <input type="text" name="identifier" class="form-control" id="nilai_tes"
                                     placeholder="Masukkan username atau email">
                             </div>
                             <br>
-                            <div class="form-group">
-                                <label for="password">Password </label>
-                                <input type="password" name="password" class="form-control" id="nilai_interview"
-                                    placeholder="Masukkan password">
+                            <div class="col-12 position-relative">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control pr-5" id="password"
+                                    placeholder="Masukkan password" required>
+                                <i class="bi bi-eye-slash toggle-password position-absolute" id="togglePassword"></i>
+                                <div class="invalid-feedback">Harap masukkan password!</div>
                             </div>
                             <br>
                             <div class="text-right" style="text-align: end;">
@@ -175,8 +205,8 @@
                         <div class="card-body mt-3">
                             <div class="col-auto text-center">
                                 <img src="{{ asset('storage/' . $pendaftar->foto_bg_biru) }}"
-                                    alt="Foto Profil Background Biru" class="img-fluid"
-                                    style="width: 200px" alt="menunggu">
+                                    alt="Foto Profil Background Biru" class="img-fluid" style="width: 200px"
+                                    alt="menunggu">
                             </div>
                             <div class="text-right" style="text-align: end;">
                                 <a href="{{ route('user.edit_profil', ['username' => auth()->user()->username]) }}"
@@ -247,7 +277,8 @@
                                 @if ($status === 'Sedang Diproses')
                                     <i class="fa-solid fa-spinner text-warning" style="font-size: 90px;"></i>
                                     <p class="card-text mt-3">
-                                        Terima Kasih telah melaksanakan seleksi tes di SIPPEKA Singosari. Nilai Anda sedang dalam proses
+                                        Terima Kasih telah melaksanakan seleksi tes di SIPPEKA Singosari. Nilai Anda sedang
+                                        dalam proses
                                     </p>
                                 @elseif ($status === 'Lulus')
                                     <i class="fa-regular fa-circle-check text-success" style="font-size: 90px;"></i>
@@ -258,7 +289,8 @@
                                 @elseif ($status === 'Tidak Lulus')
                                     <i class="fa-solid fa-xmark text-danger" style="font-size: 90px;"></i>
                                     <p class="card-text mt-3">
-                                        Maaf Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan coba lagi
+                                        Maaf Anda belum lolos. Terima kasih telah mengikuti tes dengan baik. Silahkan coba
+                                        lagi
                                         di kesempatan berikutnya.
                                     </p>
                                 @endif
@@ -300,4 +332,22 @@
 
     </main>
     <!-- End #main -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const password = document.querySelector('#password');
+            const togglePassword = document.querySelector('#togglePassword');
+
+            if (togglePassword && password) {
+                togglePassword.addEventListener('click', () => {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+
+                    // Change icon
+                    togglePassword.classList.toggle('bi-eye');
+                    togglePassword.classList.toggle('bi-eye-slash');
+                });
+            }
+        });
+    </script>
 @endsection
