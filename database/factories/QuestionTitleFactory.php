@@ -19,18 +19,21 @@ class QuestionTitleFactory extends Factory
 
     public function definition(): array
     {
-        // Dapatkan keahlian secara acak
-        $keahlian = $this->faker->randomElement([
-            'Web Developer',
-            'Mobile Developer',
-            'Data Scientist',
-            'UI/UX Designer',
-            'DevOps Engineer',
-            'Network Engineer'
-        ]);
-
         return [
-            'nama' => $keahlian, // Samakan nama mata soal dengan keahlian
+            'nama' => $this->faker->randomElement([
+                'Web Developer - Simulasi',
+                'Web Developer - Seleksi',
+                'Mobile Developer - Simulasi',
+                'Mobile Developer - Seleksi',
+                'Data Scientist - Seleksi',
+                'Data Scientist - Simulasi',
+                'UI/UX Designer - Seleksi',
+                'UI/UX Designer - Simulasi',
+                'DevOps Engineer - Simulasi',
+                'DevOps Engineer - Seleksi',
+                'Network Engineer - Simulasi',
+                'Network Engineer - Seleksi'
+            ]),
         ];
     }
 }

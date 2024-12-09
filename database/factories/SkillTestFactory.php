@@ -21,17 +21,24 @@ class SkillTestFactory extends Factory
 
     public function definition()
     {
-        // Dapatkan data mata soal dan keahlian secara acak
-        $mataSoal = QuestionTitle::inRandomOrder()->first();
-        $keahlian = Skill::inRandomOrder()->first();
+        do {
+            // Dapatkan data mata soal dan keahlian secara acak
+            $mataSoal = QuestionTitle::inRandomOrder()->first();
+            $keahlian = Skill::inRandomOrder()->first();
+
+            // Periksa apakah kombinasi sudah ada
+            $exists = SkillTest::where('mata_soal', $mataSoal->id)
+                ->where('keahlian', $keahlian->id)
+                ->exists();
+        } while ($exists); // Ulangi sampai menemukan kombinasi yang belum ada
 
         return [
-            'nama_tes' => $keahlian->nama,  // Nama tes berdasarkan keahlian
+            'nama_tes' => $this->faker->sentence(3),  // Nama tes acak
             'mata_soal' => $mataSoal->id,  // Foreign key ke QuestionTitle
             'keahlian' => $keahlian->id,   // Foreign key ke Skill
             'acak_soal' => $this->faker->randomElement(['y', 't']),  // Acak soal
             'acak_jawaban' => $this->faker->randomElement(['y', 't']),  // Acak jawaban
-            'durasi_menit' => 90,  // Durasi tetap
+            'durasi_menit' => $this->faker->numberBetween(30, 120),  // Durasi acak
         ];
     }
 }
