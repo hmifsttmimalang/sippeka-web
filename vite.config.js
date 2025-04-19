@@ -10,5 +10,13 @@ export default defineConfig({
             ],
             refresh: true,
         }),
+        vue(),
     ],
+    server: {
+        proxy: {
+            '/': 'http://localhost:8000',
+        },
+        host: 'localhost',
+        port: 5173,
+    },
 });
