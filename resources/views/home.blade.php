@@ -306,7 +306,7 @@
                     <a href="{{ route('hasil-pengumuman') }}" class="btn more-btn">Lihat</a>
                   </div>
                 </div>
-              </div>
+            </div>
       
         </section>
         <!-- /Services Section -->
