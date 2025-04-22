@@ -14,6 +14,6 @@ class QuestionTitle extends Model
 
     public function skillTests() 
     {
-        return $this->hasOne(SkillTest::class);
+        return $this->belongsTo(SkillTest::class);
     }
 }
