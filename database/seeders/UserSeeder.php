@@ -15,9 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Membuat beberapa user menggunakan factory
-        // User::factory(100)->create();
-
         // Membuat satu user tertentu jika diperlukan
         User::create([
             'username' => 'admin',
