@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(window).on('load', function () {
     let currentIndex = 0;
     const skillTestSessionId = $('input[name="skill_test_session_id"]').val();
     const questionIds = window.questionIds;
@@ -152,6 +152,11 @@ $(document).ready(function () {
                             alert('Tidak ada jawaban yang dipilih.');
                             return;
                         }
+
+                        if (!skillTestSessionId || !csrfToken || !username) {
+                            alert('Terjadi kesalahan data. Silakan refresh halaman.');
+                            return;
+                        }                        
                         
                         $.ajax({
                             url: `/${username}/seleksi`,

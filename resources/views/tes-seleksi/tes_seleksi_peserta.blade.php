@@ -87,4 +87,9 @@
             </div>
         </div>
     </div>
+
+    <script>
+        window.csrfToken = '{{ csrf_token() }}';
+        window.username = '{{ $username }}';
+    </script>
 @endsection
