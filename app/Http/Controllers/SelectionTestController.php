@@ -29,7 +29,7 @@ class SelectionTestController extends Controller
             [
                 'registration_id' => $registrasi->id,
                 'skill_test_session_id' => $sesiSeleksi->id,
-            ], 
+            ],
             [
                 'status' => 'in_progress',
                 'waktu_mulai' => $now,
@@ -44,7 +44,14 @@ class SelectionTestController extends Controller
             return redirect()->route('user.seleksi_selesai', ['username' => $username]);
         }
 
-        $tesKeahlian = SkillTest::find($sesiSeleksi->skill_test_id);
+        $tesKeahlian = SkillTest::where('id', $sesiSeleksi->skill_test_id)
+            ->where('keahlian', $registrasi->keahlian)
+            ->first();
+
+        if (!$tesKeahlian) {
+            return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan atau tidak sesuai.');
+        }
+
         $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
 
         if ($questions->isEmpty()) {
