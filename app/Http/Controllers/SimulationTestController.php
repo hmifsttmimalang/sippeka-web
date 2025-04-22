@@ -47,7 +47,7 @@ class SimulationTestController extends Controller
         $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
 
         // Ambil tes keahlian berdasarkan ID keahlian
-        $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
+        $tesKeahlian = SkillTest::find($sesiSimulasi->skill_test_id);
 
         // Ambil soal berdasarkan tes_keahlian_id
         $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
