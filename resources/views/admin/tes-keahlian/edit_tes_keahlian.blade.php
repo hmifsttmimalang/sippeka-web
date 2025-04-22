@@ -198,7 +198,7 @@
                                                 <div class="col-md-6">
                                                     <label for="mata_soal">Mata Soal</label>
                                                     <select name="mata_soal" id="mata_soal" class="form-control">
-                                                        <option value="">Pilih Mata Keahlian</option>
+                                                        <option value="">Pilih Mata Soal Keahlian</option>
                                                         @foreach ($mataSoalList as $soalList)
                                                             <option value="{{ $soalList->id }}"
                                                                 {{ $soalList->id == $tesKeahlian->mata_soal ? 'selected' : '' }}>

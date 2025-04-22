@@ -217,7 +217,7 @@
                                     <thead class="thead-dark" style="text-align: center; vertical-align: middle;">
                                         <th>No</th>
                                         <th>Nama Tes Keahlian</th>
-                                        <th>Mata Keahlian</th>
+                                        <th>Mata Soal Keahlian</th>
                                         <th>Kelas Keahlian</th>
                                         <th>Aksi</th>
                                     </thead>
