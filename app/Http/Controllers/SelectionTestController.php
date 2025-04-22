@@ -50,7 +50,7 @@ class SelectionTestController extends Controller
         $keahlianId = $keahlianPeserta->keahlian;
 
         // Ambil tes keahlian berdasarkan ID keahlian
-        $tesKeahlian = SkillTest::where('keahlian', $keahlianId)->first();
+        $tesKeahlian = SkillTest::find($sesiSeleksi->skill_test_id);
 
         // Ambil soal berdasarkan tes_keahlian_id
         $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
@@ -102,7 +102,7 @@ class SelectionTestController extends Controller
         }
 
         // Tampilkan view
-        return view('tes-seleksi.tes_seleksi_peserta', compact('questions', 'remainingSeconds', 'sesiSeleksi'));
+        return view('tes-seleksi.tes_seleksi_peserta', compact('questions', 'remainingSeconds', 'sesiSeleksi', 'username'));
     }
 
     public function kirimJawabanSeleksi(Request $request)
