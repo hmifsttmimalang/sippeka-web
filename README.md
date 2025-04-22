@@ -4,7 +4,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-Apache%202.0-red.svg" alt="License: Apache 2.0">
-  <img src="https://img.shields.io/badge/version-2.6.0-green.svg" alt="Version: 2.6.0">
+  <img src="https://img.shields.io/badge/version-2.6.0-green.svg" alt="Version: 2.7.0">
 </p>
 
 ## Deskripsi
