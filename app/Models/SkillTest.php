@@ -36,6 +36,6 @@ class SkillTest extends Model
 
     public function sesiTesKeahlian()
     {
-        return $this->hasOne(SkillTestSession::class);
+        return $this->belongsTo(SkillTestSession::class);
     }
 }
