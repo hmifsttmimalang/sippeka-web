@@ -48,7 +48,7 @@ Sistem Informasi Pendaftaran Pelatihan Kerja adalah aplikasi untuk pendaftaran p
 1. **Clone Repository**
 
     ```bash
-    git clone https://github.com/ardie069/sippeka-web.git
+    git clone https://github.com/hmifsttmimalang/sippeka-web.git
     ```
 
 2. **Pindahkan Folder Proyek**
