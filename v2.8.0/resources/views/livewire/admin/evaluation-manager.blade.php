@@ -44,92 +44,99 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-hover">
+                                <table class="table table-bordered table-hover align-middle">
                                     <thead class="thead-dark">
                                         <tr class="text-center">
-                                            <th>Nama Peserta</th>
-                                            <th>Nilai Seleksi</th>
+                                            @if(auth()->user()->isInstructor())
+                                                <th>Foto</th>
+                                            @endif
+                                            <th>Peserta</th>
+                                            @if(auth()->user()->isAdmin())
+                                                <th>Nilai Seleksi</th>
+                                            @endif
                                             <th>Nilai Wawancara</th>
-                                            <th>Rata-rata</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
+                                            @if(auth()->user()->isAdmin())
+                                                <th>Rata-rata</th>
+                                                <th>Status</th>
+                                                <th>Unduh</th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse($registrations as $reg)
                                             <tr class="text-center">
+                                                @if(auth()->user()->isInstructor())
+                                                    <td style="width: 80px;">
+                                                        <div class="rounded shadow-sm overflow-hidden" style="width: 60px; height: 75px; margin: 0 auto;">
+                                                            @if($reg->foto_bg_biru)
+                                                                <img src="{{ asset('storage/' . $reg->foto_bg_biru) }}" class="img-fluid h-100 w-100 object-fit-cover" 
+                                                                     onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($reg->nama) }}&background=random'"
+                                                                     onclick="window.open(this.src, '_blank')" style="cursor: zoom-in;">
+                                                            @else
+                                                                <div class="bg-light d-flex align-items-center justify-content-center h-100">
+                                                                    <i class="fas fa-user text-gray-300"></i>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                @endif
                                                 <td class="text-left">
-                                                    <div class="font-weight-bold text-primary">{{ $reg->nama }}</div>
-                                                    <div class="small text-gray-500 uppercase">
-                                                        {{ $reg->keahlian_rel->nama ?? '-' }}</div>
+                                                    <div class="font-weight-bold text-gray-800">{{ $reg->nama }}</div>
+                                                    <div class="badge badge-light border text-primary small uppercase px-2 py-1 mt-1">
+                                                        {{ $reg->skill->nama ?? '-' }}</div>
                                                 </td>
-                                                <td><span
-                                                        class="badge badge-info">{{ number_format($reg->nilai_keahlian, 1) }}</span>
-                                                </td>
+                                                @if(auth()->user()->isAdmin())
+                                                    <td><span class="badge badge-info px-3 py-2" style="font-size: 0.9rem;">{{ number_format($reg->nilai_keahlian, 1) }}</span></td>
+                                                @endif
                                                 <td>
-                                                    @if ($editingId === $reg->id)
-                                                        <div
-                                                            class="d-flex justify-content-center align-items-center gap-1">
-                                                            <input wire:model="tempNilaiWawancara" type="number"
-                                                                step="0.5"
-                                                                class="form-control form-control-sm text-center"
-                                                                style="width: 70px;">
-                                                            <button wire:click="saveScore"
-                                                                class="btn btn-sm btn-success"><i
-                                                                    class="fas fa-check"></i></button>
-                                                            <button wire:click="cancelEdit"
-                                                                class="btn btn-sm btn-secondary"><i
-                                                                    class="fas fa-times"></i></button>
+                                                    @if ($editingId === $reg->id && auth()->user()->isInstructor())
+                                                        <div class="d-flex justify-content-center align-items-center gap-1">
+                                                            <input wire:model="tempNilaiWawancara" type="number" step="0.5" class="form-control form-control-sm text-center" style="width: 80px;">
+                                                            <button wire:click="saveScore" class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                                                            <button wire:click="cancelEdit" class="btn btn-sm btn-secondary"><i class="fas fa-times"></i></button>
                                                         </div>
                                                         @error('tempNilaiWawancara')
-                                                            <div class="text-danger small">{{ $message }}</div>
+                                                            <div class="text-danger extra-small">{{ $message }}</div>
                                                         @enderror
                                                     @else
-                                                        <span
-                                                            class="font-weight-bold {{ $reg->nilai_wawancara !== null ? 'underline' : 'text-gray-400 font-italic' }}">
-                                                            {{ $reg->nilai_wawancara !== null ? number_format($reg->nilai_wawancara, 1) : 'Belum Ada' }}
-                                                        </span>
-                                                        <button wire:click="editScore({{ $reg->id }})"
-                                                            class="btn btn-sm btn-link"><i
-                                                                class="fas fa-edit"></i></button>
+                                                        <div class="d-flex align-items-center justify-content-center">
+                                                            <span class="h5 mb-0 font-weight-bold {{ $reg->nilai_wawancara !== null ? 'text-dark' : 'text-gray-400 font-italic' }}">
+                                                                {{ $reg->nilai_wawancara !== null ? number_format($reg->nilai_wawancara, 1) : 'Belum Ada' }}
+                                                            </span>
+                                                            @if(auth()->user()->isInstructor())
+                                                                <button wire:click="editScore({{ $reg->id }})" class="btn btn-sm btn-link ml-2"><i class="fas fa-edit"></i></button>
+                                                            @endif
+                                                        </div>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    @if ($reg->average_score !== null)
-                                                        <span
-                                                            class="font-weight-bold text-gray-800">{{ number_format($reg->average_score, 1) }}</span>
-                                                    @else
-                                                        -
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @php
-                                                        $badgeClass = match ($reg->status) {
-                                                            'Lulus' => 'badge-success',
-                                                            'Gagal' => 'badge-danger',
-                                                            'Sedang Diproses' => 'badge-warning',
-                                                            default => 'badge-secondary',
-                                                        };
-                                                    @endphp
-                                                    <span class="badge {{ $badgeClass }}">{{ $reg->status }}</span>
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('admin.reports.registration', $reg->id) }}"
-                                                        target="_blank"
-                                                        class="btn btn-sm btn-outline-primary shadow-sm">
-                                                        <i class="fas fa-print fa-sm mr-1"></i> PDF
-                                                    </a>
-                                                </td>
+                                                @if(auth()->user()->isAdmin())
+                                                    <td class="font-weight-bold text-primary">{{ $reg->average_score !== null ? number_format($reg->average_score, 1) : '-' }}</td>
+                                                    <td>
+                                                        @php
+                                                            $badgeClass = match ($reg->status) {
+                                                                'Lulus' => 'badge-success',
+                                                                'Gagal' => 'badge-danger',
+                                                                'Sedang Diproses' => 'badge-warning',
+                                                                default => 'badge-secondary',
+                                                            };
+                                                        @endphp
+                                                        <span class="badge {{ $badgeClass }} px-3 py-1">{{ $reg->status }}</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('admin.reports.registration', $reg->id) }}" target="_blank" class="btn btn-sm btn-outline-primary border-0 rounded-circle"><i class="fas fa-file-pdf"></i></a>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center py-5 text-gray-500 font-italic">
-                                                    Belum ada peserta yang menyelesaikan seleksi.</td>
+                                                <td colspan="{{ auth()->user()->isAdmin() ? 6 : 4 }}" class="text-center py-5 text-gray-500 font-italic">Belum ada peserta yang memenuhi kriteria penilaian.</td>
                                             </tr>
                                         @endforelse
                                     </tbody>
                                 </table>
-                                {{ $registrations->links() }}
+                                <div class="mt-3">
+                                    {{ $registrations->links() }}
+                                </div>
                             </div>
                         </div>
                     </div>

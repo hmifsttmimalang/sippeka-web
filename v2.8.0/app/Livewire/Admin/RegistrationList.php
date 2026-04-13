@@ -29,10 +29,10 @@ class RegistrationList extends Component
     public function showProfile(int $id): void
     {
         $this->selectedRegistrationId = $id;
-        $this->selectedRegistrant = Registration::with(['keahlian', 'user'])->findOrFail($id);
+        $this->selectedRegistrant = Registration::with(['skill', 'user'])->findOrFail($id);
         $this->nilai_wawancara = $this->selectedRegistrant->nilai_wawancara;
         $this->verification_notes = $this->selectedRegistrant->verification_notes;
-        
+
         $this->dispatch('show-profile-modal');
     }
 
@@ -106,10 +106,10 @@ class RegistrationList extends Component
     public function render(): View
     {
         $registrants = Registration::query()
-            ->with('keahlian_rel')
+            ->with('skill')
             ->when($this->search, function (Builder $query) {
                 $query->where('nama', 'like', '%' . $this->search . '%')
-                      ->orWhere('telepon', 'like', '%' . $this->search . '%');
+                    ->orWhere('telepon', 'like', '%' . $this->search . '%');
             })
             ->when($this->filterSkill, function (Builder $query) {
                 $query->where('keahlian', $this->filterSkill);

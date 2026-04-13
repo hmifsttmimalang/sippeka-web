@@ -20,6 +20,8 @@ use App\Livewire\Student\Examination;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+Route::get('/informasi-pelatihan', \App\Livewire\Public\TrainingInfo::class)->name('public.training_info');
+Route::get('/pengumuman', \App\Livewire\Public\SelectionAnnouncement::class)->name('public.selection_announcement');
 
 // Auth Routes
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('auth.register');
@@ -55,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Reports
     Route::get('/admin/reports/registration/{id}', [ReportController::class, 'downloadRegistrationPdf'])->name('admin.reports.registration');
+    Route::get('/admin/reports/participants', [ReportController::class, 'downloadParticipantsPdf'])->name('admin.reports.participants');
 
     // Instructor / Instruktur Routes
     Route::get('/instruktur', \App\Livewire\Instructor\Dashboard::class)->name('instruktur.dashboard');

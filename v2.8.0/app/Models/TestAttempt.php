@@ -13,8 +13,13 @@ class TestAttempt extends Model
         'registration_id',
         'skill_test_session_id',
         'status',
+        'answers',
         'waktu_mulai',
         'waktu_selesai',
+    ];
+
+    protected $casts = [
+        'answers' => 'array',
     ];
 
     // Relasi ke model Registration

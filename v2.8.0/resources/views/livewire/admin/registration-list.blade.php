@@ -43,7 +43,7 @@
                                                     {{ $registrant->nama }}</td>
                                                 <td>{{ $registrant->telepon }}</td>
                                                 <td><span
-                                                        class="badge badge-indigo text-indigo-700 bg-indigo-50 border border-indigo-100">{{ $registrant->keahlian->nama ?? '-' }}</span>
+                                                        class="badge badge-indigo text-indigo-700 bg-indigo-50 border border-indigo-100">{{ $registrant->skill->nama ?? '-' }}</span>
                                                 </td>
                                                 <td><span
                                                         class="font-weight-bold text-gray-800">{{ $registrant->average_score ?? '-' }}</span>
@@ -113,7 +113,7 @@
                                         </div>
                                     @endif
                                     <h5 class="font-weight-bold text-gray-900 mb-1">{{ strtoupper($selectedRegistrant->nama) }}</h5>
-                                    <p class="text-primary mb-3">{{ $selectedRegistrant->keahlian->nama ?? 'Belum memilih' }}</p>
+                                    <p class="text-primary mb-3">{{ $selectedRegistrant->skill->nama ?? 'Belum memilih' }}</p>
                                     
                                     <div class="text-left mt-4">
                                         <p class="mb-2"><i class="fas fa-map-marker-alt fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->tempat_lahir }}, {{ $selectedRegistrant->formatted_birth_date }}</p>

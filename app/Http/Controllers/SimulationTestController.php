@@ -14,7 +14,7 @@ class SimulationTestController extends Controller
 {
     public function index($username)
     {
-        $currentDateTime = Carbon::now();
+        $currentDateTime = now();
 
         // Cek apakah ada sesi simulasi yang sedang berlangsung
         $sesiSimulasi = SkillTestSession::where('jenis_sesi', 'Simulasi')
@@ -46,8 +46,15 @@ class SimulationTestController extends Controller
         // Ambil ID keahlian
         $keahlianId = $keahlianPeserta->keahlian;  // Ini adalah ID keahlian dari registrasi pengguna
 
-        // Ambil sesi simulasi yang aktif
-        $tesKeahlian = SkillTest::find($sesiSimulasi->skill_test_id)->where('keahlian', $keahlianId)->first();
+        // Ambil tes keahlian yang sesuai dengan sesi dan keahlian peserta
+        $tesKeahlian = SkillTest::where('id', $sesiSimulasi->skill_test_id)
+            ->where('keahlian', $keahlianId)
+            ->first();
+
+        // Cek apakah tes keahlian ditemukan
+        if (!$tesKeahlian) {
+            return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan atau tidak sesuai dengan bidang Anda.');
+        }
 
         // Ambil soal berdasarkan tes_keahlian_id
         $questions = Question::where('skill_test_id', $tesKeahlian->id)->get();
@@ -116,7 +123,7 @@ class SimulationTestController extends Controller
 
     public function hasilSimulasi($username)
     {
-        $currentDateTime = Carbon::now();
+        $currentDateTime = now();
 
         // Ambil user berdasarkan username
         $user = User::where('username', $username)->firstOrFail();

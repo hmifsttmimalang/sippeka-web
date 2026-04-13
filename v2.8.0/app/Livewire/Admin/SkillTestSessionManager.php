@@ -13,14 +13,14 @@ class SkillTestSessionManager extends Component
     use WithPagination;
 
     public $search = '';
-    
+
     // Form properties
     public $nama_sesi;
     public $skill_test_id;
     public $waktu_mulai;
     public $waktu_selesai;
     public $jenis_sesi = 'Seleksi';
-    
+
     public $editingId = null;
     public $showingModal = false;
     public $showingDetailModal = false;
@@ -57,11 +57,11 @@ class SkillTestSessionManager extends Component
             $session = SkillTestSession::findOrFail($id);
             $this->nama_sesi = $session->nama_sesi;
             $this->skill_test_id = $session->skill_test_id;
-            
+
             // Format for datetime-local input
             $this->waktu_mulai = date('Y-m-d\TH:i', strtotime($session->waktu_mulai));
             $this->waktu_selesai = date('Y-m-d\TH:i', strtotime($session->waktu_selesai));
-            
+
             $this->jenis_sesi = $session->jenis_sesi;
         } else {
             $this->reset(['nama_sesi', 'skill_test_id', 'waktu_mulai', 'waktu_selesai', 'jenis_sesi']);
@@ -131,11 +131,11 @@ class SkillTestSessionManager extends Component
     public function loadAttempts()
     {
         if ($this->selectedSession) {
-            $query = TestAttempt::with(['registration.keahlian_rel'])
+            $query = TestAttempt::with(['registration.skill'])
                 ->where('skill_test_session_id', $this->selectedSession->id);
 
             if ($this->detailSearch) {
-                $query->whereHas('registration', function($q) {
+                $query->whereHas('registration', function ($q) {
                     $q->where('nama', 'like', '%' . $this->detailSearch . '%');
                 });
             }
@@ -154,9 +154,9 @@ class SkillTestSessionManager extends Component
         $sessions = SkillTestSession::with('skillTest')
             ->when($this->search, function ($query) {
                 $query->where('nama_sesi', 'like', '%' . $this->search . '%')
-                      ->orWhereHas('skillTest', function($q) {
-                          $q->where('nama_tes', 'like', '%' . $this->search . '%');
-                      });
+                    ->orWhereHas('skillTest', function ($q) {
+                        $q->where('nama_tes', 'like', '%' . $this->search . '%');
+                    });
             })
             ->latest()
             ->paginate(10);

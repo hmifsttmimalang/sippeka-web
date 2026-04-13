@@ -29,6 +29,11 @@ class EvaluationManager extends Component
 
     public function editScore(int $id): void
     {
+        if (!auth()->user()->isInstructor()) {
+            session()->flash('error', 'Hanya instruktur yang diperbolehkan mengisi nilai wawancara.');
+            return;
+        }
+
         $registration = Registration::findOrFail($id);
         $this->editingId = $id;
         $this->tempNilaiWawancara = $registration->nilai_wawancara;
@@ -36,6 +41,10 @@ class EvaluationManager extends Component
 
     public function saveScore(): void
     {
+        if (!auth()->user()->isInstructor()) {
+            return;
+        }
+
         $this->validate([
             'tempNilaiWawancara' => 'required|numeric|min:0|max:100',
         ]);
@@ -47,7 +56,7 @@ class EvaluationManager extends Component
 
         $this->editingId = null;
         $this->tempNilaiWawancara = null;
-        
+
         session()->flash('success', 'Nilai wawancara berhasil diperbarui.');
     }
 
@@ -60,14 +69,14 @@ class EvaluationManager extends Component
     public function render(): View
     {
         $registrations = Registration::query()
-            ->with(['keahlian_rel', 'user'])
+            ->with(['skill', 'user'])
             ->whereNotNull('nilai_keahlian') // Only list those who have taken the test
             ->when($this->search, fn($q) => $q->where('nama', 'like', '%' . $this->search . '%'))
             ->when($this->filterSkill, fn($q) => $q->where('keahlian', $this->filterSkill))
             ->latest()
             ->paginate(10);
 
-        $layout = match(auth()->user()->role) {
+        $layout = match (auth()->user()->role) {
             'admin' => 'layouts.admin_app',
             'instruktur' => 'layouts.instruktur_app',
             default => 'layouts.admin_app'

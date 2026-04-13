@@ -7,12 +7,7 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('student.examination') ? '' : 'collapsed' }} collapsed" href="#">
-                <i class="bi bi-clipboard2-check"></i>
-                <span>Tes Seleksi</span>
-            </a>
-        </li>
+
 
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('student.edit_profile') ? '' : 'collapsed' }}" href="{{ route('student.edit_profile') }}">

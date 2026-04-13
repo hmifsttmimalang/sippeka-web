@@ -129,7 +129,8 @@ class AuthController extends Controller
             $registration = Registration::where('user_id', $user->id)->first();
 
             // Temukan sesi tes keahlian yang aktif berdasarkan waktu saat ini
-            $sesiTesKeahlian = SkillTestSession::where('waktu_mulai', '<=', now())
+            $sesiTesKeahlian = SkillTestSession::where('jenis_sesi', 'Seleksi')
+                ->where('waktu_mulai', '<=', now())
                 ->where('waktu_selesai', '>=', now())
                 ->first();
 

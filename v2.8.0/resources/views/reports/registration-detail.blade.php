@@ -111,7 +111,7 @@
     <table>
         <tr>
             <td class="label">Program Keahlian</td>
-            <td><strong>{{ $reg->keahlian_rel->nama }}</strong></td>
+            <td><strong>{{ $reg->skill->nama }}</strong></td>
         </tr>
         <tr>
             <td class="label">Tanggal Registrasi</td>

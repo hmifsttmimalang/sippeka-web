@@ -15,6 +15,9 @@
                         <div class="card-header py-3 flex justify-between items-center">
                             <h6 class="m-0 font-weight-bold text-primary">Daftar Peserta Terurut Nilai Tertinggi</h6>
                             <div class="flex items-center space-x-2">
+                                <a href="{{ route('admin.reports.participants') }}" target="_blank" class="btn btn-sm btn-outline-primary shadow-sm mr-2">
+                                    <i class="fas fa-print fa-sm mr-1"></i> Cetak Peserta
+                                </a>
                                 <input type="text" wire:model.live="search" class="form-control form-control-sm"
                                     placeholder="Cari nama...">
                             </div>

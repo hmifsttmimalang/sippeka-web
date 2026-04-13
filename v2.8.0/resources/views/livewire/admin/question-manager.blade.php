@@ -15,10 +15,15 @@
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">{{ $test->nama_tes }}</h1>
-                        <button wire:click="openModal"
-                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-plus fa-sm text-white-50 mr-2"></i> Tambah Soal Baru
-                        </button>
+                        <div class="d-flex gap-2">
+                            <button wire:click="openImportModal" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mr-2">
+                                <i class="fas fa-file-excel fa-sm mr-2"></i> Impor Excel
+                            </button>
+                            <button wire:click="openModal"
+                                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                                <i class="fas fa-plus fa-sm text-white-50 mr-2"></i> Tambah Soal Baru
+                            </button>
+                        </div>
                     </div>
 
                     @if (session()->has('message'))
@@ -164,6 +169,53 @@
                                 class="btn btn-secondary btn-sm px-4">Batal</button>
                             <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm">Simpan
                                 Pertanyaan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <!-- Import Modal -->
+    @if ($showingImportModal)
+        <div class="fixed-top w-100 h-100 d-flex align-items-center justify-content-center"
+            style="background: rgba(0,0,0,0.6); z-index: 1050; padding: 2rem;">
+            <div class="card shadow mb-4 animate-fade-in" style="width: 100%; max-width: 500px;">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-success"><i class="fas fa-file-excel mr-2"></i>Impor Soal Excel</h6>
+                    <button wire:click="closeModal" class="btn btn-sm btn-link text-gray-400"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="card-body">
+                    <form wire:submit.prevent="importFromExcel">
+                        <div class="alert alert-info small">
+                            <h6 class="font-weight-bold mb-1">Format Excel:</h6>
+                            <ul class="mb-0 pl-3">
+                                <li>Kolom A: Isi Pertanyaan</li>
+                                <li>Kolom B: Pilihan A</li>
+                                <li>Kolom C: Pilihan B</li>
+                                <li>Kolom D: Pilihan C</li>
+                                <li>Kolom E: Pilihan D</li>
+                                <li>Kolom F: Jawaban Benar (A/B/C/D)</li>
+                            </ul>
+                            <div class="mt-2 text-primary font-weight-bold">Baris pertama (header) akan diabaikan.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Pilih File Excel (.xlsx / .xls)</label>
+                            <input type="file" wire:model="excelFile" class="form-control-file @error('excelFile') is-invalid @enderror">
+                            @error('excelFile') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                            
+                            <div wire:loading wire:target="excelFile" class="mt-2 text-primary small">
+                                <i class="fas fa-spinner fa-spin mr-1"></i> Sedang mengunggah...
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="text-right">
+                            <button type="button" wire:click="closeModal" class="btn btn-secondary btn-sm px-4">Batal</button>
+                            <button type="submit" class="btn btn-success btn-sm px-4 shadow-sm" wire:loading.attr="disabled">
+                                <i class="fas fa-upload mr-1"></i> Impor Sekarang
+                            </button>
                         </div>
                     </form>
                 </div>

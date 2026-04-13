@@ -4,6 +4,7 @@ namespace App\Livewire\Student;
 
 use App\Models\Registration;
 use App\Models\SkillTestSession;
+use App\Models\TestAttempt;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -17,8 +18,8 @@ class Dashboard extends Component
     public function mount(): void
     {
         $this->user = auth()->user();
-        $this->registration = Registration::where('user_id', $this->user->id)->with('keahlian_rel')->first();
-        
+        $this->registration = Registration::where('user_id', $this->user->id)->with('skill')->first();
+
         // If not registered, redirect to wizard
         if (!$this->registration) {
             redirect()->route('pendaftaran.form');
@@ -28,29 +29,54 @@ class Dashboard extends Component
     public function render(): View
     {
         $now = Carbon::now('Asia/Jakarta');
-        
+        $nowString = $now->format('Y-m-d\TH:i'); // SQLite uses string comparison, must match DB format
+
         // Fix relationship conflict by using attribute directly
         $keahlianId = $this->registration->getAttribute('keahlian');
 
-        // Fetch active sessions relative to the student's training program
-        $activeSessions = SkillTestSession::query()
-            ->where('waktu_mulai', '<=', $now)
-            ->where('waktu_selesai', '>=', $now)
-            ->whereHas('test', function($q) use ($keahlianId) {
+        // Fetch sessions related to student's skill (Current, Upcoming, and Recently Finished)
+        $allSessions = SkillTestSession::query()
+            ->whereHas('test', function ($q) use ($keahlianId) {
                 $q->where('keahlian', $keahlianId);
             })
             ->with(['test', 'test.category'])
+            ->orderBy('waktu_mulai', 'asc')
             ->get();
+
+        $processedSessions = $allSessions->map(function ($session) use ($now, $nowString) {
+            $attempt = TestAttempt::where('registration_id', $this->registration->id)
+                ->where('skill_test_session_id', $session->id)
+                ->first();
+
+            $startTime = Carbon::parse($session->waktu_mulai, 'Asia/Jakarta');
+            $endTime = Carbon::parse($session->waktu_selesai, 'Asia/Jakarta');
+
+            if ($attempt && $attempt->status === 'finished') {
+                $session->student_status = 'finished';
+            } elseif ($now->gt($endTime)) {
+                $session->student_status = 'late';
+            } elseif ($now->lt($startTime)) {
+                $session->student_status = 'upcoming';
+            } else {
+                $session->student_status = 'active';
+            }
+
+            return $session;
+        });
+
+        $activeSessions = $processedSessions->filter(fn($s) => $s->student_status === 'active' || $s->student_status === 'finished');
+        $upcomingSessions = $processedSessions->filter(fn($s) => $s->student_status === 'upcoming')->take(5);
+        $lateSessions = $processedSessions->filter(fn($s) => $s->student_status === 'late')->take(3);
 
         // Announcement (Pengumuman) Logic from Legacy
         $pengumuman = \App\Models\Pengumuman::latest()->first();
         $showAnnouncement = false;
         $formattedAnnouncementDate = null;
-        
+
         if ($pengumuman) {
             $pengumumanDate = Carbon::parse($pengumuman->tanggal_waktu, 'Asia/Jakarta');
             $formattedAnnouncementDate = $pengumumanDate->translatedFormat('d F Y H:i');
-            
+
             if ($now->greaterThanOrEqualTo($pengumumanDate)) {
                 $showAnnouncement = true;
             }
@@ -69,6 +95,8 @@ class Dashboard extends Component
 
         return view('livewire.student.dashboard', [
             'activeSessions' => $activeSessions,
+            'upcomingSessions' => $upcomingSessions,
+            'lateSessions' => $lateSessions,
             'showAnnouncement' => $showAnnouncement,
             'formattedAnnouncementDate' => $formattedAnnouncementDate,
             'statusSeleksi' => $statusSeleksi,

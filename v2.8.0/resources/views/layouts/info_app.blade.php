@@ -93,10 +93,10 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="/">Beranda</a></li>
-                    <li><a href="/#about">Tentang Kami</a></li>
-                    <li><a href="/#features">Layanan</a></li>
-                    <li><a href="/#services">Pengumuman</a></li>
+                    <li><a href="{{ route('home') }}">Beranda</a></li>
+                    <li><a href="{{ route('home') }}#about">Tentang Kami</a></li>
+                    <li><a href="{{ route('public.training_info') }}">Informasi</a></li>
+                    <li><a href="{{ route('public.selection_announcement') }}">Pengumuman</a></li>
                     @auth
                         <li class="mobile-only">
                             <a
@@ -139,6 +139,7 @@
     </header>
 
     <!-- Content -->
+    {{ $slot ?? '' }}
     @yield('content')
 
     <!-- Footer -->

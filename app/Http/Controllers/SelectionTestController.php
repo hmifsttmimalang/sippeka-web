@@ -10,7 +10,7 @@ class SelectionTestController extends Controller
 {
     public function index($username)
     {
-        $now = Carbon::now('Asia/Jakarta');
+        $now = now();
 
         $sesiSeleksi = SkillTestSession::where('jenis_sesi', 'Seleksi')
             ->where('waktu_mulai', '<=', $now)
@@ -25,6 +25,10 @@ class SelectionTestController extends Controller
 
         $registrasi = Registration::where('user_id', $user->id)->with('keahlian')->first();
 
+        if (!$registrasi || !$registrasi->keahlian) {
+            return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan untuk pengguna ini.');
+        }
+
         $testAttempt = TestAttempt::firstOrCreate(
             [
                 'registration_id' => $registrasi->id,
@@ -35,10 +39,6 @@ class SelectionTestController extends Controller
                 'waktu_mulai' => $now,
             ]
         );
-
-        if (!$registrasi || !$registrasi->keahlian) {
-            return redirect()->back()->with('error', 'Tes keahlian tidak ditemukan untuk pengguna ini.');
-        }
 
         if ($registrasi->nilai_keahlian !== null) {
             return redirect()->route('user.seleksi_selesai', ['username' => $username]);

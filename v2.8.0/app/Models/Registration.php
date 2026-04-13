@@ -50,7 +50,7 @@ class Registration extends Model
     protected function averageScore(): Attribute
     {
         return Attribute::make(
-            get: fn () => ($this->nilai_keahlian !== null && $this->nilai_wawancara !== null)
+            get: fn() => ($this->nilai_keahlian !== null && $this->nilai_wawancara !== null)
                 ? ($this->nilai_keahlian + $this->nilai_wawancara) / 2
                 : null,
         );
@@ -66,7 +66,7 @@ class Registration extends Model
                 if ($this->nilai_keahlian === null) {
                     return 'Belum Mengikuti Tes';
                 }
-                
+
                 if ($this->nilai_wawancara === null) {
                     return 'Sedang Diproses';
                 }
@@ -82,11 +82,11 @@ class Registration extends Model
     protected function formattedBirthDate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->tanggal_lahir ? $this->tanggal_lahir->translatedFormat('d F Y') : '-',
+            get: fn() => $this->tanggal_lahir ? $this->tanggal_lahir->translatedFormat('d F Y') : '-',
         );
     }
 
-    public function keahlian_rel(): BelongsTo
+    public function skill(): BelongsTo
     {
         return $this->belongsTo(Skill::class, 'keahlian');
     }

@@ -14,7 +14,8 @@
         "laravel/framework": "^13.0",
         "laravel/sanctum": "*",
         "laravel/tinker": "^3.0",
-        "livewire/livewire": "^4.1"
+        "livewire/livewire": "^4.1",
+        "phpoffice/phpspreadsheet": "^5.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

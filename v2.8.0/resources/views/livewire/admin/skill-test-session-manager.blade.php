@@ -205,7 +205,7 @@
                                             @forelse($detailAttempts as $attempt)
                                                 <tr class="align-middle text-center">
                                                     <td class="text-left font-weight-bold">{{ $attempt->registration->nama ?? '-' }}</td>
-                                                    <td>{{ $attempt->registration->keahlian->nama ?? '-' }}</td>
+                                                    <td>{{ $attempt->registration->skill->nama ?? '-' }}</td>
                                                     <td>{{ $attempt->waktu_mulai }}</td>
                                                     <td>{{ $attempt->waktu_selesai }}</td>
                                                     <td>

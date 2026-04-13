@@ -17,10 +17,12 @@ class Examination extends Component
     public Registration $registration;
     public Collection $questions;
     public array $userAnswers = [];
+    public array $shuffledOptions = [];
     public int $currentIndex = 0;
     public int $remainingSeconds = 0;
     public bool $isFinished = false;
     public ?float $scorePercentage = null;
+    public ?int $currentAttemptId = null;
 
     public function mount(int $sessionId): void
     {
@@ -30,11 +32,11 @@ class Examination extends Component
         // Security checks
         $this->validateSession();
 
-        // Initialize Attempt
-        $this->initializeAttempt();
-
         // Load and Prepare Questions
         $this->loadQuestions();
+
+        // Initialize Attempt
+        $this->initializeAttempt();
 
         // Calculate Timer
         $this->calculateTimer();
@@ -46,13 +48,27 @@ class Examination extends Component
         $mulai = Carbon::parse($this->session->waktu_mulai, 'Asia/Jakarta');
         $selesai = Carbon::parse($this->session->waktu_selesai, 'Asia/Jakarta');
 
-        if ($now->lt($mulai) || $now->gt($selesai)) {
-            redirect()->route('user.dashboard')->with('error', 'Sesi ujian tidak aktif.');
+        if ($now->lt($mulai)) {
+            redirect()->route('user.dashboard')->with('error', 'Sesi ini belum dimulai. Silakan kembali pada jam ' . $mulai->format('H:i') . '.');
         }
 
-        // Only block if it's a 'Seleksi' and already finished
+        if ($now->gt($selesai)) {
+            redirect()->route('user.dashboard')->with('error', 'Mohon maaf, waktu pengerjaan untuk sesi ujian ini telah berakhir (Terlambat).');
+        }
+
+        // Check if student has already finished this session
+        $finishedAttempt = TestAttempt::where('registration_id', $this->registration->id)
+            ->where('skill_test_session_id', $this->session->id)
+            ->where('status', 'finished')
+            ->exists();
+
+        if ($finishedAttempt) {
+            redirect()->route('user.dashboard')->with('error', 'Anda sudah menyelesaikan ujian ini dan tidak dapat mengulangnya kembali.');
+        }
+
+        // Fallback for legacy score check (only for Seleksi)
         if ($this->session->jenis_sesi === 'Seleksi' && $this->registration->nilai_keahlian !== null) {
-            redirect()->route('user.dashboard')->with('error', 'Anda sudah menyelesaikan tes seleksi ini.');
+            redirect()->route('user.dashboard')->with('error', 'Anda sudah memiliki nilai untuk tes seleksi ini.');
         }
 
         // If 'Simulasi', we allow multiple attempts unless specific session rules apply
@@ -60,12 +76,21 @@ class Examination extends Component
 
     private function initializeAttempt(): void
     {
-        TestAttempt::create([
+        $attempt = TestAttempt::firstOrCreate([
             'registration_id' => $this->registration->id,
             'skill_test_session_id' => $this->session->id,
             'status' => 'in_progress',
+        ], [
             'waktu_mulai' => Carbon::now('Asia/Jakarta'),
+            'answers' => [],
         ]);
+
+        $this->currentAttemptId = $attempt->id;
+
+        if ($attempt->answers) {
+            // Merge to preserve initialized nulls for all questions
+            $this->userAnswers = array_replace($this->userAnswers, $attempt->answers);
+        }
     }
 
     private function loadQuestions(): void
@@ -92,9 +117,9 @@ class Examination extends Component
                 foreach($keys as $key) {
                     $shuffled[$key] = $options[$key];
                 }
-                $q->shuffled_options = $shuffled;
+                $this->shuffledOptions[$q->id] = $shuffled;
             } else {
-                $q->shuffled_options = $options;
+                $this->shuffledOptions[$q->id] = $options;
             }
             return $q;
         });
@@ -120,6 +145,13 @@ class Examination extends Component
     {
         if ($this->isFinished) return;
         $this->userAnswers[$questionId] = $option;
+
+        // Persist to DB
+        if ($this->currentAttemptId) {
+            TestAttempt::where('id', $this->currentAttemptId)->update([
+                'answers' => $this->userAnswers
+            ]);
+        }
     }
 
     public function goTo(int $index): void
@@ -175,7 +207,13 @@ class Examination extends Component
 
     public function render(): View
     {
-        return view('livewire.student.examination')
-            ->layout('components.layouts.app', ['title' => 'Ujian: ' . $this->session->test->nama_tes]);
+        $answeredCount = count(array_filter($this->userAnswers));
+        $totalQuestions = $this->questions->count();
+        $progress = $totalQuestions > 0 ? ($answeredCount / $totalQuestions) * 100 : 0;
+
+        return view('livewire.student.examination', [
+            'answeredCount' => $answeredCount,
+            'progress' => $progress
+        ])->layout('components.layouts.app', ['title' => 'Ujian: ' . $this->session->test->nama_tes]);
     }
 }
