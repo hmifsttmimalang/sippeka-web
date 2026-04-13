@@ -33,7 +33,9 @@ class Registration extends Model
         'foto_ijazah',
         'foto_bg_biru',
         'nilai_keahlian',
-        'nilai_wawancara'
+        'nilai_wawancara',
+        'verification_status',
+        'verification_notes'
     ];
 
     protected $casts = [
@@ -82,11 +84,6 @@ class Registration extends Model
         return Attribute::make(
             get: fn () => $this->tanggal_lahir ? $this->tanggal_lahir->translatedFormat('d F Y') : '-',
         );
-    }
-
-    public function keahlian(): BelongsTo
-    {
-        return $this->belongsTo(Skill::class, 'keahlian');
     }
 
     public function keahlian_rel(): BelongsTo

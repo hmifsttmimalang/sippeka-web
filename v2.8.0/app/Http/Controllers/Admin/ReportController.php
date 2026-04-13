@@ -14,7 +14,7 @@ class ReportController extends Controller
      */
     public function downloadRegistrationPdf(int $id)
     {
-        $registration = Registration::with(['keahlian', 'user'])->findOrFail($id);
+        $registration = Registration::with(['keahlian_rel', 'user'])->findOrFail($id);
         
         // Pass data to blade template
         $pdf = Pdf::loadView('reports.registration-detail', [

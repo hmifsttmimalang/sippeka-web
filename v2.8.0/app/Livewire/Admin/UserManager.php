@@ -23,6 +23,16 @@ class UserManager extends Component
     public string $password = '';
     public string $role = 'user';
 
+    // Null-safe population from DB
+    private function populateFromUser(User $user): void
+    {
+        $this->name = $user->name ?? '';
+        $this->username = $user->username ?? '';
+        $this->email = $user->email ?? '';
+        $this->role = $user->role ?? 'user';
+        $this->password = '';
+    }
+
     public ?int $editingId = null;
     public bool $showingModal = false;
 
@@ -44,11 +54,7 @@ class UserManager extends Component
 
         if ($id) {
             $user = User::findOrFail($id);
-            $this->name = $user->name;
-            $this->username = $user->username;
-            $this->email = $user->email;
-            $this->role = $user->role;
-            $this->password = ''; // Don't show password on edit
+            $this->populateFromUser($user);
         } else {
             $this->reset(['name', 'username', 'email', 'password', 'role']);
         }

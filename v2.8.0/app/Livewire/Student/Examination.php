@@ -43,13 +43,16 @@ class Examination extends Component
     private function validateSession(): void
     {
         $now = Carbon::now('Asia/Jakarta');
-        if ($now->lt($this->session->waktu_mulai) || $now->gt($this->session->waktu_selesai)) {
-            redirect()->route('student.dashboard')->with('error', 'Sesi ujian tidak aktif.');
+        $mulai = Carbon::parse($this->session->waktu_mulai, 'Asia/Jakarta');
+        $selesai = Carbon::parse($this->session->waktu_selesai, 'Asia/Jakarta');
+
+        if ($now->lt($mulai) || $now->gt($selesai)) {
+            redirect()->route('user.dashboard')->with('error', 'Sesi ujian tidak aktif.');
         }
 
         // Only block if it's a 'Seleksi' and already finished
         if ($this->session->jenis_sesi === 'Seleksi' && $this->registration->nilai_keahlian !== null) {
-            redirect()->route('student.dashboard')->with('error', 'Anda sudah menyelesaikan tes seleksi ini.');
+            redirect()->route('user.dashboard')->with('error', 'Anda sudah menyelesaikan tes seleksi ini.');
         }
 
         // If 'Simulasi', we allow multiple attempts unless specific session rules apply
@@ -161,13 +164,13 @@ class Examination extends Component
 
         if ($this->session->jenis_sesi === 'Seleksi') {
             session()->flash('success', 'Ujian Seleksi berhasil diselesaikan.');
-            redirect()->route('student.dashboard');
+            redirect()->route('user.dashboard');
         }
     }
 
     public function exit(): void
     {
-        redirect()->route('student.dashboard');
+        redirect()->route('user.dashboard');
     }
 
     public function render(): View

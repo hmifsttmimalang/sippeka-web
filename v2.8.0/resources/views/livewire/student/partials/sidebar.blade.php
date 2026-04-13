@@ -15,7 +15,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link {{ request()->routeIs('student.edit_profile') ? '' : 'collapsed' }}" href="{{ route('student.edit_profile') }}">
                 <i class="bi bi-person-fill-gear"></i>
                 <span>Edit Profil</span>
             </a>

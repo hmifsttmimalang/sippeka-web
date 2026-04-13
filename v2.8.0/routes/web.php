@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/mata-soal', QuestionTitleManager::class)->name('admin.question_title_manager');
     Route::get('/admin/kelas-keahlian', SkillManager::class)->name('admin.kelas_keahlian');
     Route::get('/admin/tes-keahlian', SkillTestManager::class)->name('admin.skill_test_manager');
+    Route::get('/admin/sesi-tes-keahlian', \App\Livewire\Admin\SkillTestSessionManager::class)->name('admin.sesi_tes_keahlian');
     Route::get('/admin/tes-keahlian/{testId}/soal', QuestionManager::class)->name('admin.question_manager');
     Route::get('/admin/users', UserManager::class)->name('admin.user_manager');
     Route::get('/admin/evaluasi', EvaluationManager::class)->name('admin.evaluation_manager');
@@ -62,5 +63,6 @@ Route::middleware(['auth'])->group(function () {
     // Student & Registration Routes
     Route::get('/pendaftaran', Wizard::class)->name('pendaftaran.form');
     Route::get('/dashboard/{username?}', StudentDashboard::class)->name('user.dashboard');
+    Route::get('/profil/edit', \App\Livewire\Student\EditProfile::class)->name('student.edit_profile');
     Route::get('/ujian/{sessionId}', Examination::class)->name('student.examination');
 });

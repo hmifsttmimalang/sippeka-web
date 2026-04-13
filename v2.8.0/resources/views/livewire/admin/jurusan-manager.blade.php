@@ -21,19 +21,26 @@
                         <div class="col-md-4">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">{{ $isEditing ? 'Ubah' : 'Tambah' }} Jurusan</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">{{ $isEditing ? 'Ubah' : 'Tambah' }}
+                                        Jurusan</h6>
                                 </div>
                                 <div class="card-body">
                                     <form wire:submit.prevent="{{ $isEditing ? 'update' : 'store' }}">
                                         <div class="form-group">
                                             <label>Nama Jurusan</label>
-                                            <input type="text" wire:model="nama_jurusan" class="form-control @error('nama_jurusan') is-invalid @enderror">
-                                            @error('nama_jurusan') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                            <input type="text" wire:model="nama_jurusan"
+                                                class="form-control @error('nama_jurusan') is-invalid @enderror">
+                                            @error('nama_jurusan')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Kuota</label>
-                                            <input type="number" wire:model="kuota" class="form-control @error('kuota') is-invalid @enderror">
-                                            @error('kuota') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                            <input type="number" wire:model="kuota"
+                                                class="form-control @error('kuota') is-invalid @enderror">
+                                            @error('kuota')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Status</label>
@@ -42,11 +49,13 @@
                                                 <option value="ditutup">Ditutup</option>
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-{{ $isEditing ? 'warning' : 'primary' }} btn-block">
+                                        <button type="submit"
+                                            class="btn btn-{{ $isEditing ? 'warning' : 'primary' }} btn-block">
                                             {{ $isEditing ? 'Update' : 'Simpan' }}
                                         </button>
-                                        @if($isEditing)
-                                            <button type="button" wire:click="resetFields" class="btn btn-secondary btn-block">Batal</button>
+                                        @if ($isEditing)
+                                            <button type="button" wire:click="resetFields"
+                                                class="btn btn-secondary btn-block">Batal</button>
                                         @endif
                                     </form>
                                 </div>
@@ -58,7 +67,8 @@
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
                                     <h6 class="m-0 font-weight-bold text-primary">Daftar Jurusan</h6>
-                                    <input type="text" wire:model.live="search" class="form-control form-control-sm w-25" placeholder="Cari...">
+                                    <input type="text" wire:model.live="search"
+                                        class="form-control form-control-sm w-25" placeholder="Cari...">
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -79,13 +89,20 @@
                                                         <td class="text-left">{{ $jurusan->nama_jurusan }}</td>
                                                         <td>{{ $jurusan->kuota }}</td>
                                                         <td>
-                                                            <span class="badge badge-{{ $jurusan->status == 'dibuka' ? 'success' : 'danger' }}">
+                                                            <span
+                                                                class="badge badge-{{ $jurusan->status == 'dibuka' ? 'success' : 'danger' }}">
                                                                 {{ ucfirst($jurusan->status) }}
                                                             </span>
                                                         </td>
                                                         <td>
-                                                            <button wire:click="edit({{ $jurusan->id }})" class="btn btn-sm btn-circle btn-warning"><i class="fas fa-edit"></i></button>
-                                                            <button onclick="confirm('Yakin hapus?') || event.stopImmediatePropagation()" wire:click="delete({{ $jurusan->id }})" class="btn btn-sm btn-circle btn-danger"><i class="fas fa-trash"></i></button>
+                                                            <button wire:click="edit({{ $jurusan->id }})"
+                                                                class="btn btn-sm btn-circle btn-warning"><i
+                                                                    class="fas fa-edit"></i></button>
+                                                            <button
+                                                                onclick="confirm('Yakin hapus?') || event.stopImmediatePropagation()"
+                                                                wire:click="delete({{ $jurusan->id }})"
+                                                                class="btn btn-sm btn-circle btn-danger"><i
+                                                                    class="fas fa-trash"></i></button>
                                                         </td>
                                                     </tr>
                                                 @endforeach

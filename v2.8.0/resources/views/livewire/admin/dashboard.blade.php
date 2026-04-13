@@ -92,31 +92,32 @@
                     <div class="row">
                         <div class="col-md-12">
                             @if ($listPendaftarBaru->isNotEmpty())
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover mt-3">
-                                    <thead class="thead-dark">
-                                        <tr style="text-align: center; vertical-align: middle;">
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>Keahlian</th>
-                                            <th>Waktu Mendaftar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($listPendaftarBaru as $index => $item)
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover mt-3">
+                                        <thead class="thead-dark">
                                             <tr style="text-align: center; vertical-align: middle;">
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td style="text-align: left;">{{ $item->nama }}</td>
-                                                <td>{{ $item->skill->nama ?? 'Umum' }}</td>
-                                                <td>{{ $item->created_at->translatedFormat('d F Y H.i') }}
-                                                </td>
+                                                <th>No</th>
+                                                <th>Nama</th>
+                                                <th>Keahlian</th>
+                                                <th>Waktu Mendaftar</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($listPendaftarBaru as $index => $item)
+                                                <tr style="text-align: center; vertical-align: middle;">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td style="text-align: left;">{{ $item->nama }}</td>
+                                                    <td>{{ $item->skill->nama ?? 'Umum' }}</td>
+                                                    <td>{{ $item->created_at->translatedFormat('d F Y H.i') }}
+                                                    </td>
+                                                </tr>
                                             @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </tbody>
+                                    </table>
+                                </div>
                             @else
-                                <h4 class="text-center mt-4 text-gray-400">Tidak ada pendaftar baru dalam 24 jam terakhir</h4>
+                                <h4 class="text-center mt-4 text-gray-400">Tidak ada pendaftar baru dalam 24 jam
+                                    terakhir</h4>
                             @endif
                         </div>
                     </div>

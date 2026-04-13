@@ -48,9 +48,14 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ request()->routeIs('admin.question_title_manager') ? 'active' : '' }}" href="{{ route('admin.question_title_manager') }}">Mata Soal Keahlian</a>
-                <a class="collapse-item {{ request()->routeIs('admin.kelas_keahlian') ? 'active' : '' }}" href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
-                <a class="collapse-item {{ request()->routeIs('admin.skill_test_manager') ? 'active' : '' }}" href="{{ route('admin.skill_test_manager') }}">Tes Keahlian</a>
+                <a class="collapse-item {{ request()->routeIs('admin.question_title_manager') ? 'active' : '' }}"
+                    href="{{ route('admin.question_title_manager') }}">Mata Soal Keahlian</a>
+                <a class="collapse-item {{ request()->routeIs('admin.kelas_keahlian') ? 'active' : '' }}"
+                    href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                <a class="collapse-item {{ request()->routeIs('admin.skill_test_manager') ? 'active' : '' }}"
+                    href="{{ route('admin.skill_test_manager') }}">Tes Keahlian</a>
+                <a class="collapse-item {{ request()->routeIs('admin.sesi_tes_keahlian') ? 'active' : '' }}"
+                    href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
             </div>
         </div>
     </li>

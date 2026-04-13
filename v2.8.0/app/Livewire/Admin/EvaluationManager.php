@@ -60,7 +60,7 @@ class EvaluationManager extends Component
     public function render(): View
     {
         $registrations = Registration::query()
-            ->with(['keahlian', 'user'])
+            ->with(['keahlian_rel', 'user'])
             ->whereNotNull('nilai_keahlian') // Only list those who have taken the test
             ->when($this->search, fn($q) => $q->where('nama', 'like', '%' . $this->search . '%'))
             ->when($this->filterSkill, fn($q) => $q->where('keahlian', $this->filterSkill))

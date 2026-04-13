@@ -7,14 +7,16 @@
                 <div class="container-fluid">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb bg-transparent p-0 mb-4">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.skill_test_manager') }}">Tes Keahlian</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.skill_test_manager') }}">Tes Keahlian</a>
+                            </li>
                             <li class="breadcrumb-item active" aria-current="page">Manajemen Soal</li>
                         </ol>
                     </nav>
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">{{ $test->nama_tes }}</h1>
-                        <button wire:click="openModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <button wire:click="openModal"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-plus fa-sm text-white-50 mr-2"></i> Tambah Soal Baru
                         </button>
                     </div>
@@ -33,9 +35,11 @@
                         <div class="card-body">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white border-right-0"><i class="fas fa-search text-gray-400"></i></span>
+                                    <span class="input-group-text bg-white border-right-0"><i
+                                            class="fas fa-search text-gray-400"></i></span>
                                 </div>
-                                <input wire:model.live.debounce.300ms="search" type="text" class="form-control border-left-0" placeholder="Cari isi soal...">
+                                <input wire:model.live.debounce.300ms="search" type="text"
+                                    class="form-control border-left-0" placeholder="Cari isi soal...">
                             </div>
                         </div>
                     </div>
@@ -47,23 +51,33 @@
                                 <div class="card shadow border-left-primary h-100 py-2">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-start mb-3">
-                                            <div class="h5 font-weight-bold text-primary mb-0">Pertanyaan #{{ $questions->firstItem() + $index }}</div>
+                                            <div class="h5 font-weight-bold text-primary mb-0">Pertanyaan
+                                                #{{ $questions->firstItem() + $index }}</div>
                                             <div class="btn-group">
-                                                <button wire:click="openModal({{ $question->id }})" class="btn btn-sm btn-warning btn-circle shadow-sm" title="Edit"><i class="fas fa-edit"></i></button>
-                                                <button onclick="confirm('Hapus soal ini?') || event.stopImmediatePropagation()" wire:click="delete({{ $question->id }})" class="btn btn-sm btn-danger btn-circle shadow-sm ml-1" title="Hapus"><i class="fas fa-trash"></i></button>
+                                                <button wire:click="openModal({{ $question->id }})"
+                                                    class="btn btn-sm btn-warning btn-circle shadow-sm"
+                                                    title="Edit"><i class="fas fa-edit"></i></button>
+                                                <button
+                                                    onclick="confirm('Hapus soal ini?') || event.stopImmediatePropagation()"
+                                                    wire:click="delete({{ $question->id }})"
+                                                    class="btn btn-sm btn-danger btn-circle shadow-sm ml-1"
+                                                    title="Hapus"><i class="fas fa-trash"></i></button>
                                             </div>
                                         </div>
-                                        <p class="text-gray-800 font-weight-bold mb-4" style="font-size: 1.1rem;">{{ $question->soal }}</p>
-                                        
+                                        <p class="text-gray-800 font-weight-bold mb-4" style="font-size: 1.1rem;">
+                                            {{ $question->soal }}</p>
+
                                         <div class="row">
-                                            @foreach(['a', 'b', 'c', 'd'] as $option)
+                                            @foreach (['a', 'b', 'c', 'd'] as $option)
                                                 <div class="col-md-6 mb-3">
-                                                    <div class="p-3 rounded border {{ $question->jawaban_benar === $option ? 'bg-success text-white border-success' : 'bg-light border-gray-200' }}">
-                                                        <span class="badge {{ $question->jawaban_benar === $option ? 'badge-light text-success' : 'badge-dark' }} mr-2">
+                                                    <div
+                                                        class="p-3 rounded border {{ $question->jawaban_benar === $option ? 'bg-success text-white border-success' : 'bg-light border-gray-200' }}">
+                                                        <span
+                                                            class="badge {{ $question->jawaban_benar === $option ? 'badge-light text-success' : 'badge-dark' }} mr-2">
                                                             {{ strtoupper($option) }}
                                                         </span>
                                                         {{ $question->{'pilihan_' . $option} }}
-                                                        @if($question->jawaban_benar === $option)
+                                                        @if ($question->jawaban_benar === $option)
                                                             <i class="fas fa-check-circle float-right mt-1"></i>
                                                         @endif
                                                     </div>
@@ -75,7 +89,8 @@
                             </div>
                         @empty
                             <div class="col-12 text-center py-5">
-                                <img src="{{ asset('assets/admin/img/undraw_no_data.svg') }}" style="width: 250px; opacity: 0.5;">
+                                <img src="{{ asset('assets/admin/img/undraw_no_data.svg') }}"
+                                    style="width: 250px; opacity: 0.5;">
                                 <h4 class="mt-4 text-gray-400 font-italic">Belum ada soal untuk tes ini.</h4>
                             </div>
                         @endforelse
@@ -90,49 +105,69 @@
     </div>
 
     <!-- Modal Simulation -->
-    @if($showingModal)
-    <div class="fixed-top w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.6); z-index: 1050; padding: 2rem;">
-        <div class="card shadow mb-4 animate-fade-in" style="width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto;">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between sticky-top bg-white" style="z-index: 10;">
-                <h6 class="m-0 font-weight-bold text-primary">{{ $editingId ? 'Edit Pertanyaan' : 'Tambah Pertanyaan Baru' }}</h6>
-                <button wire:click="closeModal" class="btn btn-sm btn-link text-gray-400"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="card-body">
-                <form wire:submit="save">
-                    <div class="form-group">
-                        <label class="font-weight-bold small text-uppercase">Isi Pertanyaan</label>
-                        <textarea wire:model="soal" rows="3" class="form-control @error('soal') is-invalid @enderror" placeholder="Ketikkan isi pertanyaan..."></textarea>
-                        @error('soal') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                    </div>
+    @if ($showingModal)
+        <div class="fixed-top w-100 h-100 d-flex align-items-center justify-content-center"
+            style="background: rgba(0,0,0,0.6); z-index: 1050; padding: 2rem;">
+            <div class="card shadow mb-4 animate-fade-in"
+                style="width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto;">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between sticky-top bg-white"
+                    style="z-index: 10;">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                        {{ $editingId ? 'Edit Pertanyaan' : 'Tambah Pertanyaan Baru' }}</h6>
+                    <button wire:click="closeModal" class="btn btn-sm btn-link text-gray-400"><i
+                            class="fas fa-times"></i></button>
+                </div>
+                <div class="card-body">
+                    <form wire:submit="save">
+                        <div class="form-group">
+                            <label class="font-weight-bold small text-uppercase">Isi Pertanyaan</label>
+                            <textarea wire:model="soal" rows="3" class="form-control @error('soal') is-invalid @enderror"
+                                placeholder="Ketikkan isi pertanyaan..."></textarea>
+                            @error('soal')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
-                    <div class="row">
-                        @foreach(['a', 'b', 'c', 'd'] as $option)
-                            <div class="col-md-6">
-                                <div class="card mb-3 border-left-{{ $jawaban_benar === $option ? 'success' : 'secondary' }} bg-light">
-                                    <div class="card-body p-3">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <label class="font-weight-bold small text-uppercase mb-0">Pilihan {{ strtoupper($option) }}</label>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="radio_{{ $option }}" wire:model="jawaban_benar" value="{{ $option }}" class="custom-control-input">
-                                                <label class="custom-control-label small font-weight-bold text-success" for="radio_{{ $option }}">Kunci</label>
+                        <div class="row">
+                            @foreach (['a', 'b', 'c', 'd'] as $option)
+                                <div class="col-md-6">
+                                    <div
+                                        class="card mb-3 border-left-{{ $jawaban_benar === $option ? 'success' : 'secondary' }} bg-light">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <label class="font-weight-bold small text-uppercase mb-0">Pilihan
+                                                    {{ strtoupper($option) }}</label>
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="radio_{{ $option }}"
+                                                        wire:model="jawaban_benar" value="{{ $option }}"
+                                                        class="custom-control-input">
+                                                    <label
+                                                        class="custom-control-label small font-weight-bold text-success"
+                                                        for="radio_{{ $option }}">Kunci</label>
+                                                </div>
                                             </div>
+                                            <input wire:model="pilihan_{{ $option }}" type="text"
+                                                class="form-control form-control-sm @error('pilihan_' . $option) is-invalid @enderror"
+                                                placeholder="Isi pilihan {{ $option }}...">
+                                            @error('pilihan_' . $option)
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
-                                        <input wire:model="pilihan_{{ $option }}" type="text" class="form-control form-control-sm @error('pilihan_' . $option) is-invalid @enderror" placeholder="Isi pilihan {{ $option }}...">
-                                        @error('pilihan_' . $option) <div class="invalid-feedback">{{ $message }}</div> @enderror
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    </div>
+                            @endforeach
+                        </div>
 
-                    <hr>
-                    <div class="text-right">
-                        <button type="button" wire:click="closeModal" class="btn btn-secondary btn-sm px-4">Batal</button>
-                        <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm">Simpan Pertanyaan</button>
-                    </div>
-                </form>
+                        <hr>
+                        <div class="text-right">
+                            <button type="button" wire:click="closeModal"
+                                class="btn btn-secondary btn-sm px-4">Batal</button>
+                            <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm">Simpan
+                                Pertanyaan</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     @endif
 </div>

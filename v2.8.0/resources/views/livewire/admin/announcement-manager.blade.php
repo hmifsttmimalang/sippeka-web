@@ -20,7 +20,8 @@
                         <div class="col-md-6">
                             <div class="card shadow mb-4 border-left-primary">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Pengaturan Waktu Pengumuman Kelulusan</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Pengaturan Waktu Pengumuman Kelulusan
+                                    </h6>
                                 </div>
                                 <div class="card-body">
                                     <p class="mb-4 text-gray-800">
@@ -31,13 +32,19 @@
                                     <form wire:submit.prevent="save">
                                         <div class="form-group">
                                             <label>Set Tanggal Pengumuman</label>
-                                            <input type="date" wire:model="tanggal" class="form-control @error('tanggal') is-invalid @enderror">
-                                            @error('tanggal') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                            <input type="date" wire:model="tanggal"
+                                                class="form-control @error('tanggal') is-invalid @enderror">
+                                            @error('tanggal')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Set Waktu Pengumuman (HH:mm)</label>
-                                            <input type="time" wire:model="waktu" class="form-control @error('waktu') is-invalid @enderror">
-                                            @error('waktu') <span class="invalid-feedback">{{ $message }}</span> @enderror
+                                            <input type="time" wire:model="waktu"
+                                                class="form-control @error('waktu') is-invalid @enderror">
+                                            @error('waktu')
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <hr>
                                         <button type="submit" class="btn btn-primary shadow-sm">
@@ -50,12 +57,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="card shadow mb-4 bg-light">
                                 <div class="card-body">
                                     <h5 class="font-weight-bold">Informasi Penting</h5>
-                                    <p>Pastikan semua data nilai peserta sudah masuk sebelum waktu pengumuman tiba. Pengumuman akan muncul secara otomatis di dashboard masing-masing peserta sesuai jadwal yang diatur.</p>
+                                    <p>Pastikan semua data nilai peserta sudah masuk sebelum waktu pengumuman tiba.
+                                        Pengumuman akan muncul secara otomatis di dashboard masing-masing peserta sesuai
+                                        jadwal yang diatur.</p>
                                     <ul class="text-sm">
                                         <li>Cek Kelola Data Peserta untuk memastikan data sudah tervalidasi.</li>
                                         <li>Cek Evaluasi Peserta untuk input nilai wawancara.</li>

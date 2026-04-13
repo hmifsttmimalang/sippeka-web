@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,10 +50,24 @@
         }
 
         /* Sidebar Toggle Fixes */
-        .sidebar.toggled .sidebar-brand-text, 
+        .sidebar.toggled .sidebar-brand-text,
         .sidebar.toggled .sidebar-heading,
         .sidebar.toggled .nav-item span {
             display: none !important;
+        }
+
+        .sidebar {
+            height: 100vh !important;
+            position: sticky !important;
+            top: 0;
+            overflow-y: auto !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
+            /* Hide scrollbar for Chrome/Safari/Firefox */
         }
 
         .sidebar.toggled {
@@ -62,10 +75,22 @@
             overflow: visible !important;
         }
 
+        .sidebar.toggled .sidebar-brand {
+            justify-content: center !important;
+            width: 6.5rem !important;
+            padding: 0 !important;
+        }
+
+        .sidebar.toggled .sidebar-brand .sidebar-brand-icon {
+            margin: 0 !important;
+        }
+
         .sidebar.toggled .nav-item .nav-link {
             text-align: center;
             width: 100%;
             padding: 0.75rem 0;
+            display: flex !important;
+            justify-content: center !important;
         }
 
         .sidebar.toggled .nav-item .nav-link i {
@@ -84,7 +109,6 @@
         }
     </style>
 </head>
-
 <body id="page-top">
     <div id="loader">
         <div class="spinner-border" role="status">
@@ -475,5 +499,4 @@
             });
         });
     </script>
-
 </html>

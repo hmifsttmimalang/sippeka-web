@@ -12,7 +12,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/user/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -24,6 +26,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/user/css/main.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <!-- Header -->
     <style>
@@ -34,7 +37,7 @@
             gap: 10px;
             /* Beri jarak antara tombol username dan logout */
         }
-    
+
         .logout-btn {
             background: none;
             font-family: 'Inter', sans-serif;
@@ -46,13 +49,13 @@
             margin: 0;
             /* Hilangkan margin tambahan */
         }
-    
+
         /* Pastikan untuk mereset margin dan padding di tombol */
         .auth-buttons button {
             padding: 10px 20px;
             /* Sesuaikan padding sesuai kebutuhan */
         }
-    
+
         /* Tampilan mobile */
         @media (max-width: 1024px) {
             .mobile-only {
@@ -60,13 +63,13 @@
                 text-align: left;
                 /* Rata kiri */
             }
-    
+
             .navmenu ul li {
                 margin-bottom: 15px;
                 /* Jarak antar item */
             }
         }
-    
+
         /* Untuk desktop */
         @media (min-width: 1025px) {
             .auth-buttons {
@@ -74,20 +77,20 @@
                 align-items: center;
                 /* Sejajarkan secara vertikal */
             }
-    
+
             .mobile-only {
                 display: none;
             }
         }
     </style>
-    
+
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
             <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
                 <img src="{{ asset('assets/user/img/silastri/logo_jatim.png') }}" alt="">
                 <h1 class="sitename">SIPPEKA</h1>
             </a>
-    
+
             <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="/">Beranda</a></li>
@@ -117,7 +120,7 @@
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
-    
+
             <div class="auth-buttons d-none d-xl-flex">
                 @auth
                     <a class="btn-getstarted"
@@ -153,7 +156,7 @@
                         <p class="mt-3"><strong>WhatsApp:</strong> <span>08233435222</span></p>
                         <p><strong>Email:</strong> <span>blk.singosari.jatim@gmail.com</span></p>
                     </div>
-    
+
                     <div class="social-links d-flex mt-4">
                         <a href=""><i class="bi bi-twitter-x"></i></a>
                         <a href=""><i class="bi bi-facebook"></i></a>
@@ -169,13 +172,14 @@
                             <label for="newsletter1" class="visually-hidden">Alamat email</label>
                             <input id="newsletter1" type="text" class="form-control" placeholder="Alamat email">
                             <button class="btn btn-primary" type="button">Subscribe</button>
-                          </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="container copyright text-center mt-4">
-            <p>2024 © <span>Copyright</span><strong class="px-1 sitename">SIPPEKA</strong><span>All Rights Reserved</span></p>
+            <p>2024 © <span>Copyright</span><strong class="px-1 sitename">SIPPEKA</strong><span>All Rights
+                    Reserved</span></p>
             <div class="credits">
                 <!-- All the links in the footer should remain intact. -->
                 <!-- You can delete the links only if you've purchased the pro version. -->
@@ -187,7 +191,8 @@
     </footer>
 
     <!-- Scroll Top -->
-    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Preloader -->
     <div id="preloader"></div>
