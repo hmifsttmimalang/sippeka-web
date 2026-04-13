@@ -89,6 +89,11 @@ class Registration extends Model
         return $this->belongsTo(Skill::class, 'keahlian');
     }
 
+    public function keahlian_rel(): BelongsTo
+    {
+        return $this->belongsTo(Skill::class, 'keahlian');
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -26,6 +26,7 @@
 </head>
 <body class="bg_register">
     <!-- Content -->
+    {{ $slot ?? '' }}
     @yield('content')
 
     <!-- Bootstrap core JavaScript-->

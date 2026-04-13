@@ -42,7 +42,7 @@ class Wizard extends Component
             redirect()->route('home'); // Adjust to status page later
         }
 
-        $this->nama = auth()->user()->name;
+        $this->nama = auth()->user()->name ?? '';
     }
 
     public function nextStep(): void
@@ -134,6 +134,6 @@ class Wizard extends Component
     {
         return view('livewire.registration.wizard', [
             'skills' => Skill::all(),
-        ])->layout('components.layouts.student');
+        ])->layout('layouts.pendaftaran_app', ['title' => 'Form Pendaftaran']);
     }
 }

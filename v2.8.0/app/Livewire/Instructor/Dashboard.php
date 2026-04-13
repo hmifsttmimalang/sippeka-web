@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Instructor;
 
 use Livewire\Component;
 use App\Models\Registration;
@@ -42,7 +42,7 @@ class Dashboard extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.dashboard')
-            ->layout('layouts.admin_app', ['header' => 'Dashboard Overview']);
+        return view('livewire.instructor.dashboard')
+            ->layout('layouts.instruktur_app', ['header' => 'Instructor Dashboard']);
     }
 }

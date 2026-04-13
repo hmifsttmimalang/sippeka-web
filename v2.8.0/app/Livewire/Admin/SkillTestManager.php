@@ -107,8 +107,8 @@ class SkillTestManager extends Component
 
         return view('livewire.admin.skill-test-manager', [
             'tests' => $tests,
-            'categories' => QuestionTitle::all(),
-            'skills' => Skill::all(),
-        ])->layout('components.layouts.admin', ['header' => 'Manajemen Tes Keahlian']);
+            'categories_list' => QuestionTitle::all(),
+            'skills_list' => Skill::all(),
+        ])->layout('layouts.admin_app', ['title' => 'Kelola Tes Keahlian']);
     }
 }

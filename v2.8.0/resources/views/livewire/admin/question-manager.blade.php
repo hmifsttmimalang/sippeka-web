@@ -1,146 +1,137 @@
-<div class="space-y-10 pb-12">
-    <!-- Header Area -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div class="space-y-2">
-            <div class="flex items-center space-x-2 text-slate-400 text-sm mb-1 font-medium">
-                <a href="{{ route('admin.skill_test_manager') }}" class="hover:text-primary-600 transition-colors">Tes Keahlian</a>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="text-primary-600">Manajemen Soal</span>
-            </div>
-            <h2 class="text-3xl font-heading font-extrabold text-slate-900 tracking-tight">{{ $test->nama_tes }}</h2>
-            <p class="text-slate-500 font-medium italic">Kelola daftar pertanyaan, pilihan jawaban, dan kunci jawaban untuk tes ini.</p>
-        </div>
-        
-        <div class="flex items-center space-x-3">
-            <button wire:click="openModal" class="px-6 py-3 bg-slate-900 text-white rounded-2xl font-bold text-sm shadow-xl shadow-slate-900/20 hover:bg-primary-600 hover:-translate-y-0.5 transition-all flex items-center space-x-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                <span>Tambah Soal</span>
-            </button>
-        </div>
-    </div>
+<div>
+    <div id="wrapper">
+        @include('livewire.admin.partials.sidebar')
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                @include('livewire.admin.partials.topbar')
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent p-0 mb-4">
+                            <li class="breadcrumb-item"><a href="{{ route('admin.skill_test_manager') }}">Tes Keahlian</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Manajemen Soal</li>
+                        </ol>
+                    </nav>
 
-    @if (session()->has('message'))
-        <div class="p-4 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl flex items-center space-x-2 font-bold text-sm shadow-sm animate-fade-in-down">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span>{{ session('message') }}</span>
-        </div>
-    @endif
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{{ $test->nama_tes }}</h1>
+                        <button wire:click="openModal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-plus fa-sm text-white-50 mr-2"></i> Tambah Soal Baru
+                        </button>
+                    </div>
 
-    <!-- Search Area -->
-    <div class="glass-card p-6 bg-white/40 border-white/60">
-        <div class="relative max-w-lg group">
-            <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 group-focus-within:text-primary-600 transition-colors">
-                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            </span>
-            <input wire:model.live.debounce.300ms="search" type="text" placeholder="Cari isi soal..." 
-                class="block w-full pl-12 pr-4 py-3 bg-white/60 border-slate-200/60 focus:bg-white focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 rounded-2xl text-sm font-medium transition-all shadow-sm">
-        </div>
-    </div>
-
-    <!-- Questions List -->
-    <div class="space-y-6">
-        @forelse($questions as $index => $question)
-        <div class="glass-card p-8 bg-white/60 border-white/60 hover:border-primary-200 transition-all group relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-6 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button wire:click="openModal({{ $question->id }})" class="p-2 text-slate-400 hover:text-primary-600 hover:bg-white rounded-xl shadow-sm border border-slate-100 transition-all">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                </button>
-                <button onclick="confirm('Hapus soal ini?') || event.stopImmediatePropagation()" wire:click="delete({{ $question->id }})" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-white rounded-xl shadow-sm border border-slate-100 transition-all">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                </button>
-            </div>
-
-            <div class="flex items-start space-x-6">
-                <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-black text-sm shadow-lg flex-shrink-0">
-                    {{ $questions->firstItem() + $index }}
-                </div>
-                <div class="flex-1 space-y-6">
-                    <p class="text-base font-bold text-slate-900 leading-relaxed">{{ $question->soal }}</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        @foreach(['a', 'b', 'c', 'd'] as $option)
-                        <div @class([
-                            'p-4 rounded-2xl border transition-all flex items-start space-x-3',
-                            'bg-emerald-50 border-emerald-200 ring-2 ring-emerald-500/10' => $question->jawaban_benar === $option,
-                            'bg-white border-slate-100' => $question->jawaban_benar !== $option
-                        ])>
-                            <span @class([
-                                'w-6 h-6 rounded-lg flex items-center justify-center font-black text-[10px] uppercase flex-shrink-0 shadow-sm',
-                                'bg-emerald-500 text-white' => $question->jawaban_benar === $option,
-                                'bg-slate-100 text-slate-400' => $question->jawaban_benar !== $option
-                            ])>{{ $option }}</span>
-                            <span @class([
-                                'text-sm font-bold',
-                                'text-emerald-900' => $question->jawaban_benar === $option,
-                                'text-slate-600' => $question->jawaban_benar !== $option
-                            ])>{{ $question->{'pilihan_' . $option} }}</span>
+                    @if (session()->has('message'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('message') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                    @endif
+
+                    <!-- Search -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white border-right-0"><i class="fas fa-search text-gray-400"></i></span>
+                                </div>
+                                <input wire:model.live.debounce.300ms="search" type="text" class="form-control border-left-0" placeholder="Cari isi soal...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Questions List -->
+                    <div class="row">
+                        @forelse($questions as $index => $question)
+                            <div class="col-12 mb-4">
+                                <div class="card shadow border-left-primary h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div class="h5 font-weight-bold text-primary mb-0">Pertanyaan #{{ $questions->firstItem() + $index }}</div>
+                                            <div class="btn-group">
+                                                <button wire:click="openModal({{ $question->id }})" class="btn btn-sm btn-warning btn-circle shadow-sm" title="Edit"><i class="fas fa-edit"></i></button>
+                                                <button onclick="confirm('Hapus soal ini?') || event.stopImmediatePropagation()" wire:click="delete({{ $question->id }})" class="btn btn-sm btn-danger btn-circle shadow-sm ml-1" title="Hapus"><i class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-800 font-weight-bold mb-4" style="font-size: 1.1rem;">{{ $question->soal }}</p>
+                                        
+                                        <div class="row">
+                                            @foreach(['a', 'b', 'c', 'd'] as $option)
+                                                <div class="col-md-6 mb-3">
+                                                    <div class="p-3 rounded border {{ $question->jawaban_benar === $option ? 'bg-success text-white border-success' : 'bg-light border-gray-200' }}">
+                                                        <span class="badge {{ $question->jawaban_benar === $option ? 'badge-light text-success' : 'badge-dark' }} mr-2">
+                                                            {{ strtoupper($option) }}
+                                                        </span>
+                                                        {{ $question->{'pilihan_' . $option} }}
+                                                        @if($question->jawaban_benar === $option)
+                                                            <i class="fas fa-check-circle float-right mt-1"></i>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-12 text-center py-5">
+                                <img src="{{ asset('assets/admin/img/undraw_no_data.svg') }}" style="width: 250px; opacity: 0.5;">
+                                <h4 class="mt-4 text-gray-400 font-italic">Belum ada soal untuk tes ini.</h4>
+                            </div>
+                        @endforelse
+                    </div>
+
+                    <div class="mb-5">
+                        {{ $questions->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Simulation -->
+    @if($showingModal)
+    <div class="fixed-top w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.6); z-index: 1050; padding: 2rem;">
+        <div class="card shadow mb-4 animate-fade-in" style="width: 100%; max-width: 800px; max-height: 90vh; overflow-y: auto;">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between sticky-top bg-white" style="z-index: 10;">
+                <h6 class="m-0 font-weight-bold text-primary">{{ $editingId ? 'Edit Pertanyaan' : 'Tambah Pertanyaan Baru' }}</h6>
+                <button wire:click="closeModal" class="btn btn-sm btn-link text-gray-400"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="card-body">
+                <form wire:submit="save">
+                    <div class="form-group">
+                        <label class="font-weight-bold small text-uppercase">Isi Pertanyaan</label>
+                        <textarea wire:model="soal" rows="3" class="form-control @error('soal') is-invalid @enderror" placeholder="Ketikkan isi pertanyaan..."></textarea>
+                        @error('soal') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="row">
+                        @foreach(['a', 'b', 'c', 'd'] as $option)
+                            <div class="col-md-6">
+                                <div class="card mb-3 border-left-{{ $jawaban_benar === $option ? 'success' : 'secondary' }} bg-light">
+                                    <div class="card-body p-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <label class="font-weight-bold small text-uppercase mb-0">Pilihan {{ strtoupper($option) }}</label>
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="radio_{{ $option }}" wire:model="jawaban_benar" value="{{ $option }}" class="custom-control-input">
+                                                <label class="custom-control-label small font-weight-bold text-success" for="radio_{{ $option }}">Kunci</label>
+                                            </div>
+                                        </div>
+                                        <input wire:model="pilihan_{{ $option }}" type="text" class="form-control form-control-sm @error('pilihan_' . $option) is-invalid @enderror" placeholder="Isi pilihan {{ $option }}...">
+                                        @error('pilihan_' . $option) <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
-                </div>
-            </div>
-        </div>
-        @empty
-        <div class="glass-card py-20 bg-white/40 border-white/60 border-dashed text-center">
-            <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg class="w-12 h-12 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <p class="text-slate-400 font-bold italic">Belum ada soal untuk tes ini.</p>
-        </div>
-        @endforelse
 
-        <div class="pt-4">
-            {{ $questions->links() }}
-        </div>
-    </div>
-
-    <!-- Modal Form (Slide-over / Large Modal) -->
-    @if($showingModal)
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-        <div class="w-full max-w-4xl bg-white rounded-[40px] shadow-2xl border border-white/60 overflow-hidden transform animate-scale-up">
-            <div class="px-12 py-8 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between">
-                <div>
-                    <h3 class="text-2xl font-heading font-black text-slate-900">{{ $editingId ? 'Edit Pertanyaan' : 'Tambah Pertanyaan Baru' }}</h3>
-                    <p class="text-xs text-slate-400 font-bold uppercase tracking-[0.2em] mt-1">Gunakan editor di bawah untuk menyusun soal</p>
-                </div>
-                <button wire:click="closeModal" class="p-3 text-slate-400 hover:text-slate-600 transition-colors bg-white rounded-2xl shadow-sm border border-slate-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            
-            <form wire:submit="save" class="p-12 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                <div class="space-y-4">
-                    <label class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Isi Pertanyaan (Soal)</label>
-                    <textarea wire:model="soal" rows="4" placeholder="Ketikkan isi pertanyaan di sini..." 
-                        class="block w-full px-6 py-5 bg-slate-50 border-transparent focus:bg-white focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 rounded-3xl text-base font-bold text-slate-900 transition-all"></textarea>
-                    @error('soal') <span class="text-rose-600 text-[10px] font-bold block ml-2">{{ $message }}</span> @enderror
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    @foreach(['a', 'b', 'c', 'd'] as $option)
-                    <div class="space-y-3 p-6 rounded-[32px] bg-slate-50/50 border border-slate-100 transition-all focus-within:bg-white focus-within:ring-4 focus-within:ring-primary-500/5 focus-within:border-primary-200">
-                        <div class="flex items-center justify-between">
-                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pilihan {{ strtoupper($option) }}</label>
-                            <label class="flex items-center space-x-2 cursor-pointer group">
-                                <span class="text-[10px] font-black text-slate-400 group-hover:text-emerald-600 transition-colors">Kunci</span>
-                                <input type="radio" wire:model="jawaban_benar" value="{{ $option }}" class="w-5 h-5 border-slate-200 text-emerald-500 focus:ring-emerald-500 transition-all">
-                            </label>
-                        </div>
-                        <input wire:model="pilihan_{{ $option }}" type="text" placeholder="Isi pilihan {{ $option }}..." 
-                            class="block w-full px-5 py-3 bg-white border border-slate-100 focus:border-primary-500 rounded-2xl text-sm font-bold text-slate-900 transition-all">
-                        @error('pilihan_' . $option) <span class="text-rose-600 text-[10px] font-bold block ml-2">{{ $message }}</span> @enderror
+                    <hr>
+                    <div class="text-right">
+                        <button type="button" wire:click="closeModal" class="btn btn-secondary btn-sm px-4">Batal</button>
+                        <button type="submit" class="btn btn-primary btn-sm px-4 shadow-sm">Simpan Pertanyaan</button>
                     </div>
-                    @endforeach
-                </div>
-
-                <div class="pt-8 flex items-center justify-end space-x-4 border-t border-slate-100">
-                    <button type="button" wire:click="closeModal" class="px-8 py-4 text-slate-500 font-bold text-sm hover:bg-slate-50 rounded-2xl transition-all">Batalkan</button>
-                    <button type="submit" class="px-10 py-4 bg-slate-900 text-white rounded-2xl font-bold text-sm shadow-2xl shadow-slate-900/30 hover:bg-primary-600 hover:shadow-primary-600/40 transition-all flex items-center space-x-3">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span>Simpan Pertanyaan</span>
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
     @endif

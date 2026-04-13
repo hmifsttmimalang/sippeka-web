@@ -113,6 +113,6 @@ class QuestionManager extends Component
 
         return view('livewire.admin.question-manager', [
             'questions' => $questions
-        ])->layout('components.layouts.admin', ['header' => 'Manajemen Soal: ' . $this->test->nama_tes]);
+        ])->layout('layouts.admin_app', ['title' => 'Manajemen Soal: ' . $this->test->nama_tes]);
     }
 }

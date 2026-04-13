@@ -2,12 +2,12 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\QuestionTitle;
+use App\Models\Skill;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
 
-class QuestionTitleManager extends Component
+class SkillManager extends Component
 {
     use WithPagination;
 
@@ -32,8 +32,8 @@ class QuestionTitleManager extends Component
         $this->showingModal = true;
 
         if ($id) {
-            $category = QuestionTitle::findOrFail($id);
-            $this->name = $category->nama;
+            $skill = Skill::findOrFail($id);
+            $this->name = $skill->nama;
         } else {
             $this->name = '';
         }
@@ -50,12 +50,12 @@ class QuestionTitleManager extends Component
         $this->validate();
 
         if ($this->editingId) {
-            $category = QuestionTitle::findOrFail($this->editingId);
-            $category->update(['nama' => $this->name]);
-            session()->flash('message', 'Mata soal berhasil diperbarui.');
+            $skill = Skill::findOrFail($this->editingId);
+            $skill->update(['nama' => $this->name]);
+            session()->flash('message', 'Kelas keahlian berhasil diperbarui.');
         } else {
-            QuestionTitle::create(['nama' => $this->name]);
-            session()->flash('message', 'Mata soal berhasil ditambahkan.');
+            Skill::create(['nama' => $this->name]);
+            session()->flash('message', 'Kelas keahlian berhasil ditambahkan.');
         }
 
         $this->closeModal();
@@ -63,20 +63,21 @@ class QuestionTitleManager extends Component
 
     public function delete(int $id): void
     {
-        $category = QuestionTitle::findOrFail($id);
-        $category->delete();
-        session()->flash('message', 'Mata soal berhasil dihapus.');
+        $skill = Skill::findOrFail($id);
+        $skill->delete();
+        session()->flash('message', 'Kelas keahlian berhasil dihapus.');
     }
 
     public function render(): View
     {
-        $categories = QuestionTitle::query()
+        $skills = Skill::query()
             ->when($this->search, fn($q) => $q->where('nama', 'like', '%' . $this->search . '%'))
+            ->withCount('registrations')
             ->latest()
             ->paginate(10);
 
-        return view('livewire.admin.question-title-manager', [
-            'categories' => $categories
-        ])->layout('layouts.admin_app', ['title' => 'Manajemen Mata Soal']);
+        return view('livewire.admin.skill-manager', [
+            'skills' => $skills,
+        ])->layout('layouts.admin_app', ['title' => 'Kelas Keahlian']);
     }
 }

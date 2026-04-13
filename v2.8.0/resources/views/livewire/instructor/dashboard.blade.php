@@ -1,26 +1,20 @@
 <div>
-    <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
-        @include('livewire.admin.partials.sidebar')
+        @include('livewire.instructor.partials.sidebar')
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
-                @include('livewire.admin.partials.topbar')
+                @include('livewire.instructor.partials.topbar')
 
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Dashboard Instruktur</h1>
+                    
                     <div class="row">
-
                         <!-- Card Pendaftar Masuk -->
                         <div class="col-md-6">
                             <div class="card border-left-info shadow h-100 py-2">
@@ -88,14 +82,14 @@
 
                     <hr class="mt-3">
 
-                    <h2 class="text-gray-800">Data Pendaftar Baru</h2>
+                    <h2 class="h4 text-gray-800 font-weight-bold">Data Pendaftar Baru (24 Jam Terakhir)</h2>
                     <div class="row">
                         <div class="col-md-12">
                             @if ($listPendaftarBaru->isNotEmpty())
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover mt-3">
                                     <thead class="thead-dark">
-                                        <tr style="text-align: center; vertical-align: middle;">
+                                        <tr class="text-center">
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Keahlian</th>
@@ -104,19 +98,21 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($listPendaftarBaru as $index => $item)
-                                            <tr style="text-align: center; vertical-align: middle;">
+                                            <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td style="text-align: left;">{{ $item->nama }}</td>
+                                                <td class="text-left font-weight-bold">{{ $item->nama }}</td>
                                                 <td>{{ $item->skill->nama ?? 'Umum' }}</td>
-                                                <td>{{ $item->created_at->translatedFormat('d F Y H.i') }}
-                                                </td>
+                                                <td>{{ $item->created_at->translatedFormat('d F Y H.i') }}</td>
                                             </tr>
-                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                             @else
-                                <h4 class="text-center mt-4 text-gray-400">Tidak ada pendaftar baru dalam 24 jam terakhir</h4>
+                                <div class="text-center mt-5">
+                                    <img src="{{ asset('assets/admin/img/undraw_no_data.svg') }}" style="width: 200px; opacity: 0.5;">
+                                    <h4 class="mt-4 text-gray-400">Belum ada pendaftar baru</h4>
+                                </div>
                             @endif
                         </div>
                     </div>

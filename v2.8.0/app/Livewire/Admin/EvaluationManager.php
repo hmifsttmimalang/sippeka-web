@@ -67,9 +67,15 @@ class EvaluationManager extends Component
             ->latest()
             ->paginate(10);
 
+        $layout = match(auth()->user()->role) {
+            'admin' => 'layouts.admin_app',
+            'instruktur' => 'layouts.instruktur_app',
+            default => 'layouts.admin_app'
+        };
+
         return view('livewire.admin.evaluation-manager', [
             'registrations' => $registrations,
             'skills' => Skill::all()
-        ])->layout('components.layouts.admin', ['header' => 'Evaluasi & Penilaian Akhir']);
+        ])->layout($layout, ['title' => 'Evaluasi Peserta']);
     }
 }

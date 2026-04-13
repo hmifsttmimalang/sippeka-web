@@ -7,6 +7,11 @@ use App\Livewire\Admin\SkillTestManager;
 use App\Livewire\Admin\QuestionManager;
 use App\Livewire\Admin\UserManager;
 use App\Livewire\Admin\EvaluationManager;
+use App\Livewire\Admin\PesertaList;
+use App\Livewire\Admin\JurusanManager;
+use App\Livewire\Admin\SkillManager;
+use App\Livewire\Admin\JadwalTesManager;
+use App\Livewire\Admin\AnnouncementManager;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\AuthController;
 use App\Livewire\Registration\Wizard;
@@ -21,7 +26,7 @@ Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('
 Route::post('/register', [AuthController::class, 'register'])->name('auth.register.store');
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login.store');
-Route::post('/logout-action', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout-action', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Add standard 'login' and 'register' routes for Laravel compatibility
 Route::get('/login-redirect', function() {
@@ -37,20 +42,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', Dashboard::class)->name('admin.dashboard');
     Route::get('/admin/pendaftar', RegistrationList::class)->name('admin.registration_list');
     Route::get('/admin/mata-soal', QuestionTitleManager::class)->name('admin.question_title_manager');
+    Route::get('/admin/kelas-keahlian', SkillManager::class)->name('admin.kelas_keahlian');
     Route::get('/admin/tes-keahlian', SkillTestManager::class)->name('admin.skill_test_manager');
     Route::get('/admin/tes-keahlian/{testId}/soal', QuestionManager::class)->name('admin.question_manager');
     Route::get('/admin/users', UserManager::class)->name('admin.user_manager');
     Route::get('/admin/evaluasi', EvaluationManager::class)->name('admin.evaluation_manager');
+    Route::get('/admin/peserta', PesertaList::class)->name('admin.peserta');
+    Route::get('/admin/jurusan', JurusanManager::class)->name('admin.info_jurusan');
+    Route::get('/admin/jadwal', JadwalTesManager::class)->name('admin.jadwal_tes');
+    Route::get('/admin/pengumuman', AnnouncementManager::class)->name('admin.pengumuman');
 
     // Reports
     Route::get('/admin/reports/registration/{id}', [ReportController::class, 'downloadRegistrationPdf'])->name('admin.reports.registration');
 
     // Instructor / Instruktur Routes
-    Route::get('/instruktur', EvaluationManager::class)->name('instruktur.dashboard');
+    Route::get('/instruktur', \App\Livewire\Instructor\Dashboard::class)->name('instruktur.dashboard');
     Route::get('/instruktur/kelola', EvaluationManager::class)->name('instruktur.kelola_data');
 
     // Student & Registration Routes
     Route::get('/pendaftaran', Wizard::class)->name('pendaftaran.form');
-    Route::get('/dashboard', StudentDashboard::class)->name('student.dashboard');
+    Route::get('/dashboard/{username?}', StudentDashboard::class)->name('user.dashboard');
     Route::get('/ujian/{sessionId}', Examination::class)->name('student.examination');
 });

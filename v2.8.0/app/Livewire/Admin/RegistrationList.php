@@ -48,6 +48,6 @@ class RegistrationList extends Component
         return view('livewire.admin.registration-list', [
             'registrants' => $registrants,
             'skills' => Skill::all(),
-        ])->layout('components.layouts.admin', ['header' => 'Data Peserta Pendaftar']);
+        ])->layout('layouts.admin_app', ['title' => 'Data Peserta Pendaftar']);
     }
 }

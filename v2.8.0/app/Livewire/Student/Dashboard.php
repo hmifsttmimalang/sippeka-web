@@ -41,6 +41,6 @@ class Dashboard extends Component
 
         return view('livewire.student.dashboard', [
             'activeSessions' => $activeSessions
-        ])->layout('components.layouts.student', ['title' => 'Student Dashboard']);
+        ])->layout('layouts.user_app', ['title' => 'Student Dashboard']);
     }
 }
