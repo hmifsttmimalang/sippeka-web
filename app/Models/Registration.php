@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Models\Skill;
+use App\Models\User;
+use App\Models\TestAttempt;
 use Exception;
+use Carbon\Carbon;
 
 class Registration extends Model
 {
     use HasFactory;
 
     protected $table = 'registrations';
+
     protected $fillable = [
         'user_id',
         'nama',
@@ -26,54 +33,86 @@ class Registration extends Model
         'foto_ijazah',
         'foto_bg_biru',
         'nilai_keahlian',
-        'nilai_wawancara'
+        'nilai_wawancara',
+        'verification_status',
+        'verification_notes'
     ];
 
-    public function keahlian()
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+        'nilai_keahlian' => 'float',
+        'nilai_wawancara' => 'float',
+    ];
+
+    /**
+     * Get the average score.
+     */
+    protected function averageScore(): Attribute
     {
-        return $this->belongsTo(Skill::class);
+        return Attribute::make(
+            get: fn() => ($this->nilai_keahlian !== null && $this->nilai_wawancara !== null)
+                ? ($this->nilai_keahlian + $this->nilai_wawancara) / 2
+                : null,
+        );
     }
 
-    public function validateTanggalLahir($tanggal_lahir)
+    /**
+     * Get the status based on average score.
+     */
+    protected function status(): Attribute
     {
-        $dateOfBirth = new \DateTime($tanggal_lahir);
-        $today = new \DateTime();
-        $age = $today->diff($dateOfBirth)->y;
+        return Attribute::make(
+            get: function () {
+                if ($this->nilai_keahlian === null) {
+                    return 'Belum Mengikuti Tes';
+                }
+
+                if ($this->nilai_wawancara === null) {
+                    return 'Sedang Diproses';
+                }
+
+                return $this->average_score >= 70 ? 'Lulus' : 'Gagal';
+            },
+        );
+    }
+
+    /**
+     * Get the formatted birth date.
+     */
+    protected function formattedBirthDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->tanggal_lahir ? $this->tanggal_lahir->translatedFormat('d F Y') : '-',
+        );
+    }
+
+    public function skill(): BelongsTo
+    {
+        return $this->belongsTo(Skill::class, 'keahlian');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function testAttempts(): HasMany
+    {
+        return $this->hasMany(TestAttempt::class);
+    }
+
+    public function validateAge(): bool
+    {
+        if (!$this->tanggal_lahir) {
+            return false;
+        }
+
+        $age = $this->tanggal_lahir->age;
 
         if ($age < 15 || $age >= 40) {
             throw new Exception('Anda harus berusia minimal 15 tahun dan maksimal 40 tahun untuk mendaftar!');
         }
 
         return true;
-    }
-
-    public function saveTesKeahlian($user_id, $nilai_keahlian)
-    {
-        $this->where('user_id', $user_id)->update(['nilai_keahlian' => $nilai_keahlian]);
-    }
-
-    public function getNilaiTesKeahlian($user_id)
-    {
-        return $this->where('user_id', $user_id)->value('nilai_keahlian');
-    }
-
-    public function saveTesWawancara($user_id, $nilai_wawancara)
-    {
-        $this->where('user_id', $user_id)->update(['nilai_wawancara' => $nilai_wawancara]);
-    }
-
-    public function deleteRegistration($id)
-    {
-        $this->find($id)->delete();
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function testAttempts()
-    {
-        return $this->hasMany(TestAttempt::class);
     }
 }

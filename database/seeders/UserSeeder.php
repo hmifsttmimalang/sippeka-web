@@ -31,5 +31,13 @@ class UserSeeder extends Seeder
             'role' => 'instruktur',
             'status_register' => 'tidak terdaftar',
         ]);
+
+        User::create([
+            'username' => 'peserta',
+            'email' => 'peserta@sippeka.org',
+            'password' => Hash::make('peserta123'),
+            'role' => 'user',
+            'status_register' => 'tidak terdaftar',
+        ]);
     }
 }

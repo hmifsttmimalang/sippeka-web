@@ -14,7 +14,7 @@ class Skill extends Model
 
     public function registrations()
     {
-        return $this->hasMany(Registration::class);
+        return $this->hasMany(Registration::class, 'keahlian');
     }
 
     public function skillTests()
