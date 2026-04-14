@@ -25,7 +25,7 @@ class SelectionAnnouncement extends Component
 
         $registrations = Registration::query()
             ->with('skill')
-            ->orderByRaw('COALESCE((skill_score + interview_score) / 2, 0) DESC')
+            ->orderByRaw('COALESCE((skill_test_score + interview_score) / 2, 0) DESC')
             ->paginate(15);
 
         return view('livewire.public.selection-announcement', [

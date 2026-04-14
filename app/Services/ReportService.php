@@ -26,7 +26,7 @@ class ReportService
     public function generateParticipantsPdf(): DomPDF
     {
         $registrations = Registration::with('skill')
-            ->whereNotNull('skill_score')
+            ->whereNotNull('skill_test_score')
             ->get()
             ->sortByDesc('average_score');
 

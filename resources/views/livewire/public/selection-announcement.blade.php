@@ -1,11 +1,14 @@
 <main class="main">
     <style>
-        .hidden { display: none; }
+        .hidden {
+            display: none;
+        }
+
         .countdown-box {
             background: #fff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             margin-top: -50px;
             position: relative;
             z-index: 10;
@@ -20,8 +23,10 @@
         <div class="container text-center">
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <h1 data-aos="fade-up">Pengumuman Hasil Seleksi</h1>
-                <p data-aos="fade-up" data-aos-delay="100">Informasi mencakup nilai tes ujian, tes wawancara, serta status seleksi.</p>
-                <img src="{{ asset('assets/user/img/pengumuman_icon.png') }}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+                <p data-aos="fade-up" data-aos-delay="100">Informasi mencakup nilai tes ujian, tes wawancara, serta
+                    status seleksi.</p>
+                <img src="{{ asset('assets/user/img/pengumuman_icon.png') }}" class="img-fluid hero-img" alt=""
+                    data-aos="zoom-out" data-aos-delay="300">
             </div>
         </div>
     </section>
@@ -40,8 +45,10 @@
                             <!-- JS will inject compartmentalized timer here -->
                             <div class="h3 fw-bold text-primary">Memuat Hitung Mundur...</div>
                         </div>
-                        <p class="mt-4 small text-muted">Hasil akan diumumkan secara serentak pada: <br> 
-                           <span class="fw-bold">{{ \Carbon\Carbon::parse($announcementTime)->translatedFormat('d F Y, H:i') }} WIB</span>
+                        <p class="mt-4 small text-muted">Hasil akan diumumkan secara serentak pada: <br>
+                            <span
+                                class="fw-bold">{{ \Carbon\Carbon::parse($announcementTime)->translatedFormat('d F Y, H:i') }}
+                                WIB</span>
                         </p>
                     </div>
                 @endif
@@ -63,25 +70,30 @@
                             <tbody>
                                 @foreach ($registrations as $index => $registration)
                                     @php
-                                        $averageScore = ($registration->skill_score !== null && $registration->interview_score !== null)
-                                            ? ($registration->skill_score + $registration->interview_score) / 2
-                                            : null;
+                                        $averageScore =
+                                            $registration->skill_test_score !== null &&
+                                            $registration->interview_score !== null
+                                                ? ($registration->skill_test_score + $registration->interview_score) / 2
+                                                : null;
                                     @endphp
                                     <tr class="text-center">
                                         <td>{{ $registrations->firstItem() + $index }}</td>
                                         <td class="text-start fw-bold">{{ $registration->name }}</td>
                                         <td class="text-start">{{ $registration->skill->name ?? '-' }}</td>
-                                        <td>{{ $registration->skill_score !== null ? number_format($registration->skill_score, 1) : '-' }}</td>
-                                        <td>{{ $registration->interview_score !== null ? number_format($registration->interview_score, 1) : '-' }}</td>
-                                        <td class="fw-bold">{{ $averageScore !== null ? number_format($averageScore, 1) : '-' }}</td>
+                                        <td>{{ $registration->skill_test_score !== null ? number_format($registration->skill_test_score, 1) : '-' }}
+                                        </td>
+                                        <td>{{ $registration->interview_score !== null ? number_format($registration->interview_score, 1) : '-' }}
+                                        </td>
+                                        <td class="fw-bold">
+                                            {{ $averageScore !== null ? number_format($averageScore, 1) : '-' }}</td>
                                         <td class="text-center">
                                             @php
                                                 $statusLabel = $registration->selection_status;
-                                                $badgeClass = match($statusLabel) {
+                                                $badgeClass = match ($statusLabel) {
                                                     'Lulus' => 'bg-success',
                                                     'Gagal' => 'bg-danger',
                                                     'Sedang Diproses' => 'bg-warning',
-                                                    default => 'bg-secondary'
+                                                    default => 'bg-secondary',
                                                 };
                                             @endphp
                                             <span class="badge {{ $badgeClass }} px-3 py-1">
@@ -107,64 +119,74 @@
     </section>
 
     @if ($announcementTime)
-    <style>
-        .timer-unit {
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            min-width: 90px;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-            margin: 0 8px;
-        }
-        .timer-val {
-            font-size: 2.5rem;
-            font-weight: 800;
-            display: block;
-            line-height: 1;
-        }
-        .timer-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-            margin-top: 5px;
-        }
-        @media (max-width: 576px) {
-            .timer-unit { min-width: 70px; padding: 10px; margin: 0 4px; }
-            .timer-val { font-size: 1.5rem; }
-        }
-    </style>
-    <script>
-        document.addEventListener('livewire:navigated', () => initCountdown());
-        document.addEventListener('DOMContentLoaded', () => initCountdown());
+        <style>
+            .timer-unit {
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                padding: 15px;
+                border-radius: 12px;
+                min-width: 90px;
+                box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+                margin: 0 8px;
+            }
 
-        function initCountdown() {
-            let targetStr = "{{ \Carbon\Carbon::parse($announcementTime)->toIso8601String() }}";
-            let targetDate = new Date(targetStr).getTime();
-            if (isNaN(targetDate)) return;
+            .timer-val {
+                font-size: 2.5rem;
+                font-weight: 800;
+                display: block;
+                line-height: 1;
+            }
 
-            let countdownBox = document.getElementById('countdownBox');
-            let countdownInner = document.getElementById('countdownInner');
-            let resultArea = document.getElementById('resultArea');
+            .timer-label {
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                opacity: 0.8;
+                margin-top: 5px;
+            }
 
-            let timer = setInterval(function() {
-                let now = new Date().getTime();
-                let diff = targetDate - now;
-
-                if (diff < 0) {
-                    clearInterval(timer);
-                    if(countdownBox) countdownBox.remove();
-                    if(resultArea) resultArea.classList.remove('hidden');
-                    return;
+            @media (max-width: 576px) {
+                .timer-unit {
+                    min-width: 70px;
+                    padding: 10px;
+                    margin: 0 4px;
                 }
 
-                let d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                let s = Math.floor((diff % (1000 * 60)) / 1000);
+                .timer-val {
+                    font-size: 1.5rem;
+                }
+            }
+        </style>
+        <script>
+            document.addEventListener('livewire:navigated', () => initCountdown());
+            document.addEventListener('DOMContentLoaded', () => initCountdown());
 
-                countdownInner.innerHTML = `
+            function initCountdown() {
+                let targetStr = "{{ \Carbon\Carbon::parse($announcementTime)->toIso8601String() }}";
+                let targetDate = new Date(targetStr).getTime();
+                if (isNaN(targetDate)) return;
+
+                let countdownBox = document.getElementById('countdownBox');
+                let countdownInner = document.getElementById('countdownInner');
+                let resultArea = document.getElementById('resultArea');
+
+                let timer = setInterval(function() {
+                    let now = new Date().getTime();
+                    let diff = targetDate - now;
+
+                    if (diff < 0) {
+                        clearInterval(timer);
+                        if (countdownBox) countdownBox.remove();
+                        if (resultArea) resultArea.classList.remove('hidden');
+                        return;
+                    }
+
+                    let d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    let h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    let s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    countdownInner.innerHTML = `
                     <div class="d-flex justify-content-center flex-wrap gap-2">
                         <div class="timer-unit"><span class="timer-val">${d}</span><div class="timer-label">Hari</div></div>
                         <div class="timer-unit"><span class="timer-val">${h}</span><div class="timer-label">Jam</div></div>
@@ -172,8 +194,8 @@
                         <div class="timer-unit"><span class="timer-val">${s}</span><div class="timer-label">Detik</div></div>
                     </div>
                 `;
-            }, 1000);
-        }
-    </script>
+                }, 1000);
+            }
+        </script>
     @endif
 </main>

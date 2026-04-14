@@ -28,7 +28,7 @@ class Registration extends Model
         'identity_document_path',
         'certificate_document_path',
         'formal_photo_path',
-        'skill_score',
+        'skill_test_score',
         'interview_score',
         'verification_status',
         'verification_notes',
@@ -36,7 +36,7 @@ class Registration extends Model
 
     protected $casts = [
         'date_of_birth' => 'date',
-        'skill_score' => 'float',
+        'skill_test_score' => 'float',
         'interview_score' => 'float',
     ];
 
@@ -46,9 +46,9 @@ class Registration extends Model
     protected function averageScore(): Attribute
     {
         return Attribute::make(
-            get: fn () => ($this->skill_score !== null && $this->interview_score !== null)
-                ? ($this->skill_score + $this->interview_score) / 2
-                : null,
+            get: fn() => ($this->skill_test_score !== null && $this->interview_score !== null)
+            ? ($this->skill_test_score + $this->interview_score) / 2
+            : null,
         );
     }
 
@@ -59,7 +59,7 @@ class Registration extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->skill_score === null) {
+                if ($this->skill_test_score === null) {
                     return 'Not Yet Tested';
                 }
 
@@ -78,7 +78,7 @@ class Registration extends Model
     protected function formattedBirthDate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->date_of_birth ? $this->date_of_birth->translatedFormat('d F Y') : '-',
+            get: fn() => $this->date_of_birth ? $this->date_of_birth->translatedFormat('d F Y') : '-',
         );
     }
 
@@ -99,7 +99,7 @@ class Registration extends Model
 
     public function validateAge(): bool
     {
-        if (! $this->date_of_birth) {
+        if (!$this->date_of_birth) {
             return false;
         }
 

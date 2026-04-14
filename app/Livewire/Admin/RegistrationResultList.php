@@ -28,9 +28,9 @@ class RegistrationResultList extends Component
     public function render(): View
     {
         $registrations = Registration::with('skill')
-            ->select('registrations.*', DB::raw('((registrations.skill_score + registrations.interview_score) / 2) as average_score'))
+            ->select('registrations.*', DB::raw('((registrations.skill_test_score + registrations.interview_score) / 2) as average_score'))
             ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%'.$this->search.'%');
+                $query->where('name', 'like', '%' . $this->search . '%');
             })
             ->orderByDesc('average_score')
             ->paginate(10);

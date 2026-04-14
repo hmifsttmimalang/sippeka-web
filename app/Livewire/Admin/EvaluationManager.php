@@ -40,7 +40,7 @@ class EvaluationManager extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        if (! $user->isInstructor()) {
+        if (!$user->isInstructor()) {
             session()->flash('error', 'Hanya instruktur yang diperbolehkan mengisi nilai wawancara.');
 
             return;
@@ -56,7 +56,7 @@ class EvaluationManager extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        if (! $user->isInstructor()) {
+        if (!$user->isInstructor()) {
             return;
         }
 
@@ -84,9 +84,9 @@ class EvaluationManager extends Component
     {
         $registrations = Registration::query()
             ->with(['skill', 'user'])
-            ->whereNotNull('skill_score') // Only list those who have taken the test
-            ->when($this->search, fn ($q) => $q->where('name', 'like', '%'.$this->search.'%'))
-            ->when($this->filterSkill, fn ($q) => $q->where('skill_id', $this->filterSkill))
+            ->whereNotNull('skill_test_score') // Only list those who have taken the test
+            ->when($this->search, fn($q) => $q->where('name', 'like', '%' . $this->search . '%'))
+            ->when($this->filterSkill, fn($q) => $q->where('skill_id', $this->filterSkill))
             ->latest()
             ->paginate(10);
 

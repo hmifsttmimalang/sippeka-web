@@ -58,7 +58,7 @@ class SelectionTest extends Component
         $endAt = Carbon::parse($this->session->end_time, 'Asia/Jakarta');
 
         if ($now->lt($startAt)) {
-            redirect()->route('user.dashboard')->with('error', 'Sesi seleksi ini belum dimulai. Silakan kembali pada jam '.$startAt->format('H:i').'.');
+            redirect()->route('user.dashboard')->with('error', 'Sesi seleksi ini belum dimulai. Silakan kembali pada jam ' . $startAt->format('H:i') . '.');
         }
 
         if ($now->gt($endAt)) {
@@ -74,7 +74,7 @@ class SelectionTest extends Component
             redirect()->route('user.dashboard')->with('error', 'Anda sudah menyelesaikan ujian seleksi ini dan tidak dapat mengulangnya.');
         }
 
-        if ($this->registration->skill_score !== null) {
+        if ($this->registration->skill_test_score !== null) {
             redirect()->route('user.dashboard')->with('error', 'Anda sudah memiliki nilai untuk tes seleksi ini.');
         }
     }
@@ -130,7 +130,7 @@ class SelectionTest extends Component
         });
 
         foreach ($this->questions as $q) {
-            if (! isset($this->userAnswers[$q->id])) {
+            if (!isset($this->userAnswers[$q->id])) {
                 $this->userAnswers[$q->id] = null;
             }
         }
@@ -186,7 +186,7 @@ class SelectionTest extends Component
         $this->scorePercentage = $result['score'];
 
         // Update Registration Score as this is Seleksi
-        $this->registration->update(['skill_score' => $this->scorePercentage]);
+        $this->registration->update(['skill_test_score' => $this->scorePercentage]);
 
         $this->isFinished = true;
 
@@ -215,7 +215,7 @@ class SelectionTest extends Component
         return view('livewire.student.selection-test', [
             'answeredCount' => $answeredCount,
             'progress' => $progress,
-            'title' => 'Selection: '.$this->session->test->name,
+            'title' => 'Selection: ' . $this->session->test->name,
         ]);
     }
 }

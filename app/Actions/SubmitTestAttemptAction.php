@@ -34,7 +34,7 @@ class SubmitTestAttemptAction
         ]);
 
         // Update Registration Score
-        // Note: For 'Selection' type, we update skill_score. For 'Simulasi', we don't necessarily update it.
+        // Note: For 'Selection' type, we update skill_test_score. For 'Simulasi', we don't necessarily update it.
         // The component will decide based on session type.
 
         return [

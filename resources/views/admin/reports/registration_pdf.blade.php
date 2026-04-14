@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Detail Pendaftar</title>
@@ -115,6 +116,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="header-container">
         <img src="{{ public_path('assets/admin/img/logo_jatim.png') }}" class="img-left" alt="Logo Jatim">
@@ -171,7 +173,7 @@
     <table>
         <tr>
             <td class="label">Nilai Tes Keahlian</td>
-            <td class="value">: {{ number_format($registration->skill_score, 1) }}</td>
+            <td class="value">: {{ number_format($registration->skill_test_score, 1) }}</td>
         </tr>
         <tr>
             <td class="label">Nilai Wawancara</td>
@@ -212,7 +214,9 @@
 
     <div style="text-align: center; margin-top: 20px;">
         <p style="font-weight: bold; margin-bottom: 10px;">1. FOTO IDENTITAS (KTP/KK)</p>
-        @if ($registration->identity_document_path && file_exists(storage_path('app/public/' . $registration->identity_document_path)))
+        @if (
+            $registration->identity_document_path &&
+                file_exists(storage_path('app/public/' . $registration->identity_document_path)))
             <img src="{{ public_path('storage/' . $registration->identity_document_path) }}"
                 style="max-width: 450px; max-height: 350px; border: 1px solid #ddd; padding: 5px;">
         @else
@@ -223,7 +227,9 @@
 
     <div style="text-align: center; margin-top: 40px;">
         <p style="font-weight: bold; margin-bottom: 10px;">2. IJAZAH TERAKHIR</p>
-        @if ($registration->certificate_document_path && file_exists(storage_path('app/public/' . $registration->certificate_document_path)))
+        @if (
+            $registration->certificate_document_path &&
+                file_exists(storage_path('app/public/' . $registration->certificate_document_path)))
             <img src="{{ public_path('storage/' . $registration->certificate_document_path) }}"
                 style="max-width: 450px; max-height: 350px; border: 1px solid #ddd; padding: 5px;">
         @else
@@ -232,4 +238,5 @@
         @endif
     </div>
 </body>
+
 </html>

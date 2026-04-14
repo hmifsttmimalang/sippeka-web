@@ -30,7 +30,7 @@ class Dashboard extends Component
         $this->registration = Registration::where('user_id', $this->user->id)->with('skill')->first();
 
         // If not registered, redirect to wizard
-        if (! $this->registration) {
+        if (!$this->registration) {
             redirect()->route('registration.form');
         }
     }
@@ -71,9 +71,9 @@ class Dashboard extends Component
             return $session;
         });
 
-        $activeSessions = $processedSessions->filter(fn ($s) => $s->student_status === 'active' || $s->student_status === 'finished');
-        $upcomingSessions = $processedSessions->filter(fn ($s) => $s->student_status === 'upcoming')->take(5);
-        $lateSessions = $processedSessions->filter(fn ($s) => $s->student_status === 'late')->take(3);
+        $activeSessions = $processedSessions->filter(fn($s) => $s->student_status === 'active' || $s->student_status === 'finished');
+        $upcomingSessions = $processedSessions->filter(fn($s) => $s->student_status === 'upcoming')->take(5);
+        $lateSessions = $processedSessions->filter(fn($s) => $s->student_status === 'late')->take(3);
 
         // Announcement Logic
         $announcement = Announcement::latest()->first();
@@ -90,12 +90,12 @@ class Dashboard extends Component
         }
 
         // Selection Status Logic
-        $skillScore = $this->registration->skill_score;
+        $skillScore = $this->registration->skill_test_score;
         $interviewScore = $this->registration->interview_score;
         $averageScore = null;
         $selectionStatus = 'Processing';
 
-        if (! is_null($skillScore) && ! is_null($interviewScore)) {
+        if (!is_null($skillScore) && !is_null($interviewScore)) {
             $averageScore = ($skillScore + $interviewScore) / 2;
             $selectionStatus = ($averageScore >= 70) ? 'Passed' : 'Failed';
         }

@@ -27,8 +27,8 @@ class Dashboard extends Component
         // Total Registrations
         $this->totalRegistrations = Registration::count();
 
-        // Calculate Passed based on logic: (skill_score + interview_score) / 2 >= 70
-        $this->passedRegistrations = Registration::whereRaw('(skill_score + interview_score) / 2 >= 70')->count();
+        // Calculate Passed based on logic: (skill_test_score + interview_score) / 2 >= 70
+        $this->passedRegistrations = Registration::whereRaw('(skill_test_score + interview_score) / 2 >= 70')->count();
 
         // Registration Progress (100% if > 0)
         $this->registrationProgress = $this->totalRegistrations > 0 ? 100 : 0;
