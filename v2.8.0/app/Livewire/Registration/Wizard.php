@@ -37,12 +37,27 @@ class Wizard extends Component
 
     public function mount(): void
     {
-        // Redirect if already registered
-        if (Registration::where('user_id', auth()->id())->exists()) {
-            redirect()->route('home'); // Adjust to status page later
-        }
+        $registration = Registration::where('user_id', auth()->id())->first();
 
-        $this->nama = auth()->user()->name ?? '';
+        // Redirect if already registered and not rejected
+        if ($registration) {
+            if ($registration->verification_status === 'Rejected') {
+                $this->nama = $registration->nama;
+                $this->tempat_lahir = $registration->tempat_lahir;
+                $this->tanggal_lahir = $registration->tanggal_lahir;
+                $this->jenis_kelamin = $registration->jenis_kelamin;
+                $this->agama = $registration->agama;
+                $this->alamat = $registration->alamat;
+                $this->telepon = $registration->telepon;
+                $this->keahlian = $registration->keahlian;
+                
+                session()->flash('warning', 'Pendaftaran Anda sebelumnya ditolak. Catatan Admin: ' . $registration->verification_notes . '. Silakan perbaiki data Anda dan upload ulang dokumen Anda.');
+            } else {
+                redirect()->route('user.dashboard'); 
+            }
+        } else {
+            $this->nama = auth()->user()->name ?? '';
+        }
     }
 
     public function nextStep(): void
@@ -109,20 +124,24 @@ class Wizard extends Component
             $filePaths[$key] = $file->storeAs($folderPath, $fileName, 'public');
         }
 
-        Registration::create([
-            'user_id' => auth()->id(),
-            'nama' => $this->nama,
-            'tempat_lahir' => $this->tempat_lahir,
-            'tanggal_lahir' => $this->tanggal_lahir,
-            'jenis_kelamin' => $this->jenis_kelamin,
-            'agama' => $this->agama,
-            'alamat' => $this->alamat,
-            'telepon' => $this->telepon,
-            'keahlian' => $this->keahlian,
-            'foto_identitas' => $filePaths['foto_identitas'],
-            'foto_ijazah' => $filePaths['foto_ijazah'],
-            'foto_bg_biru' => $filePaths['foto_bg_biru'],
-        ]);
+        Registration::updateOrCreate(
+            ['user_id' => auth()->id()],
+            [
+                'nama' => $this->nama,
+                'tempat_lahir' => $this->tempat_lahir,
+                'tanggal_lahir' => $this->tanggal_lahir,
+                'jenis_kelamin' => $this->jenis_kelamin,
+                'agama' => $this->agama,
+                'alamat' => $this->alamat,
+                'telepon' => $this->telepon,
+                'keahlian' => $this->keahlian,
+                'foto_identitas' => $filePaths['foto_identitas'],
+                'foto_ijazah' => $filePaths['foto_ijazah'],
+                'foto_bg_biru' => $filePaths['foto_bg_biru'],
+                'verification_status' => 'Pending',
+                'verification_notes' => null,
+            ]
+        );
 
         User::where('id', auth()->id())->update(['status_register' => 'terdaftar']);
 

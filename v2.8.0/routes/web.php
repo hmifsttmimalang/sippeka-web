@@ -39,7 +39,7 @@ Route::get('/register-redirect', function() {
     return redirect()->route('auth.register');
 })->name('register');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     // Admin Routes
     Route::get('/admin', Dashboard::class)->name('admin.dashboard');
     Route::get('/admin/pendaftar', RegistrationList::class)->name('admin.registration_list');
@@ -58,14 +58,19 @@ Route::middleware(['auth'])->group(function () {
     // Reports
     Route::get('/admin/reports/registration/{id}', [ReportController::class, 'downloadRegistrationPdf'])->name('admin.reports.registration');
     Route::get('/admin/reports/participants', [ReportController::class, 'downloadParticipantsPdf'])->name('admin.reports.participants');
+});
 
+Route::middleware(['auth', 'role:instruktur'])->group(function () {
     // Instructor / Instruktur Routes
     Route::get('/instruktur', \App\Livewire\Instructor\Dashboard::class)->name('instruktur.dashboard');
     Route::get('/instruktur/kelola', EvaluationManager::class)->name('instruktur.kelola_data');
+});
 
+Route::middleware(['auth', 'role:user'])->group(function () {
     // Student & Registration Routes
     Route::get('/pendaftaran', Wizard::class)->name('pendaftaran.form');
     Route::get('/dashboard/{username?}', StudentDashboard::class)->name('user.dashboard');
     Route::get('/profil/edit', \App\Livewire\Student\EditProfile::class)->name('student.edit_profile');
-    Route::get('/ujian/{sessionId}', Examination::class)->name('student.examination');
+    Route::get('/simulasi/{sessionId}', \App\Livewire\Student\Simulasi::class)->name('student.simulasi');
+    Route::get('/seleksi/{sessionId}', \App\Livewire\Student\Seleksi::class)->name('student.seleksi');
 });
