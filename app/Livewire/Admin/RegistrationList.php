@@ -3,15 +3,19 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use App\Models\Registration;
 use App\Models\Skill;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 
+#[Layout('layouts.admin_app')]
+#[Title('Data Peserta Pendaftar')]
 class RegistrationList extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public string $search = '';
     public string $filterSkill = '';
@@ -120,6 +124,6 @@ class RegistrationList extends Component
         return view('livewire.admin.registration-list', [
             'registrants' => $registrants,
             'skills' => Skill::all(),
-        ])->layout('layouts.admin_app', ['title' => 'Data Peserta Pendaftar']);
-    }
+        ]);
+}
 }

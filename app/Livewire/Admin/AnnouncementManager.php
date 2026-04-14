@@ -3,9 +3,13 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use App\Models\Pengumuman;
 use Carbon\Carbon;
 
+#[Layout('layouts.admin_app')]
+#[Title('Atur Pengumuman')]
 class AnnouncementManager extends Component
 {
     public $tanggal, $waktu, $formattedDate;
@@ -52,7 +56,6 @@ class AnnouncementManager extends Component
 
     public function render()
     {
-        return view('livewire.admin.announcement-manager')
-            ->layout('layouts.admin_app', ['title' => 'Atur Pengumuman']);
+        return view('livewire.admin.announcement-manager');
     }
 }

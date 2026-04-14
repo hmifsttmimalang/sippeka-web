@@ -5,12 +5,15 @@ namespace App\Livewire\Admin;
 use App\Models\Registration;
 use App\Models\Skill;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
+#[Title('Evaluasi Peserta')]
 class EvaluationManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public string $search = '';
     public string $filterSkill = '';
@@ -29,7 +32,10 @@ class EvaluationManager extends Component
 
     public function editScore(int $id): void
     {
-        if (!auth()->user()->isInstructor()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if (!$user->isInstructor()) {
             session()->flash('error', 'Hanya instruktur yang diperbolehkan mengisi nilai wawancara.');
             return;
         }
@@ -41,7 +47,10 @@ class EvaluationManager extends Component
 
     public function saveScore(): void
     {
-        if (!auth()->user()->isInstructor()) {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        if (!$user->isInstructor()) {
             return;
         }
 
@@ -76,15 +85,19 @@ class EvaluationManager extends Component
             ->latest()
             ->paginate(10);
 
-        $layout = match (auth()->user()->role) {
+        $layout = match (Auth::user()->role) {
             'admin' => 'layouts.admin_app',
             'instruktur' => 'layouts.instruktur_app',
             default => 'layouts.admin_app'
         };
 
-        return view('livewire.admin.evaluation-manager', [
+        /** @var mixed $view */
+        $view = view('livewire.admin.evaluation-manager', [
             'registrations' => $registrations,
-            'skills' => Skill::all()
-        ])->layout($layout, ['title' => 'Evaluasi Peserta']);
+            'skills' => Skill::all(),
+            'title' => 'Evaluasi Peserta'
+        ]);
+
+        return $view->layout($layout);
     }
 }

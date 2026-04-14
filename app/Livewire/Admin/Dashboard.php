@@ -3,11 +3,15 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use App\Models\Registration;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
+#[Layout('layouts.admin_app')]
+#[Title('Dashboard Overview')]
 class Dashboard extends Component
 {
     public int $totalPendaftar = 0;
@@ -42,7 +46,7 @@ class Dashboard extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.dashboard')
-            ->layout('layouts.admin_app', ['header' => 'Dashboard Overview']);
+        return view('livewire.admin.dashboard');
+            
     }
 }

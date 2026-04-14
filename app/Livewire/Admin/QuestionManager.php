@@ -5,15 +5,17 @@ namespace App\Livewire\Admin;
 use App\Models\Question;
 use App\Models\SkillTest;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use App\Traits\WithAdminPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Log;
 
+#[Layout('layouts.admin_app')]
 class QuestionManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
     use WithFileUploads;
 
     public SkillTest $test;
@@ -171,7 +173,8 @@ class QuestionManager extends Component
             ->paginate(10);
 
         return view('livewire.admin.question-manager', [
-            'questions' => $questions
-        ])->layout('layouts.admin_app', ['title' => 'Manajemen Soal: ' . $this->test->nama_tes]);
+            'questions' => $questions,
+            'title' => 'Manajemen Soal: ' . $this->test->nama_tes
+        ]);
     }
 }

@@ -4,14 +4,20 @@ namespace App\Livewire\Admin;
 
 use App\Models\User;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
+#[Layout('layouts.admin_app')]
+#[Title('Manajemen User')]
 class UserManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
+
 
     public string $search = '';
     public string $filterRole = '';
@@ -101,7 +107,7 @@ class UserManager extends Component
 
     public function delete(int $id): void
     {
-        if (auth()->id() === $id) {
+        if (Auth::id() === $id) {
             session()->flash('error', 'Anda tidak bisa menghapus akun sendiri.');
             return;
         }
@@ -116,8 +122,8 @@ class UserManager extends Component
         $users = User::query()
             ->when($this->search, function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('username', 'like', '%' . $this->search . '%')
-                  ->orWhere('email', 'like', '%' . $this->search . '%');
+                    ->orWhere('username', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
             })
             ->when($this->filterRole, fn($q) => $q->where('role', $this->filterRole))
             ->latest()
@@ -125,6 +131,6 @@ class UserManager extends Component
 
         return view('livewire.admin.user-manager', [
             'users' => $users
-        ])->layout('layouts.admin_app', ['title' => 'Manajemen User']);
+        ]);
     }
 }

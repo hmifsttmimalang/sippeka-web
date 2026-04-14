@@ -8,9 +8,12 @@ use App\Models\SkillTestSession;
 use App\Models\TestAttempt;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
+#[Layout('components.layouts.app')]
 class Seleksi extends Component
 {
     public SkillTestSession $session;
@@ -27,7 +30,7 @@ class Seleksi extends Component
     public function mount(int $sessionId): void
     {
         $this->session = SkillTestSession::with(['test', 'test.questions'])->findOrFail($sessionId);
-        $this->registration = Registration::where('user_id', auth()->id())->firstOrFail();
+        $this->registration = Registration::where('user_id', Auth::id())->firstOrFail();
 
         $this->validateSession();
         $this->loadQuestions();
@@ -200,7 +203,8 @@ class Seleksi extends Component
 
         return view('livewire.student.seleksi', [
             'answeredCount' => $answeredCount,
-            'progress' => $progress
-        ])->layout('components.layouts.app', ['title' => 'Seleksi: ' . $this->session->test->nama_tes]);
+            'progress' => $progress,
+            'title' => 'Seleksi: ' . $this->session->test->nama_tes
+        ]);
     }
 }

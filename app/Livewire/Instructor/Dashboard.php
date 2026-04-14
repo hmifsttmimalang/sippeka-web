@@ -4,10 +4,12 @@ namespace App\Livewire\Instructor;
 
 use Livewire\Component;
 use App\Models\Registration;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 
+#[Layout('layouts.instruktur_app')]
+#[Title('Instructor Dashboard')]
 class Dashboard extends Component
 {
     public int $totalPendaftar = 0;
@@ -42,7 +44,9 @@ class Dashboard extends Component
 
     public function render(): View
     {
-        return view('livewire.instructor.dashboard')
-            ->layout('layouts.instruktur_app', ['header' => 'Instructor Dashboard']);
+        return view('livewire.instructor.dashboard', [
+            'totalPeserta' => $this->totalPendaftar,
+            'latestEvaluations' => $this->listPendaftarBaru
+        ]);
     }
 }

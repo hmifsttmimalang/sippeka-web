@@ -5,9 +5,13 @@ namespace App\Livewire\Public;
 use App\Models\Jurusan;
 use App\Models\JadwalTes;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
 
+#[Layout('layouts.info_app')]
+#[Title('Informasi Pelatihan')]
 class TrainingInfo extends Component
 {
     use WithPagination;
@@ -20,10 +24,13 @@ class TrainingInfo extends Component
             'tutup' => 'Tutup'
         ];
 
+        $jurusan = Jurusan::whereIn('status', ['dibuka', 'penuh'])->paginate(5, ['*'], 'jurusanPage');
+        $jadwalTes = JadwalTes::with('jurusan')->latest()->paginate(5, ['*'], 'jadwalPage');
+
         return view('livewire.public.training-info', [
-            'jurusan' => Jurusan::whereIn('status', ['dibuka', 'penuh'])->paginate(5, ['*'], 'jurusanPage'),
-            'jadwalTes' => JadwalTes::with('jurusan')->latest()->paginate(5, ['*'], 'jadwalPage'),
+            'jurusan' => $jurusan,
+            'jadwalTes' => $jadwalTes,
             'statusList' => $statusList
-        ])->layout('layouts.info_app', ['title' => 'Informasi Pelatihan']);
+        ]);
     }
 }

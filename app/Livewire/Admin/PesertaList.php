@@ -3,13 +3,17 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use App\Models\Registration;
-use Livewire\WithPagination;
+use App\Traits\WithAdminPagination;
 use Illuminate\Support\Facades\DB;
 
+#[Layout('layouts.admin_app')]
+#[Title('Data Peserta')]
 class PesertaList extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public $search = '';
 
@@ -32,6 +36,6 @@ class PesertaList extends Component
 
         return view('livewire.admin.peserta-list', [
             'listPendaftar' => $listPendaftar,
-        ])->layout('layouts.admin_app', ['title' => 'Data Peserta']);
-    }
+        ]);
+}
 }

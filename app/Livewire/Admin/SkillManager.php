@@ -4,12 +4,16 @@ namespace App\Livewire\Admin;
 
 use App\Models\Skill;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 
+#[Layout('layouts.admin_app')]
+#[Title('Kelas Keahlian')]
 class SkillManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public string $search = '';
     public string $name = '';
@@ -78,6 +82,6 @@ class SkillManager extends Component
 
         return view('livewire.admin.skill-manager', [
             'skills' => $skills,
-        ])->layout('layouts.admin_app', ['title' => 'Kelas Keahlian']);
-    }
+        ]);
+}
 }

@@ -5,9 +5,16 @@ namespace App\Livewire\Student;
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Registration;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
+#[Layout('layouts.user_app')]
+#[Title('Edit Profil')]
 class EditProfile extends Component
 {
     public User $user;
@@ -20,7 +27,7 @@ class EditProfile extends Component
 
     public function mount()
     {
-        $this->user = auth()->user();
+        $this->user = Auth::user();
         $this->registration = Registration::where('user_id', $this->user->id)->first();
 
         // Security / Logic Restriksi
@@ -69,7 +76,6 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.student.edit-profile')
-            ->layout('layouts.user_app', ['title' => 'Edit Profil']);
+        return view('livewire.student.edit-profile');
     }
 }

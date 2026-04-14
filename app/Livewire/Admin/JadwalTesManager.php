@@ -3,13 +3,17 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use App\Models\JadwalTes;
 use App\Models\Jurusan;
-use Livewire\WithPagination;
+use App\Traits\WithAdminPagination;
 
+#[Layout('layouts.admin_app')]
+#[Title('Kelola Jadwal Tes')]
 class JadwalTesManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public $jurusan_id, $tanggal_pelaksanaan, $waktu_pelaksanaan, $selected_id;
     public $isEditing = false;
@@ -28,8 +32,8 @@ class JadwalTesManager extends Component
         return view('livewire.admin.jadwal-tes-manager', [
             'jadwalTes' => $jadwalTes,
             'jurusans' => $jurusans
-        ])->layout('layouts.admin_app', ['title' => 'Kelola Jadwal Tes']);
-    }
+        ]);
+}
 
     public function resetFields()
     {

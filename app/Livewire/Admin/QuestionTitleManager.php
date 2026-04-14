@@ -4,12 +4,16 @@ namespace App\Livewire\Admin;
 
 use App\Models\QuestionTitle;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 
+#[Layout('layouts.admin_app')]
+#[Title('Manajemen Mata Soal')]
 class QuestionTitleManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public string $search = '';
     public string $name = '';
@@ -77,6 +81,6 @@ class QuestionTitleManager extends Component
 
         return view('livewire.admin.question-title-manager', [
             'categories' => $categories
-        ])->layout('layouts.admin_app', ['title' => 'Manajemen Mata Soal']);
-    }
+        ]);
+}
 }

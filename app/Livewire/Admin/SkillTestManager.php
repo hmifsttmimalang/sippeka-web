@@ -6,12 +6,16 @@ use App\Models\Skill;
 use App\Models\SkillTest;
 use App\Models\QuestionTitle;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 
+#[Layout('layouts.admin_app')]
+#[Title('Kelola Tes Keahlian')]
 class SkillTestManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public string $search = '';
     
@@ -109,6 +113,6 @@ class SkillTestManager extends Component
             'tests' => $tests,
             'categories_list' => QuestionTitle::all(),
             'skills_list' => Skill::all(),
-        ])->layout('layouts.admin_app', ['title' => 'Kelola Tes Keahlian']);
-    }
+        ]);
+}
 }

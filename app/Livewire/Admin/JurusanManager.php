@@ -3,12 +3,16 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use App\Models\Jurusan;
-use Livewire\WithPagination;
+use App\Traits\WithAdminPagination;
 
+#[Layout('layouts.admin_app')]
+#[Title('Kelola Jurusan')]
 class JurusanManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public $nama_jurusan, $kuota, $status = 'dibuka', $jurusan_id;
     public $isEditing = false;
@@ -20,6 +24,11 @@ class JurusanManager extends Component
         'status' => 'required|in:dibuka,ditutup'
     ];
 
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $jurusans = Jurusan::where('nama_jurusan', 'like', '%' . $this->search . '%')
@@ -27,7 +36,7 @@ class JurusanManager extends Component
 
         return view('livewire.admin.jurusan-manager', [
             'jurusans' => $jurusans
-        ])->layout('layouts.admin_app', ['title' => 'Kelola Jurusan']);
+        ]);
     }
 
     public function resetFields()
@@ -80,7 +89,9 @@ class JurusanManager extends Component
 
     public function delete($id)
     {
-        Jurusan::find($id)->delete();
+        /** @var Jurusan $jurusan */
+        $jurusan = Jurusan::find($id);
+        $jurusan->delete();
         session()->flash('success', 'Jurusan berhasil dihapus.');
     }
 }

@@ -4,10 +4,15 @@ namespace App\Livewire\Public;
 
 use App\Models\Registration;
 use App\Models\Pengumuman;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 
+#[Layout('layouts.info_app')]
+#[Title('Pengumuman Hasil Seleksi')]
 class SelectionAnnouncement extends Component
 {
     use WithPagination;
@@ -16,7 +21,7 @@ class SelectionAnnouncement extends Component
     {
         $pengumuman = Pengumuman::first();
         $pengumumanWaktu = $pengumuman ? $pengumuman->tanggal_waktu : null;
-        $isPassed = $pengumumanWaktu ? \Carbon\Carbon::parse($pengumumanWaktu)->isPast() : false;
+        $isPassed = $pengumumanWaktu ? Carbon::parse($pengumumanWaktu)->isPast() : false;
         
         $listPendaftar = Registration::query()
             ->with('skill')
@@ -27,6 +32,6 @@ class SelectionAnnouncement extends Component
             'pengumumanWaktu' => $pengumumanWaktu,
             'isPassed' => $isPassed,
             'listPendaftar' => $listPendaftar
-        ])->layout('layouts.info_app', ['title' => 'Pengumuman Hasil Seleksi']);
+        ]);
     }
 }

@@ -6,10 +6,17 @@ use App\Models\Registration;
 use App\Models\SkillTestSession;
 use App\Models\TestAttempt;
 use App\Models\User;
+use App\Models\Skill;
+use App\Models\QuestionTitle;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
+#[Layout('layouts.user_app')]
+#[Title('Student Dashboard')]
 class Dashboard extends Component
 {
     public User $user;
@@ -17,7 +24,7 @@ class Dashboard extends Component
 
     public function mount(): void
     {
-        $this->user = auth()->user();
+        $this->user = Auth::user();
         $this->registration = Registration::where('user_id', $this->user->id)->with('skill')->first();
 
         // If not registered, redirect to wizard
@@ -103,6 +110,9 @@ class Dashboard extends Component
             'rataRata' => $rataRata,
             'nilaiKeahlian' => $nilaiKeahlian,
             'nilaiWawancara' => $nilaiWawancara,
-        ])->layout('layouts.user_app', ['title' => 'Student Dashboard']);
+            'registration' => $this->registration,
+            'skills' => Skill::all(),
+            'questionCategories' => QuestionTitle::all(),
+        ]);
     }
 }

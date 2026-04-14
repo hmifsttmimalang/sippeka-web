@@ -3,14 +3,18 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use Livewire\WithPagination;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use App\Traits\WithAdminPagination;
 use App\Models\SkillTestSession;
 use App\Models\SkillTest;
 use App\Models\TestAttempt;
 
+#[Layout('layouts.admin_app')]
+#[Title('Sesi Tes Keahlian')]
 class SkillTestSessionManager extends Component
 {
-    use WithPagination;
+    use WithAdminPagination;
 
     public $search = '';
 
@@ -164,6 +168,6 @@ class SkillTestSessionManager extends Component
         return view('livewire.admin.skill-test-session-manager', [
             'sessions' => $sessions,
             'skillTests' => SkillTest::all()
-        ])->layout('layouts.admin_app', ['title' => 'Sesi Tes Keahlian']);
-    }
+        ]);
+}
 }

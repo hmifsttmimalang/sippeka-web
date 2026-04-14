@@ -6,11 +6,16 @@ use App\Models\Registration;
 use App\Models\Skill;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
+#[Layout('layouts.pendaftaran_app')]
+#[Title('Form Pendaftaran')]
 class Wizard extends Component
 {
     use WithFileUploads;
@@ -37,7 +42,7 @@ class Wizard extends Component
 
     public function mount(): void
     {
-        $registration = Registration::where('user_id', auth()->id())->first();
+        $registration = Registration::where('user_id', Auth::id())->first();
 
         // Redirect if already registered and not rejected
         if ($registration) {
@@ -56,7 +61,7 @@ class Wizard extends Component
                 redirect()->route('user.dashboard'); 
             }
         } else {
-            $this->nama = auth()->user()->name ?? '';
+            $this->nama = Auth::user()->name ?? '';
         }
     }
 
@@ -100,7 +105,7 @@ class Wizard extends Component
     {
         $this->validateCurrentStep();
 
-        $username = auth()->user()->username;
+        $username = Auth::user()->username;
         $folderPath = 'uploads/' . $username;
 
         // Ensure directory exists
@@ -125,7 +130,7 @@ class Wizard extends Component
         }
 
         Registration::updateOrCreate(
-            ['user_id' => auth()->id()],
+            ['user_id' => Auth::id()],
             [
                 'nama' => $this->nama,
                 'tempat_lahir' => $this->tempat_lahir,
@@ -143,7 +148,7 @@ class Wizard extends Component
             ]
         );
 
-        User::where('id', auth()->id())->update(['status_register' => 'terdaftar']);
+        User::where('id', Auth::id())->update(['status_register' => 'terdaftar']);
 
         session()->flash('success', 'Pendaftaran berhasil dikirim! Silakan tunggu verifikasi admin.');
         redirect()->route('home');
@@ -153,6 +158,6 @@ class Wizard extends Component
     {
         return view('livewire.registration.wizard', [
             'skills' => Skill::all(),
-        ])->layout('layouts.pendaftaran_app', ['title' => 'Form Pendaftaran']);
+        ]);
     }
 }
