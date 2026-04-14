@@ -2,56 +2,56 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
+use App\Actions\SaveAnnouncementAction;
+use App\Models\Announcement;
+use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use App\Models\Pengumuman;
-use Carbon\Carbon;
+use Livewire\Component;
 
 #[Layout('layouts.admin_app')]
 #[Title('Atur Pengumuman')]
 class AnnouncementManager extends Component
 {
-    public $tanggal, $waktu, $formattedDate;
+    public $date;
+
+    public $time;
+
+    public $formattedScheduledAt;
 
     protected $rules = [
-        'tanggal' => 'required|date',
-        'waktu' => 'required'
+        'date' => 'required|date',
+        'time' => 'required',
     ];
 
     public function mount()
     {
-        $this->loadPengumuman();
+        $this->loadAnnouncement();
     }
 
-    public function loadPengumuman()
+    public function loadAnnouncement()
     {
-        $pengumuman = Pengumuman::first();
-        if ($pengumuman) {
-            $dt = Carbon::parse($pengumuman->tanggal_waktu);
-            $this->tanggal = $dt->format('Y-m-d');
-            $this->waktu = $dt->format('H:i');
-            $this->formattedDate = $dt->translatedFormat('d F Y H.i');
+        $announcement = Announcement::first();
+        if ($announcement) {
+            $dt = Carbon::parse($announcement->scheduled_at);
+            $this->date = $dt->format('Y-m-d');
+            $this->time = $dt->format('H:i');
+            $this->formattedScheduledAt = $dt->translatedFormat('d F Y H.i');
         } else {
-            $this->formattedDate = 'Waktu belum ditentukan';
+            $this->formattedScheduledAt = 'Waktu belum ditentukan';
         }
     }
 
-    public function save()
+    public function save(SaveAnnouncementAction $saveAnnouncementAction)
     {
         $this->validate();
 
-        $tanggal_waktu = $this->tanggal . ' ' . $this->waktu;
-        
-        $pengumuman = Pengumuman::first();
-        if ($pengumuman) {
-            $pengumuman->update(['tanggal_waktu' => $tanggal_waktu]);
-        } else {
-            Pengumuman::create(['tanggal_waktu' => $tanggal_waktu]);
-        }
+        $scheduledAt = $this->date.' '.$this->time;
+
+        $saveAnnouncementAction->execute($scheduledAt);
 
         session()->flash('success', 'Waktu pengumuman berhasil diatur.');
-        $this->loadPengumuman();
+        $this->loadAnnouncement();
     }
 
     public function render()

@@ -11,8 +11,8 @@
         <ul class="d-flex align-items-center">
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    @if($registration && $registration->foto_bg_biru)
-                        <img src="{{ asset('storage/' . $registration->foto_bg_biru) }}" alt="Profile" class="rounded-circle" width="35" height="35">
+                    @if($registration && $registration->formal_photo_path)
+                        <img src="{{ asset('storage/' . $registration->formal_photo_path) }}" alt="Profile" class="rounded-circle" width="35" height="35">
                     @else
                         <img src="{{ asset('assets/admin/img/undraw_profile.svg') }}" alt="Profile" class="rounded-circle" width="35" height="35">
                     @endif

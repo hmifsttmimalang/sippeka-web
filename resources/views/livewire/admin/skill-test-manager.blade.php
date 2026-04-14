@@ -43,27 +43,27 @@
                                         @forelse($tests as $test)
                                             <tr class="text-center">
                                                 <td class="text-left font-weight-bold text-primary">
-                                                    {{ $test->nama_tes }}
+                                                    {{ $test->name }}
                                                     <div class="small text-gray-500 font-weight-normal">ID:
                                                         #{{ str_pad($test->id, 5, '0', STR_PAD_LEFT) }}</div>
                                                 </td>
                                                 <td>
                                                     <span
-                                                        class="badge badge-indigo border border-indigo-100 text-indigo-700 bg-indigo-50">{{ $test->category->nama ?? '-' }}</span>
+                                                        class="badge badge-indigo border border-indigo-100 text-indigo-700 bg-indigo-50">{{ $test->category->name ?? '-' }}</span>
                                                     <div class="small text-gray-400 font-italic mt-1">
-                                                        {{ $test->skill->nama ?? '-' }}</div>
+                                                        {{ $test->skill->name ?? '-' }}</div>
                                                 </td>
                                                 <td>
-                                                    <span class="font-weight-bold">{{ $test->durasi_menit }}</span>
+                                                    <span class="font-weight-bold">{{ $test->duration_minutes }}</span>
                                                     <small class="text-gray-500 font-weight-bold">MENIT</small>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center gap-1">
                                                         <span
-                                                            class="badge {{ $test->acak_soal === 'y' ? 'badge-success' : 'badge-light' }} text-xs"
+                                                            class="badge {{ $test->shuffle_questions === 'y' ? 'badge-success' : 'badge-light' }} text-xs"
                                                             title="Acak Soal">Soal</span>
                                                         <span
-                                                            class="badge {{ $test->acak_jawaban === 'y' ? 'badge-info' : 'badge-light' }} text-xs"
+                                                            class="badge {{ $test->shuffle_answers === 'y' ? 'badge-info' : 'badge-light' }} text-xs"
                                                             title="Acak Jawaban">Opsi</span>
                                                     </div>
                                                 </td>
@@ -121,10 +121,10 @@
                     <form wire:submit="save">
                         <div class="form-group">
                             <label class="font-weight-bold small text-uppercase">Nama Tes Keahlian</label>
-                            <input wire:model="nama_tes" type="text"
-                                class="form-control @error('nama_tes') is-invalid @enderror"
+                            <input wire:model="name" type="text"
+                                class="form-control @error('name') is-invalid @enderror"
                                 placeholder="Contoh: Tes Kompetensi Welding">
-                            @error('nama_tes')
+                            @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -132,27 +132,27 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label class="font-weight-bold small text-uppercase">Mata Soal (Kategori)</label>
-                                <select wire:model="mata_soal"
-                                    class="form-control @error('mata_soal') is-invalid @enderror">
+                                <select wire:model="question_title_id"
+                                    class="form-control @error('question_title_id') is-invalid @enderror">
                                     <option value="">-- Pilih Mata Soal --</option>
                                     @foreach ($categories_list as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->nama }}</option>
+                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('mata_soal')
+                                @error('question_title_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6 form-group">
                                 <label class="font-weight-bold small text-uppercase">Program Keahlian (Skill)</label>
-                                <select wire:model="keahlian"
-                                    class="form-control @error('keahlian') is-invalid @enderror">
+                                <select wire:model="skill_id"
+                                    class="form-control @error('skill_id') is-invalid @enderror">
                                     <option value="">-- Pilih Skill --</option>
                                     @foreach ($skills_list as $sk)
-                                        <option value="{{ $sk->id }}">{{ $sk->nama }}</option>
+                                        <option value="{{ $sk->id }}">{{ $sk->name }}</option>
                                     @endforeach
                                 </select>
-                                @error('keahlian')
+                                @error('skill_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -161,22 +161,22 @@
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <label class="font-weight-bold small text-uppercase">Durasi (Menit)</label>
-                                <input wire:model="durasi_menit" type="number"
-                                    class="form-control @error('durasi_menit') is-invalid @enderror">
-                                @error('durasi_menit')
+                                <input wire:model="duration_minutes" type="number"
+                                    class="form-control @error('duration_minutes') is-invalid @enderror">
+                                @error('duration_minutes')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="col-md-6">
                                 <label class="font-weight-bold small text-uppercase d-block">Lainnya</label>
                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" wire:model="acak_soal" value="y" true-value="y"
+                                    <input type="checkbox" wire:model="shuffle_questions" value="y" true-value="y"
                                         false-value="t" class="custom-control-input" id="acakSoal">
                                     <label class="custom-control-label font-weight-bold text-gray-600"
                                         for="acakSoal">Acak Soal</label>
                                 </div>
                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" wire:model="acak_jawaban" value="y" true-value="y"
+                                    <input type="checkbox" wire:model="shuffle_answers" value="y" true-value="y"
                                         false-value="t" class="custom-control-input" id="acakOpsi">
                                     <label class="custom-control-label font-weight-bold text-gray-600"
                                         for="acakOpsi">Acak Opsi</label>

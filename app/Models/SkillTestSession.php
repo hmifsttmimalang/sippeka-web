@@ -10,12 +10,13 @@ class SkillTestSession extends Model
     use HasFactory;
 
     protected $table = 'skill_test_sessions';
+
     protected $fillable = [
-        'nama_sesi',
+        'name',
         'skill_test_id',
-        'waktu_mulai',
-        'waktu_selesai',
-        'jenis_sesi'
+        'start_time',
+        'end_time',
+        'session_type',
     ];
 
     public function skillTest()

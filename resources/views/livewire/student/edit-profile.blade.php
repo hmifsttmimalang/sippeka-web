@@ -37,10 +37,10 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="nama" class="col-md-4 col-form-label text-md-end text-muted">Nama Lengkap</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-end text-muted">Nama Lengkap</label>
                                     <div class="col-md-7">
-                                        <input wire:model="nama" id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" required>
-                                        @error('nama')
+                                        <input wire:model="name" id="name" type="text" class="form-control @error('name') is-invalid @enderror" required>
+                                        @error('name')
                                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>

@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
@@ -13,7 +14,7 @@ class UserFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\User::class;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
@@ -23,28 +24,28 @@ class UserFactory extends Factory
     public function definition()
     {
         $domains = ['sigma.com', 'skibidi.com', 'mewing.com', 'sus.com'];
-    
+
         // Buat username terlebih dahulu
         $username = $this->faker->unique()->userName;
-    
+
         return [
             'username' => $username, // Setel username
-            'email' => $username . '@' . $this->faker->randomElement($domains), // Gunakan username yang sama untuk email
+            'email' => $username.'@'.$this->faker->randomElement($domains), // Gunakan username yang sama untuk email
             'password' => Hash::make('password'), // password default "password"
             'role' => 'user',
             'status_register' => 'terdaftar',
             'remember_token' => Str::random(10),
         ];
-    }    
+    }
 
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

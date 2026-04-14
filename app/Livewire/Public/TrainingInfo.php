@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Public;
 
-use App\Models\Jurusan;
-use App\Models\JadwalTes;
-use Livewire\Component;
+use App\Models\Major;
+use App\Models\TestSchedule;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Contracts\View\View;
 
 #[Layout('layouts.info_app')]
 #[Title('Informasi Pelatihan')]
@@ -19,18 +19,18 @@ class TrainingInfo extends Component
     public function render(): View
     {
         $statusList = [
-            'dibuka' => 'Tersedia',
-            'penuh' => 'Penuh',
-            'tutup' => 'Tutup'
+            'open' => 'Tersedia',
+            'full' => 'Penuh',
+            'closed' => 'Tutup',
         ];
 
-        $jurusan = Jurusan::whereIn('status', ['dibuka', 'penuh'])->paginate(5, ['*'], 'jurusanPage');
-        $jadwalTes = JadwalTes::with('jurusan')->latest()->paginate(5, ['*'], 'jadwalPage');
+        $majors = Major::whereIn('status', ['open', 'full'])->paginate(5, ['*'], 'majorPage');
+        $testSchedules = TestSchedule::with('major')->latest()->paginate(5, ['*'], 'schedulePage');
 
         return view('livewire.public.training-info', [
-            'jurusan' => $jurusan,
-            'jadwalTes' => $jadwalTes,
-            'statusList' => $statusList
+            'majors' => $majors,
+            'testSchedules' => $testSchedules,
+            'statusList' => $statusList,
         ]);
     }
 }

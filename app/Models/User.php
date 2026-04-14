@@ -3,15 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Registration;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -25,7 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'status_register',
+        'registration_status',
     ];
 
     /**
@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function isInstructor(): bool
     {
-        return $this->role === 'instruktur';
+        return $this->role === 'instructor';
     }
 
     public function registration(): HasOne

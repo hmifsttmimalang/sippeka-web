@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use App\Traits\WithAdminPagination;
 use App\Models\Registration;
 use App\Models\Skill;
+use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.admin_app')]
 #[Title('Data Peserta Pendaftar')]
@@ -18,6 +18,7 @@ class RegistrationList extends Component
     use WithAdminPagination;
 
     public string $search = '';
+
     public string $filterSkill = '';
 
     protected $queryString = [
@@ -26,15 +27,18 @@ class RegistrationList extends Component
     ];
 
     public ?int $selectedRegistrationId = null;
+
     public ?Registration $selectedRegistrant = null;
-    public ?float $nilai_wawancara = null;
+
+    public ?float $interview_score = null;
+
     public ?string $verification_notes = null;
 
     public function showProfile(int $id): void
     {
         $this->selectedRegistrationId = $id;
         $this->selectedRegistrant = Registration::with(['skill', 'user'])->findOrFail($id);
-        $this->nilai_wawancara = $this->selectedRegistrant->nilai_wawancara;
+        $this->interview_score = $this->selectedRegistrant->interview_score;
         $this->verification_notes = $this->selectedRegistrant->verification_notes;
 
         $this->dispatch('show-profile-modal');
@@ -42,50 +46,42 @@ class RegistrationList extends Component
 
     public function closeProfileModal(): void
     {
-        $this->reset(['selectedRegistrationId', 'selectedRegistrant', 'nilai_wawancara', 'verification_notes']);
+        $this->reset(['selectedRegistrationId', 'selectedRegistrant', 'interview_score', 'verification_notes']);
         $this->dispatch('hide-profile-modal');
     }
 
-    public function terimaBerkas(): void
+    public function approveDocuments(ReviewRegistrationAction $reviewRegistrationAction): void
     {
         if ($this->selectedRegistrant) {
-            $this->selectedRegistrant->update([
-                'verification_status' => 'Approved',
-                'verification_notes' => null,
-            ]);
+            $reviewRegistrationAction->updateVerification($this->selectedRegistrant, 'Approved');
             $this->closeProfileModal();
             $this->dispatch('close-modal');
         }
     }
 
-    public function tolakBerkas(): void
+    public function rejectDocuments(ReviewRegistrationAction $reviewRegistrationAction): void
     {
         $this->validate([
             'verification_notes' => 'required|string|min:5',
         ], [
-            'verification_notes.required' => 'Catatan penolakan harus diisi.'
+            'verification_notes.required' => 'Catatan penolakan harus diisi.',
         ]);
 
         if ($this->selectedRegistrant) {
-            $this->selectedRegistrant->update([
-                'verification_status' => 'Rejected',
-                'verification_notes' => $this->verification_notes,
-            ]);
+            $reviewRegistrationAction->updateVerification($this->selectedRegistrant, 'Rejected', $this->verification_notes);
             $this->closeProfileModal();
             $this->dispatch('close-modal');
         }
     }
 
-    public function saveReview(): void
+    public function saveReview(ReviewRegistrationAction $reviewRegistrationAction): void
     {
         if ($this->selectedRegistrant) {
             $this->validate([
-                'nilai_wawancara' => 'nullable|numeric|min:0|max:100',
+                'interview_score' => 'nullable|numeric|min:0|max:100',
             ]);
 
-            $this->selectedRegistrant->update([
-                'nilai_wawancara' => $this->nilai_wawancara,
-            ]);
+            $reviewRegistrationAction->updateInterviewScore($this->selectedRegistrant, $this->interview_score);
 
             $this->closeProfileModal();
         }
@@ -112,11 +108,11 @@ class RegistrationList extends Component
         $registrants = Registration::query()
             ->with('skill')
             ->when($this->search, function (Builder $query) {
-                $query->where('nama', 'like', '%' . $this->search . '%')
-                    ->orWhere('telepon', 'like', '%' . $this->search . '%');
+                $query->where('name', 'like', '%'.$this->search.'%')
+                    ->orWhere('phone', 'like', '%'.$this->search.'%');
             })
             ->when($this->filterSkill, function (Builder $query) {
-                $query->where('keahlian', $this->filterSkill);
+                $query->where('skill_id', $this->filterSkill);
             })
             ->latest()
             ->paginate(10);
@@ -125,5 +121,5 @@ class RegistrationList extends Component
             'registrants' => $registrants,
             'skills' => Skill::all(),
         ]);
-}
+    }
 }

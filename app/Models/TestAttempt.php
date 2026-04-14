@@ -14,8 +14,8 @@ class TestAttempt extends Model
         'skill_test_session_id',
         'status',
         'answers',
-        'waktu_mulai',
-        'waktu_selesai',
+        'start_time',
+        'end_time',
     ];
 
     protected $casts = [

@@ -39,7 +39,7 @@
                                     style="width: 150px;">
                                     <option value="">Semua Role</option>
                                     <option value="admin">Administrator</option>
-                                    <option value="instruktur">Instruktur</option>
+                                    <option value="instructor">Instruktur</option>
                                     <option value="user">Peserta</option>
                                 </select>
                                 <input wire:model.live.debounce.300ms="search" type="text"
@@ -73,7 +73,7 @@
                                                     @php
                                                         $roleBadge = match ($user->role) {
                                                             'admin' => 'badge-primary',
-                                                            'instruktur' => 'badge-warning',
+                                                            'instructor' => 'badge-warning',
                                                             'user' => 'badge-success',
                                                             default => 'badge-secondary',
                                                         };
@@ -82,10 +82,10 @@
                                                         class="badge {{ $roleBadge }} text-uppercase">{{ $user->role }}</span>
                                                 </td>
                                                 <td>
-                                                    @if ($user->status_register === 'verified' || $user->role === 'admin')
+                                                    @if ($user->registration_status === 'registered' || $user->role === 'admin')
                                                         <i class="fas fa-check-circle text-success"
                                                             title="Verified"></i>
-                                                    @elseif($user->status_register === 'pending')
+                                                    @elseif($user->registration_status === 'pending')
                                                         <i class="fas fa-clock text-warning" title="Pending"></i>
                                                     @else
                                                         <i class="fas fa-times-circle text-gray-300"
@@ -163,7 +163,7 @@
                                 <label class="font-weight-bold small text-uppercase">Hak Akses (Role)</label>
                                 <select wire:model="role" class="form-control @error('role') is-invalid @enderror">
                                     <option value="admin">Administrator</option>
-                                    <option value="instruktur">Instruktur</option>
+                                    <option value="instructor">Instruktur</option>
                                     <option value="user">Peserta</option>
                                 </select>
                                 @error('role')

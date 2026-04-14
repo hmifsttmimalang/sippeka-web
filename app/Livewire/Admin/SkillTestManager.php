@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Admin;
 
+use App\Actions\SaveSkillTestAction;
+use App\Models\QuestionTitle;
 use App\Models\Skill;
 use App\Models\SkillTest;
-use App\Models\QuestionTitle;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.admin_app')]
 #[Title('Kelola Tes Keahlian')]
@@ -18,25 +19,31 @@ class SkillTestManager extends Component
     use WithAdminPagination;
 
     public string $search = '';
-    
+
     // Form fields
-    public string $nama_tes = '';
-    public ?int $mata_soal = null;
-    public ?int $keahlian = null;
-    public int $durasi_menit = 60;
-    public string $acak_soal = 'y';
-    public string $acak_jawaban = 'y';
+    public string $name = '';
+
+    public ?int $question_title_id = null;
+
+    public ?int $skill_id = null;
+
+    public int $duration_minutes = 60;
+
+    public string $shuffle_questions = 'y';
+
+    public string $shuffle_answers = 'y';
 
     public ?int $editingId = null;
+
     public bool $showingModal = false;
 
     protected $rules = [
-        'nama_tes' => 'required|min:3|max:255',
-        'mata_soal' => 'required|exists:question_titles,id',
-        'keahlian' => 'required|exists:skills,id',
-        'durasi_menit' => 'required|integer|min:1',
-        'acak_soal' => 'required|in:y,t',
-        'acak_jawaban' => 'required|in:y,t',
+        'name' => 'required|min:3|max:255',
+        'question_title_id' => 'required|exists:question_titles,id',
+        'skill_id' => 'required|exists:skills,id',
+        'duration_minutes' => 'required|integer|min:1',
+        'shuffle_questions' => 'required|in:y,t',
+        'shuffle_answers' => 'required|in:y,t',
     ];
 
     public function updatingSearch(): void
@@ -52,14 +59,14 @@ class SkillTestManager extends Component
 
         if ($id) {
             $test = SkillTest::findOrFail($id);
-            $this->nama_tes = $test->nama_tes;
-            $this->mata_soal = $test->mata_soal;
-            $this->keahlian = $test->keahlian;
-            $this->durasi_menit = $test->durasi_menit;
-            $this->acak_soal = $test->acak_soal;
-            $this->acak_jawaban = $test->acak_jawaban;
+            $this->name = $test->name;
+            $this->question_title_id = $test->question_title_id;
+            $this->skill_id = $test->skill_id;
+            $this->duration_minutes = $test->duration_minutes;
+            $this->shuffle_questions = $test->shuffle_questions;
+            $this->shuffle_answers = $test->shuffle_answers;
         } else {
-            $this->reset(['nama_tes', 'mata_soal', 'keahlian', 'durasi_menit', 'acak_soal', 'acak_jawaban']);
+            $this->reset(['name', 'question_title_id', 'skill_id', 'duration_minutes', 'shuffle_questions', 'shuffle_answers']);
         }
     }
 
@@ -69,27 +76,20 @@ class SkillTestManager extends Component
         $this->editingId = null;
     }
 
-    public function save(): void
+    public function save(SaveSkillTestAction $saveSkillTestAction): void
     {
         $this->validate();
 
-        $data = [
-            'nama_tes' => $this->nama_tes,
-            'mata_soal' => $this->mata_soal,
-            'keahlian' => $this->keahlian,
-            'durasi_menit' => $this->durasi_menit,
-            'acak_soal' => $this->acak_soal,
-            'acak_jawaban' => $this->acak_jawaban,
-        ];
+        $saveSkillTestAction->execute([
+            'name' => $this->name,
+            'question_title_id' => $this->question_title_id,
+            'skill_id' => $this->skill_id,
+            'duration_minutes' => $this->duration_minutes,
+            'shuffle_questions' => $this->shuffle_questions,
+            'shuffle_answers' => $this->shuffle_answers,
+        ], $this->editingId);
 
-        if ($this->editingId) {
-            $test = SkillTest::findOrFail($this->editingId);
-            $test->update($data);
-            session()->flash('message', 'Tes keahlian berhasil diperbarui.');
-        } else {
-            SkillTest::create($data);
-            session()->flash('message', 'Tes keahlian berhasil ditambahkan.');
-        }
+        session()->flash('message', $this->editingId ? 'Tes keahlian berhasil diperbarui.' : 'Tes keahlian berhasil ditambahkan.');
 
         $this->closeModal();
     }
@@ -105,7 +105,7 @@ class SkillTestManager extends Component
     {
         $tests = SkillTest::query()
             ->with(['category', 'skill'])
-            ->when($this->search, fn($q) => $q->where('nama_tes', 'like', '%' . $this->search . '%'))
+            ->when($this->search, fn ($q) => $q->where('name', 'like', '%'.$this->search.'%'))
             ->latest()
             ->paginate(10);
 
@@ -114,5 +114,5 @@ class SkillTestManager extends Component
             'categories_list' => QuestionTitle::all(),
             'skills_list' => Skill::all(),
         ]);
-}
+    }
 }

@@ -10,11 +10,12 @@ class Skill extends Model
     use HasFactory;
 
     protected $table = 'skills';
-    protected $fillable = ['nama'];
+
+    protected $fillable = ['name'];
 
     public function registrations()
     {
-        return $this->hasMany(Registration::class, 'keahlian');
+        return $this->hasMany(Registration::class, 'skill_id');
     }
 
     public function skillTests()

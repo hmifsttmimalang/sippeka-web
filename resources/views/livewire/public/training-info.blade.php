@@ -70,14 +70,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($jurusan as $key => $data)
+                        @forelse ($majors as $key => $major)
                             <tr>
-                                <td class="text-center">{{ $jurusan->firstItem() + $key }}</td>
-                                <td class="fw-bold">{{ $data->nama_jurusan }}</td>
-                                <td class="text-center">{{ $data->kuota }}</td>
+                                <td class="text-center">{{ $majors->firstItem() + $key }}</td>
+                                <td class="fw-bold">{{ $major->name }}</td>
+                                <td class="text-center">{{ $major->quota }}</td>
                                 <td class="text-center">
-                                    <span class="badge {{ $data->status === 'dibuka' ? 'bg-success' : ($data->status === 'penuh' ? 'bg-warning' : 'bg-danger') }}">
-                                        {{ $statusList[$data->status] ?? 'Tutup' }}
+                                    <span class="badge {{ $major->status === 'open' ? 'bg-success' : ($major->status === 'full' ? 'bg-warning' : 'bg-danger') }}">
+                                        {{ $statusList[$major->status] ?? 'Tutup' }}
                                     </span>
                                 </td>
                             </tr>
@@ -90,7 +90,7 @@
                 </table>
             </div>
             <div class="mt-4">
-                {{ $jurusan->links() }}
+                {{ $majors->links() }}
             </div>
         </div>
     </section>
@@ -114,12 +114,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($jadwalTes as $index => $jadwal)
+                        @forelse ($testSchedules as $index => $testSchedule)
                             <tr>
-                                <td class="text-center">{{ $jadwalTes->firstItem() + $index }}</td>
-                                <td class="fw-bold">{{ $jadwal->jurusan->nama_jurusan }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->translatedFormat('d F Y') }}</td>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($jadwal->waktu_pelaksanaan)->format('H:i') }}</td>
+                                <td class="text-center">{{ $testSchedules->firstItem() + $index }}</td>
+                                <td class="fw-bold">{{ $testSchedule->major->name }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($testSchedule->test_date)->translatedFormat('d F Y') }}</td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($testSchedule->test_time)->format('H:i') }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -130,7 +130,7 @@
                 </table>
             </div>
             <div class="mt-4">
-                {{ $jadwalTes->links() }}
+                {{ $testSchedules->links() }}
             </div>
         </div>
     </section>

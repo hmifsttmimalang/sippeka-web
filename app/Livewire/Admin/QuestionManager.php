@@ -2,15 +2,16 @@
 
 namespace App\Livewire\Admin;
 
+use App\Actions\SaveQuestionAction;
 use App\Models\Question;
 use App\Models\SkillTest;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
 use App\Traits\WithAdminPagination;
-use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Layout;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 #[Layout('layouts.admin_app')]
 class QuestionManager extends Component
@@ -19,28 +20,37 @@ class QuestionManager extends Component
     use WithFileUploads;
 
     public SkillTest $test;
+
     public string $search = '';
 
     // Form fields
-    public string $soal = '';
-    public string $pilihan_a = '';
-    public string $pilihan_b = '';
-    public string $pilihan_c = '';
-    public string $pilihan_d = '';
-    public string $jawaban_benar = 'a';
+    public string $question = '';
+
+    public string $option_a = '';
+
+    public string $option_b = '';
+
+    public string $option_c = '';
+
+    public string $option_d = '';
+
+    public string $correct_answer = 'a';
 
     public ?int $editingId = null;
+
     public bool $showingModal = false;
+
     public $excelFile;
+
     public bool $showingImportModal = false;
 
     protected $rules = [
-        'soal' => 'required|min:10',
-        'pilihan_a' => 'required',
-        'pilihan_b' => 'required',
-        'pilihan_c' => 'required',
-        'pilihan_d' => 'required',
-        'jawaban_benar' => 'required|in:a,b,c,d',
+        'question' => 'required|min:10',
+        'option_a' => 'required',
+        'option_b' => 'required',
+        'option_c' => 'required',
+        'option_d' => 'required',
+        'correct_answer' => 'required|in:a,b,c,d',
     ];
 
     public function mount(int $testId): void
@@ -61,14 +71,14 @@ class QuestionManager extends Component
 
         if ($id) {
             $question = Question::findOrFail($id);
-            $this->soal = $question->soal;
-            $this->pilihan_a = $question->pilihan_a;
-            $this->pilihan_b = $question->pilihan_b;
-            $this->pilihan_c = $question->pilihan_c;
-            $this->pilihan_d = $question->pilihan_d;
-            $this->jawaban_benar = $question->jawaban_benar;
+            $this->question = $question->question;
+            $this->option_a = $question->option_a;
+            $this->option_b = $question->option_b;
+            $this->option_c = $question->option_c;
+            $this->option_d = $question->option_d;
+            $this->correct_answer = $question->correct_answer;
         } else {
-            $this->reset(['soal', 'pilihan_a', 'pilihan_b', 'pilihan_c', 'pilihan_d', 'jawaban_benar']);
+            $this->reset(['question', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer']);
         }
     }
 
@@ -100,25 +110,25 @@ class QuestionManager extends Component
 
             $count = 0;
             for ($row = 2; $row <= $highestRow; $row++) {
-                $soal = $worksheet->getCell('A' . $row)->getValue();
-                $pilihanA = $worksheet->getCell('B' . $row)->getValue();
-                $pilihanB = $worksheet->getCell('C' . $row)->getValue();
-                $pilihanC = $worksheet->getCell('D' . $row)->getValue();
-                $pilihanD = $worksheet->getCell('E' . $row)->getValue();
-                $jawabanBenar = strtolower(trim($worksheet->getCell('F' . $row)->getValue()));
+                $questionValue = $worksheet->getCell('A'.$row)->getValue();
+                $optionAValue = $worksheet->getCell('B'.$row)->getValue();
+                $optionBValue = $worksheet->getCell('C'.$row)->getValue();
+                $optionCValue = $worksheet->getCell('D'.$row)->getValue();
+                $optionDValue = $worksheet->getCell('E'.$row)->getValue();
+                $correctAnswerValue = strtolower(trim($worksheet->getCell('F'.$row)->getValue()));
 
-                if (empty($soal) || empty($pilihanA) || empty($jawabanBenar)) {
+                if (empty($questionValue) || empty($optionAValue) || empty($correctAnswerValue)) {
                     continue;
                 }
 
                 Question::create([
                     'skill_test_id' => $this->test->id,
-                    'soal' => $soal,
-                    'pilihan_a' => $pilihanA,
-                    'pilihan_b' => $pilihanB,
-                    'pilihan_c' => $pilihanC,
-                    'pilihan_d' => $pilihanD,
-                    'jawaban_benar' => in_array($jawabanBenar, ['a', 'b', 'c', 'd']) ? $jawabanBenar : 'a',
+                    'question' => $questionValue,
+                    'option_a' => $optionAValue,
+                    'option_b' => $optionBValue,
+                    'option_c' => $optionCValue,
+                    'option_d' => $optionDValue,
+                    'correct_answer' => in_array($correctAnswerValue, ['a', 'b', 'c', 'd']) ? $correctAnswerValue : 'a',
                 ]);
                 $count++;
             }
@@ -126,33 +136,26 @@ class QuestionManager extends Component
             session()->flash('message', "$count soal berhasil diimpor.");
             $this->closeModal();
         } catch (\Exception $e) {
-            Log::error('Excel Import Error: ' . $e->getMessage());
+            Log::error('Excel Import Error: '.$e->getMessage());
             $this->addError('excelFile', 'Gagal memproses file Excel. Pastikan format sesuai.');
         }
     }
 
-    public function save(): void
+    public function save(SaveQuestionAction $saveQuestionAction): void
     {
         $this->validate();
 
-        $data = [
+        $saveQuestionAction->execute([
             'skill_test_id' => $this->test->id,
-            'soal' => $this->soal,
-            'pilihan_a' => $this->pilihan_a,
-            'pilihan_b' => $this->pilihan_b,
-            'pilihan_c' => $this->pilihan_c,
-            'pilihan_d' => $this->pilihan_d,
-            'jawaban_benar' => $this->jawaban_benar,
-        ];
+            'question' => $this->question,
+            'option_a' => $this->option_a,
+            'option_b' => $this->option_b,
+            'option_c' => $this->option_c,
+            'option_d' => $this->option_d,
+            'correct_answer' => $this->correct_answer,
+        ], $this->editingId);
 
-        if ($this->editingId) {
-            $question = Question::findOrFail($this->editingId);
-            $question->update($data);
-            session()->flash('message', 'Soal berhasil diperbarui.');
-        } else {
-            Question::create($data);
-            session()->flash('message', 'Soal berhasil ditambahkan.');
-        }
+        session()->flash('message', $this->editingId ? 'Soal berhasil diperbarui.' : 'Soal berhasil ditambahkan.');
 
         $this->closeModal();
     }
@@ -168,13 +171,13 @@ class QuestionManager extends Component
     {
         $questions = Question::query()
             ->where('skill_test_id', $this->test->id)
-            ->when($this->search, fn($q) => $q->where('soal', 'like', '%' . $this->search . '%'))
+            ->when($this->search, fn ($q) => $q->where('question', 'like', '%'.$this->search.'%'))
             ->latest()
             ->paginate(10);
 
         return view('livewire.admin.question-manager', [
             'questions' => $questions,
-            'title' => 'Manajemen Soal: ' . $this->test->nama_tes
+            'title' => 'Manajemen Soal: '.$this->test->name,
         ]);
     }
 }

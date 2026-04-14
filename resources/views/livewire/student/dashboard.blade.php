@@ -147,31 +147,31 @@
                                             <div class="col-md-6 mb-3">
                                                 <div @class([
                                                     'card h-100 py-2 shadow-sm border-left-primary' =>
-                                                        $session->jenis_sesi === 'Seleksi',
+                                                        $session->session_type === 'Selection',
                                                     'card h-100 py-2 shadow-sm border-left-info' =>
-                                                        $session->jenis_sesi === 'Simulasi',
+                                                        $session->session_type === 'Simulation',
                                                 ])>
                                                     <div class="card-body">
                                                         <div class="row no-gutters align-items-center">
                                                             <div class="col mr-2">
                                                                 <div @class([
                                                                     'text-xs font-weight-bold text-uppercase mb-1',
-                                                                    'text-primary' => $session->jenis_sesi === 'Seleksi',
-                                                                    'text-info' => $session->jenis_sesi === 'Simulasi',
+                                                                    'text-primary' => $session->session_type === 'Selection',
+                                                                    'text-info' => $session->session_type === 'Simulation',
                                                                 ])>
-                                                                    {{ $session->jenis_sesi }} -
-                                                                    {{ $session->test->category->nama }}
+                                                                    {{ $session->session_type }} -
+                                                                    {{ $session->test->category->name }}
                                                                 </div>
                                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                                    {{ $session->test->nama_tes }}</div>
+                                                                    {{ $session->test->name }}</div>
                                                                 <p class="text-muted small mt-2 mb-0">
                                                                     <i class="bi bi-clock-history me-1 text-danger"></i>
                                                                     @if ($session->student_status === 'finished')
                                                                         Selesai pada
-                                                                        {{ \Carbon\Carbon::parse($session->waktu_selesai)->translatedFormat('H:i') }}
+                                                                        {{ \Carbon\Carbon::parse($session->end_time)->translatedFormat('H:i') }}
                                                                     @else
                                                                         Berakhir pada
-                                                                        {{ \Carbon\Carbon::parse($session->waktu_selesai)->translatedFormat('d F, H:i') }}
+                                                                        {{ \Carbon\Carbon::parse($session->end_time)->translatedFormat('d F, H:i') }}
                                                                     @endif
                                                                 </p>
                                                             </div>
@@ -191,13 +191,13 @@
                                                                     Dikerjakan
                                                                 </button>
                                                             @elseif($registration && $registration->verification_status === 'Approved')
-                                                                @if ($session->jenis_sesi === 'Seleksi')
-                                                                    <a href="{{ route('student.seleksi', ['sessionId' => $session->id]) }}"
+                                                                @if ($session->session_type === 'Selection')
+                                                                    <a href="{{ route('student.selection', ['sessionId' => $session->id]) }}"
                                                                         class="btn btn-primary btn-sm w-100 font-weight-bold">
                                                                         Mulai Seleksi
                                                                     </a>
                                                                 @else
-                                                                    <a href="{{ route('student.simulasi', ['sessionId' => $session->id]) }}"
+                                                                    <a href="{{ route('student.simulation', ['sessionId' => $session->id]) }}"
                                                                         class="btn btn-info text-white btn-sm w-100 font-weight-bold">
                                                                         Mulai Simulasi
                                                                     </a>
@@ -223,15 +223,15 @@
                                                             <div class="col mr-2">
                                                                 <div
                                                                     class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
-                                                                    {{ $session->jenis_sesi }} -
-                                                                    {{ $session->test->category->nama }}
+                                                                    {{ $session->session_type }} -
+                                                                    {{ $session->test->category->name }}
                                                                 </div>
                                                                 <div class="h6 mb-0 font-weight-bold text-gray-600">
-                                                                    {{ $session->test->nama_tes }}</div>
+                                                                    {{ $session->test->name }}</div>
                                                                 <p class="text-muted extra-small mt-2 mb-0 italic">
                                                                     <i class="bi bi-calendar-event me-1"></i>
                                                                     Mulai
-                                                                    {{ \Carbon\Carbon::parse($session->waktu_mulai)->translatedFormat('d F, H:i') }}
+                                                                    {{ \Carbon\Carbon::parse($session->start_time)->translatedFormat('d F, H:i') }}
                                                                 </p>
                                                             </div>
                                                             <div class="col-auto">
@@ -258,15 +258,15 @@
                                                             <div class="col mr-2">
                                                                 <div
                                                                     class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                                    {{ $session->jenis_sesi }} -
-                                                                    {{ $session->test->category->nama }}
+                                                                    {{ $session->session_type }} -
+                                                                    {{ $session->test->category->name }}
                                                                 </div>
                                                                 <div class="h6 mb-0 font-weight-bold text-gray-500">
-                                                                    {{ $session->test->nama_tes }}</div>
+                                                                    {{ $session->test->name }}</div>
                                                                 <p class="text-danger extra-small mt-2 mb-0 italic">
                                                                     <i class="bi bi-exclamation-circle me-1"></i>
                                                                     Sesi Berakhir pada
-                                                                    {{ \Carbon\Carbon::parse($session->waktu_selesai)->translatedFormat('H:i') }}
+                                                                    {{ \Carbon\Carbon::parse($session->end_time)->translatedFormat('H:i') }}
                                                                 </p>
                                                             </div>
                                                             <div class="col-auto">
@@ -324,7 +324,8 @@
                                         <i class="bi bi-exclamation-triangle-fill text-danger"
                                             style="font-size: 4rem;"></i>
                                         <h4 class="mt-3 font-weight-bold text-slate-900">Belum Terdaftar</h4>
-                                        <a href="{{ route('pendaftaran.form') }}" class="btn btn-primary mt-2">Daftar
+                                        <a href="{{ route('registration.form') }}"
+                                            class="btn btn-primary mt-2">Daftar
                                             Sekarang</a>
                                     @endif
                                 </div>
@@ -336,9 +337,9 @@
                             <div @class([
                                 'card shadow-sm border-0 premium-card-result',
                                 'bg-proses' => !$showAnnouncement,
-                                'bg-lulus' => $showAnnouncement && $statusSeleksi === 'Lulus',
-                                'bg-gagal' => $showAnnouncement && $statusSeleksi === 'Tidak Lulus',
-                                'bg-proses' => $showAnnouncement && $statusSeleksi === 'Sedang Diproses',
+                                'bg-lulus' => $showAnnouncement && $selectionStatus === 'Passed',
+                                'bg-gagal' => $showAnnouncement && $selectionStatus === 'Failed',
+                                'bg-proses' => $showAnnouncement && $selectionStatus === 'Processing',
                             ])>
                                 <div
                                     class="card-header py-3 bg-transparent border-0 d-flex justify-content-between align-items-center">
@@ -346,7 +347,7 @@
                                         style="font-size: 0.7rem;">Hasil Seleksi & Pengumuman</h6>
                                     @if ($showAnnouncement)
                                         <span
-                                            class="badge rounded-pill @if ($statusSeleksi === 'Lulus') bg-success @else bg-danger @endif">OFFICIAL</span>
+                                            class="badge rounded-pill @if ($selectionStatus === 'Passed') bg-success @else bg-danger @endif">OFFICIAL</span>
                                     @endif
                                 </div>
                                 <div class="card-body py-5 text-center">
@@ -366,14 +367,14 @@
                                         </div>
                                     @else
                                         <div class="space-y-4">
-                                            @if ($statusSeleksi === 'Sedang Diproses')
+                                            @if ($selectionStatus === 'Processing')
                                                 <div class="result-icon-container pending">
                                                     <i class="bi bi-arrow-repeat spin"></i>
                                                 </div>
                                                 <h4 class="status-title text-warning">Sedang Diproses</h4>
                                                 <p class="text-muted small px-lg-5">Nilai Anda sedang dikalkulasi oleh
                                                     sistem. Silakan muat ulang halaman beberapa saat lagi.</p>
-                                            @elseif ($statusSeleksi === 'Lulus')
+                                            @elseif ($selectionStatus === 'Passed')
                                                 <div class="result-icon-container success">
                                                     <i class="bi bi-award-fill"></i>
                                                 </div>
@@ -381,16 +382,17 @@
                                                 <p class="text-muted px-lg-5 mb-4">Anda dinyatakan
                                                     <strong>Lulus</strong> seleksi pelatihan di SIPPEKA Balai UPT
                                                     Singosari. Silakan lakukan daftar ulang ke kantor pusat sesuai
-                                                    jadwal yang diinstruksikan.</p>
+                                                    jadwal yang diinstruksikan.
+                                                </p>
 
                                                 <div class="score-pill">
                                                     <span class="text-muted font-weight-bold uppercase d-block mb-1"
                                                         style="font-size: 0.7rem; letter-spacing: 2px;">SKOR
                                                         AKHIR</span>
                                                     <span class="text-4xl font-black text-success"
-                                                        style="font-size: 3rem; line-height: 1;">{{ number_format($rataRata, 1) }}</span>
+                                                        style="font-size: 3rem; line-height: 1;">{{ number_format($averageScore, 1) }}</span>
                                                 </div>
-                                            @elseif ($statusSeleksi === 'Tidak Lulus')
+                                            @elseif ($selectionStatus === 'Failed')
                                                 <div class="result-icon-container danger">
                                                     <i class="bi bi-x-circle-fill"></i>
                                                 </div>
@@ -404,7 +406,7 @@
                                                         style="font-size: 0.7rem; letter-spacing: 2px;">SKOR
                                                         AKHIR</span>
                                                     <span class="text-4xl font-black text-danger"
-                                                        style="font-size: 3rem; line-height: 1;">{{ number_format($rataRata, 1) }}</span>
+                                                        style="font-size: 3rem; line-height: 1;">{{ number_format($averageScore, 1) }}</span>
                                                 </div>
                                             @endif
                                         </div>
@@ -430,8 +432,8 @@
                         </div>
                         <div class="card-body">
                             <div class="text-center mb-4">
-                                @if ($registration && $registration->foto_bg_biru)
-                                    <img src="{{ asset('storage/' . $registration->foto_bg_biru) }}"
+                                @if ($registration && $registration->formal_photo_path)
+                                    <img src="{{ asset('storage/' . $registration->formal_photo_path) }}"
                                         alt="Foto Profil" class="img-fluid rounded border p-1"
                                         style="max-width: 150px;">
                                 @else
@@ -442,17 +444,17 @@
                                 @endif
                             </div>
                             <h5 class="text-center font-weight-bold mb-4">
-                                {{ strtoupper($registration->nama ?? $user->name) }}</h5>
+                                {{ strtoupper($registration->name ?? $user->name) }}</h5>
                             <ul class="list-group list-group-flush small">
                                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     <span class="text-muted">Program</span>
                                     <span
-                                        class="font-weight-bold text-end">{{ $registration->skill->nama ?? '-' }}</span>
+                                        class="font-weight-bold text-end">{{ $registration->skill->name ?? '-' }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     <span class="text-muted">TTL</span>
-                                    <span class="text-end">{{ $registration->tempat_lahir ?? '-' }},
-                                        {{ $registration ? date('d-m-Y', strtotime($registration->tanggal_lahir)) : '-' }}</span>
+                                    <span class="text-end">{{ $registration->place_of_birth ?? '-' }},
+                                        {{ $registration && $registration->date_of_birth ? $registration->date_of_birth->format('d-m-Y') : '-' }}</span>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     <span class="text-muted">Email</span>
@@ -460,7 +462,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                     <span class="text-muted">Telepon</span>
-                                    <span>{{ $registration->telepon ?? '-' }}</span>
+                                    <span>{{ $registration->phone ?? '-' }}</span>
                                 </li>
                             </ul>
                             <div class="mt-4">
@@ -482,22 +484,26 @@
     @if (session('test_result'))
         @php $res = session('test_result'); @endphp
         <!-- Result Summary Modal -->
-        <div class="modal fade" id="testResultModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal fade" id="testResultModal" tabindex="-1" role="dialog" aria-hidden="true"
+            data-bs-backdrop="static" data-bs-keyboard="false">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content overflow-hidden border-0 shadow-lg" style="border-radius: 20px;">
                     <div class="modal-body p-0">
-                        <div class="p-5 text-center @if($res['type'] == 'Seleksi') bg-primary @else bg-info @endif text-white">
+                        <div
+                            class="p-5 text-center @if ($res['type'] == 'Selection') bg-primary @else bg-info @endif text-white">
                             <div class="mb-4">
                                 <i class="bi bi-patch-check-fill" style="font-size: 5rem;"></i>
                             </div>
                             <h3 class="font-weight-bold mb-1">Tes Selesai!</h3>
                             <p class="opacity-75 mb-0">Terima kasih telah menyelesaikan ujian.</p>
                         </div>
-                        
+
                         <div class="p-4 bg-white">
                             <div class="text-center mb-4">
-                                <h6 class="text-uppercase tracking-widest text-muted small mb-2">{{ $res['type'] }} - {{ $res['test_name'] }}</h6>
-                                <h2 class="display-4 font-weight-bold text-dark mb-0">{{ number_format($res['score'], 1) }}%</h2>
+                                <h6 class="text-uppercase tracking-widest text-muted small mb-2">{{ $res['type'] }} -
+                                    {{ $res['test_name'] }}</h6>
+                                <h2 class="display-4 font-weight-bold text-dark mb-0">
+                                    {{ number_format($res['score'], 1) }}%</h2>
                                 <p class="text-muted">Skor Akhir Anda</p>
                             </div>
 
@@ -514,13 +520,15 @@
                                 </div>
                             </div>
 
-                            @if($res['type'] == 'Seleksi')
+                            @if ($res['type'] == 'Selection')
                                 <div class="alert alert-primary border-0 small text-center mb-4">
-                                    <i class="bi bi-info-circle me-1"></i> Data Anda telah kami simpan. Hasil resmi akan diumumkan pada jadwal yang ditentukan.
+                                    <i class="bi bi-info-circle me-1"></i> Data Anda telah kami simpan. Hasil resmi
+                                    akan diumumkan pada jadwal yang ditentukan.
                                 </div>
                             @endif
 
-                            <button type="button" class="btn btn-secondary w-100 py-3 font-weight-bold" data-bs-dismiss="modal" style="border-radius: 12px;">
+                            <button type="button" class="btn btn-secondary w-100 py-3 font-weight-bold"
+                                data-bs-dismiss="modal" style="border-radius: 12px;">
                                 Tutup & Kembali
                             </button>
                         </div>

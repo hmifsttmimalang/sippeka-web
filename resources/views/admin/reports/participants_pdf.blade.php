@@ -101,23 +101,23 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($listPendaftar as $item)
+            @foreach ($registrations as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td class="text-left">{{ $item->nama }}</td>
-                    <td class="text-left">{{ $item->alamat }}</td>
-                    <td>{{ $item->skill->nama ?? '-' }}</td>
-                    <td>{{ number_format($item->nilai_keahlian, 1) }}</td>
-                    <td>{{ $item->nilai_wawancara !== null ? number_format($item->nilai_wawancara, 1) : '-' }}</td>
-                    <td>{{ $item->rata_rata !== null ? number_format($item->rata_rata, 1) : '-' }}</td>
+                    <td class="text-left">{{ $item->name }}</td>
+                    <td class="text-left">{{ $item->address }}</td>
+                    <td>{{ $item->skill->name ?? '-' }}</td>
+                    <td>{{ number_format($item->skill_score, 1) }}</td>
+                    <td>{{ $item->interview_score !== null ? number_format($item->interview_score, 1) : '-' }}</td>
+                    <td>{{ $item->average_score !== null ? number_format($item->average_score, 1) : '-' }}</td>
                     <td>
                         <span class="badge">
-                            @if($item->rata_rata === null)
-                                Diproses
-                            @elseif($item->rata_rata >= 70)
-                                Lulus
+                            @if($item->average_score === null)
+                                Processing
+                            @elseif($item->average_score >= 70)
+                                Passed
                             @else
-                                Gagal
+                                Failed
                             @endif
                         </span>
                     </td>

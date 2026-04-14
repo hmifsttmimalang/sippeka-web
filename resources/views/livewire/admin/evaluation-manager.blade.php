@@ -34,7 +34,7 @@
                                     style="width: 200px;">
                                     <option value="">Semua Program</option>
                                     @foreach ($skills as $skill)
-                                        <option value="{{ $skill->id }}">{{ $skill->nama }}</option>
+                                        <option value="{{ $skill->id }}">{{ $skill->name }}</option>
                                     @endforeach
                                 </select>
                                 <input wire:model.live.debounce.300ms="search" type="text"
@@ -63,14 +63,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($registrations as $reg)
+                                        @forelse($registrations as $registration)
                                             <tr class="text-center">
                                                 @if(auth()->user()->isInstructor())
                                                     <td style="width: 80px;">
                                                         <div class="rounded shadow-sm overflow-hidden" style="width: 60px; height: 75px; margin: 0 auto;">
-                                                            @if($reg->foto_bg_biru)
-                                                                <img src="{{ asset('storage/' . $reg->foto_bg_biru) }}" class="img-fluid h-100 w-100 object-fit-cover" 
-                                                                     onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($reg->nama) }}&background=random'"
+                                                            @if($registration->formal_photo_path)
+                                                                <img src="{{ asset('storage/' . $registration->formal_photo_path) }}" class="img-fluid h-100 w-100 object-fit-cover" 
+                                                                     onerror="this.src='https://ui-avatars.com/api/?name={{ urlencode($registration->name) }}&background=random'"
                                                                      onclick="window.open(this.src, '_blank')" style="cursor: zoom-in;">
                                                             @else
                                                                 <div class="bg-light d-flex align-items-center justify-content-center h-100">
@@ -81,49 +81,50 @@
                                                     </td>
                                                 @endif
                                                 <td class="text-left">
-                                                    <div class="font-weight-bold text-gray-800">{{ $reg->nama }}</div>
+                                                    <div class="font-weight-bold text-gray-800">{{ $registration->name }}</div>
                                                     <div class="badge badge-light border text-primary small uppercase px-2 py-1 mt-1">
-                                                        {{ $reg->skill->nama ?? '-' }}</div>
+                                                        {{ $registration->skill->name ?? '-' }}</div>
                                                 </td>
                                                 @if(auth()->user()->isAdmin())
-                                                    <td><span class="badge badge-info px-3 py-2" style="font-size: 0.9rem;">{{ number_format($reg->nilai_keahlian, 1) }}</span></td>
+                                                    <td><span class="badge badge-info px-3 py-2" style="font-size: 0.9rem;">{{ number_format($registration->skill_score, 1) }}</span></td>
                                                 @endif
                                                 <td>
-                                                    @if ($editingId === $reg->id && auth()->user()->isInstructor())
+                                                    @if ($editingId === $registration->id && auth()->user()->isInstructor())
                                                         <div class="d-flex justify-content-center align-items-center gap-1">
-                                                            <input wire:model="tempNilaiWawancara" type="number" step="0.5" class="form-control form-control-sm text-center" style="width: 80px;">
+                                                            <input wire:model="tempInterviewScore" type="number" step="0.5" class="form-control form-control-sm text-center" style="width: 80px;">
                                                             <button wire:click="saveScore" class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
                                                             <button wire:click="cancelEdit" class="btn btn-sm btn-secondary"><i class="fas fa-times"></i></button>
                                                         </div>
-                                                        @error('tempNilaiWawancara')
+                                                        @error('tempInterviewScore')
                                                             <div class="text-danger extra-small">{{ $message }}</div>
                                                         @enderror
                                                     @else
                                                         <div class="d-flex align-items-center justify-content-center">
-                                                            <span class="h5 mb-0 font-weight-bold {{ $reg->nilai_wawancara !== null ? 'text-dark' : 'text-gray-400 font-italic' }}">
-                                                                {{ $reg->nilai_wawancara !== null ? number_format($reg->nilai_wawancara, 1) : 'Belum Ada' }}
+                                                            <span class="h5 mb-0 font-weight-bold {{ $registration->interview_score !== null ? 'text-dark' : 'text-gray-400 font-italic' }}">
+                                                                {{ $registration->interview_score !== null ? number_format($registration->interview_score, 1) : 'Belum Ada' }}
                                                             </span>
                                                             @if(auth()->user()->isInstructor())
-                                                                <button wire:click="editScore({{ $reg->id }})" class="btn btn-sm btn-link ml-2"><i class="fas fa-edit"></i></button>
+                                                                <button wire:click="editScore({{ $registration->id }})" class="btn btn-sm btn-link ml-2"><i class="fas fa-edit"></i></button>
                                                             @endif
                                                         </div>
                                                     @endif
                                                 </td>
                                                 @if(auth()->user()->isAdmin())
-                                                    <td class="font-weight-bold text-primary">{{ $reg->average_score !== null ? number_format($reg->average_score, 1) : '-' }}</td>
+                                                    <td class="font-weight-bold text-primary">{{ $registration->average_score !== null ? number_format($registration->average_score, 1) : '-' }}</td>
                                                     <td>
                                                         @php
-                                                            $badgeClass = match ($reg->status) {
-                                                                'Lulus' => 'badge-success',
-                                                                'Gagal' => 'badge-danger',
-                                                                'Sedang Diproses' => 'badge-warning',
+                                                            $badgeClass = match ($registration->status) {
+                                                                'Passed' => 'badge-success',
+                                                                'Failed' => 'badge-danger',
+                                                                'In Progress' => 'badge-warning',
+                                                                'Not Yet Tested' => 'badge-info',
                                                                 default => 'badge-secondary',
                                                             };
                                                         @endphp
-                                                        <span class="badge {{ $badgeClass }} px-3 py-1">{{ $reg->status }}</span>
+                                                        <span class="badge {{ $badgeClass }} px-3 py-1">{{ $registration->status }}</span>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('admin.reports.registration', $reg->id) }}" target="_blank" class="btn btn-sm btn-outline-primary border-0 rounded-circle"><i class="fas fa-file-pdf"></i></a>
+                                                        <a href="{{ route('admin.reports.registration', $registration->id) }}" target="_blank" class="btn btn-sm btn-outline-primary border-0 rounded-circle"><i class="fas fa-file-pdf"></i></a>
                                                     </td>
                                                 @endif
                                             </tr>

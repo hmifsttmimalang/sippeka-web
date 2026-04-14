@@ -2,13 +2,14 @@
 
 namespace App\Livewire\Admin;
 
-use Livewire\Component;
+use App\Actions\SaveSkillTestSessionAction;
+use App\Models\SkillTest;
+use App\Models\SkillTestSession;
+use App\Models\TestAttempt;
+use App\Traits\WithAdminPagination;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-use App\Traits\WithAdminPagination;
-use App\Models\SkillTestSession;
-use App\Models\SkillTest;
-use App\Models\TestAttempt;
+use Livewire\Component;
 
 #[Layout('layouts.admin_app')]
 #[Title('Sesi Tes Keahlian')]
@@ -19,19 +20,27 @@ class SkillTestSessionManager extends Component
     public $search = '';
 
     // Form properties
-    public $nama_sesi;
+    public $name;
+
     public $skill_test_id;
-    public $waktu_mulai;
-    public $waktu_selesai;
-    public $jenis_sesi = 'Seleksi';
+
+    public $startTime;
+
+    public $endTime;
+
+    public $sessionType = 'Selection';
 
     public $editingId = null;
+
     public $showingModal = false;
+
     public $showingDetailModal = false;
 
     // View related
     public $selectedSession = null;
+
     public $detailAttempts = [];
+
     public $detailSearch = '';
 
     protected $queryString = ['search' => ['except' => '']];
@@ -39,11 +48,11 @@ class SkillTestSessionManager extends Component
     protected function rules()
     {
         return [
-            'nama_sesi' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'skill_test_id' => 'required|exists:skill_tests,id',
-            'waktu_mulai' => 'required|date',
-            'waktu_selesai' => 'required|date|after:waktu_mulai',
-            'jenis_sesi' => 'required|in:Seleksi,Simulasi',
+            'startTime' => 'required|date',
+            'endTime' => 'required|date|after:startTime',
+            'sessionType' => 'required|in:Selection,Simulation',
         ];
     }
 
@@ -59,17 +68,17 @@ class SkillTestSessionManager extends Component
 
         if ($id) {
             $session = SkillTestSession::findOrFail($id);
-            $this->nama_sesi = $session->nama_sesi;
+            $this->name = $session->name;
             $this->skill_test_id = $session->skill_test_id;
 
             // Format for datetime-local input
-            $this->waktu_mulai = date('Y-m-d\TH:i', strtotime($session->waktu_mulai));
-            $this->waktu_selesai = date('Y-m-d\TH:i', strtotime($session->waktu_selesai));
+            $this->startTime = date('Y-m-d\TH:i', strtotime($session->start_time));
+            $this->endTime = date('Y-m-d\TH:i', strtotime($session->end_time));
 
-            $this->jenis_sesi = $session->jenis_sesi;
+            $this->sessionType = $session->session_type;
         } else {
-            $this->reset(['nama_sesi', 'skill_test_id', 'waktu_mulai', 'waktu_selesai', 'jenis_sesi']);
-            $this->jenis_sesi = 'Seleksi';
+            $this->reset(['name', 'skill_test_id', 'startTime', 'endTime', 'sessionType']);
+            $this->sessionType = 'Selection';
         }
 
         $this->showingModal = true;
@@ -82,30 +91,19 @@ class SkillTestSessionManager extends Component
         $this->dispatch('hide-form-modal');
     }
 
-    public function save()
+    public function save(SaveSkillTestSessionAction $saveSkillTestSessionAction)
     {
         $this->validate();
 
-        if ($this->editingId) {
-            $session = SkillTestSession::findOrFail($this->editingId);
-            $session->update([
-                'nama_sesi' => $this->nama_sesi,
-                'skill_test_id' => $this->skill_test_id,
-                'waktu_mulai' => $this->waktu_mulai,
-                'waktu_selesai' => $this->waktu_selesai,
-                'jenis_sesi' => $this->jenis_sesi,
-            ]);
-            session()->flash('success', 'Sesi tes berhasil diperbarui.');
-        } else {
-            SkillTestSession::create([
-                'nama_sesi' => $this->nama_sesi,
-                'skill_test_id' => $this->skill_test_id,
-                'waktu_mulai' => $this->waktu_mulai,
-                'waktu_selesai' => $this->waktu_selesai,
-                'jenis_sesi' => $this->jenis_sesi,
-            ]);
-            session()->flash('success', 'Sesi tes berhasil ditambahkan.');
-        }
+        $saveSkillTestSessionAction->execute([
+            'name' => $this->name,
+            'skill_test_id' => $this->skill_test_id,
+            'start_time' => $this->startTime,
+            'end_time' => $this->endTime,
+            'session_type' => $this->sessionType,
+        ], $this->editingId);
+
+        session()->flash('success', $this->editingId ? 'Sesi tes berhasil diperbarui.' : 'Sesi tes berhasil ditambahkan.');
 
         $this->closeModal();
     }
@@ -140,7 +138,7 @@ class SkillTestSessionManager extends Component
 
             if ($this->detailSearch) {
                 $query->whereHas('registration', function ($q) {
-                    $q->where('nama', 'like', '%' . $this->detailSearch . '%');
+                    $q->where('name', 'like', '%'.$this->detailSearch.'%');
                 });
             }
 
@@ -157,9 +155,9 @@ class SkillTestSessionManager extends Component
     {
         $sessions = SkillTestSession::with('skillTest')
             ->when($this->search, function ($query) {
-                $query->where('nama_sesi', 'like', '%' . $this->search . '%')
+                $query->where('name', 'like', '%'.$this->search.'%')
                     ->orWhereHas('skillTest', function ($q) {
-                        $q->where('nama_tes', 'like', '%' . $this->search . '%');
+                        $q->where('name', 'like', '%'.$this->search.'%');
                     });
             })
             ->latest()
@@ -167,7 +165,7 @@ class SkillTestSessionManager extends Component
 
         return view('livewire.admin.skill-test-session-manager', [
             'sessions' => $sessions,
-            'skillTests' => SkillTest::all()
+            'skillTests' => SkillTest::all(),
         ]);
-}
+    }
 }

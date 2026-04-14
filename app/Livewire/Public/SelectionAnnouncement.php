@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Public;
 
+use App\Models\Announcement;
 use App\Models\Registration;
-use App\Models\Pengumuman;
 use Carbon\Carbon;
-use Livewire\Component;
-use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('layouts.info_app')]
 #[Title('Pengumuman Hasil Seleksi')]
@@ -19,19 +19,19 @@ class SelectionAnnouncement extends Component
 
     public function render(): View
     {
-        $pengumuman = Pengumuman::first();
-        $pengumumanWaktu = $pengumuman ? $pengumuman->tanggal_waktu : null;
-        $isPassed = $pengumumanWaktu ? Carbon::parse($pengumumanWaktu)->isPast() : false;
-        
-        $listPendaftar = Registration::query()
+        $announcement = Announcement::first();
+        $announcementTime = $announcement ? $announcement->scheduled_at : null;
+        $isPassed = $announcementTime ? Carbon::parse($announcementTime)->isPast() : false;
+
+        $registrations = Registration::query()
             ->with('skill')
-            ->orderByRaw('COALESCE((nilai_keahlian + nilai_wawancara) / 2, 0) DESC')
+            ->orderByRaw('COALESCE((skill_score + interview_score) / 2, 0) DESC')
             ->paginate(15);
 
         return view('livewire.public.selection-announcement', [
-            'pengumumanWaktu' => $pengumumanWaktu,
+            'announcementTime' => $announcementTime,
             'isPassed' => $isPassed,
-            'listPendaftar' => $listPendaftar
+            'registrations' => $registrations,
         ]);
     }
 }

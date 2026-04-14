@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\SkillTestFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,27 +10,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SkillTest extends Model
 {
-    /** @use HasFactory<\Database\Factories\SkillTestFactory> */
+    /** @use HasFactory<SkillTestFactory> */
     use HasFactory;
 
     protected $table = 'skill_tests';
+
     protected $fillable = [
-        'nama_tes', 
-        'mata_soal', 
-        'keahlian', 
-        'acak_soal', 
-        'acak_jawaban', 
-        'durasi_menit'
+        'name',
+        'question_title_id',
+        'skill_id',
+        'shuffle_questions',
+        'shuffle_answers',
+        'duration_minutes',
     ];
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(QuestionTitle::class, 'mata_soal');
+        return $this->belongsTo(QuestionTitle::class, 'question_title_id');
     }
 
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'keahlian');
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 
     public function questions(): HasMany

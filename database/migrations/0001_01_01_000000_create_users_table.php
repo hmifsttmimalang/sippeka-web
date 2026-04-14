@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('user'); // user, admin, instruktur
-            $table->string('status_register')->default('tidak terdaftar'); // tidak terdaftar, terdaftar
+            $table->string('role')->default('user'); // user, admin, instructor
+            $table->string('registration_status')->default('unregistered'); // unregistered, registered
             $table->rememberToken();
             $table->timestamps();
         });

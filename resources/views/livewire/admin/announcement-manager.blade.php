@@ -26,23 +26,23 @@
                                 <div class="card-body">
                                     <p class="mb-4 text-gray-800">
                                         Waktu pengumuman saat ini: <br>
-                                        <strong><i class="fas fa-clock mr-2"></i>{{ $formattedDate }}</strong>
+                                        <strong><i class="fas fa-clock mr-2"></i>{{ $formattedScheduledAt }}</strong>
                                     </p>
 
                                     <form wire:submit.prevent="save">
                                         <div class="form-group">
                                             <label>Set Tanggal Pengumuman</label>
-                                            <input type="date" wire:model="tanggal"
-                                                class="form-control @error('tanggal') is-invalid @enderror">
-                                            @error('tanggal')
+                                            <input type="date" wire:model="date"
+                                                class="form-control @error('date') is-invalid @enderror">
+                                            @error('date')
                                                 <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Set Waktu Pengumuman (HH:mm)</label>
-                                            <input type="time" wire:model="waktu"
-                                                class="form-control @error('waktu') is-invalid @enderror">
-                                            @error('waktu')
+                                            <input type="time" wire:model="time"
+                                                class="form-control @error('time') is-invalid @enderror">
+                                            @error('time')
                                                 <span class="invalid-feedback">{{ $message }}</span>
                                             @enderror
                                         </div>

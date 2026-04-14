@@ -15,7 +15,7 @@
                                     style="width: 200px;">
                                     <option value="">Semua Program Keahlian</option>
                                     @foreach ($skills as $skill)
-                                        <option value="{{ $skill->id }}">{{ $skill->nama }}</option>
+                                        <option value="{{ $skill->id }}">{{ $skill->name }}</option>
                                     @endforeach
                                 </select>
                                 <input wire:model.live.debounce.300ms="search" type="text"
@@ -40,10 +40,10 @@
                                         @forelse($registrants as $registrant)
                                             <tr class="text-center">
                                                 <td class="text-left font-weight-bold text-primary">
-                                                    {{ $registrant->nama }}</td>
-                                                <td>{{ $registrant->telepon }}</td>
+                                                    {{ $registrant->name }}</td>
+                                                <td>{{ $registrant->phone }}</td>
                                                 <td><span
-                                                        class="badge badge-indigo text-indigo-700 bg-indigo-50 border border-indigo-100">{{ $registrant->skill->nama ?? '-' }}</span>
+                                                        class="badge badge-indigo text-indigo-700 bg-indigo-50 border border-indigo-100">{{ $registrant->skill->name ?? '-' }}</span>
                                                 </td>
                                                 <td><span
                                                         class="font-weight-bold text-gray-800">{{ $registrant->average_score ?? '-' }}</span>
@@ -105,32 +105,32 @@
                         <div class="col-lg-4 mb-4">
                             <div class="card shadow-sm border-0 mb-4 h-100">
                                 <div class="card-body text-center">
-                                    @if($selectedRegistrant->foto_bg_biru)
-                                        <img src="{{ asset('storage/' . $selectedRegistrant->foto_bg_biru) }}" alt="Foto Background Biru" class="img-thumbnail rounded mb-3" style="width: 150px; height: 200px; object-fit: cover;">
+                                    @if($selectedRegistrant->formal_photo_path)
+                                        <img src="{{ asset('storage/' . $selectedRegistrant->formal_photo_path) }}" alt="Foto Background Biru" class="img-thumbnail rounded mb-3" style="width: 150px; height: 200px; object-fit: cover;">
                                     @else
                                         <div class="bg-secondary rounded mx-auto mb-3 d-flex align-items-center justify-content-center text-white" style="width: 150px; height: 200px;">
                                             <i class="fas fa-user fa-4x"></i>
                                         </div>
                                     @endif
-                                    <h5 class="font-weight-bold text-gray-900 mb-1">{{ strtoupper($selectedRegistrant->nama) }}</h5>
-                                    <p class="text-primary mb-3">{{ $selectedRegistrant->skill->nama ?? 'Belum memilih' }}</p>
-                                    
+                                    <h5 class="font-weight-bold text-gray-900 mb-1">{{ strtoupper($selectedRegistrant->name) }}</h5>
+                                    <p class="text-primary mb-3">{{ $selectedRegistrant->skill->name ?? 'Belum memilih' }}</p>
+
                                     <div class="text-left mt-4">
-                                        <p class="mb-2"><i class="fas fa-map-marker-alt fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->tempat_lahir }}, {{ $selectedRegistrant->formatted_birth_date }}</p>
-                                        <p class="mb-2"><i class="fas fa-venus-mars fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->jenis_kelamin }}</p>
-                                        <p class="mb-2"><i class="fas fa-praying-hands fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->agama }}</p>
-                                        <p class="mb-2"><i class="fas fa-home fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->alamat }}</p>
+                                        <p class="mb-2"><i class="fas fa-map-marker-alt fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->place_of_birth }}, {{ $selectedRegistrant->formatted_birth_date }}</p>
+                                        <p class="mb-2"><i class="fas fa-venus-mars fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->gender }}</p>
+                                        <p class="mb-2"><i class="fas fa-praying-hands fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->religion }}</p>
+                                        <p class="mb-2"><i class="fas fa-home fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->address }}</p>
                                         <p class="mb-2"><i class="fas fa-envelope fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->user->email ?? '-' }}</p>
-                                        <p class="mb-0"><i class="fas fa-phone fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->telepon }}</p>
+                                        <p class="mb-0"><i class="fas fa-phone fa-fw text-gray-500 mr-2"></i>{{ $selectedRegistrant->phone }}</p>
                                     </div>
-                                    
+
                                     <hr class="my-4">
-                                    
+
                                     <div class="text-left">
                                         <h6 class="font-weight-bold text-gray-800 mb-3"><i class="fas fa-star text-warning mr-2"></i>Rekap Nilai</h6>
                                         <div class="d-flex justify-content-between mb-2">
                                             <span class="text-gray-600">Tes Keahlian</span>
-                                            <span class="font-weight-bold">{{ $selectedRegistrant->nilai_keahlian ?? '-' }}</span>
+                                            <span class="font-weight-bold">{{ $selectedRegistrant->skill_score ?? '-' }}</span>
                                         </div>
                                         <div class="d-flex justify-content-between mb-2">
                                             <span class="text-gray-600">Rata-rata</span>
@@ -157,8 +157,8 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-4 text-center">
                                             <p class="font-weight-bold text-gray-800 mb-2">KTP / Kartu Keluarga</p>
-                                            @if($selectedRegistrant->foto_identitas)
-                                            <img src="{{ asset('storage/' . $selectedRegistrant->foto_identitas) }}" alt="Foto Identitas" class="img-fluid rounded border p-1" style="max-height: 250px; object-fit: contain;">
+                                            @if($selectedRegistrant->identity_document_path)
+                                            <img src="{{ asset('storage/' . $selectedRegistrant->identity_document_path) }}" alt="Foto Identitas" class="img-fluid rounded border p-1" style="max-height: 250px; object-fit: contain;">
                                             @else
                                             <div class="bg-light border rounded d-flex align-items-center justify-content-center p-5 text-gray-500">
                                                 Belum diunggah
@@ -167,8 +167,8 @@
                                         </div>
                                         <div class="col-md-6 mb-4 text-center">
                                             <p class="font-weight-bold text-gray-800 mb-2">Ijazah Terakhir</p>
-                                            @if($selectedRegistrant->foto_ijazah)
-                                            <img src="{{ asset('storage/' . $selectedRegistrant->foto_ijazah) }}" alt="Foto Ijazah" class="img-fluid rounded border p-1" style="max-height: 250px; object-fit: contain;">
+                                            @if($selectedRegistrant->certificate_document_path)
+                                            <img src="{{ asset('storage/' . $selectedRegistrant->certificate_document_path) }}" alt="Foto Ijazah" class="img-fluid rounded border p-1" style="max-height: 250px; object-fit: contain;">
                                             @else
                                             <div class="bg-light border rounded d-flex align-items-center justify-content-center p-5 text-gray-500">
                                                 Belum diunggah
@@ -176,11 +176,11 @@
                                             @endif
                                         </div>
                                     </div>
-                                    
+
                                     <hr>
-                                    
+
                                     <h6 class="font-weight-bold text-gray-800 mb-3"><i class="fas fa-clipboard-check text-success mr-2"></i>Status Verifikasi Berkas</h6>
-                                    
+
                                     <div class="mb-4 p-3 border rounded {{ $selectedRegistrant->verification_status == 'Approved' ? 'bg-success-light border-success' : ($selectedRegistrant->verification_status == 'Rejected' ? 'bg-danger-light border-danger' : 'bg-warning-light border-warning') }}">
                                         <div class="row align-items-center">
                                             <div class="col-md-4">
@@ -191,18 +191,18 @@
                                             </div>
                                             <div class="col-md-8 text-right">
                                                 @if($selectedRegistrant->verification_status !== 'Approved')
-                                                    <button type="button" class="btn btn-sm btn-success mr-2" wire:click="terimaBerkas"><i class="fas fa-check mr-1"></i> Terima Berkas</button>
+                                                    <button type="button" class="btn btn-sm btn-success mr-2" wire:click="approveDocuments"><i class="fas fa-check mr-1"></i> Terima Berkas</button>
                                                 @endif
                                             </div>
                                         </div>
-                                        
+
                                         @if($selectedRegistrant->verification_status !== 'Approved')
                                         <div class="mt-3 pt-3 border-top">
                                             <label class="small font-weight-bold text-danger">Bila menolak, masukkan alasan:</label>
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" wire:model.defer="verification_notes" placeholder="Tulis alasan penolakan berkas...">
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-danger" type="button" wire:click="tolakBerkas"><i class="fas fa-times mr-1"></i> Tolak Berkas</button>
+                                                    <button class="btn btn-danger" type="button" wire:click="rejectDocuments"><i class="fas fa-times mr-1"></i> Tolak Berkas</button>
                                                 </div>
                                             </div>
                                             @error('verification_notes') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
@@ -214,19 +214,19 @@
                                         </div>
                                         @endif
                                     </div>
-                                    
+
                                     @if($selectedRegistrant->verification_status == 'Approved')
                                     <h6 class="font-weight-bold text-gray-800 mb-3 mt-4"><i class="fas fa-star text-warning mr-2"></i>Input Nilai Wawancara</h6>
                                     <form wire:submit.prevent="saveReview">
                                         <div class="form-group row align-items-center">
                                             <label class="col-sm-4 col-form-label text-gray-800 font-weight-bold">Nilai Wawancara (0-100)</label>
                                             <div class="col-sm-4">
-                                                <input type="number" step="0.01" min="0" max="100" class="form-control" wire:model="nilai_wawancara" placeholder="0 - 100">
+                                                <input type="number" step="0.01" min="0" max="100" class="form-control" wire:model="interview_score" placeholder="0 - 100">
                                             </div>
                                             <div class="col-sm-4">
                                                 <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-save mr-2"></i>Simpan</button>
                                             </div>
-                                            @error('nilai_wawancara') <div class="col-12 mt-1 text-danger small">{{ $message }}</div> @enderror
+                                            @error('interview_score') <div class="col-12 mt-1 text-danger small">{{ $message }}</div> @enderror
                                         </div>
                                         <div class="alert alert-info border-left-info mt-3 mb-0 small">
                                             <i class="fas fa-info-circle mr-1"></i> Mengisi nilai wawancara akan otomatis memproses Kelulusan peserta (Lulus >= 70 rata-rata nilai).

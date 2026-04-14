@@ -2,27 +2,30 @@
 
 namespace App\Livewire\Student;
 
-use Livewire\Component;
-use App\Models\User;
+use App\Actions\UpdateProfileAction;
 use App\Models\Registration;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
-use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.user_app')]
 #[Title('Edit Profil')]
 class EditProfile extends Component
 {
     public User $user;
+
     public ?Registration $registration = null;
 
-    public $nama;
+    public $name;
+
     public $email;
+
     public $password;
+
     public $password_confirmation;
 
     public function mount()
@@ -30,19 +33,19 @@ class EditProfile extends Component
         $this->user = Auth::user();
         $this->registration = Registration::where('user_id', $this->user->id)->first();
 
-        // Security / Logic Restriksi
+        // Security / Restriction Logic
         if ($this->registration && $this->registration->verification_status === 'Pending') {
             return redirect()->route('user.dashboard')->with('error', 'Edit profil dikunci saat dalam status Pending verifikasi.');
         }
 
-        $this->nama = $this->registration->nama ?? $this->user->name;
+        $this->name = $this->registration->name ?? $this->user->name;
         $this->email = $this->user->email;
     }
 
-    public function updateProfile()
+    public function updateProfile(UpdateProfileAction $updateProfileAction)
     {
         $this->validate([
-            'nama' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
@@ -52,29 +55,18 @@ class EditProfile extends Component
             'password' => 'nullable|min:8|confirmed',
         ]);
 
-        // Update User
-        $userData = [
-            'name' => $this->nama,
+        $updateProfileAction->handle($this->user, [
+            'name' => $this->name,
             'email' => $this->email,
-        ];
-        
-        if (!empty($this->password)) {
-            $userData['password'] = Hash::make($this->password);
-        }
-        
-        $this->user->update($userData);
-
-        // Update Registration Name if exists
-        if ($this->registration) {
-            $this->registration->update(['nama' => $this->nama]);
-        }
+            'password' => $this->password,
+        ]);
 
         session()->flash('success', 'Profil berhasil diperbarui.');
         $this->password = '';
         $this->password_confirmation = '';
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.student.edit-profile');
     }

@@ -42,7 +42,7 @@
                                         @forelse($skills as $index => $skill)
                                             <tr class="text-center">
                                                 <td>{{ $skills->firstItem() + $index }}</td>
-                                                <td class="text-left font-weight-bold">{{ $skill->nama }}</td>
+                                                <td class="text-left font-weight-bold">{{ $skill->name }}</td>
                                                 <td>
                                                     <span class="badge badge-primary badge-counter p-2">
                                                         {{ $skill->registrations_count }}

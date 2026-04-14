@@ -138,32 +138,32 @@
     <table>
         <tr>
             <td class="label">Nama Lengkap</td>
-            <td class="value">: {{ $pendaftar->nama }}</td>
+            <td class="value">: {{ $registration->name }}</td>
         </tr>
         <tr>
             <td class="label">Tempat, Tanggal Lahir</td>
-            <td class="value">: {{ $pendaftar->tempat_lahir }},
-                {{ \Carbon\Carbon::parse($pendaftar->tanggal_lahir)->translatedFormat('d F Y') }}</td>
+            <td class="value">: {{ $registration->place_of_birth }},
+                {{ \Carbon\Carbon::parse($registration->date_of_birth)->translatedFormat('d F Y') }}</td>
         </tr>
         <tr>
             <td class="label">Jenis Kelamin</td>
-            <td class="value">: {{ $pendaftar->jenis_kelamin }}</td>
+            <td class="value">: {{ $registration->gender }}</td>
         </tr>
         <tr>
             <td class="label">Agama</td>
-            <td class="value">: {{ $pendaftar->agama }}</td>
+            <td class="value">: {{ $registration->religion }}</td>
         </tr>
         <tr>
             <td class="label">Alamat</td>
-            <td class="value">: {{ $pendaftar->alamat }}</td>
+            <td class="value">: {{ $registration->address }}</td>
         </tr>
         <tr>
             <td class="label">Nomor Telepon</td>
-            <td class="value">: {{ $pendaftar->telepon }}</td>
+            <td class="value">: {{ $registration->phone }}</td>
         </tr>
         <tr>
             <td class="label">Program Keahlian</td>
-            <td class="value">: {{ $pendaftar->skill->nama ?? '-' }}</td>
+            <td class="value">: {{ $registration->skill->name ?? '-' }}</td>
         </tr>
     </table>
 
@@ -171,22 +171,22 @@
     <table>
         <tr>
             <td class="label">Nilai Tes Keahlian</td>
-            <td class="value">: {{ number_format($pendaftar->nilai_keahlian, 1) }}</td>
+            <td class="value">: {{ number_format($registration->skill_score, 1) }}</td>
         </tr>
         <tr>
             <td class="label">Nilai Wawancara</td>
             <td class="value">:
-                {{ $pendaftar->nilai_wawancara !== null ? number_format($pendaftar->nilai_wawancara, 1) : 'Belum dinilai' }}
+                {{ $registration->interview_score !== null ? number_format($registration->interview_score, 1) : 'Belum dinilai' }}
             </td>
         </tr>
         <tr>
             <td class="label">Nilai Rata-rata</td>
             <td class="value">:
-                {{ $pendaftar->average_score !== null ? number_format($pendaftar->average_score, 1) : '-' }}</td>
+                {{ $registration->average_score !== null ? number_format($registration->average_score, 1) : '-' }}</td>
         </tr>
         <tr>
             <td class="label">Status Akhir</td>
-            <td class="value">: {{ $pendaftar->status }}</td>
+            <td class="value">: {{ $registration->status }}</td>
         </tr>
     </table>
 
@@ -212,8 +212,8 @@
 
     <div style="text-align: center; margin-top: 20px;">
         <p style="font-weight: bold; margin-bottom: 10px;">1. FOTO IDENTITAS (KTP/KK)</p>
-        @if ($pendaftar->foto_identitas && file_exists(storage_path('app/public/' . $pendaftar->foto_identitas)))
-            <img src="{{ public_path('storage/' . $pendaftar->foto_identitas) }}"
+        @if ($registration->identity_document_path && file_exists(storage_path('app/public/' . $registration->identity_document_path)))
+            <img src="{{ public_path('storage/' . $registration->identity_document_path) }}"
                 style="max-width: 450px; max-height: 350px; border: 1px solid #ddd; padding: 5px;">
         @else
             <div style="padding: 50px; border: 1px dashed #ccc; color: #999;">Foto Identitas belum diunggah atau tidak
@@ -223,8 +223,8 @@
 
     <div style="text-align: center; margin-top: 40px;">
         <p style="font-weight: bold; margin-bottom: 10px;">2. IJAZAH TERAKHIR</p>
-        @if ($pendaftar->foto_ijazah && file_exists(storage_path('app/public/' . $pendaftar->foto_ijazah)))
-            <img src="{{ public_path('storage/' . $pendaftar->foto_ijazah) }}"
+        @if ($registration->certificate_document_path && file_exists(storage_path('app/public/' . $registration->certificate_document_path)))
+            <img src="{{ public_path('storage/' . $registration->certificate_document_path) }}"
                 style="max-width: 450px; max-height: 350px; border: 1px solid #ddd; padding: 5px;">
         @else
             <div style="padding: 50px; border: 1px dashed #ccc; color: #999;">Foto Ijazah belum diunggah atau tidak

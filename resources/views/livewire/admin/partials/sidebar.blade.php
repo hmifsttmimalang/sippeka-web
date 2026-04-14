@@ -30,8 +30,8 @@
         </a>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('admin.peserta') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.peserta') }}">
+    <li class="nav-item {{ request()->routeIs('admin.participants') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.participants') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Peserta Terurut</span>
         </a>
@@ -50,12 +50,12 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ request()->routeIs('admin.question_title_manager') ? 'active' : '' }}"
                     href="{{ route('admin.question_title_manager') }}">Mata Soal Keahlian</a>
-                <a class="collapse-item {{ request()->routeIs('admin.kelas_keahlian') ? 'active' : '' }}"
-                    href="{{ route('admin.kelas_keahlian') }}">Kelas Keahlian</a>
+                <a class="collapse-item {{ request()->routeIs('admin.skills') ? 'active' : '' }}"
+                    href="{{ route('admin.skills') }}">Kelas Keahlian</a>
                 <a class="collapse-item {{ request()->routeIs('admin.skill_test_manager') ? 'active' : '' }}"
                     href="{{ route('admin.skill_test_manager') }}">Tes Keahlian</a>
-                <a class="collapse-item {{ request()->routeIs('admin.sesi_tes_keahlian') ? 'active' : '' }}"
-                    href="{{ route('admin.sesi_tes_keahlian') }}">Sesi Tes Keahlian</a>
+                <a class="collapse-item {{ request()->routeIs('admin.skill_test_sessions') ? 'active' : '' }}"
+                    href="{{ route('admin.skill_test_sessions') }}">Sesi Tes Keahlian</a>
             </div>
         </div>
     </li>
@@ -88,9 +88,9 @@
         </a>
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.info_jurusan') }}">Jurusan</a>
-                <a class="collapse-item" href="{{ route('admin.jadwal_tes') }}">Jadwal Tes</a>
-                <a class="collapse-item" href="{{ route('admin.pengumuman') }}">Atur Pengumuman</a>
+                <a class="collapse-item" href="{{ route('admin.majors') }}">Jurusan</a>
+                <a class="collapse-item" href="{{ route('admin.test_schedules') }}">Jadwal Tes</a>
+                <a class="collapse-item" href="{{ route('admin.announcements') }}">Atur Pengumuman</a>
             </div>
         </div>
     </li>

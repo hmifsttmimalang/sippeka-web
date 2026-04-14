@@ -62,7 +62,7 @@
                                 <h4 class="title"><a href="#" class="stretched-link">Misi</a></h4>
                                 <p class="description">
                                     Menyediakan pelatihan berkualitas, bekerja sama dengan industri, dan mendukung
-                                    penempatan kerja, sembari meningkatkan profesionalisme staf dan instruktur.</p>
+                                    penempatan kerja, sembari meningkatkan profesionalisme staf dan instructor.</p>
                             </div>
                         </div>
                     </div>

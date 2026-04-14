@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Admin;
 
+use App\Actions\SaveSkillAction;
 use App\Models\Skill;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.admin_app')]
 #[Title('Kelas Keahlian')]
@@ -16,8 +17,11 @@ class SkillManager extends Component
     use WithAdminPagination;
 
     public string $search = '';
+
     public string $name = '';
+
     public ?int $editingId = null;
+
     public bool $showingModal = false;
 
     protected $rules = [
@@ -37,7 +41,7 @@ class SkillManager extends Component
 
         if ($id) {
             $skill = Skill::findOrFail($id);
-            $this->name = $skill->nama;
+            $this->name = $skill->name;
         } else {
             $this->name = '';
         }
@@ -49,18 +53,13 @@ class SkillManager extends Component
         $this->editingId = null;
     }
 
-    public function save(): void
+    public function save(SaveSkillAction $saveSkillAction): void
     {
         $this->validate();
 
-        if ($this->editingId) {
-            $skill = Skill::findOrFail($this->editingId);
-            $skill->update(['nama' => $this->name]);
-            session()->flash('message', 'Kelas keahlian berhasil diperbarui.');
-        } else {
-            Skill::create(['nama' => $this->name]);
-            session()->flash('message', 'Kelas keahlian berhasil ditambahkan.');
-        }
+        $saveSkillAction->execute($this->name, $this->editingId);
+
+        session()->flash('message', $this->editingId ? 'Kelas keahlian berhasil diperbarui.' : 'Kelas keahlian berhasil ditambahkan.');
 
         $this->closeModal();
     }
@@ -75,7 +74,7 @@ class SkillManager extends Component
     public function render(): View
     {
         $skills = Skill::query()
-            ->when($this->search, fn($q) => $q->where('nama', 'like', '%' . $this->search . '%'))
+            ->when($this->search, fn ($q) => $q->where('name', 'like', '%'.$this->search.'%'))
             ->withCount('registrations')
             ->latest()
             ->paginate(10);
@@ -83,5 +82,5 @@ class SkillManager extends Component
         return view('livewire.admin.skill-manager', [
             'skills' => $skills,
         ]);
-}
+    }
 }

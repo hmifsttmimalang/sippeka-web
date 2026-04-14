@@ -15,21 +15,21 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // Membuat satu user tertentu jika diperlukan
+        // Create specific users
         User::create([
             'username' => 'admin',
             'email' => 'admin@sippeka.org',
             'password' => Hash::make('admin123'),
             'role' => 'admin',
-            'status_register' => 'tidak terdaftar',
+            'registration_status' => 'unregistered',
         ]);
 
         User::create([
             'username' => 'pelatih',
             'email' => 'pelatih@sippeka.org',
             'password' => Hash::make('pelatih123'),
-            'role' => 'instruktur',
-            'status_register' => 'tidak terdaftar',
+            'role' => 'instructor',
+            'registration_status' => 'unregistered',
         ]);
 
         User::create([
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'email' => 'peserta@sippeka.org',
             'password' => Hash::make('peserta123'),
             'role' => 'user',
-            'status_register' => 'tidak terdaftar',
+            'registration_status' => 'unregistered',
         ]);
     }
 }

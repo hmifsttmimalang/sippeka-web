@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Migration untuk tabel baru test_attempts
         Schema::create('test_attempts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('registration_id')->constrained('registrations'); // Menghubungkan ke tabel registrations
-            $table->foreignId('skill_test_session_id')->constrained('skill_test_sessions'); // Menghubungkan ke sesi tes keahlian
-            $table->enum('status', ['in_progress', 'finished'])->default('in_progress'); // Status pengerjaan
-            $table->timestamp('waktu_mulai')->nullable(); // Waktu mulai tes
-            $table->timestamp('waktu_selesai')->nullable(); // Waktu selesai tes
+            $table->foreignId('registration_id')->constrained('registrations');
+            $table->foreignId('skill_test_session_id')->constrained('skill_test_sessions');
+            $table->enum('status', ['in_progress', 'finished'])->default('in_progress');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
             $table->timestamps();
         });
     }

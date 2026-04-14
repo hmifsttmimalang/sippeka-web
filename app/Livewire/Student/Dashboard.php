@@ -2,24 +2,26 @@
 
 namespace App\Livewire\Student;
 
+use App\Models\Announcement;
+use App\Models\QuestionTitle;
 use App\Models\Registration;
+use App\Models\Skill;
 use App\Models\SkillTestSession;
 use App\Models\TestAttempt;
 use App\Models\User;
-use App\Models\Skill;
-use App\Models\QuestionTitle;
 use Carbon\Carbon;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.user_app')]
 #[Title('Student Dashboard')]
 class Dashboard extends Component
 {
     public User $user;
+
     public ?Registration $registration = null;
 
     public function mount(): void
@@ -28,35 +30,33 @@ class Dashboard extends Component
         $this->registration = Registration::where('user_id', $this->user->id)->with('skill')->first();
 
         // If not registered, redirect to wizard
-        if (!$this->registration) {
-            redirect()->route('pendaftaran.form');
+        if (! $this->registration) {
+            redirect()->route('registration.form');
         }
     }
 
     public function render(): View
     {
         $now = Carbon::now('Asia/Jakarta');
-        $nowString = $now->format('Y-m-d\TH:i'); // SQLite uses string comparison, must match DB format
 
-        // Fix relationship conflict by using attribute directly
-        $keahlianId = $this->registration->getAttribute('keahlian');
+        $skillId = $this->registration->skill_id;
 
         // Fetch sessions related to student's skill (Current, Upcoming, and Recently Finished)
         $allSessions = SkillTestSession::query()
-            ->whereHas('test', function ($q) use ($keahlianId) {
-                $q->where('keahlian', $keahlianId);
+            ->whereHas('test', function ($q) use ($skillId) {
+                $q->where('skill_id', $skillId);
             })
             ->with(['test', 'test.category'])
-            ->orderBy('waktu_mulai', 'asc')
+            ->orderBy('start_time', 'asc')
             ->get();
 
-        $processedSessions = $allSessions->map(function ($session) use ($now, $nowString) {
+        $processedSessions = $allSessions->map(function ($session) use ($now) {
             $attempt = TestAttempt::where('registration_id', $this->registration->id)
                 ->where('skill_test_session_id', $session->id)
                 ->first();
 
-            $startTime = Carbon::parse($session->waktu_mulai, 'Asia/Jakarta');
-            $endTime = Carbon::parse($session->waktu_selesai, 'Asia/Jakarta');
+            $startTime = Carbon::parse($session->start_time, 'Asia/Jakarta');
+            $endTime = Carbon::parse($session->end_time, 'Asia/Jakarta');
 
             if ($attempt && $attempt->status === 'finished') {
                 $session->student_status = 'finished';
@@ -71,33 +71,33 @@ class Dashboard extends Component
             return $session;
         });
 
-        $activeSessions = $processedSessions->filter(fn($s) => $s->student_status === 'active' || $s->student_status === 'finished');
-        $upcomingSessions = $processedSessions->filter(fn($s) => $s->student_status === 'upcoming')->take(5);
-        $lateSessions = $processedSessions->filter(fn($s) => $s->student_status === 'late')->take(3);
+        $activeSessions = $processedSessions->filter(fn ($s) => $s->student_status === 'active' || $s->student_status === 'finished');
+        $upcomingSessions = $processedSessions->filter(fn ($s) => $s->student_status === 'upcoming')->take(5);
+        $lateSessions = $processedSessions->filter(fn ($s) => $s->student_status === 'late')->take(3);
 
-        // Announcement (Pengumuman) Logic from Legacy
-        $pengumuman = \App\Models\Pengumuman::latest()->first();
+        // Announcement Logic
+        $announcement = Announcement::latest()->first();
         $showAnnouncement = false;
         $formattedAnnouncementDate = null;
 
-        if ($pengumuman) {
-            $pengumumanDate = Carbon::parse($pengumuman->tanggal_waktu, 'Asia/Jakarta');
-            $formattedAnnouncementDate = $pengumumanDate->translatedFormat('d F Y H:i');
+        if ($announcement) {
+            $announcementDate = Carbon::parse($announcement->scheduled_at, 'Asia/Jakarta');
+            $formattedAnnouncementDate = $announcementDate->translatedFormat('d F Y H:i');
 
-            if ($now->greaterThanOrEqualTo($pengumumanDate)) {
+            if ($now->greaterThanOrEqualTo($announcementDate)) {
                 $showAnnouncement = true;
             }
         }
 
-        // Status Logic from Legacy
-        $nilaiKeahlian = $this->registration->nilai_keahlian;
-        $nilaiWawancara = $this->registration->nilai_wawancara;
-        $rataRata = null;
-        $statusSeleksi = 'Sedang Diproses';
+        // Selection Status Logic
+        $skillScore = $this->registration->skill_score;
+        $interviewScore = $this->registration->interview_score;
+        $averageScore = null;
+        $selectionStatus = 'Processing';
 
-        if (!is_null($nilaiKeahlian) && !is_null($nilaiWawancara)) {
-            $rataRata = ($nilaiKeahlian + $nilaiWawancara) / 2;
-            $statusSeleksi = ($rataRata >= 70) ? 'Lulus' : 'Tidak Lulus';
+        if (! is_null($skillScore) && ! is_null($interviewScore)) {
+            $averageScore = ($skillScore + $interviewScore) / 2;
+            $selectionStatus = ($averageScore >= 70) ? 'Passed' : 'Failed';
         }
 
         return view('livewire.student.dashboard', [
@@ -106,10 +106,10 @@ class Dashboard extends Component
             'lateSessions' => $lateSessions,
             'showAnnouncement' => $showAnnouncement,
             'formattedAnnouncementDate' => $formattedAnnouncementDate,
-            'statusSeleksi' => $statusSeleksi,
-            'rataRata' => $rataRata,
-            'nilaiKeahlian' => $nilaiKeahlian,
-            'nilaiWawancara' => $nilaiWawancara,
+            'selectionStatus' => $selectionStatus,
+            'averageScore' => $averageScore,
+            'skillScore' => $skillScore,
+            'interviewScore' => $interviewScore,
             'registration' => $this->registration,
             'skills' => Skill::all(),
             'questionCategories' => QuestionTitle::all(),

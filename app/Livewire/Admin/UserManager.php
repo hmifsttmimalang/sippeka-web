@@ -2,15 +2,15 @@
 
 namespace App\Livewire\Admin;
 
+use App\Actions\SaveUserAction;
 use App\Models\User;
-use Livewire\Component;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.admin_app')]
 #[Title('Manajemen User')]
@@ -18,28 +18,23 @@ class UserManager extends Component
 {
     use WithAdminPagination;
 
-
     public string $search = '';
+
     public string $filterRole = '';
 
     // Form fields
     public string $name = '';
+
     public string $username = '';
+
     public string $email = '';
+
     public string $password = '';
+
     public string $role = 'user';
 
-    // Null-safe population from DB
-    private function populateFromUser(User $user): void
-    {
-        $this->name = $user->name ?? '';
-        $this->username = $user->username ?? '';
-        $this->email = $user->email ?? '';
-        $this->role = $user->role ?? 'user';
-        $this->password = '';
-    }
-
     public ?int $editingId = null;
+
     public bool $showingModal = false;
 
     protected $queryString = [
@@ -60,7 +55,11 @@ class UserManager extends Component
 
         if ($id) {
             $user = User::findOrFail($id);
-            $this->populateFromUser($user);
+            $this->name = $user->name ?? '';
+            $this->username = $user->username ?? '';
+            $this->email = $user->email ?? '';
+            $this->role = $user->role ?? 'user';
+            $this->password = '';
         } else {
             $this->reset(['name', 'username', 'email', 'password', 'role']);
         }
@@ -72,35 +71,25 @@ class UserManager extends Component
         $this->editingId = null;
     }
 
-    public function save(): void
+    public function save(SaveUserAction $saveUserAction): void
     {
         $this->validate([
             'name' => 'required|string|max:255',
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($this->editingId)],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($this->editingId)],
             'password' => $this->editingId ? 'nullable|min:8' : 'required|min:8',
-            'role' => 'required|in:admin,instruktur,user',
+            'role' => 'required|in:admin,instructor,user',
         ]);
 
-        $data = [
+        $saveUserAction->execute([
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
             'role' => $this->role,
-        ];
+            'password' => $this->password,
+        ], $this->editingId);
 
-        if ($this->password) {
-            $data['password'] = Hash::make($this->password);
-        }
-
-        if ($this->editingId) {
-            $user = User::findOrFail($this->editingId);
-            $user->update($data);
-            session()->flash('success', 'User berhasil diperbarui.');
-        } else {
-            User::create($data);
-            session()->flash('success', 'User berhasil ditambahkan.');
-        }
+        session()->flash('success', $this->editingId ? 'User berhasil diperbarui.' : 'User berhasil ditambahkan.');
 
         $this->closeModal();
     }
@@ -109,6 +98,7 @@ class UserManager extends Component
     {
         if (Auth::id() === $id) {
             session()->flash('error', 'Anda tidak bisa menghapus akun sendiri.');
+
             return;
         }
 
@@ -121,16 +111,16 @@ class UserManager extends Component
     {
         $users = User::query()
             ->when($this->search, function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('username', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%');
+                $q->where('name', 'like', '%'.$this->search.'%')
+                    ->orWhere('username', 'like', '%'.$this->search.'%')
+                    ->orWhere('email', 'like', '%'.$this->search.'%');
             })
-            ->when($this->filterRole, fn($q) => $q->where('role', $this->filterRole))
+            ->when($this->filterRole, fn ($q) => $q->where('role', $this->filterRole))
             ->latest()
             ->paginate(10);
 
         return view('livewire.admin.user-manager', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 }

@@ -32,7 +32,7 @@
                 <h2 class="fw-bold" data-aos="fade-up">Hasil Peserta Seleksi</h2>
             </div>
 
-            @if ($pengumumanWaktu)
+            @if ($announcementTime)
                 @if (!$isPassed)
                     <div id="countdownBox" class="countdown-box text-center mb-5" data-aos="zoom-in">
                         <h4 class="text-muted mb-4">Pengumuman Hasil Seleksi Akan Dibuka Dalam:</h4>
@@ -41,7 +41,7 @@
                             <div class="h3 fw-bold text-primary">Memuat Hitung Mundur...</div>
                         </div>
                         <p class="mt-4 small text-muted">Hasil akan diumumkan secara serentak pada: <br> 
-                           <span class="fw-bold">{{ \Carbon\Carbon::parse($pengumumanWaktu)->translatedFormat('d F Y, H:i') }} WIB</span>
+                           <span class="fw-bold">{{ \Carbon\Carbon::parse($announcementTime)->translatedFormat('d F Y, H:i') }} WIB</span>
                         </p>
                     </div>
                 @endif
@@ -61,22 +61,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($listPendaftar as $index => $item)
+                                @foreach ($registrations as $index => $registration)
                                     @php
-                                        $rataRata = ($item->nilai_keahlian !== null && $item->nilai_wawancara !== null)
-                                            ? ($item->nilai_keahlian + $item->nilai_wawancara) / 2
+                                        $averageScore = ($registration->skill_score !== null && $registration->interview_score !== null)
+                                            ? ($registration->skill_score + $registration->interview_score) / 2
                                             : null;
                                     @endphp
                                     <tr class="text-center">
-                                        <td>{{ $listPendaftar->firstItem() + $index }}</td>
-                                        <td class="text-start fw-bold">{{ $item->nama }}</td>
-                                        <td class="text-start">{{ $item->skill->nama ?? $item->keahlian }}</td>
-                                        <td>{{ $item->nilai_keahlian !== null ? number_format($item->nilai_keahlian, 1) : '-' }}</td>
-                                        <td>{{ $item->nilai_wawancara !== null ? number_format($item->nilai_wawancara, 1) : '-' }}</td>
-                                        <td class="fw-bold">{{ $rataRata !== null ? number_format($rataRata, 1) : '-' }}</td>
+                                        <td>{{ $registrations->firstItem() + $index }}</td>
+                                        <td class="text-start fw-bold">{{ $registration->name }}</td>
+                                        <td class="text-start">{{ $registration->skill->name ?? '-' }}</td>
+                                        <td>{{ $registration->skill_score !== null ? number_format($registration->skill_score, 1) : '-' }}</td>
+                                        <td>{{ $registration->interview_score !== null ? number_format($registration->interview_score, 1) : '-' }}</td>
+                                        <td class="fw-bold">{{ $averageScore !== null ? number_format($averageScore, 1) : '-' }}</td>
                                         <td class="text-center">
                                             @php
-                                                $statusLabel = $item->status;
+                                                $statusLabel = $registration->selection_status;
                                                 $badgeClass = match($statusLabel) {
                                                     'Lulus' => 'bg-success',
                                                     'Gagal' => 'bg-danger',
@@ -94,7 +94,7 @@
                         </table>
                     </div>
                     <div class="mt-4">
-                        {{ $listPendaftar->links() }}
+                        {{ $registrations->links() }}
                     </div>
                 </div>
             @else
@@ -106,7 +106,7 @@
         </div>
     </section>
 
-    @if ($pengumumanWaktu)
+    @if ($announcementTime)
     <style>
         .timer-unit {
             background: linear-gradient(135deg, #007bff, #0056b3);
@@ -140,7 +140,7 @@
         document.addEventListener('DOMContentLoaded', () => initCountdown());
 
         function initCountdown() {
-            let targetStr = "{{ \Carbon\Carbon::parse($pengumumanWaktu)->toIso8601String() }}";
+            let targetStr = "{{ \Carbon\Carbon::parse($announcementTime)->toIso8601String() }}";
             let targetDate = new Date(targetStr).getTime();
             if (isNaN(targetDate)) return;
 

@@ -10,8 +10,6 @@ trait WithAdminPagination
 
     /**
      * Get the view that will be used for rendering pagination links.
-     * 
-     * @return string
      */
     public function paginationView(): string
     {

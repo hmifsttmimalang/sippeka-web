@@ -14,7 +14,7 @@
                     </nav>
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">{{ $test->nama_tes }}</h1>
+                        <h1 class="h3 mb-0 text-gray-800">{{ $test->name }}</h1>
                         <div class="d-flex gap-2">
                             <button wire:click="openImportModal" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mr-2">
                                 <i class="fas fa-file-excel fa-sm mr-2"></i> Impor Excel
@@ -70,25 +70,26 @@
                                             </div>
                                         </div>
                                         <p class="text-gray-800 font-weight-bold mb-4" style="font-size: 1.1rem;">
-                                            {{ $question->soal }}</p>
+                                            {{ $question->question }}</p>
 
                                         <div class="row">
                                             @foreach (['a', 'b', 'c', 'd'] as $option)
                                                 <div class="col-md-6 mb-3">
                                                     <div
-                                                        class="p-3 rounded border {{ $question->jawaban_benar === $option ? 'bg-success text-white border-success' : 'bg-light border-gray-200' }}">
+                                                        class="p-3 rounded border {{ $question->correct_answer === $option ? 'bg-success text-white border-success' : 'bg-light border-gray-200' }}">
                                                         <span
-                                                            class="badge {{ $question->jawaban_benar === $option ? 'badge-light text-success' : 'badge-dark' }} mr-2">
+                                                            class="badge {{ $question->correct_answer === $option ? 'badge-light text-success' : 'badge-dark' }} mr-2">
                                                             {{ strtoupper($option) }}
                                                         </span>
-                                                        {{ $question->{'pilihan_' . $option} }}
-                                                        @if ($question->jawaban_benar === $option)
+                                                        {{ $question->{'option_' . $option} }}
+                                                        @if ($question->correct_answer === $option)
                                                             <i class="fas fa-check-circle float-right mt-1"></i>
                                                         @endif
                                                     </div>
                                                 </div>
                                             @endforeach
                                         </div>
+ drum
                                     </div>
                                 </div>
                             </div>
@@ -126,35 +127,36 @@
                     <form wire:submit="save">
                         <div class="form-group">
                             <label class="font-weight-bold small text-uppercase">Isi Pertanyaan</label>
-                            <textarea wire:model="soal" rows="3" class="form-control @error('soal') is-invalid @enderror"
+                            <textarea wire:model="question" rows="3" class="form-control @error('question') is-invalid @enderror"
                                 placeholder="Ketikkan isi pertanyaan..."></textarea>
-                            @error('soal')
+                            @error('question')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+ drum
 
                         <div class="row">
                             @foreach (['a', 'b', 'c', 'd'] as $option)
                                 <div class="col-md-6">
                                     <div
-                                        class="card mb-3 border-left-{{ $jawaban_benar === $option ? 'success' : 'secondary' }} bg-light">
+                                        class="card mb-3 border-left-{{ $correct_answer === $option ? 'success' : 'secondary' }} bg-light">
                                         <div class="card-body p-3">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <label class="font-weight-bold small text-uppercase mb-0">Pilihan
                                                     {{ strtoupper($option) }}</label>
                                                 <div class="custom-control custom-radio">
                                                     <input type="radio" id="radio_{{ $option }}"
-                                                        wire:model="jawaban_benar" value="{{ $option }}"
+                                                        wire:model="correct_answer" value="{{ $option }}"
                                                         class="custom-control-input">
                                                     <label
                                                         class="custom-control-label small font-weight-bold text-success"
                                                         for="radio_{{ $option }}">Kunci</label>
                                                 </div>
                                             </div>
-                                            <input wire:model="pilihan_{{ $option }}" type="text"
-                                                class="form-control form-control-sm @error('pilihan_' . $option) is-invalid @enderror"
+                                            <input wire:model="option_{{ $option }}" type="text"
+                                                class="form-control form-control-sm @error('option_' . $option) is-invalid @enderror"
                                                 placeholder="Isi pilihan {{ $option }}...">
-                                            @error('pilihan_' . $option)
+                                            @error('option_' . $option)
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -162,6 +164,8 @@
                                 </div>
                             @endforeach
                         </div>
+ drum
+ drum
 
                         <hr>
                         <div class="text-right">

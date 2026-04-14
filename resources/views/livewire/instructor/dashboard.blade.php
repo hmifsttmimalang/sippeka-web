@@ -25,14 +25,14 @@
                                                 Pendaftar Masuk
                                             </div>
                                             <div class="h5 mt-3 font-weight-bold">
-                                                {{ $totalPendaftar }} Orang
+                                                {{ $totalRegistrations }} Orang
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: {{ $progressPendaftar }}%"
-                                                            aria-valuenow="{{ $progressPendaftar }}" aria-valuemin="0"
+                                                            style="width: {{ $registrationProgress }}%"
+                                                            aria-valuenow="{{ $registrationProgress }}" aria-valuemin="0"
                                                             aria-valuemax="100">
                                                         </div>
                                                     </div>
@@ -57,14 +57,14 @@
                                                 Lolos Seleksi
                                             </div>
                                             <div class="h5 mt-3 font-weight-bold">
-                                                {{ $pendaftarLolos }} Orang
+                                                {{ $passedRegistrations }} Orang
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: {{ $progressLolos }}%"
-                                                            aria-valuenow="{{ $progressLolos }}" aria-valuemin="0"
+                                                            style="width: {{ $passRateProgress }}%"
+                                                            aria-valuenow="{{ $passRateProgress }}" aria-valuemin="0"
                                                             aria-valuemax="100">
                                                         </div>
                                                     </div>
@@ -85,7 +85,7 @@
                     <h2 class="h4 text-gray-800 font-weight-bold">Data Pendaftar Baru (24 Jam Terakhir)</h2>
                     <div class="row">
                         <div class="col-md-12">
-                            @if ($listPendaftarBaru->isNotEmpty())
+                            @if ($latestEvaluations->isNotEmpty())
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover mt-3">
                                     <thead class="thead-dark">
@@ -97,12 +97,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($listPendaftarBaru as $index => $item)
+                                        @foreach ($latestEvaluations as $registration)
                                             <tr class="text-center">
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td class="text-left font-weight-bold">{{ $item->nama }}</td>
-                                                <td>{{ $item->skill->nama ?? 'Umum' }}</td>
-                                                <td>{{ $item->created_at->translatedFormat('d F Y H.i') }}</td>
+                                                <td class="text-left font-weight-bold">{{ $registration->name }}</td>
+                                                <td>{{ $registration->skill->name ?? 'Umum' }}</td>
+                                                <td>{{ $registration->created_at->translatedFormat('d F Y H.i') }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

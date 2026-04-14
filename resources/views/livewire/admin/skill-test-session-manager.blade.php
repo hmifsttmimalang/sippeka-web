@@ -42,12 +42,12 @@
                                             <tr class="text-center align-middle">
                                                 <td>{{ $sessions->firstItem() + $index }}</td>
                                                 <td class="text-left font-weight-bold text-primary">
-                                                    {{ $item->skillTest->nama_tes ?? 'N/A' }}
+                                                    {{ $item->skillTest->name ?? 'N/A' }}
                                                 </td>
-                                                <td>{{ $item->nama_sesi }}</td>
-                                                <td>{{ $item->waktu_mulai }}</td>
-                                                <td>{{ $item->waktu_selesai }}</td>
-                                                <td>{{ $item->jenis_sesi }}</td>
+                                                <td>{{ $item->name }}</td>
+                                                <td>{{ $item->start_time }}</td>
+                                                <td>{{ $item->end_time }}</td>
+                                                <td>{{ $item->session_type }}</td>
                                                 <td>
                                                     <div class="btn-group">
                                                         <button class="btn btn-sm btn-secondary" title="Detail Peserta"
@@ -94,7 +94,7 @@
                             <select wire:model="skill_test_id" class="form-control @error('skill_test_id') is-invalid @enderror">
                                 <option value="">-- Pilih Tes Keahlian --</option>
                                 @foreach($skillTests as $test)
-                                    <option value="{{ $test->id }}">{{ $test->nama_tes }}</option>
+                                    <option value="{{ $test->id }}">{{ $test->name }}</option>
                                 @endforeach
                             </select>
                             @error('skill_test_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -102,34 +102,34 @@
                         
                         <div class="form-group">
                             <label class="font-weight-bold">Nama Sesi <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('nama_sesi') is-invalid @enderror" wire:model="nama_sesi" placeholder="Contoh: Gelombang 1">
-                            @error('nama_sesi') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" wire:model="name" placeholder="Contoh: Gelombang 1">
+                            @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="font-weight-bold">Waktu Mulai <span class="text-danger">*</span></label>
-                                    <input type="datetime-local" class="form-control @error('waktu_mulai') is-invalid @enderror" wire:model="waktu_mulai">
-                                    @error('waktu_mulai') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    <input type="datetime-local" class="form-control @error('startTime') is-invalid @enderror" wire:model="startTime">
+                                    @error('startTime') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="font-weight-bold">Waktu Selesai <span class="text-danger">*</span></label>
-                                    <input type="datetime-local" class="form-control @error('waktu_selesai') is-invalid @enderror" wire:model="waktu_selesai">
-                                    @error('waktu_selesai') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    <input type="datetime-local" class="form-control @error('endTime') is-invalid @enderror" wire:model="endTime">
+                                    @error('endTime') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="font-weight-bold">Jenis Sesi <span class="text-danger">*</span></label>
-                            <select wire:model="jenis_sesi" class="form-control @error('jenis_sesi') is-invalid @enderror">
-                                <option value="Seleksi">Seleksi</option>
-                                <option value="Simulasi">Simulasi</option>
+                            <select wire:model="sessionType" class="form-control @error('sessionType') is-invalid @enderror">
+                                <option value="Selection">Seleksi</option>
+                                <option value="Simulation">Simulasi</option>
                             </select>
-                            @error('jenis_sesi') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('sessionType') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -158,11 +158,11 @@
                                 <table class="table table-sm table-borderless">
                                     <tr>
                                         <td width="30%" class="font-weight-bold">Tes Keahlian</td>
-                                        <td>: {{ $selectedSession->skillTest->nama_tes ?? '-' }}</td>
+                                        <td>: {{ $selectedSession->skillTest->name ?? '-' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">Sesi</td>
-                                        <td>: {{ $selectedSession->nama_sesi }}</td>
+                                        <td>: {{ $selectedSession->name }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -170,11 +170,11 @@
                                 <table class="table table-sm table-borderless">
                                     <tr>
                                         <td width="30%" class="font-weight-bold">Waktu Mulai</td>
-                                        <td>: {{ $selectedSession->waktu_mulai }}</td>
+                                        <td>: {{ $selectedSession->start_time }}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-bold">Waktu Selesai</td>
-                                        <td>: {{ $selectedSession->waktu_selesai }}</td>
+                                        <td>: {{ $selectedSession->end_time }}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -204,10 +204,10 @@
                                         <tbody>
                                             @forelse($detailAttempts as $attempt)
                                                 <tr class="align-middle text-center">
-                                                    <td class="text-left font-weight-bold">{{ $attempt->registration->nama ?? '-' }}</td>
-                                                    <td>{{ $attempt->registration->skill->nama ?? '-' }}</td>
-                                                    <td>{{ $attempt->waktu_mulai }}</td>
-                                                    <td>{{ $attempt->waktu_selesai }}</td>
+                                                    <td class="text-left font-weight-bold">{{ $attempt->registration->name ?? '-' }}</td>
+                                                    <td>{{ $attempt->registration->skill->name ?? '-' }}</td>
+                                                    <td>{{ $attempt->start_time }}</td>
+                                                    <td>{{ $attempt->end_time }}</td>
                                                     <td>
                                                         <span class="badge {{ $attempt->status == 'Selesai' ? 'badge-success' : 'badge-warning' }}">
                                                             {{ $attempt->status }}

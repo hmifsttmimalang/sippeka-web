@@ -2,16 +2,12 @@
 
 namespace App\Models;
 
+use Exception;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use App\Models\Skill;
-use App\Models\User;
-use App\Models\TestAttempt;
-use Exception;
-use Carbon\Carbon;
 
 class Registration extends Model
 {
@@ -21,27 +17,27 @@ class Registration extends Model
 
     protected $fillable = [
         'user_id',
-        'nama',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'jenis_kelamin',
-        'agama',
-        'alamat',
-        'telepon',
-        'keahlian',
-        'foto_identitas',
-        'foto_ijazah',
-        'foto_bg_biru',
-        'nilai_keahlian',
-        'nilai_wawancara',
+        'name',
+        'place_of_birth',
+        'date_of_birth',
+        'gender',
+        'religion',
+        'address',
+        'phone',
+        'skill_id',
+        'identity_document_path',
+        'certificate_document_path',
+        'formal_photo_path',
+        'skill_score',
+        'interview_score',
         'verification_status',
-        'verification_notes'
+        'verification_notes',
     ];
 
     protected $casts = [
-        'tanggal_lahir' => 'date',
-        'nilai_keahlian' => 'float',
-        'nilai_wawancara' => 'float',
+        'date_of_birth' => 'date',
+        'skill_score' => 'float',
+        'interview_score' => 'float',
     ];
 
     /**
@@ -50,8 +46,8 @@ class Registration extends Model
     protected function averageScore(): Attribute
     {
         return Attribute::make(
-            get: fn() => ($this->nilai_keahlian !== null && $this->nilai_wawancara !== null)
-                ? ($this->nilai_keahlian + $this->nilai_wawancara) / 2
+            get: fn () => ($this->skill_score !== null && $this->interview_score !== null)
+                ? ($this->skill_score + $this->interview_score) / 2
                 : null,
         );
     }
@@ -63,15 +59,15 @@ class Registration extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->nilai_keahlian === null) {
-                    return 'Belum Mengikuti Tes';
+                if ($this->skill_score === null) {
+                    return 'Not Yet Tested';
                 }
 
-                if ($this->nilai_wawancara === null) {
-                    return 'Sedang Diproses';
+                if ($this->interview_score === null) {
+                    return 'In Progress';
                 }
 
-                return $this->average_score >= 70 ? 'Lulus' : 'Gagal';
+                return $this->average_score >= 70 ? 'Passed' : 'Failed';
             },
         );
     }
@@ -82,13 +78,13 @@ class Registration extends Model
     protected function formattedBirthDate(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->tanggal_lahir ? $this->tanggal_lahir->translatedFormat('d F Y') : '-',
+            get: fn () => $this->date_of_birth ? $this->date_of_birth->translatedFormat('d F Y') : '-',
         );
     }
 
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'keahlian');
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 
     public function user(): BelongsTo
@@ -103,11 +99,11 @@ class Registration extends Model
 
     public function validateAge(): bool
     {
-        if (!$this->tanggal_lahir) {
+        if (! $this->date_of_birth) {
             return false;
         }
 
-        $age = $this->tanggal_lahir->age;
+        $age = $this->date_of_birth->age;
 
         if ($age < 15 || $age >= 40) {
             throw new Exception('Anda harus berusia minimal 15 tahun dan maksimal 40 tahun untuk mendaftar!');
