@@ -91,7 +91,7 @@
                     <h2 class="text-gray-800">Data Pendaftar Baru</h2>
                     <div class="row">
                         <div class="col-md-12">
-                            @if ($recentRegistrations->isNotEmpty())
+                            @if (($recentRegistrations ?? collect())->isNotEmpty())
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover mt-3">
                                         <thead class="thead-dark">
