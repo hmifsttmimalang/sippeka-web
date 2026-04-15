@@ -6,6 +6,9 @@ use App\Models\Registration;
 
 class ReviewRegistrationAction
 {
+    /**
+     * Update verification status.
+     */
     public function updateVerification(Registration $registration, string $status, ?string $notes = null): void
     {
         $registration->update([
@@ -14,8 +17,13 @@ class ReviewRegistrationAction
         ]);
     }
 
-    public function updateInterviewScore(Registration $registration, ?int $score): void
+    /**
+     * Update interview score.
+     */
+    public function updateInterviewScore(Registration $registration, ?float $score): void
     {
-        $registration->update(['interview_score' => $score]);
+        $registration->update([
+            'interview_score' => $score,
+        ]);
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\ReportService;
+use App\Services\Admin\ReportService;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReportController extends Controller
