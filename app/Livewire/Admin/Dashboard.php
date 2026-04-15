@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Services\DashboardService;
+use App\Services\Admin\DashboardService;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;

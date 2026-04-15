@@ -5,7 +5,7 @@ namespace App\Livewire\Admin;
 use App\Actions\ReviewRegistrationAction;
 use App\Models\Registration;
 use App\Models\Skill;
-use App\Services\RegistrationService;
+use App\Services\Admin\RegistrationService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;

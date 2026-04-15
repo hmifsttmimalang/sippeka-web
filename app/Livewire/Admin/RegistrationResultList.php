@@ -2,11 +2,9 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Registration;
-use App\Services\RankingService;
+use App\Services\Admin\RankingService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;

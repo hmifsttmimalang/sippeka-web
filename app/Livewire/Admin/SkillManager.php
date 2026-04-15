@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveSkillAction;
+use App\Actions\Skills\SaveSkillAction;
 use App\Models\Skill;
-use App\Services\SkillService;
+use App\Services\Admin\SkillService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;

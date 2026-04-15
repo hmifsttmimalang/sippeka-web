@@ -4,7 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Actions\SaveSubjectAction;
 use App\Models\QuestionTitle;
-use App\Services\SubjectService;
+use App\Services\Admin\SubjectService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
