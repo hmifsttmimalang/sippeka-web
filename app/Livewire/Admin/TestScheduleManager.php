@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveTestScheduleAction;
+use App\Actions\Admin\SaveTestScheduleAction;
 use App\Models\Major;
 use App\Models\TestSchedule;
 use App\Services\Admin\ScheduleService;
@@ -19,9 +19,13 @@ class TestScheduleManager extends Component
     use WithAdminPagination;
 
     public ?int $major_id = null;
+
     public string $test_date = '';
+
     public string $test_time = '';
+
     public ?int $editingId = null;
+
     public bool $isEditing = false;
 
     protected $rules = [

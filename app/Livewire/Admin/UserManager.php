@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveUserAction;
+use App\Actions\Admin\SaveUserAction;
 use App\Models\User;
 use App\Services\Admin\UserService;
 use App\Traits\WithAdminPagination;

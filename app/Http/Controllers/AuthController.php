@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\AuthenticateUserAction;
-use App\Actions\RegisterUserAction;
-use App\Actions\StartSkillTestSelectionAction;
+use App\Actions\Auth\AuthenticateUserAction;
+use App\Actions\Auth\RegisterUserAction;
+use App\Actions\Student\StartSkillTestSelectionAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

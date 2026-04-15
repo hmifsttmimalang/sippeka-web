@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\Skills\SaveSkillAction;
+use App\Actions\Admin\Skills\SaveSkillAction;
 use App\Models\Skill;
 use App\Services\Admin\SkillService;
 use App\Traits\WithAdminPagination;
@@ -18,8 +18,11 @@ class SkillManager extends Component
     use WithAdminPagination;
 
     public string $search = '';
+
     public string $name = '';
+
     public ?int $editingId = null;
+
     public bool $showingModal = false;
 
     protected $rules = [
@@ -30,7 +33,7 @@ class SkillManager extends Component
     {
         $this->resetErrorBag();
         $this->editingId = $id;
-        
+
         if ($id) {
             $skill = Skill::findOrFail($id);
             $this->name = $skill->name;

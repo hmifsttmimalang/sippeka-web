@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Admin;
 
 use App\Models\SkillTestSession;
 
 class SaveSkillTestSessionAction
 {
-    /**
-     * Save or update a skill test session.
-     */
     public function execute(array $data, ?int $id = null): SkillTestSession
     {
         return SkillTestSession::updateOrCreate(

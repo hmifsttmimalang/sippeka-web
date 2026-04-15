@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\Questions\ImportQuestionAction;
-use App\Actions\Questions\SaveQuestionAction;
+use App\Actions\Admin\Questions\ImportQuestionAction;
+use App\Actions\Admin\Questions\SaveQuestionAction;
 use App\Models\Question;
 use App\Models\SkillTest;
 use App\Services\Admin\QuestionService;

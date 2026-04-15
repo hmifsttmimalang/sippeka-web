@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Questions;
+namespace App\Actions\Admin\Questions;
 
 use App\Models\Question;
 use PhpOffice\PhpSpreadsheet\IOFactory;

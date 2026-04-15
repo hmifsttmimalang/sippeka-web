@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveMajorAction;
+use App\Actions\Admin\SaveMajorAction;
 use App\Models\Major;
 use App\Services\Admin\MajorService;
 use App\Traits\WithAdminPagination;
@@ -18,10 +18,15 @@ class MajorManager extends Component
     use WithAdminPagination;
 
     public string $name = '';
+
     public ?int $quota = null;
+
     public string $status = 'Open';
+
     public ?int $major_id = null;
+
     public bool $isEditing = false;
+
     public string $search = '';
 
     protected $rules = [

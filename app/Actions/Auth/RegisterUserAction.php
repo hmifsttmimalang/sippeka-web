@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterUserAction
 {
-    /**
-     * Create a new user.
-     */
     public function execute(array $data): User
     {
         return User::create([

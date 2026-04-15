@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveSkillTestAction;
+use App\Actions\Admin\SaveSkillTestAction;
 use App\Models\QuestionTitle;
 use App\Models\Skill;
 use App\Models\SkillTest;

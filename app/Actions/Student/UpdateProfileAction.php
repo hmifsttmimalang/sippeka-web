@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Student;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UpdateProfileAction
 {
-    /**
-     * Update the user profile and corresponding registration record.
-     */
     public function execute(User $user, array $data): void
     {
         $userData = [

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Registration;
 
-use App\Actions\SubmitRegistrationAction;
+use App\Actions\Registration\SubmitRegistrationAction;
 use App\Models\Registration;
 use App\Models\Skill;
 use Illuminate\Contracts\View\View;

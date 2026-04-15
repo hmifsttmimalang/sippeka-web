@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Registration;
 
 use App\Models\Registration;
 use App\Models\User;
@@ -9,15 +9,11 @@ use Illuminate\Support\Str;
 
 class SubmitRegistrationAction
 {
-    /**
-     * Submit a registration.
-     */
     public function execute(User $user, array $data, array $files): Registration
     {
         $username = $user->username;
         $folderPath = 'uploads/'.$username;
 
-        // Ensure directory exists
         if (! Storage::disk('public')->exists($folderPath)) {
             Storage::disk('public')->makeDirectory($folderPath);
         }

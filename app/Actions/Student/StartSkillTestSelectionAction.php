@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Student;
 
 use App\Models\Registration;
 use App\Models\SkillTestSession;
@@ -11,16 +11,12 @@ use Carbon\Carbon;
 class StartSkillTestSelectionAction
 {
     /**
-     * Start a skill test selection session for a user.
-     *
      * @return array{status: string, message?: string}
      */
     public function execute(User $user): array
     {
-        // Temukan pendaftaran (registration) user
         $registration = Registration::where('user_id', $user->id)->first();
 
-        // Find active skill test session
         $skillTestSession = SkillTestSession::where('session_type', 'Selection')
             ->where('start_time', '<=', now())
             ->where('end_time', '>=', now())
@@ -33,7 +29,6 @@ class StartSkillTestSelectionAction
             ];
         }
 
-        // Check or create test attempt
         TestAttempt::firstOrCreate(
             [
                 'registration_id' => $registration->id,

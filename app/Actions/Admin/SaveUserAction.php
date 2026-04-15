@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +11,7 @@ class SaveUserAction
     {
         $userData = collect($data)->only(['name', 'username', 'email', 'role']);
 
-        if (!empty($data['password'])) {
+        if (! empty($data['password'])) {
             $userData->put('password', Hash::make($data['password']));
         }
 

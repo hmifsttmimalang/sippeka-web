@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\Subjects\SaveSubjectAction;
+use App\Actions\Admin\Subjects\SaveSubjectAction;
 use App\Models\QuestionTitle;
 use App\Services\Admin\SubjectService;
 use App\Traits\WithAdminPagination;

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveAnnouncementAction;
+use App\Actions\Admin\SaveAnnouncementAction;
 use App\Services\Admin\AnnouncementService;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -14,7 +14,9 @@ use Livewire\Component;
 class AnnouncementManager extends Component
 {
     public $date;
+
     public $time;
+
     public $formattedScheduledAt;
 
     protected $rules = [
@@ -35,7 +37,7 @@ class AnnouncementManager extends Component
         $action->execute($scheduledAt);
 
         session()->flash('success', 'Waktu pengumuman berhasil diatur.');
-        
+
         $this->refreshData($service);
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Student;
 
-use App\Actions\SubmitTestAttemptAction;
+use App\Actions\Student\SubmitTestAttemptAction;
 use App\Models\Registration;
 use App\Models\SkillTestSession;
 use App\Models\TestAttempt;

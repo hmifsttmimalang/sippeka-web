@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Admin;
 
 use App\Models\SkillTest;
 
 class SaveSkillTestAction
 {
-    /**
-     * Save or update a skill test.
-     */
     public function execute(array $data, ?int $id = null): SkillTest
     {
         return SkillTest::updateOrCreate(

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Student;
 
-use App\Actions\UpdateProfileAction;
+use App\Actions\Student\UpdateProfileAction;
 use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Contracts\View\View;

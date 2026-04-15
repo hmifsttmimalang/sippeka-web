@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Skills;
+namespace App\Actions\Admin\Skills;
 
 use App\Models\Skill;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Student;
 
 use App\Models\Registration;
 use App\Models\TestAttempt;
@@ -9,9 +9,6 @@ use Illuminate\Support\Collection;
 
 class SubmitTestAttemptAction
 {
-    /**
-     * Submit test attempt and calculate score.
-     */
     public function execute(TestAttempt $attempt, Registration $registration, Collection $questions, array $userAnswers): array
     {
         $correctCount = 0;
@@ -26,16 +23,11 @@ class SubmitTestAttemptAction
 
         $scorePercentage = $totalQuestions > 0 ? ($correctCount / $totalQuestions) * 100 : 0;
 
-        // Update Attempt
         $attempt->update([
             'status' => 'finished',
             'end_time' => Carbon::now('Asia/Jakarta'),
             'answers' => $userAnswers,
         ]);
-
-        // Update Registration Score
-        // Note: For 'Selection' type, we update skill_test_score. For 'Simulasi', we don't necessarily update it.
-        // The component will decide based on session type.
 
         return [
             'score' => $scorePercentage,
