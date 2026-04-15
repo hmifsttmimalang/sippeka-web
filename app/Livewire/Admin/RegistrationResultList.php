@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Registration;
+use App\Services\RankingService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -18,25 +19,17 @@ class RegistrationResultList extends Component
 
     public string $search = '';
 
-    protected $queryString = ['search'];
+    protected $queryString = ['search' => ['except' => '']];
 
     public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function render(): View
+    public function render(RankingService $rankingService): View
     {
-        $registrations = Registration::with('skill')
-            ->select('registrations.*', DB::raw('((registrations.skill_test_score + registrations.interview_score) / 2) as average_score'))
-            ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orderByDesc('average_score')
-            ->paginate(10);
-
         return view('livewire.admin.registration-result-list', [
-            'registrations' => $registrations,
+            'registrations' => $rankingService->getPaginatedRankings($this->search),
         ]);
     }
 }
