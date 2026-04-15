@@ -20,15 +20,31 @@ class QuestionManager extends Component
     use WithAdminPagination, WithFileUploads;
 
     public SkillTest $test;
+
     public string $search = '';
-    public string $question = '', $option_a = '', $option_b = '', $option_c = '', $option_d = '';
+
+    public string $question_text = '';
+
+    public string $option_a = '';
+
+    public string $option_b = '';
+
+    public string $option_c = '';
+
+    public string $option_d = '';
+
     public string $correct_answer = 'a';
+
     public ?int $editingId = null;
-    public bool $showingModal = false, $showingImportModal = false;
+
+    public bool $showingModal = false;
+
+    public bool $showingImportModal = false;
+
     public $excelFile;
 
     protected $rules = [
-        'question' => 'required|min:10',
+        'question_text' => 'required|min:10',
         'option_a' => 'required',
         'option_b' => 'required',
         'option_c' => 'required',
@@ -49,9 +65,15 @@ class QuestionManager extends Component
             $q = Question::findOrFail($id);
             $this->fill($q->toArray());
         } else {
-            $this->reset(['question', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer']);
+            $this->reset(['question_text', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer']);
         }
         $this->showingModal = true;
+    }
+
+    public function openImportModal(): void
+    {
+        $this->resetErrorBag();
+        $this->showingImportModal = true;
     }
 
     public function importFromExcel(ImportQuestionAction $importAction): void
@@ -63,15 +85,18 @@ class QuestionManager extends Component
             session()->flash('message', "$count soal berhasil diimpor.");
             $this->closeModal();
         } catch (\Exception $e) {
-            Log::error('Import Error: ' . $e->getMessage());
+            Log::error('Import Error: '.$e->getMessage());
             $this->addError('excelFile', 'Format file tidak didukung atau file korup, coba import ulang!');
         }
     }
 
     public function save(SaveQuestionAction $action): void
     {
-        $this->validate();
-        $action->execute(array_merge($this->pull(), ['skill_test_id' => $this->test->id]), $this->editingId);
+        $data = $this->validate();
+        $data['skill_test_id'] = $this->test->id;
+
+        $action->execute($data, $this->editingId);
+
         session()->flash('message', 'Soal aman tersimpan.');
         $this->closeModal();
     }
@@ -86,7 +111,7 @@ class QuestionManager extends Component
     {
         return view('livewire.admin.question-manager', [
             'questions' => $service->getPaginatedQuestions($this->test->id, $this->search),
-            'title' => 'Manajemen Soal: ' . $this->test->name,
+            'title' => 'Manajemen Soal: '.$this->test->name,
         ]);
     }
 

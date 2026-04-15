@@ -46,7 +46,7 @@ class Registration extends Model
     protected function averageScore(): Attribute
     {
         return Attribute::make(
-            get: fn() => ($this->skill_test_score !== null && $this->interview_score !== null)
+            get: fn () => ($this->skill_test_score !== null && $this->interview_score !== null)
             ? ($this->skill_test_score + $this->interview_score) / 2
             : null,
         );
@@ -60,14 +60,14 @@ class Registration extends Model
         return Attribute::make(
             get: function () {
                 if ($this->skill_test_score === null) {
-                    return 'Not Yet Tested';
+                    return 'Belum Tes';
                 }
 
                 if ($this->interview_score === null) {
-                    return 'In Progress';
+                    return 'Sedang Diproses';
                 }
 
-                return $this->average_score >= 70 ? 'Passed' : 'Failed';
+                return $this->average_score >= 70 ? 'Lulus' : 'Gagal';
             },
         );
     }
@@ -78,7 +78,7 @@ class Registration extends Model
     protected function formattedBirthDate(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->date_of_birth ? $this->date_of_birth->translatedFormat('d F Y') : '-',
+            get: fn () => $this->date_of_birth ? $this->date_of_birth->translatedFormat('d F Y') : '-',
         );
     }
 
@@ -99,7 +99,7 @@ class Registration extends Model
 
     public function validateAge(): bool
     {
-        if (!$this->date_of_birth) {
+        if (! $this->date_of_birth) {
             return false;
         }
 

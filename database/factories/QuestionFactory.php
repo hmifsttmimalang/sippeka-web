@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Question;
-use App\Models\QuestionTitle;
+use App\Models\SkillTest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QuestionFactory extends Factory
@@ -13,7 +13,7 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            'question_title_id' => QuestionTitle::factory(),
+            'skill_test_id' => SkillTest::factory(),
             'question_text' => $this->faker->sentence(10),
             'option_a' => $this->faker->word(),
             'option_b' => $this->faker->word(),

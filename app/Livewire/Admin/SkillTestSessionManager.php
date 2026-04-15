@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use App\Actions\SaveSkillTestSessionAction;
+use App\Models\SkillTest;
 use App\Models\SkillTestSession;
 use App\Services\Admin\SessionService;
 use App\Traits\WithAdminPagination;
@@ -18,11 +19,25 @@ class SkillTestSessionManager extends Component
     use WithAdminPagination;
 
     public $search = '';
-    public $name, $skill_test_id, $startTime, $endTime, $sessionType = 'Selection';
+
+    public $name;
+
+    public $skill_test_id;
+
+    public $start_time;
+
+    public $end_time;
+
+    public $session_type = 'Selection';
+
     public $editingId = null;
-    public $showingModal = false, $showingDetailModal = false;
+
+    public $showingModal = false;
+
+    public $showingDetailModal = false;
 
     public $selectedSession = null;
+
     public $detailSearch = '';
 
     protected $queryString = ['search' => ['except' => '']];
@@ -30,9 +45,9 @@ class SkillTestSessionManager extends Component
     protected $rules = [
         'name' => 'required|string|max:255',
         'skill_test_id' => 'required|exists:skill_tests,id',
-        'startTime' => 'required|date',
-        'endTime' => 'required|date|after:startTime',
-        'sessionType' => 'required|in:Selection,Simulation',
+        'start_time' => 'required|date',
+        'end_time' => 'required|date|after:start_time',
+        'session_type' => 'required|in:Selection,Simulation',
     ];
 
     public function openModal($id = null)
@@ -43,20 +58,21 @@ class SkillTestSessionManager extends Component
         if ($id) {
             $session = SkillTestSession::findOrFail($id);
             $this->fill($session->toArray());
-            $this->startTime = date('Y-m-d\TH:i', strtotime($session->start_time));
-            $this->endTime = date('Y-m-d\TH:i', strtotime($session->end_time));
+            $this->start_time = date('Y-m-d\TH:i', strtotime($session->start_time));
+            $this->end_time = date('Y-m-d\TH:i', strtotime($session->end_time));
         } else {
-            $this->reset(['name', 'skill_test_id', 'startTime', 'endTime']);
-            $this->sessionType = 'Selection';
+            $this->reset(['name', 'skill_test_id', 'start_time', 'end_time']);
+            $this->session_type = 'Selection';
         }
 
         $this->showingModal = true;
+        $this->dispatch('show-form-modal');
     }
 
     public function save(SaveSkillTestSessionAction $action)
     {
-        $this->validate();
-        $action->execute($this->pull(), $this->editingId);
+        $data = $this->validate();
+        $action->execute($data, $this->editingId);
 
         session()->flash('success', 'Sesi aman tersimpan!');
         $this->closeModal();
@@ -77,6 +93,13 @@ class SkillTestSessionManager extends Component
     {
         $this->selectedSession = SkillTestSession::with('skillTest')->findOrFail($id);
         $this->showingDetailModal = true;
+        $this->dispatch('show-detail-modal');
+    }
+
+    public function closeDetail()
+    {
+        $this->showingDetailModal = false;
+        $this->dispatch('hide-detail-modal');
     }
 
     public function render(SessionService $service): View
@@ -88,13 +111,14 @@ class SkillTestSessionManager extends Component
 
         return view('livewire.admin.skill-test-session-manager', [
             'sessions' => $service->getPaginatedSessions($this->search),
-            'skillTests' => \App\Models\SkillTest::all(),
-            'detailAttempts' => $detailAttempts
+            'skillTests' => SkillTest::all(),
+            'detailAttempts' => $detailAttempts,
         ]);
     }
 
     public function closeModal()
     {
         $this->reset(['showingModal', 'showingDetailModal', 'editingId', 'selectedSession', 'detailSearch']);
+        $this->dispatch('hide-form-modal');
     }
 }

@@ -469,6 +469,9 @@
                                 @if ($registration && $registration->verification_status === 'Pending')
                                     <button disabled class="btn btn-outline-secondary btn-sm btn-block disabled"
                                         title="Sedang divalidasi admin">Edit Profil Terkunci</button>
+                                @elseif($registration && $registration->verification_status === 'Rejected')
+                                    <a href="{{ route('registration.form') }}"
+                                        class="btn btn-danger btn-sm btn-block">Ulangi Daftar</a>
                                 @else
                                     <a href="{{ route('student.edit_profile') }}"
                                         class="btn btn-outline-primary btn-sm btn-block">Edit Profil</a>

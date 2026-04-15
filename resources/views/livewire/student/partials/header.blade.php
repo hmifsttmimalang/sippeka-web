@@ -33,10 +33,17 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{{ route('student.edit_profile') }}">
-                            <i class="bi bi-person"></i>
-                            <span>Edit Profil</span>
-                        </a>
+                        @if ($registration && $registration->verification_status === 'Rejected')
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('registration.form') }}">
+                                <i class="bi bi-exclamation-circle text-danger"></i>
+                                <span class="text-danger font-weight-bold">Ulangi Daftar</span>
+                            </a>
+                        @else
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('student.edit_profile') }}">
+                                <i class="bi bi-person"></i>
+                                <span>Edit Profil</span>
+                            </a>
+                        @endif
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>

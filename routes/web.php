@@ -19,6 +19,7 @@ use App\Livewire\Public\SelectionAnnouncement;
 use App\Livewire\Public\TrainingInfo;
 use App\Livewire\Registration\Wizard;
 use App\Livewire\Student\Dashboard as StudentDashboard;
+use App\Livewire\Student\EditProfile;
 use App\Livewire\Student\SelectionTest;
 use App\Livewire\Student\SimulationTest;
 use Illuminate\Support\Facades\Route;
@@ -73,9 +74,12 @@ Route::middleware(['auth', 'role:instructor'])->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function () {
     // Student & Registration Routes
     Route::get('/registration', Wizard::class)->name('registration.form');
-    Route::get('/dashboard/{username?}', StudentDashboard::class)->name('user.dashboard');
+    Route::get('/edit-profile', EditProfile::class)->name('student.edit_profile');
     Route::get('/simulation/{sessionId}', SimulationTest::class)->name('student.simulation');
     Route::get('/selection/{sessionId}', SelectionTest::class)->name('student.selection');
+
+    // User dashboard
+    Route::get('/dashboard', StudentDashboard::class)->name('user.dashboard');
 
     // Legacy JS Redirects
     Route::get('/{username}/simulation/result', function ($username) {

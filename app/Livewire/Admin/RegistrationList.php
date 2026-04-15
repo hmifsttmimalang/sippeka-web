@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\ReviewRegistrationAction;
+use App\Actions\Registrations\ReviewRegistrationAction;
 use App\Models\Registration;
 use App\Models\Skill;
 use App\Services\Admin\RegistrationService;
@@ -19,11 +19,15 @@ class RegistrationList extends Component
     use WithAdminPagination;
 
     public string $search = '';
+
     public string $filterSkill = '';
 
     public ?int $selectedRegistrationId = null;
+
     public ?Registration $selectedRegistrant = null;
+
     public ?int $interview_score = null;
+
     public ?string $verification_notes = null;
 
     protected $queryString = [
@@ -56,6 +60,7 @@ class RegistrationList extends Component
     {
         if ($this->selectedRegistrant) {
             $action->updateVerification($this->selectedRegistrant, 'Approved');
+            session()->flash('success', 'Berkas pendaftaran berhasil disetujui.');
             $this->closeProfileModal();
         }
     }
@@ -66,6 +71,7 @@ class RegistrationList extends Component
 
         if ($this->selectedRegistrant) {
             $action->updateVerification($this->selectedRegistrant, 'Rejected', $this->verification_notes);
+            session()->flash('success', 'Berkas pendaftaran telah ditolak dengan catatan.');
             $this->closeProfileModal();
         }
     }
@@ -73,6 +79,20 @@ class RegistrationList extends Component
     public function delete(int $id, RegistrationService $service): void
     {
         $service->deleteRegistration($id);
+        session()->flash('success', 'Data pendaftar berhasil dihapus.');
+    }
+
+    public function saveReview(ReviewRegistrationAction $action): void
+    {
+        $this->validate([
+            'interview_score' => 'required|numeric|min:0|max:100',
+        ]);
+
+        if ($this->selectedRegistrant) {
+            $action->updateInterviewScore($this->selectedRegistrant, $this->interview_score);
+            session()->flash('success', 'Nilai wawancara berhasil disimpan.');
+            $this->closeProfileModal();
+        }
     }
 
     public function render(RegistrationService $service): View

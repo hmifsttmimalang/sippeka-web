@@ -35,7 +35,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('user.dashboard');
     }
 
     public function showLoginForm()
@@ -61,7 +61,7 @@ class AuthController extends Controller
             } elseif ($user->role === 'instructor') {
                 return redirect()->route('instructor.dashboard');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('user.dashboard');
             }
         }
 

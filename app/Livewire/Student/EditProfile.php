@@ -38,6 +38,10 @@ class EditProfile extends Component
             return redirect()->route('user.dashboard')->with('error', 'Edit profil dikunci saat dalam status Pending verifikasi.');
         }
 
+        if ($this->registration && $this->registration->verification_status === 'Rejected') {
+            return redirect()->route('registration.form')->with('warning', 'Pendaftaran Anda ditolak. Silakan perbaiki data melalui form ini.');
+        }
+
         $this->name = $this->registration->name ?? $this->user->name;
         $this->email = $this->user->email;
     }

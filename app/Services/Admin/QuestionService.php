@@ -11,7 +11,7 @@ class QuestionService
     {
         return Question::query()
             ->where('skill_test_id', $testId)
-            ->when($search, fn($q) => $q->where('question', 'like', "%{$search}%"))
+            ->when($search, fn ($q) => $q->where('question_text', 'like', "%{$search}%"))
             ->latest()
             ->paginate($perPage);
     }

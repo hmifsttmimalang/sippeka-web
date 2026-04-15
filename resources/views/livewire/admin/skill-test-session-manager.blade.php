@@ -110,26 +110,26 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="font-weight-bold">Waktu Mulai <span class="text-danger">*</span></label>
-                                    <input type="datetime-local" class="form-control @error('startTime') is-invalid @enderror" wire:model="startTime">
-                                    @error('startTime') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    <input type="datetime-local" class="form-control @error('start_time') is-invalid @enderror" wire:model="start_time">
+                                    @error('start_time') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="font-weight-bold">Waktu Selesai <span class="text-danger">*</span></label>
-                                    <input type="datetime-local" class="form-control @error('endTime') is-invalid @enderror" wire:model="endTime">
-                                    @error('endTime') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                    <input type="datetime-local" class="form-control @error('end_time') is-invalid @enderror" wire:model="end_time">
+                                    @error('end_time') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="font-weight-bold">Jenis Sesi <span class="text-danger">*</span></label>
-                            <select wire:model="sessionType" class="form-control @error('sessionType') is-invalid @enderror">
+                            <select wire:model="session_type" class="form-control @error('session_type') is-invalid @enderror">
                                 <option value="Selection">Seleksi</option>
                                 <option value="Simulation">Simulasi</option>
                             </select>
-                            @error('sessionType') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                            @error('session_type') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
                     <div class="modal-footer">

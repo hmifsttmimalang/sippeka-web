@@ -16,7 +16,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">{{ $test->name }}</h1>
                         <div class="d-flex gap-2">
-                            <button wire:click="showingImportModal" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mr-2">
+                            <button wire:click="openImportModal" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mr-2">
                                 <i class="fas fa-file-excel fa-sm mr-2"></i> Impor Excel
                             </button>
                             <button wire:click="openModal"
@@ -70,7 +70,7 @@
                                             </div>
                                         </div>
                                         <p class="text-gray-800 font-weight-bold mb-4" style="font-size: 1.1rem;">
-                                            {{ $question->question }}</p>
+                                            {{ $question->question_text }}</p>
 
                                         <div class="row">
                                             @foreach (['a', 'b', 'c', 'd'] as $option)
@@ -126,9 +126,9 @@
                     <form wire:submit="save">
                         <div class="form-group">
                             <label class="font-weight-bold small text-uppercase">Isi Pertanyaan</label>
-                            <textarea wire:model="question" rows="3" class="form-control @error('question') is-invalid @enderror"
+                            <textarea wire:model="question_text" rows="3" class="form-control @error('question_text') is-invalid @enderror"
                                 placeholder="Ketikkan isi pertanyaan..."></textarea>
-                            @error('question')
+                            @error('question_text')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -160,6 +160,27 @@
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <div class="form-group mb-0">
+                                    <label class="font-weight-bold small text-uppercase text-primary">Tentukan Jawaban Benar (Kunci)</label>
+                                    <div class="d-flex gap-3 mt-1">
+                                        @foreach (['a', 'b', 'c', 'd'] as $option)
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="final_radio_{{ $option }}"
+                                                wire:model="correct_answer" value="{{ $option }}"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label font-weight-bold {{ $correct_answer === $option ? 'text-success' : '' }}" 
+                                                for="final_radio_{{ $option }}">Pilihan {{ strtoupper($option) }}</label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    @error('correct_answer')
+                                        <div class="text-danger small mt-1 font-weight-bold">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <hr>
                         <div class="text-right">

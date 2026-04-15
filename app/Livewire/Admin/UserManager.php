@@ -18,9 +18,22 @@ class UserManager extends Component
 {
     use WithAdminPagination;
 
-    public string $search = '', $filterRole = '';
-    public string $name = '', $username = '', $email = '', $password = '', $role = 'user';
+    public string $search = '';
+
+    public string $filterRole = '';
+
+    public string $name = '';
+
+    public string $username = '';
+
+    public string $email = '';
+
+    public string $password = '';
+
+    public string $role = 'user';
+
     public ?int $editingId = null;
+
     public bool $showingModal = false;
 
     protected $queryString = [
@@ -56,8 +69,8 @@ class UserManager extends Component
             'role' => 'required|in:admin,instructor,user',
         ]);
 
-        // Eksekusi pake pull() biar sat-set
-        $action->execute($this->pull(), $this->editingId);
+        // Eksekusi pake pull() biar sat-set - Tapi jangan tarik search & filterRole
+        $action->execute($this->pull(['name', 'username', 'email', 'password', 'role']), $this->editingId);
 
         session()->flash('success', 'User berhasil diamankan.');
         $this->closeModal();
