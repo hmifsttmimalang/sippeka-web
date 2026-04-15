@@ -5,7 +5,6 @@ namespace App\Livewire\Admin;
 use App\Actions\Registrations\UpdateRegistrationInterviewScoreAction;
 use App\Models\Registration;
 use App\Models\Skill;
-use App\Models\User;
 use App\Services\Admin\EvaluationService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
@@ -37,9 +36,9 @@ class EvaluationManager extends Component
      * If the user is not an instructor, it will flash an error message
      * and return.
      */
-    public function editScore(int $id, EvaluationService $service): void
+    public function editScore(int $id): void
     {
-        if (! $service->canEvaluate()) {
+        if (!Auth::user()?->isInstructor()) {
             session()->flash('error', 'Cuma instruktur yang boleh ngasih nilai, bos!');
 
             return;
@@ -54,12 +53,10 @@ class EvaluationManager extends Component
      * Save the interview score of a registration.
      *
      * If the user is not an instructor, it will return without doing anything.
-     *
-     * @param  ReviewRegistrationAction  $action
      */
-    public function saveScore(UpdateRegistrationInterviewScoreAction $action, EvaluationService $service): void
+    public function saveScore(UpdateRegistrationInterviewScoreAction $action): void
     {
-        if (! $service->canEvaluate()) {
+        if (!Auth::user()?->isInstructor()) {
             return;
         }
 

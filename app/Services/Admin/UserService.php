@@ -12,11 +12,13 @@ class UserService
     {
         return User::query()
             ->when($search, function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('username', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
+                $q->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('username', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
             })
-            ->when($role, fn($q) => $q->where('role', $role))
+            ->when($role, fn ($q) => $q->where('role', $role))
             ->latest()
             ->paginate($perPage);
     }

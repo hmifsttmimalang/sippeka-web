@@ -2,23 +2,20 @@
 
 namespace App\Services\Instructor;
 
-use App\Actions\Registrations\CalculatePassedRegistrationAction;
 use App\Models\Registration;
 use Illuminate\Database\Eloquent\Collection;
 
 class DashboardService
 {
-    public function __construct(
-        protected CalculatePassedRegistrationAction $calculatePassedAction
-    ) {}
-
     /**
      * Get dashboard statistics for instructors.
+     *
+     * @return array{totalRegistrations: int, passedRegistrations: int, registrationProgress: int, passRateProgress: float}
      */
     public function getStats(): array
     {
         $total = Registration::count();
-        $passed = $this->calculatePassedAction->execute();
+        $passed = $this->calculatePassedCount();
 
         return [
             'totalRegistrations' => $total,
@@ -39,5 +36,18 @@ class DashboardService
             ->where('created_at', '>=', now()->subDay())
             ->take($limit)
             ->get();
+    }
+
+    /**
+     * Count registrations that passed selection:
+     * (skill_test_score + interview_score) / 2 >= 70.
+     */
+    private function calculatePassedCount(): int
+    {
+        return Registration::query()
+            ->whereNotNull('skill_test_score')
+            ->whereNotNull('interview_score')
+            ->whereRaw('((skill_test_score + interview_score) / 2) >= 70')
+            ->count();
     }
 }

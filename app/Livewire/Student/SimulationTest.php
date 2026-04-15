@@ -6,7 +6,7 @@ use App\Actions\Student\SubmitTestAttemptAction;
 use App\Models\Registration;
 use App\Models\SkillTestSession;
 use App\Models\TestAttempt;
-use Carbon\Carbon;
+use App\Services\Student\TestSessionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -36,124 +36,57 @@ class SimulationTest extends Component
 
     public ?int $currentAttemptId = null;
 
-    public function mount(int $sessionId): void
+    public function mount(int $sessionId, TestSessionService $service): void
     {
         $this->session = SkillTestSession::with(['test', 'test.questions'])->findOrFail($sessionId);
         $this->registration = Registration::where('user_id', Auth::id())->firstOrFail();
 
-        $this->validateSession();
-        $this->loadQuestions();
-        $this->initializeAttempt();
-        $this->calculateTimer();
-    }
+        // Validate session eligibility
+        $error = $service->validateSession($this->session, $this->registration, 'Simulation');
+        if ($error) {
+            redirect()->route('user.dashboard')->with('error', $error);
 
-    private function validateSession(): void
-    {
-        if ($this->session->session_type !== 'Simulation') {
-            redirect()->route('user.dashboard')->with('error', 'Sesi ini bukan ujian simulasi.');
+            return;
         }
 
-        $now = Carbon::now('Asia/Jakarta');
-        $startAt = Carbon::parse($this->session->start_time, 'Asia/Jakarta');
-        $endAt = Carbon::parse($this->session->end_time, 'Asia/Jakarta');
+        // Load questions
+        $loaded = $service->loadQuestions($this->session);
+        $this->questions = $loaded['questions'];
+        $this->shuffledOptions = $loaded['shuffledOptions'];
 
-        if ($now->lt($startAt)) {
-            redirect()->route('user.dashboard')->with('error', 'Sesi simulasi ini belum dimulai. Silakan kembali pada jam '.$startAt->format('H:i').'.');
-        }
-
-        if ($now->gt($endAt)) {
-            redirect()->route('user.dashboard')->with('error', 'Mohon maaf, waktu pengerjaan untuk sesi simulasi ini telah berakhir (Terlambat).');
-        }
-
-        $finishedAttempt = TestAttempt::where('registration_id', $this->registration->id)
-            ->where('skill_test_session_id', $this->session->id)
-            ->where('status', 'finished')
-            ->exists();
-
-        if ($finishedAttempt) {
-            redirect()->route('user.dashboard')->with('error', 'Anda sudah melakukan simulasi pada sesi ini.');
-        }
-    }
-
-    private function initializeAttempt(): void
-    {
-        $attempt = TestAttempt::firstOrCreate([
-            'registration_id' => $this->registration->id,
-            'skill_test_session_id' => $this->session->id,
-            'status' => 'in_progress',
-        ], [
-            'start_time' => Carbon::now('Asia/Jakarta'),
-            'answers' => [],
-        ]);
-
-        $this->currentAttemptId = $attempt->id;
-
-        if ($attempt->answers) {
-            $this->userAnswers = array_replace($this->userAnswers, $attempt->answers);
-        }
-    }
-
-    private function loadQuestions(): void
-    {
-        $test = $this->session->test;
-        $allQuestions = $test->questions;
-
-        if ($test->shuffle_questions === 'y') {
-            $allQuestions = $allQuestions->shuffle();
-        }
-
-        $this->questions = $allQuestions->map(function ($q) use ($test) {
-            $options = [
-                'a' => $q->option_a,
-                'b' => $q->option_b,
-                'c' => $q->option_c,
-                'd' => $q->option_d,
-            ];
-
-            if ($test->shuffle_answers === 'y') {
-                $keys = array_keys($options);
-                shuffle($keys);
-                $shuffled = [];
-                foreach ($keys as $key) {
-                    $shuffled[$key] = $options[$key];
-                }
-                $this->shuffledOptions[$q->id] = $shuffled;
-            } else {
-                $this->shuffledOptions[$q->id] = $options;
-            }
-
-            return $q;
-        });
-
+        // Initialize user answers
         foreach ($this->questions as $q) {
             if (! isset($this->userAnswers[$q->id])) {
                 $this->userAnswers[$q->id] = null;
             }
         }
-    }
 
-    private function calculateTimer(): void
-    {
-        $now = Carbon::now('Asia/Jakarta');
-        $end = Carbon::parse($this->session->end_time, 'Asia/Jakarta');
-        $this->remainingSeconds = (int) $now->diffInSeconds($end, false);
+        // Initialize or resume attempt
+        $attempt = $service->initializeAttempt($this->registration, $this->session);
+        $this->currentAttemptId = $attempt->id;
+
+        if ($attempt->answers) {
+            $this->userAnswers = array_replace($this->userAnswers, $attempt->answers);
+        }
+
+        // Calculate timer
+        $this->remainingSeconds = $service->calculateRemainingSeconds($this->session);
 
         if ($this->remainingSeconds <= 0) {
-            $this->submit(new SubmitTestAttemptAction);
+            $this->submit(app(SubmitTestAttemptAction::class));
         }
     }
 
-    public function selectAnswer(int $questionId, string $option): void
+    public function selectAnswer(int $questionId, string $option, TestSessionService $service): void
     {
         if ($this->isFinished) {
             return;
         }
+
         $this->userAnswers[$questionId] = $option;
 
         if ($this->currentAttemptId) {
-            TestAttempt::where('id', $this->currentAttemptId)->update([
-                'answers' => $this->userAnswers,
-            ]);
+            $service->saveAnswer($this->currentAttemptId, $this->userAnswers);
         }
     }
 
@@ -174,7 +107,6 @@ class SimulationTest extends Component
 
         $result = $submitAction->execute(
             $attempt,
-            $this->registration,
             $this->questions,
             $this->userAnswers
         );
