@@ -33,7 +33,7 @@
                 <div class="row gy-4">
                     <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="service-item d-flex">
-                            <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+                            <div class="icon shrink-0"><i class="bi bi-briefcase"></i></div>
                             <div>
                                 <h4 class="title"><a href="#" class="stretched-link">Balai Latihan Kerja</a></h4>
                                 <p class="description">Fasilitas yang disediakan pemerintah dalam memberikan
@@ -45,7 +45,7 @@
 
                     <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="200">
                         <div class="service-item d-flex">
-                            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
+                            <div class="icon shrink-0"><i class="bi bi-card-checklist"></i></div>
                             <div>
                                 <h4 class="title"><a href="#" class="stretched-link">Visi</a></h4>
                                 <p class="description">Menjadi pusat unggulan pengembangan keterampilan tenaga kerja yang
@@ -57,7 +57,7 @@
 
                     <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
                         <div class="service-item d-flex">
-                            <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
+                            <div class="icon shrink-0"><i class="bi bi-bar-chart"></i></div>
                             <div>
                                 <h4 class="title"><a href="#" class="stretched-link">Misi</a></h4>
                                 <p class="description">
