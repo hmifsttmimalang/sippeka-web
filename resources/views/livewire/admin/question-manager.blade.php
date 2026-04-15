@@ -16,7 +16,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">{{ $test->name }}</h1>
                         <div class="d-flex gap-2">
-                            <button wire:click="openImportModal" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mr-2">
+                            <button wire:click="showingImportModal" class="d-none d-sm-inline-block btn btn-sm btn-outline-success shadow-sm mr-2">
                                 <i class="fas fa-file-excel fa-sm mr-2"></i> Impor Excel
                             </button>
                             <button wire:click="openModal"
@@ -89,7 +89,6 @@
                                                 </div>
                                             @endforeach
                                         </div>
- drum
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +132,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
- drum
-
                         <div class="row">
                             @foreach (['a', 'b', 'c', 'd'] as $option)
                                 <div class="col-md-6">
@@ -164,9 +161,6 @@
                                 </div>
                             @endforeach
                         </div>
- drum
- drum
-
                         <hr>
                         <div class="text-right">
                             <button type="button" wire:click="closeModal"
