@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Actions\SaveSubjectAction;
 use App\Models\QuestionTitle;
+use App\Services\SubjectService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -17,69 +18,60 @@ class SubjectManager extends Component
     use WithAdminPagination;
 
     public string $search = '';
-
     public string $name = '';
-
     public ?int $editingId = null;
-
     public bool $showingModal = false;
 
     protected $rules = [
         'name' => 'required|min:3|max:255',
     ];
 
-    public function updatingSearch(): void
-    {
-        $this->resetPage();
-    }
-
     public function openModal(?int $id = null): void
     {
         $this->resetErrorBag();
         $this->editingId = $id;
-        $this->showingModal = true;
-
+        
         if ($id) {
             $subject = QuestionTitle::findOrFail($id);
             $this->name = $subject->name;
         } else {
-            $this->name = '';
+            $this->reset('name');
         }
+
+        $this->showingModal = true;
     }
 
     public function closeModal(): void
     {
         $this->showingModal = false;
-        $this->editingId = null;
+        $this->reset(['editingId', 'name']);
     }
 
-    public function save(SaveSubjectAction $saveSubjectAction): void
+    public function save(SaveSubjectAction $action): void
     {
         $this->validate();
 
-        $saveSubjectAction->execute($this->name, $this->editingId);
+        $action->execute($this->name, $this->editingId);
 
-        session()->flash('message', $this->editingId ? 'Mata soal berhasil diperbarui.' : 'Mata soal berhasil ditambahkan.');
+        session()->flash('message', $this->editingId ? 'Mata soal diperbarui.' : 'Mata soal ditambah.');
 
         $this->closeModal();
     }
 
-    public function delete(int $id): void
+    public function delete(int $id, SubjectService $service): void
     {
-        $subject = QuestionTitle::findOrFail($id);
-        $subject->delete();
-        session()->flash('message', 'Mata soal berhasil dihapus.');
+        try {
+            $service->deleteSubject($id);
+            session()->flash('message', 'Mata soal dihapus.');
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
     }
 
-    public function render(): View
+    public function render(SubjectService $service): View
     {
-        $subjects = QuestionTitle::query()
-            ->when($this->search, fn ($q) => $q->where('name', 'like', '%'.$this->search.'%'))
-            ->latest()
-            ->paginate(10);
-
         return view('livewire.admin.subject-manager', [
-            'subjects' => $subjects,
+            'subjects' => $service->getPaginatedSubjects($this->search),
         ]);
     }
 }
