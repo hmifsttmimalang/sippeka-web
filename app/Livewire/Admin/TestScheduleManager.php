@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Actions\SaveTestScheduleAction;
 use App\Models\Major;
 use App\Models\TestSchedule;
+use App\Services\Admin\ScheduleService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -18,13 +19,9 @@ class TestScheduleManager extends Component
     use WithAdminPagination;
 
     public ?int $major_id = null;
-
     public string $test_date = '';
-
     public string $test_time = '';
-
     public ?int $editingId = null;
-
     public bool $isEditing = false;
 
     protected $rules = [
@@ -33,15 +30,30 @@ class TestScheduleManager extends Component
         'test_time' => 'required',
     ];
 
-    public function render(): View
+    public function save(SaveTestScheduleAction $action): void
     {
-        $testSchedules = TestSchedule::with('major')->paginate(10);
-        $majors = Major::all();
+        $this->validate();
 
-        return view('livewire.admin.test-schedule-manager', [
-            'testSchedules' => $testSchedules,
-            'majors' => $majors,
-        ]);
+        // Ambil data form pake pull()
+        $action->execute($this->only(['major_id', 'test_date', 'test_time']), $this->editingId);
+
+        session()->flash('success', $this->editingId ? 'Jadwal diupdate.' : 'Jadwal ditambah.');
+        $this->resetFields();
+    }
+
+    public function edit(int $id): void
+    {
+        $schedule = TestSchedule::findOrFail($id);
+        $this->editingId = $id;
+        // fill() otomatis ngisi major_id, test_date, dll selama namanya sama
+        $this->fill($schedule->toArray());
+        $this->isEditing = true;
+    }
+
+    public function delete(int $id, ScheduleService $service): void
+    {
+        $service->deleteSchedule($id);
+        session()->flash('success', 'Jadwal dihapus.');
     }
 
     public function resetFields(): void
@@ -50,34 +62,11 @@ class TestScheduleManager extends Component
         $this->resetErrorBag();
     }
 
-    public function save(SaveTestScheduleAction $saveTestScheduleAction): void
+    public function render(ScheduleService $service): View
     {
-        $this->validate();
-
-        $saveTestScheduleAction->execute([
-            'major_id' => $this->major_id,
-            'test_date' => $this->test_date,
-            'test_time' => $this->test_time,
-        ], $this->editingId);
-
-        session()->flash('success', $this->editingId ? 'Jadwal tes berhasil diperbarui.' : 'Jadwal tes berhasil ditambahkan.');
-        $this->resetFields();
-    }
-
-    public function edit(int $id): void
-    {
-        $schedule = TestSchedule::findOrFail($id);
-        $this->editingId = $id;
-        $this->major_id = $schedule->major_id;
-        $this->test_date = $schedule->test_date;
-        $this->test_time = $schedule->test_time;
-        $this->isEditing = true;
-    }
-
-    public function delete(int $id): void
-    {
-        $schedule = TestSchedule::findOrFail($id);
-        $schedule->delete();
-        session()->flash('success', 'Jadwal tes berhasil dihapus.');
+        return view('livewire.admin.test-schedule-manager', [
+            'testSchedules' => $service->getPaginatedSchedules(),
+            'majors' => Major::all(),
+        ]);
     }
 }

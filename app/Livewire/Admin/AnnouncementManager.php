@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin;
 
 use App\Actions\SaveAnnouncementAction;
-use App\Models\Announcement;
-use Carbon\Carbon;
+use App\Services\Admin\AnnouncementService;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -14,9 +14,7 @@ use Livewire\Component;
 class AnnouncementManager extends Component
 {
     public $date;
-
     public $time;
-
     public $formattedScheduledAt;
 
     protected $rules = [
@@ -24,37 +22,32 @@ class AnnouncementManager extends Component
         'time' => 'required',
     ];
 
-    public function mount()
+    public function mount(AnnouncementService $service): void
     {
-        $this->loadAnnouncement();
+        $this->refreshData($service);
     }
 
-    public function loadAnnouncement()
-    {
-        $announcement = Announcement::first();
-        if ($announcement) {
-            $dt = Carbon::parse($announcement->scheduled_at);
-            $this->date = $dt->format('Y-m-d');
-            $this->time = $dt->format('H:i');
-            $this->formattedScheduledAt = $dt->translatedFormat('d F Y H.i');
-        } else {
-            $this->formattedScheduledAt = 'Waktu belum ditentukan';
-        }
-    }
-
-    public function save(SaveAnnouncementAction $saveAnnouncementAction)
+    public function save(SaveAnnouncementAction $action, AnnouncementService $service): void
     {
         $this->validate();
 
-        $scheduledAt = $this->date.' '.$this->time;
-
-        $saveAnnouncementAction->execute($scheduledAt);
+        $scheduledAt = "{$this->date} {$this->time}";
+        $action->execute($scheduledAt);
 
         session()->flash('success', 'Waktu pengumuman berhasil diatur.');
-        $this->loadAnnouncement();
+        
+        $this->refreshData($service);
     }
 
-    public function render()
+    private function refreshData(AnnouncementService $service): void
+    {
+        $data = $service->getAnnouncementData();
+        $this->date = $data['date'];
+        $this->time = $data['time'];
+        $this->formattedScheduledAt = $data['formatted'];
+    }
+
+    public function render(): View
     {
         return view('livewire.admin.announcement-manager');
     }

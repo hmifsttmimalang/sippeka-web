@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Actions\SaveMajorAction;
 use App\Models\Major;
+use App\Services\Admin\MajorService;
 use App\Traits\WithAdminPagination;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -17,15 +18,10 @@ class MajorManager extends Component
     use WithAdminPagination;
 
     public string $name = '';
-
     public ?int $quota = null;
-
     public string $status = 'Open';
-
     public ?int $major_id = null;
-
     public bool $isEditing = false;
-
     public string $search = '';
 
     protected $rules = [
@@ -39,14 +35,33 @@ class MajorManager extends Component
         $this->resetPage();
     }
 
-    public function render(): View
+    public function save(SaveMajorAction $action): void
     {
-        $majors = Major::where('name', 'like', '%'.$this->search.'%')
-            ->paginate(10);
+        $this->validate();
 
-        return view('livewire.admin.major-manager', [
-            'majors' => $majors,
-        ]);
+        // Pake pull() biar datanya langsung diambil dan direset sekaligus
+        $action->execute($this->only(['name', 'quota', 'status']), $this->major_id);
+
+        session()->flash('success', $this->major_id ? 'Jurusan diperbarui.' : 'Jurusan ditambah.');
+        $this->resetFields();
+    }
+
+    public function edit(int $id): void
+    {
+        $major = Major::findOrFail($id);
+        $this->major_id = $id;
+        $this->fill($major->toArray());
+        $this->isEditing = true;
+    }
+
+    public function delete(int $id, MajorService $service): void
+    {
+        try {
+            $service->deleteMajor($id);
+            session()->flash('success', 'Jurusan dihapus.');
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
+        }
     }
 
     public function resetFields(): void
@@ -56,34 +71,10 @@ class MajorManager extends Component
         $this->resetErrorBag();
     }
 
-    public function save(SaveMajorAction $saveMajorAction): void
+    public function render(MajorService $service): View
     {
-        $this->validate();
-
-        $saveMajorAction->execute([
-            'name' => $this->name,
-            'quota' => $this->quota,
-            'status' => $this->status,
-        ], $this->major_id);
-
-        session()->flash('success', $this->major_id ? 'Jurusan berhasil diperbarui.' : 'Jurusan berhasil ditambahkan.');
-        $this->resetFields();
-    }
-
-    public function edit(int $id): void
-    {
-        $major = Major::findOrFail($id);
-        $this->major_id = $id;
-        $this->name = $major->name;
-        $this->quota = (int) $major->quota;
-        $this->status = $major->status;
-        $this->isEditing = true;
-    }
-
-    public function delete(int $id): void
-    {
-        $major = Major::findOrFail($id);
-        $major->delete();
-        session()->flash('success', 'Jurusan berhasil dihapus.');
+        return view('livewire.admin.major-manager', [
+            'majors' => $service->getPaginatedMajors($this->search),
+        ]);
     }
 }

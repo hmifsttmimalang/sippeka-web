@@ -11,14 +11,9 @@ class SaveAnnouncementAction
      */
     public function execute(string $scheduledAt): Announcement
     {
-        $announcement = Announcement::first();
-
-        if ($announcement) {
-            $announcement->update(['scheduled_at' => $scheduledAt]);
-        } else {
-            $announcement = Announcement::create(['scheduled_at' => $scheduledAt]);
-        }
-
-        return $announcement;
+        return Announcement::updateOrCreate(
+            [],
+            ['scheduled_at' => $scheduledAt]
+        );
     }
 }
