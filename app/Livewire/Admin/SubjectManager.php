@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\SaveSubjectAction;
+use App\Actions\Subjects\SaveSubjectAction;
 use App\Models\QuestionTitle;
 use App\Services\Admin\SubjectService;
 use App\Traits\WithAdminPagination;
@@ -18,8 +18,11 @@ class SubjectManager extends Component
     use WithAdminPagination;
 
     public string $search = '';
+
     public string $name = '';
+
     public ?int $editingId = null;
+
     public bool $showingModal = false;
 
     protected $rules = [
@@ -30,7 +33,7 @@ class SubjectManager extends Component
     {
         $this->resetErrorBag();
         $this->editingId = $id;
-        
+
         if ($id) {
             $subject = QuestionTitle::findOrFail($id);
             $this->name = $subject->name;

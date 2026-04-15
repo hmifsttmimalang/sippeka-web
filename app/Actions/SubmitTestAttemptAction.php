@@ -12,7 +12,7 @@ class SubmitTestAttemptAction
     /**
      * Submit test attempt and calculate score.
      */
-    public function handle(TestAttempt $attempt, Registration $registration, Collection $questions, array $userAnswers): array
+    public function execute(TestAttempt $attempt, Registration $registration, Collection $questions, array $userAnswers): array
     {
         $correctCount = 0;
         $totalQuestions = $questions->count();

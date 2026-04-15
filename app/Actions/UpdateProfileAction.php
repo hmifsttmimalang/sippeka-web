@@ -10,7 +10,7 @@ class UpdateProfileAction
     /**
      * Update the user profile and corresponding registration record.
      */
-    public function handle(User $user, array $data): void
+    public function execute(User $user, array $data): void
     {
         $userData = [
             'name' => $data['name'],

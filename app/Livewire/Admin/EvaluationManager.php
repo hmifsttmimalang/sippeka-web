@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\Registrations\ReviewRegistrationAction;
+use App\Actions\Registrations\UpdateRegistrationInterviewScoreAction;
 use App\Models\Registration;
 use App\Models\Skill;
 use App\Models\User;
@@ -18,8 +18,12 @@ class EvaluationManager extends Component
 {
     use WithAdminPagination;
 
-    public string $search = '', $filterSkill = '';
+    public string $search = '';
+
+    public string $filterSkill = '';
+
     public ?int $editingId = null;
+
     public ?float $tempInterviewScore = null;
 
     protected $queryString = [
@@ -32,15 +36,12 @@ class EvaluationManager extends Component
      *
      * If the user is not an instructor, it will flash an error message
      * and return.
-     *
-     * @param int $id
-     * @param EvaluationService $service
-     * @return void
      */
     public function editScore(int $id, EvaluationService $service): void
     {
-        if (!$service->canEvaluate()) {
+        if (! $service->canEvaluate()) {
             session()->flash('error', 'Cuma instruktur yang boleh ngasih nilai, bos!');
+
             return;
         }
 
@@ -54,19 +55,18 @@ class EvaluationManager extends Component
      *
      * If the user is not an instructor, it will return without doing anything.
      *
-     * @param ReviewRegistrationAction $action
-     * @param EvaluationService $service
-     *
-     * @return void
+     * @param  ReviewRegistrationAction  $action
      */
-    public function saveScore(ReviewRegistrationAction $action, EvaluationService $service): void
+    public function saveScore(UpdateRegistrationInterviewScoreAction $action, EvaluationService $service): void
     {
-        if (!$service->canEvaluate()) return;
+        if (! $service->canEvaluate()) {
+            return;
+        }
 
         $this->validate(['tempInterviewScore' => 'required|numeric|min:0|max:100']);
 
         $registration = Registration::findOrFail($this->editingId);
-        $action->updateInterviewScore($registration, $this->tempInterviewScore);
+        $action->execute($registration, $this->tempInterviewScore);
 
         $this->cancelEdit();
         session()->flash('success', 'Nilai wawancara diupdate.');
@@ -85,7 +85,7 @@ class EvaluationManager extends Component
     /**
      * Renders the evaluation manager view.
      *
-     * @param EvaluationService $service The evaluation service which provides registrants.
+     * @param  EvaluationService  $service  The evaluation service which provides registrants.
      * @return View The rendered view.
      */
     public function render(EvaluationService $service): View
@@ -97,7 +97,7 @@ class EvaluationManager extends Component
 
         return view('livewire.admin.evaluation-manager', [
             'registrations' => $service->getEvaluatableRegistrations($this->search, $this->filterSkill),
-            'skills' => \App\Models\Skill::all(),
+            'skills' => Skill::all(),
             'title' => 'Evaluasi Peserta',
         ])->layout($layout);
     }

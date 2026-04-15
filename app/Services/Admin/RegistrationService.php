@@ -13,11 +13,12 @@ class RegistrationService
             ->with('skill')
             ->when(
                 $search,
-                fn($q) =>
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
+                fn ($q) => $q->where(function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%");
+                })
             )
-            ->when($filterSkill, fn($q) => $q->where('skill_id', $filterSkill))
+            ->when($filterSkill, fn ($q) => $q->where('skill_id', $filterSkill))
             ->latest()
             ->paginate($perPage);
     }

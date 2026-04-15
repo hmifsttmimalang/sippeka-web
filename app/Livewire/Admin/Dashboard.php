@@ -13,14 +13,17 @@ use Livewire\Component;
 class Dashboard extends Component
 {
     public int $totalRegistrations = 0;
+
     public int $registrationProgress = 0;
+
     public int $passedRegistrations = 0;
-    public int $passedProgress = 0;
+
+    public float $passRateProgress = 0;
 
     /**
      * Renders the dashboard view with statistics.
      *
-     * @param DashboardService $service The dashboard service which provides statistics.
+     * @param  DashboardService  $service  The dashboard service which provides statistics.
      * @return View The rendered view.
      */
     public function render(DashboardService $service): View
@@ -30,10 +33,10 @@ class Dashboard extends Component
         $this->totalRegistrations = $stats['totalRegistrations'];
         $this->registrationProgress = $stats['registrationProgress'];
         $this->passedRegistrations = $stats['passedRegistrations'];
-        $this->passedProgress = $stats['passedProgress'];
+        $this->passRateProgress = $stats['passRateProgress'];
 
         return view('livewire.admin.dashboard', [
-            'recentRegistrations' => $service->getRecentActivities()
+            'recentRegistrations' => $service->getRecentRegistrations(),
         ]);
     }
 }

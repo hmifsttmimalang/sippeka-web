@@ -59,7 +59,7 @@ class EditProfile extends Component
             'password' => 'nullable|min:8|confirmed',
         ]);
 
-        $updateProfileAction->handle($this->user, [
+        $updateProfileAction->execute($this->user, [
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,

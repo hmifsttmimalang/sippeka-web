@@ -2,7 +2,8 @@
 
 namespace App\Livewire\Admin;
 
-use App\Actions\Registrations\ReviewRegistrationAction;
+use App\Actions\Registrations\UpdateRegistrationInterviewScoreAction;
+use App\Actions\Registrations\UpdateRegistrationVerificationAction;
 use App\Models\Registration;
 use App\Models\Skill;
 use App\Services\Admin\RegistrationService;
@@ -56,21 +57,21 @@ class RegistrationList extends Component
         $this->dispatch('hide-profile-modal');
     }
 
-    public function approveDocuments(ReviewRegistrationAction $action): void
+    public function approveDocuments(UpdateRegistrationVerificationAction $action): void
     {
         if ($this->selectedRegistrant) {
-            $action->updateVerification($this->selectedRegistrant, 'Approved');
+            $action->execute($this->selectedRegistrant, 'Approved');
             session()->flash('success', 'Berkas pendaftaran berhasil disetujui.');
             $this->closeProfileModal();
         }
     }
 
-    public function rejectDocuments(ReviewRegistrationAction $action): void
+    public function rejectDocuments(UpdateRegistrationVerificationAction $action): void
     {
         $this->validate(['verification_notes' => 'required|string|min:5']);
 
         if ($this->selectedRegistrant) {
-            $action->updateVerification($this->selectedRegistrant, 'Rejected', $this->verification_notes);
+            $action->execute($this->selectedRegistrant, 'Rejected', $this->verification_notes);
             session()->flash('success', 'Berkas pendaftaran telah ditolak dengan catatan.');
             $this->closeProfileModal();
         }
@@ -82,14 +83,14 @@ class RegistrationList extends Component
         session()->flash('success', 'Data pendaftar berhasil dihapus.');
     }
 
-    public function saveReview(ReviewRegistrationAction $action): void
+    public function saveReview(UpdateRegistrationInterviewScoreAction $action): void
     {
         $this->validate([
             'interview_score' => 'required|numeric|min:0|max:100',
         ]);
 
         if ($this->selectedRegistrant) {
-            $action->updateInterviewScore($this->selectedRegistrant, $this->interview_score);
+            $action->execute($this->selectedRegistrant, $this->interview_score);
             session()->flash('success', 'Nilai wawancara berhasil disimpan.');
             $this->closeProfileModal();
         }

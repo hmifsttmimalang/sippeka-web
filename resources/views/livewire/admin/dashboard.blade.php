@@ -69,8 +69,8 @@
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-success" role="progressbar"
-                                                            style="width: {{ $passedProgress }}%"
-                                                            aria-valuenow="{{ $passedProgress }}" aria-valuemin="0"
+                                                            style="width: {{ $passRateProgress }}%"
+                                                            aria-valuenow="{{ $passRateProgress }}" aria-valuemin="0"
                                                             aria-valuemax="100">
                                                         </div>
                                                     </div>

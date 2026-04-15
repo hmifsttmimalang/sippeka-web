@@ -58,7 +58,7 @@ class SelectionTest extends Component
         $endAt = Carbon::parse($this->session->end_time, 'Asia/Jakarta');
 
         if ($now->lt($startAt)) {
-            redirect()->route('user.dashboard')->with('error', 'Sesi seleksi ini belum dimulai. Silakan kembali pada jam ' . $startAt->format('H:i') . '.');
+            redirect()->route('user.dashboard')->with('error', 'Sesi seleksi ini belum dimulai. Silakan kembali pada jam '.$startAt->format('H:i').'.');
         }
 
         if ($now->gt($endAt)) {
@@ -130,7 +130,7 @@ class SelectionTest extends Component
         });
 
         foreach ($this->questions as $q) {
-            if (!isset($this->userAnswers[$q->id])) {
+            if (! isset($this->userAnswers[$q->id])) {
                 $this->userAnswers[$q->id] = null;
             }
         }
@@ -176,7 +176,7 @@ class SelectionTest extends Component
 
         $attempt = TestAttempt::findOrFail($this->currentAttemptId);
 
-        $result = $submitAction->handle(
+        $result = $submitAction->execute(
             $attempt,
             $this->registration,
             $this->questions,
@@ -215,7 +215,7 @@ class SelectionTest extends Component
         return view('livewire.student.selection-test', [
             'answeredCount' => $answeredCount,
             'progress' => $progress,
-            'title' => 'Selection: ' . $this->session->test->name,
+            'title' => 'Selection: '.$this->session->test->name,
         ]);
     }
 }

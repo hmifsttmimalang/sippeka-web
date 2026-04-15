@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Instructor;
 
-use App\Models\Registration;
+use App\Services\Instructor\DashboardService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -20,30 +21,21 @@ class Dashboard extends Component
 
     public float $passRateProgress = 0;
 
+    /**
+     * @var Collection
+     */
     public $newRegistrations;
 
-    public function mount(): void
+    public function mount(DashboardService $service): void
     {
-        // Total Registrations
-        $this->totalRegistrations = Registration::count();
+        $stats = $service->getStats();
 
-        // Calculate Passed based on logic: (skill_test_score + interview_score) / 2 >= 70
-        $this->passedRegistrations = Registration::whereRaw('(skill_test_score + interview_score) / 2 >= 70')->count();
+        $this->totalRegistrations = $stats['totalRegistrations'];
+        $this->passedRegistrations = $stats['passedRegistrations'];
+        $this->registrationProgress = $stats['registrationProgress'];
+        $this->passRateProgress = $stats['passRateProgress'];
 
-        // Registration Progress (100% if > 0)
-        $this->registrationProgress = $this->totalRegistrations > 0 ? 100 : 0;
-
-        // Pass Rate Progress Percentage
-        $this->passRateProgress = $this->totalRegistrations > 0
-            ? ($this->passedRegistrations / $this->totalRegistrations) * 100
-            : 0;
-
-        // Latest Registrations within 24 Hours
-        $this->newRegistrations = Registration::latest()
-            ->with('skill')
-            ->where('created_at', '>=', now()->subDay())
-            ->take(10)
-            ->get();
+        $this->newRegistrations = $service->getRecentRegistrations();
     }
 
     public function render(): View

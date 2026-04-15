@@ -172,7 +172,7 @@ class SimulationTest extends Component
 
         $attempt = TestAttempt::findOrFail($this->currentAttemptId);
 
-        $result = $submitAction->handle(
+        $result = $submitAction->execute(
             $attempt,
             $this->registration,
             $this->questions,
