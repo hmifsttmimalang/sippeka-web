@@ -2,40 +2,45 @@
 
 namespace App\Models;
 
+use Database\Factories\SkillTestFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SkillTest extends Model
 {
+    /** @use HasFactory<SkillTestFactory> */
     use HasFactory;
 
     protected $table = 'skill_tests';
+
     protected $fillable = [
-        'nama_tes', 
-        'mata_soal', 
-        'keahlian', 
-        'acak_soal', 
-        'acak_jawaban', 
-        'durasi_menit'
+        'name',
+        'question_title_id',
+        'skill_id',
+        'shuffle_questions',
+        'shuffle_answers',
+        'duration_minutes',
     ];
 
-    public function mataSoal() 
+    public function category(): BelongsTo
     {
-        return $this->hasMany(QuestionTitle::class);
+        return $this->belongsTo(QuestionTitle::class, 'question_title_id');
     }
 
-    public function keahlian() 
+    public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class);
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 
-    public function questions() 
+    public function questions(): HasMany
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class, 'skill_test_id');
     }
 
-    public function sesiTesKeahlian()
+    public function sessions(): HasMany
     {
-        return $this->hasMany(SkillTestSession::class);
+        return $this->hasMany(SkillTestSession::class, 'skill_test_id');
     }
 }

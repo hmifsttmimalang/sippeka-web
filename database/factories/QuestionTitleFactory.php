@@ -6,7 +6,7 @@ use App\Models\QuestionTitle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\QuestionTitle>
+ * @extends Factory<QuestionTitle>
  */
 class QuestionTitleFactory extends Factory
 {
@@ -20,19 +20,19 @@ class QuestionTitleFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => $this->faker->randomElement([
-                'Web Developer - Simulasi',
-                'Web Developer - Seleksi',
-                'Mobile Developer - Simulasi',
-                'Mobile Developer - Seleksi',
-                'Data Scientist - Seleksi',
-                'Data Scientist - Simulasi',
-                'UI/UX Designer - Seleksi',
-                'UI/UX Designer - Simulasi',
-                'DevOps Engineer - Simulasi',
-                'DevOps Engineer - Seleksi',
-                'Network Engineer - Simulasi',
-                'Network Engineer - Seleksi'
+            'name' => $this->faker->randomElement([
+                'Web Developer - Simulation',
+                'Web Developer - Selection',
+                'Mobile Developer - Simulation',
+                'Mobile Developer - Selection',
+                'Data Scientist - Selection',
+                'Data Scientist - Simulation',
+                'UI/UX Designer - Selection',
+                'UI/UX Designer - Simulation',
+                'DevOps Engineer - Simulation',
+                'DevOps Engineer - Selection',
+                'Network Engineer - Simulation',
+                'Network Engineer - Selection',
             ]),
         ];
     }

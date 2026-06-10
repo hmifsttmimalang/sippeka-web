@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
+use App\Actions\Auth\AuthenticateUserAction;
+use App\Actions\Auth\RegisterUserAction;
+use App\Actions\Student\StartSkillTestSelectionAction;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Registration;
-use App\Models\SkillTestSession;
-use App\Models\TestAttempt;
-use App\Models\User;
+use Illuminate\View\View;
 
 class AuthController extends Controller
 {
-    public function showRegistrationForm()
+    public function __construct(
+        private RegisterUserAction $registerAction,
+        private AuthenticateUserAction $authenticateAction,
+        private StartSkillTestSelectionAction $startSelectionAction,
+    ) {}
+
+    public function showRegistrationForm(): View
     {
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(Request $request): RedirectResponse
     {
         $request->validate([
             'username' => 'required|unique:users',
@@ -26,17 +31,11 @@ class AuthController extends Controller
             'password' => 'required|confirmed',
         ]);
 
-        $user = new User();
-        $user->username = $request->username;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->role = 'user'; // Default role, adjust if needed
-        $user->status_register = 'tidak terdaftar'; // Default status, adjust if needed
-        $user->save();
+        $user = $this->registerAction->execute($request->only('username', 'email', 'password'));
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        return redirect()->route('user.dashboard');
     }
 
     public function showLoginForm()
@@ -44,32 +43,25 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $request->validate([
             'identifier' => 'required',
             'password' => 'required',
         ]);
 
-        // Cek apakah input login adalah email atau username
-        $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        // Coba autentikasi berdasarkan username atau email
-        $credentials = [
-            $loginType => $request->identifier,
+        if ($this->authenticateAction->execute([
+            'identifier' => $request->identifier,
             'password' => $request->password,
-        ];
-
-        // Cek jika pengguna ingin diingat
-        $remember = $request->has('remember');
-
-        if (Auth::attempt($credentials, $remember)) {
-            if (Auth::user()->role === 'admin') {
+            'remember' => $request->has('remember'),
+        ])) {
+            $user = Auth::user();
+            if ($user->role === 'admin') {
                 return redirect()->route('admin.dashboard');
-            } else if (Auth::user()->role === 'instruktur') {
-                return redirect()->route('instruktur.dashboard');
+            } elseif ($user->role === 'instructor') {
+                return redirect()->route('instructor.dashboard');
             } else {
-                return redirect()->route('home');
+                return redirect()->route('user.dashboard');
             }
         }
 
@@ -78,24 +70,15 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginSimulasi(Request $request, $username)
+    public function loginSimulation(Request $request, string $username): RedirectResponse
     {
         $request->validate([
             'identifier' => 'required',
             'password' => 'required',
         ]);
 
-        // Cek apakah input login adalah email atau username
-        $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        // Coba autentikasi berdasarkan username atau email
-        $credentials = [
-            $loginType => $request->identifier,
-            'password' => $request->password,
-        ];
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->route('user.simulasi', $username);
+        if ($this->authenticateAction->execute($request->only('identifier', 'password'))) {
+            return redirect()->route('student.simulation', $username);
         }
 
         return back()->withErrors([
@@ -103,7 +86,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function loginSeleksi(Request $request, $username)
+    public function loginSelection(Request $request, string $username): RedirectResponse
     {
         // Validasi input
         $request->validate([
@@ -111,47 +94,19 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Tentukan apakah input adalah email atau username
-        $loginType = filter_var($request->identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        // Siapkan kredensial untuk autentikasi
-        $credentials = [
-            $loginType => $request->identifier,
-            'password' => $request->password,
-        ];
-
         // Jika autentikasi berhasil
-        if (Auth::attempt($credentials)) {
-            // Ambil user yang berhasil login
+        if ($this->authenticateAction->execute($request->only('identifier', 'password'))) {
             $user = Auth::user();
 
-            // Temukan pendaftaran (registration) user
-            $registration = Registration::where('user_id', $user->id)->first();
+            $result = $this->startSelectionAction->execute($user);
 
-            // Temukan sesi tes keahlian yang aktif berdasarkan waktu saat ini
-            $sesiTesKeahlian = SkillTestSession::where('waktu_mulai', '<=', now())
-                ->where('waktu_selesai', '>=', now())
-                ->first();
-
-            if (!$sesiTesKeahlian) {
-                // Jika tidak ada sesi aktif, tampilkan error tanpa redirect
-                return redirect()->route('user.seleksi_login', ['username' => $username])->with('error', 'Tidak ada sesi yang aktif saat ini');
+            if ($result['status'] === 'error') {
+                return redirect()->route('user.dashboard', ['username' => $username])
+                    ->with('error', $result['message']);
             }
 
-            // Periksa apakah user sudah memulai tes attempt sebelumnya
-            $testAttempt = TestAttempt::firstOrCreate(
-                [
-                    'registration_id' => $registration->id,
-                    'skill_test_session_id' => $sesiTesKeahlian->id,
-                ],
-                [
-                    'status' => 'in_progress',
-                    'waktu_mulai' => Carbon::now(),
-                ]
-            );
-
             // Redirect ke halaman seleksi jika berhasil
-            return redirect()->route('user.seleksi', $username);
+            return redirect()->route('student.selection', $username);
         }
 
         // Kembalikan error jika login gagal
@@ -163,6 +118,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
+
         return redirect()->route('auth.login');
     }
 }

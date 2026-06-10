@@ -10,17 +10,23 @@ class SkillTestSession extends Model
     use HasFactory;
 
     protected $table = 'skill_test_sessions';
+
     protected $fillable = [
-        'nama_sesi',
+        'name',
         'skill_test_id',
-        'waktu_mulai',
-        'waktu_selesai',
-        'jenis_sesi'
+        'start_time',
+        'end_time',
+        'session_type',
     ];
 
     public function skillTest()
     {
-        return $this->belongsToMany(SkillTest::class);
+        return $this->belongsTo(SkillTest::class);
+    }
+
+    public function test()
+    {
+        return $this->belongsTo(SkillTest::class, 'skill_test_id');
     }
 
     public function testAttempts()
