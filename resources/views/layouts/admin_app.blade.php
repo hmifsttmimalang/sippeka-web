@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>{{ $title ?? 'SIPPEKA' }}</title>
 
     <!-- Favicons -->
     <link href="{{ asset('assets/user/img/silastri/logo_jatim.png') }}" rel="icon">
@@ -49,6 +49,64 @@
             margin-right: 10px;
             /* Tambahkan jarak antara confirm dan cancel */
         }
+
+        /* Sidebar Toggle Fixes */
+        .sidebar.toggled .sidebar-brand-text, 
+        .sidebar.toggled .sidebar-heading,
+        .sidebar.toggled .nav-item span {
+            display: none !important;
+        }
+        
+        .sidebar {
+            height: 100vh !important;
+            position: sticky !important;
+            top: 0;
+            overflow-y: auto !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome/Safari/Firefox */
+        }
+
+        .sidebar.toggled {
+            width: 6.5rem !important;
+            overflow: visible !important;
+        }
+
+        .sidebar.toggled .sidebar-brand {
+            justify-content: center !important;
+            width: 6.5rem !important;
+            padding: 0 !important;
+        }
+
+        .sidebar.toggled .sidebar-brand .sidebar-brand-icon {
+            margin: 0 !important;
+        }
+
+        .sidebar.toggled .nav-item .nav-link {
+            text-align: center;
+            width: 100%;
+            padding: 0.75rem 0;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        .sidebar.toggled .nav-item .nav-link i {
+            margin-right: 0 !important;
+            font-size: 1.3rem;
+        }
+
+        .sidebar .nav-item .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .sidebar .nav-item .nav-link i {
+            margin-right: 0.75rem;
+        }
     </style>
 </head>
 
@@ -61,6 +119,7 @@
     </div>
 
     <!-- Content -->
+    {{ $slot ?? '' }}
     @yield('content')
 
     <!-- Scroll to Top Button-->

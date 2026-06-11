@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\SkillTest;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SkillTestSeeder extends Seeder

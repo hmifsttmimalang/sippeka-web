@@ -2,78 +2,113 @@
 
 namespace App\Models;
 
+use Exception;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Skill;
-use Exception;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Registration extends Model
 {
     use HasFactory;
 
     protected $table = 'registrations';
+
     protected $fillable = [
         'user_id',
-        'nama',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'jenis_kelamin',
-        'agama',
-        'alamat',
-        'telepon',
-        'keahlian',
-        'foto_identitas',
-        'foto_ijazah',
-        'foto_bg_biru',
-        'nilai_keahlian',
-        'nilai_wawancara'
+        'name',
+        'place_of_birth',
+        'date_of_birth',
+        'gender',
+        'religion',
+        'address',
+        'phone',
+        'skill_id',
+        'identity_document_path',
+        'certificate_document_path',
+        'formal_photo_path',
+        'skill_test_score',
+        'interview_score',
+        'verification_status',
+        'verification_notes',
     ];
 
-    public function keahlian()
+    protected $casts = [
+        'date_of_birth' => 'date',
+        'skill_test_score' => 'float',
+        'interview_score' => 'float',
+    ];
+
+    /**
+     * Get the average score.
+     */
+    protected function averageScore(): Attribute
     {
-        return $this->belongsTo(Skill::class);
+        return Attribute::make(
+            get: fn () => ($this->skill_test_score !== null && $this->interview_score !== null)
+            ? ($this->skill_test_score + $this->interview_score) / 2
+            : null,
+        );
     }
 
-    public function validateTanggalLahir($tanggal_lahir)
+    /**
+     * Get the status based on average score.
+     */
+    protected function status(): Attribute
     {
-        $dateOfBirth = new \DateTime($tanggal_lahir);
-        $today = new \DateTime();
-        $age = $today->diff($dateOfBirth)->y;
+        return Attribute::make(
+            get: function () {
+                if ($this->skill_test_score === null) {
+                    return 'Belum Tes';
+                }
+
+                if ($this->interview_score === null) {
+                    return 'Sedang Diproses';
+                }
+
+                return $this->average_score >= 70 ? 'Lulus' : 'Gagal';
+            },
+        );
+    }
+
+    /**
+     * Get the formatted birth date.
+     */
+    protected function formattedBirthDate(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->date_of_birth ? $this->date_of_birth->translatedFormat('d F Y') : '-',
+        );
+    }
+
+    public function skill(): BelongsTo
+    {
+        return $this->belongsTo(Skill::class, 'skill_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function testAttempts(): HasMany
+    {
+        return $this->hasMany(TestAttempt::class);
+    }
+
+    public function validateAge(): bool
+    {
+        if (! $this->date_of_birth) {
+            return false;
+        }
+
+        $age = $this->date_of_birth->age;
 
         if ($age < 15 || $age >= 40) {
             throw new Exception('Anda harus berusia minimal 15 tahun dan maksimal 40 tahun untuk mendaftar!');
         }
 
         return true;
-    }
-
-    public function saveTesKeahlian($user_id, $nilai_keahlian)
-    {
-        $this->where('user_id', $user_id)->update(['nilai_keahlian' => $nilai_keahlian]);
-    }
-
-    public function getNilaiTesKeahlian($user_id)
-    {
-        return $this->where('user_id', $user_id)->value('nilai_keahlian');
-    }
-
-    public function saveTesWawancara($user_id, $nilai_wawancara)
-    {
-        $this->where('user_id', $user_id)->update(['nilai_wawancara' => $nilai_wawancara]);
-    }
-
-    public function deleteRegistration($id)
-    {
-        $this->find($id)->delete();
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function testAttempts()
-    {
-        return $this->hasMany(TestAttempt::class);
     }
 }

@@ -3,11 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Registration;
-use App\Models\User;
 use App\Models\Skill;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RegistrationFactory extends Factory
 {
@@ -36,27 +35,22 @@ class RegistrationFactory extends Factory
         $startDate = Carbon::now()->subYears(40)->toDateString(); // 40 years ago from now
         $endDate = Carbon::now()->subYears(17)->toDateString(); // 17 years ago from now
 
-        // Ensure the directory exists
-        $directoryPath = public_path('storage/uploads/' . $sanitizedUsername);
-        if (!file_exists($directoryPath)) {
-            mkdir($directoryPath, 0755, true);
-        }
-
         return [
             'user_id' => $user ? $user->id : User::factory(),
-            'nama' => $this->faker->name,
-            'tempat_lahir' => $this->faker->city,
-            'tanggal_lahir' => $this->faker->dateTimeBetween($startDate, $endDate)->format('Y-m-d'),
-            'jenis_kelamin' => $this->faker->randomElement(['Laki-Laki', 'Perempuan']),
-            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']),
-            'alamat' => $this->faker->address,
-            'telepon' => $this->faker->phoneNumber,
-            'keahlian' => Skill::inRandomOrder()->first()->id,
-            'foto_identitas' => 'uploads/' . $sanitizedUsername . '/foto_identitas.jpg',
-            'foto_ijazah' => 'uploads/' . $sanitizedUsername . '/foto_ijazah.jpg',
-            'foto_bg_biru' => 'uploads/' . $sanitizedUsername . '/foto_bg_biru.jpg',
-            'nilai_keahlian' => $this->faker->numberBetween(50, 100),
-            'nilai_wawancara' => $this->faker->numberBetween(50, 100),
+            'name' => $this->faker->name,
+            'place_of_birth' => $this->faker->city,
+            'date_of_birth' => $this->faker->dateTimeBetween($startDate, $endDate)->format('Y-m-d'),
+            'gender' => $this->faker->randomElement(['Male', 'Female']),
+            'religion' => $this->faker->randomElement(['Islam', 'Christian', 'Catholic', 'Hindu', 'Buddhist', 'Confucian']),
+            'address' => $this->faker->address,
+            'phone' => $this->faker->phoneNumber,
+            'skill_id' => Skill::inRandomOrder()->first()?->id ?? Skill::factory(),
+            'identity_document_path' => 'uploads/' . $sanitizedUsername . '/identity_document.jpg',
+            'certificate_document_path' => 'uploads/' . $sanitizedUsername . '/certificate_document.jpg',
+            'formal_photo_path' => 'uploads/' . $sanitizedUsername . '/formal_photo.jpg',
+            'skill_test_score' => $this->faker->numberBetween(50, 100),
+            'interview_score' => $this->faker->numberBetween(50, 100),
+            'verification_status' => 'Pending',
         ];
     }
 }

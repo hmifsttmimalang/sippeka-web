@@ -28,13 +28,14 @@
                         <label for="newsletter1" class="visually-hidden">Alamat email</label>
                         <input id="newsletter1" type="text" class="form-control" placeholder="Alamat email">
                         <button class="btn btn-primary" type="button">Subscribe</button>
-                      </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="container copyright text-center mt-4">
-        <p>2024 © <span>Copyright</span><strong class="px-1 sitename">SIPPEKA</strong><span>All Rights Reserved</span></p>
+        <p>2024 © <span>Copyright</span><strong class="px-1 sitename">SIPPEKA</strong><span>All Rights Reserved</span>
+        </p>
         <div class="credits">
             <!-- All the links in the footer should remain intact. -->
             <!-- You can delete the links only if you've purchased the pro version. -->
